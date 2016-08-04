@@ -1,0 +1,13 @@
+[04-Aug-2016 20:01:18 UTC] PHP Fatal error:  Call to a member function check_stock_status() on a non-object in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[04-Aug-2016 20:01:18 UTC] PHP Stack trace:
+[04-Aug-2016 20:01:18 UTC] PHP   1. {main}() /home/ubuntu/workspace/wp-admin/admin-ajax.php:0
+[04-Aug-2016 20:01:18 UTC] PHP   2. do_action() /home/ubuntu/workspace/wp-admin/admin-ajax.php:89
+[04-Aug-2016 20:01:18 UTC] PHP   3. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:525}() /home/ubuntu/workspace/wp-includes/plugin.php:525
+[04-Aug-2016 20:01:18 UTC] PHP   4. Tribe__Tickets__Tickets->ajax_handler_ticket_add() /home/ubuntu/workspace/wp-includes/plugin.php:525
+[04-Aug-2016 20:01:18 UTC] PHP   5. Tribe__Tickets__Tickets->ticket_add() /home/ubuntu/workspace/wp-content/plugins/event-tickets/src/Tribe/Tickets.php:371
+[04-Aug-2016 20:01:18 UTC] PHP   6. Tribe__Tickets__RSVP->save_ticket() /home/ubuntu/workspace/wp-content/plugins/event-tickets/src/Tribe/Tickets.php:445
+[04-Aug-2016 20:01:18 UTC] PHP   7. update_post_meta() /home/ubuntu/workspace/wp-content/plugins/event-tickets/src/Tribe/RSVP.php:706
+[04-Aug-2016 20:01:18 UTC] PHP   8. update_metadata() /home/ubuntu/workspace/wp-includes/post.php:1855
+[04-Aug-2016 20:01:18 UTC] PHP   9. do_action() /home/ubuntu/workspace/wp-includes/meta.php:230
+[04-Aug-2016 20:01:18 UTC] PHP  10. call_user_func_array:{/home/ubuntu/workspace/wp-includes/plugin.php:525}() /home/ubuntu/workspace/wp-includes/plugin.php:525
+[04-Aug-2016 20:01:18 UTC] PHP  11. WC_Post_Data::sync_product_stock_status() /home/ubuntu/workspace/wp-includes/plugin.php:525
