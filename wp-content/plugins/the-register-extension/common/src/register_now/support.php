@@ -27,8 +27,8 @@ if ( ! class_exists( 'Register__Now__Support' ) ) {
 		 * @var array
 		 */
 		protected $must_escape = array(
-			'tribeEventsAfterHTML',
-			'tribeEventsBeforeHTML',
+			'registerNowAfterHTML',
+			'registerNowBeforeHTML',
 		);
 
 		/**
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Register__Now__Support' ) ) {
 
 		private function __construct() {
 			$this->must_escape = (array) apply_filters( 'tribe_help_must_escape_fields', $this->must_escape );
-			add_action( 'tribe_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
+			add_action( 'register_now_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 		}
 
@@ -118,7 +118,7 @@ if ( ! class_exists( 'Register__Now__Support' ) ) {
 				}
 			}
 
-			$keys = apply_filters( 'tribe-pue-install-keys', array() );
+			$keys = apply_filters( 'register-now-install-keys', array() );
 
 			$systeminfo = array(
 				'Home URL'           => get_home_url(),
@@ -133,18 +133,18 @@ if ( ! class_exists( 'Register__Now__Support' ) ) {
 				'mu plugins'         => $mu_plugins,
 				'theme'              => wp_get_theme()->get( 'Name' ),
 				'multisite'          => is_multisite(),
-				'settings'           => Tribe__Settings_Manager::get_options(),
-				'WordPress timezone' => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'tribe-common' ) ),
+				// 'settings'           => Register__Settings_Manager::get_options(),
+				'WordPress timezone' => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'register-now-common' ) ),
 				'server timezone'    => date_default_timezone_get(),
-				'common library dir' => $GLOBALS['tribe-common-info']['dir'],
-				'common library version' => $GLOBALS['tribe-common-info']['version'],
+				'common library dir' => $GLOBALS['register-now-common-info']['dir'],
+				'common library version' => $GLOBALS['register-now-common-info']['version'],
 			);
 
 			if ( $this->rewrite_rules_purged ) {
-				$systeminfo['rewrite rules purged'] = esc_html__( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-common' );
+				$systeminfo['rewrite rules purged'] = esc_html__( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'register-common' );
 			}
 
-			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
+			$systeminfo = apply_filters( 'register-now-support', $systeminfo );
 
 			return $systeminfo;
 		}
@@ -216,14 +216,14 @@ if ( ! class_exists( 'Register__Now__Support' ) ) {
 		 */
 		public function log_rewrite_rule_purge() {
 			$this->rewrite_rules_purged = true;
-		}//end log_rewrite_rule_purge
+		}
 
 		/**
 		 * Sets the obfuscator to be used.
 		 *
 		 * @param Tribe__Support__Obfuscator $obfuscator
 		 */
-		public function set_obfuscator( Tribe__Support__Obfuscator $obfuscator ) {
+		public function set_obfuscator( Register__Now__Obfuscator $obfuscator ) {
 			$this->obfuscator = $obfuscator;
 		}
 
@@ -238,7 +238,7 @@ if ( ! class_exists( 'Register__Now__Support' ) ) {
 		public static function getInstance() {
 			if ( null == self::$instance ) {
 				$instance       = new self;
-				$instance->set_obfuscator( new Tribe__Support__Obfuscator( $instance->must_obfuscate_prefixes ) );
+				$instance->set_obfuscator( new Register__Now__Obfuscator( $instance->must_obfuscate_prefixes ) );
 				self::$instance = $instance;
 			}
 

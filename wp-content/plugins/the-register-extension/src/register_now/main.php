@@ -66,10 +66,10 @@ class Register__Now__Main {
 	 */
 	
 	private  $dependencies_plugin = array(
-										["name"=>"event-tickets", "class"=>"Tribe__Tickets__Main", "v_def"=>"VERSION", "ptrn"=>"/event-tickets.php/", "ver"=>"4.2.4", "src"=>"http://.."],
-										["name"=>"the-events-calendar", "class"=>"Tribe__Events__Main", "v_def"=>"VERSION", "ptrn"=>"/the-events-calendar.php/", "ver"=>"4.2.4", "src"=>"http://.."],
-										["name"=>"woocommerce-gateway-stripe", "class"=>"Tribe__Events__Main","v_def"=>"WC_STRIPE_VERSION", "ptrn"=>"/woocommerce-gateway-stripe.php/", "ver"=>"3.0.2", "src"=>"http://.."],
-										["name"=>"woocommerce", "class"=>"Tribe__Events__Main", "v_def"=>"WC_VERSION", "ptrn"=>"/woocommerce.php/", "ver"=>"2.6.4", "src"=>"http://.."]);
+		["name"=>"event-tickets", "class"=>"Tribe__Tickets__Main", "v_def"=>"VERSION", "ptrn"=>"/event-tickets.php/", "ver"=>"4.2.4", "src"=>"http://.."],
+		["name"=>"the-events-calendar", "class"=>"Tribe__Events__Main", "v_def"=>"VERSION", "ptrn"=>"/the-events-calendar.php/", "ver"=>"4.2.4", "src"=>"http://.."],
+		["name"=>"woocommerce-gateway-stripe", "class"=>"Tribe__Events__Main","v_def"=>"WC_STRIPE_VERSION", "ptrn"=>"/woocommerce-gateway-stripe.php/", "ver"=>"3.0.2", "src"=>"http://.."],
+		["name"=>"woocommerce", "class"=>"Tribe__Events__Main", "v_def"=>"WC_VERSION", "ptrn"=>"/woocommerce.php/", "ver"=>"2.6.4", "src"=>"http://.."]);
 	/**
 	 * Class constructor
 	 */
@@ -87,7 +87,9 @@ class Register__Now__Main {
 		}
 
 		$this->plugin_url = trailingslashit( plugins_url( $dir_prefix . $this->plugin_dir ) );
-
+		
+		$this->maybe_set_common_lib_info();
+		
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 	}
 
@@ -188,49 +190,48 @@ class Register__Now__Main {
 		echo $output;
 	}
 
-	// public function maybe_set_common_lib_info() {
-	// 	$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
+	public function maybe_set_common_lib_info() {
+		$common_version = file_get_contents( $this->plugin_path . 'common/src/register_now/main.php' );
 
-	// 	// if there isn't a tribe-common version, bail
-	// 	if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
-	// 		add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
+		// if there isn't a tribe-common version, bail
+		if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
+			add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
 
-	// 		return;
-	// 	}
+			return;
+		}
 
-	// 	$common_version = $matches[1];
+		$common_version = $matches[1];
 
-	// 	if ( empty( $GLOBALS['tribe-common-info'] ) ) {
-	// 		$GLOBALS['tribe-common-info'] = array(
-	// 			'dir' => "{$this->plugin_path}common/src/Tribe",
-	// 			'version' => $common_version,
-	// 		);
-	// 	} elseif ( 1 == version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' ) ) {
-	// 		$GLOBALS['tribe-common-info'] = array(
-	// 			'dir' => "{$this->plugin_path}common/src/Tribe",
-	// 			'version' => $common_version,
-	// 		);
-	// 	}
-	// }
+		if ( empty( $GLOBALS['register-now-common-info'] ) ) {
+			$GLOBALS['register-now-common-info'] = array(
+				'dir' => "{$this->plugin_path}common/src/register_now",
+				'version' => $common_version,
+			);
+		} elseif ( 1 == version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' ) ) {
+			$GLOBALS['register-now-common-info'] = array(
+				'dir' => "{$this->plugin_path}common/src/register_now",
+				'version' => $common_version,
+			);
+		}
+	}
 
 	/**
 	 * Sets up autoloading
 	 */
 	protected function init_autoloading() {
-		// $prefixes = array(
-		// 	'Register__Now__' => $this->plugin_path . 'src/register_now',
-		// );
+		$prefixes = array(
+			'Register__Now__' => $this->plugin_path . 'src/register_now',
+		);
 
-		// if ( ! class_exists( 'Register__Now__Autoloader' ) ) {
-		// 	require_once( $GLOBALS['tribe-common-info']['dir'] . '/autoloader.php' );
-
-		// 	$prefixes['Register__Now__Common'] = $GLOBALS['tribe-common-info']['dir'];
-		// }
+		if ( ! class_exists( 'Register__Now__Autoloader' ) ) {
+			require_once( $GLOBALS['register-now-common-info']['dir'] . '/autoloader.php' );
+			// $prefixes['Register__Now__Common'] = $GLOBALS['register-now-common-info']['dir'];
+		}
 
 		// $autoloader = Register__Now__Autoloader::instance();
 		// $autoloader->register_prefixes( $prefixes );
 
-		// //require_once $this->plugin_path . 'src/template-tags/tickets.php';
+		// require_once $this->plugin_path . 'src/template-tags/tickets.php';
 
 		// $autoloader->register_autoloader();
 	}
@@ -239,7 +240,7 @@ class Register__Now__Main {
 	 * set up hooks for this class
 	 */
 	public function hooks() {
-//		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'init', array( $this, 'init' ) );
 // 		add_action( 'add_meta_boxes', array( 'Tribe__Tickets__Metabox', 'maybe_add_meta_box' ) );
 // 		add_action( 'admin_enqueue_scripts', array( 'Tribe__Tickets__Metabox', 'add_admin_scripts' ) );
 // 		add_filter( 'tribe_post_types', array( $this, 'inject_post_types' ) );
@@ -249,7 +250,7 @@ class Register__Now__Main {
 // 		add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_featured_content' ) );
 // 		add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
 // 		add_filter( 'tribe_support_registered_template_systems', array( $this, 'add_template_updates_check' ) );
- 		add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
+ 		add_action( 'plugins_loaded', array( 'Register__Now__Support', 'getInstance' ) );
 // 		add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'add_linking_archor' ), 5 );
 
 // 		// Hook to oembeds
@@ -275,7 +276,7 @@ class Register__Now__Main {
 
 //		$this->tickets_view();
 
-//		Tribe__Credits::init();
+ 		// Tribe__Credits::init();
 	}
 
 	/**

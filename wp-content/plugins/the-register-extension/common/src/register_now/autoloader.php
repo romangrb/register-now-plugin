@@ -6,42 +6,8 @@
 		 *
 		 * Allows for autoloading of Tribe plugins classes.
 		 *
-		 * Example usage:
-		 *
-		 *      // will be `/var/www/site/wp-content/plugins/the-events-calendar'
-		 *      $this_dir = dirname(__FILE__);
-		 *
-		 *      // gets hold of the singleton instance of the class
-		 *      $autoloader = Tribe__Autoloader::instance();
-		 *
-		 *      // register one by one or use `register_prefixes` method
-		 *      $autoloader->register_prefix( 'Tribe__Admin__', $this_dir . '/src/Tribe/admin' );
-		 *      $autoloader->register_prefix( 'Tribe__Admin__', $this_dir . '/src/Tribe/another-dir' );
-		 *      $autoloader->register_prefix( 'Tribe__Utils__', $this_dir . '/src/Tribe/another-dir' );
-		 *
-		 *      // register a direct class to path
-		 *      $autoloader->register_class( 'Tribe__Some_Class', $this_dir . '/some/path/to/Some_Class.php' );
-		 *
-		 *      // register a fallback dir to be searched for the class before giving up
-		 *      $autoloader->add_fallback_dir( $this_dir . '/all-the-classes' );
-		 *
-		 *      // calls `spl_autoload_register`
-		 *      $autoloader->register_autoloader();
-		 *
-		 *      // class will be searched in the path
-		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/src/Tribe/admin/Some_Class.php'
-		 *      // and
-		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/src/Tribe/another-dir/Some_Class.php'
-		 *      $i = new Tribe__Admin__Some_Class();
-		 *
-		 *      // class will be searched in the path
-		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/utils/some-dir/Some_Util.php'
-		 *      $i = new Tribe__Utils__Some_Util();
-		 *
-		 *      // class will be searched in the path
-		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/deprecated/Tribe_DeprecatedClass.php'
-		 *      $i = new Tribe_DeprecatedClass();
-		 */
+		 **/
+		 
 		class Register__Now__Autoloader {
 
 			/**
@@ -53,7 +19,7 @@
 			 * An arrays of arrays each containing absolute paths.
 			 *
 			 * Paths are stored trimming any trailing `/`.
-			 * E.g. `/var/www/tribe-pro/wp-content/plugins/the-event-calendar/src/Tribe`
+			 * E.g. `/var/www/register-now/wp-content/plugins/the-register-now/src/register`
 			 *
 			 * @var string[][]
 			 */
@@ -83,7 +49,7 @@
 			 * @return Tribe__Autoloader
 			 */
 			public static function instance() {
-				if ( ! self::$instance instanceof Tribe__Autoloader ) {
+				if ( ! self::$instance instanceof Register__Now__Autoloader ) {
 					self::$instance = new self();
 				}
 
@@ -106,7 +72,7 @@
 			/**
 			 * Associates a class prefix to an absolute path.
 			 *
-			 * @param string $prefix   A class prefix, e.g. `Tribe__Admin__`
+			 * @param string $prefix   A class prefix, e.g. `Register__Admin__`
 			 * @param string $root_dir The absolute path to the dir containing
 			 *                         the prefixed classes.
 			 */
