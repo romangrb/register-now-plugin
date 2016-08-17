@@ -1,0 +1,18 @@
+[17-Aug-2016 16:09:12 UTC] PHP Warning:  Missing argument 1 for Tribe__Events__API::createEvent(), called in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/register_now.php on line 72 and defined in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/API.php on line 39
+[17-Aug-2016 16:09:12 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/post.php on line 2066
+[17-Aug-2016 16:09:34 UTC] PHP Warning:  Missing argument 1 for Tribe__Events__API::createEvent(), called in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/register_now.php on line 72 and defined in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/API.php on line 39
+[17-Aug-2016 16:09:34 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/post.php on line 2066
+[17-Aug-2016 16:14:43 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:14:46 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:14:54 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:14:56 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:15:14 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:20:21 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:21:24 UTC] PHP Notice:  Undefined variable: events in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/register_now.php on line 88
+[17-Aug-2016 16:21:25 UTC] PHP Notice:  Undefined variable: events in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/register_now.php on line 88
+[17-Aug-2016 16:22:35 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:24:44 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:24:44 UTC] PHP Fatal error:  Call to undefined function is_user_logged_in() in /home/ubuntu/workspace/wp-includes/query.php on line 3178
+[17-Aug-2016 16:31:07 UTC] PHP Fatal error:  Class 'Register__Now__Child' not found in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/register_now.php on line 104
+[17-Aug-2016 16:31:18 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, function 'rizwan_inert_coupons' not found or invalid function name in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[17-Aug-2016 16:31:18 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, function 'rizwan_inert_coupons' not found or invalid function name in /home/ubuntu/workspace/wp-includes/plugin.php on line 524

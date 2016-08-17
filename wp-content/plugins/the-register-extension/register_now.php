@@ -44,12 +44,29 @@ Register__Now__Main::instance();
 * created by romangrb on 15.07.2016
 * get the base class of EventCalendar
 */
-// require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/Tribe/Main.php';
+require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/Tribe/Main.php';
 // require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/Tribe/API.php';
 // require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/Tribe/Query.php';
-// // require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/functions/template_tags/general.php';
+// require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/functions/template_tags/general.php';
 
-// if (!class_exists( 'Tribe__Events__Main' ) ) return;
+if (!class_exists( 'Tribe__Events__Main' ) ) return;
+
+function rizwan_insert_coupons()
+{
+        $events =  array(
+             'posts_per_page' => 25,
+             'start_date' => date( 'Y-m-d H:i:s' )
+        );
+        
+        $post_id = tribe_get_events( $events );
+        
+        echo "<textarea rows=\"15\" style=\"position:relative;left:10%;top:10px;width:90%\">" ,  
+                var_dump($post_id),
+            "</textarea>"; 
+}
+add_action('init', 'rizwan_insert_coupons');
+
+
 
 // class Register__Now__Child extends Tribe__Events__Main{
     
@@ -60,16 +77,18 @@ Register__Now__Main::instance();
 //     public static function gwt_ev(){
 //         // Retrieve the next 5 upcoming events
 //         $events =  array(
-//          'posts_per_page' => 5,
-//          'start_date' => date( 'Y-m-d H:i:s' )
-//           );
+//              'posts_per_page' => 5,
+//              'start_date' => date( 'Y-m-d H:i:s' )
+//                     );
 //         $args = array(
 //               'post_title'    => 'test',
 //               'post_content'  => 'test',
 //               'post_status'   => 'publish'
 //             );
-            
-//         $query = Tribe__Events__API::createEvent();
+        
+//         add_action('init', 'rizwan_inert_coupons');
+//         // $query =  new WP_Query( $events );          
+//         // $query = Tribe__Events__API::createEvent();
 //         self::io($query);
     
 //     }
@@ -81,14 +100,10 @@ Register__Now__Main::instance();
 //     }
 // }
 
-// // Register__Now__Child::class_existed('Tribe__Events__API');
+// Register__Now__Child::class_existed('Tribe__Events__API');
 
 // Register__Now__Child::gwt_ev();
 
-// $args = [
-//      'posts_per_page' => 50,
-//      'start_date' => date( 'Y-m-d H:i:s' )
-//  ];
 
  
 
