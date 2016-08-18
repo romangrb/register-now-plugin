@@ -11,17 +11,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since  4.0
  *
  */
-class Tribe__Admin__Help_Page {
+class E__Register__Now__Admin__Help_Page {
 	/**
 	 * Static Singleton Holder
-	 * @var Tribe__Admin__Help_Page|null
+	 * @var E__Register__Now__Admin__Help_Page|null
 	 */
 	protected static $instance;
 
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Admin__Help_Page
+	 * @return E__Register__Now__Admin__Help_Page
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
@@ -45,43 +45,43 @@ class Tribe__Admin__Help_Page {
 
 		$plugins['the-events-calendar'] = array(
 			'name' => 'the-events-calendar',
-			'title' => esc_html__( 'The Events Calendar', 'tribe-common' ),
+			'title' => esc_html__( 'The Events Calendar', 'ern-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/the-events-calendar/',
 			'forum' => 'https://wordpress.org/support/plugin/the-events-calendar/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5',
-			'description' => esc_html__( 'The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events.', 'tribe-common' ),
+			'description' => esc_html__( 'The Events Calendar is a carefully crafted, extensible plugin that lets you easily share your events.', 'ern-common' ),
 			'is_active' => false,
 			'version' => null,
 		);
 
-		if ( class_exists( 'Tribe__Events__Main' ) ) {
-			$plugins['the-events-calendar']['version'] = Tribe__Events__Main::VERSION;
+		if ( class_exists( 'E__Register__Now__Events__Main' ) ) {
+			$plugins['the-events-calendar']['version'] = E__Register__Now__Events__Main::VERSION;
 			$plugins['the-events-calendar']['is_active'] = true;
 		}
 
 		$plugins['event-tickets'] = array(
 			'name' => 'event-tickets',
-			'title' => esc_html__( 'Event Tickets', 'tribe-common' ),
+			'title' => esc_html__( 'Event Tickets', 'ern-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/event-tickets/',
 			'forum' => 'https://wordpress.org/support/plugin/event-tickets',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5',
-			'description' => esc_html__( 'Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events.', 'tribe-common' ),
+			'description' => esc_html__( 'Events Tickets is a carefully crafted, extensible plugin that lets you easily sell tickets for your events.', 'ern-common' ),
 			'is_active' => false,
 			'version' => null,
 		);
 
-		if ( class_exists( 'E__Register__Now' ) ) {
-			$plugins['event-tickets']['version'] = E__Register__Now::VERSION;
+		if ( class_exists( 'E__Register__Now__Tickets__Main' ) ) {
+			$plugins['event-tickets']['version'] = E__Register__Now__Tickets__Main::VERSION;
 			$plugins['event-tickets']['is_active'] = true;
 		}
 
 		$plugins['advanced-post-manager'] = array(
 			'name' => 'advanced-post-manager',
-			'title' => esc_html__( 'Advanced Post Manager', 'tribe-common' ),
+			'title' => esc_html__( 'Advanced Post Manager', 'ern-common' ),
 			'repo' => 'http://wordpress.org/extend/plugins/advanced-post-manager/',
 			'forum' => 'https://wordpress.org/support/plugin/advanced-post-manager/',
 			'stars_url' => 'http://wordpress.org/support/view/plugin-reviews/advanced-post-manager?filter=5',
-			'description' => esc_html__( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'tribe-common' ),
+			'description' => esc_html__( 'Turbo charge your posts admin for any custom post type with sortable filters and columns, and auto-registration of metaboxes.', 'ern-common' ),
 			'is_active' => false,
 			'version' => null,
 		);
@@ -156,7 +156,7 @@ class Tribe__Admin__Help_Page {
 			$plugins_text .= $plugin['title'];
 
 			if ( $i === $count - 1 ) {
-				$plugins_text .= esc_html__( ' and ', 'tribe-common' );
+				$plugins_text .= esc_html__( ' and ', 'ern-common' );
 			} elseif ( $i !== $count ) {
 				$plugins_text .= ', ';
 			}
@@ -180,60 +180,60 @@ class Tribe__Admin__Help_Page {
 
 		$addons['events-calendar-pro'] = array(
 			'id' => 'events-calendar-pro',
-			'title' => esc_html__( 'Events Calendar PRO', 'tribe-common' ),
+			'title' => esc_html__( 'Events Calendar PRO', 'ern-common' ),
 			'link'  => 'http://m.tri.be/dr',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'Tribe__Events__Pro__Main' ),
+			'is_active' => class_exists( 'E__Register__Now__Events__Pro__Main' ),
 			'is_important' => true,
 		);
 
 		$addons['eventbrite-tickets'] = array(
 			'id' => 'eventbrite-tickets',
-			'title' => esc_html__( 'Eventbrite Tickets', 'tribe-common' ),
+			'title' => esc_html__( 'Eventbrite Tickets', 'ern-common' ),
 			'link'  => 'http://m.tri.be/ds',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ),
+			'is_active' => class_exists( 'E__Register__Now__Events__Tickets__Eventbrite__Main' ),
 		);
 
 		$addons['community-events'] = array(
 			'id' => 'community-events',
-			'title' => esc_html__( 'Community Events', 'tribe-common' ),
+			'title' => esc_html__( 'Community Events', 'ern-common' ),
 			'link'  => 'http://m.tri.be/dt',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'Tribe__Events__Community__Main' ),
+			'is_active' => class_exists( 'E__Register__Now__Events__Community__Main' ),
 		);
 
 		$addons['facebook-events'] = array(
 			'id' => 'facebook-events',
-			'title' => esc_html__( 'Facebook Events', 'tribe-common' ),
+			'title' => esc_html__( 'Facebook Events', 'ern-common' ),
 			'link'  => 'http://m.tri.be/du',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'Tribe__Events__Facebook__Importer' ),
+			'is_active' => class_exists( 'E__Register__Now__Events__Facebook__Importer' ),
 		);
 
 		$addons['events-filter-bar'] = array(
 			'id' => 'events-filter-bar',
-			'title' => esc_html__( 'Events Filter Bar', 'tribe-common' ),
+			'title' => esc_html__( 'Events Filter Bar', 'ern-common' ),
 			'link'  => 'http://m.tri.be/hu',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'Tribe__Events__Filterbar__View' ),
+			'is_active' => class_exists( 'E__Register__Now__Events__Filterbar__View' ),
 		);
 
 		$addons['event-tickets-plus'] = array(
 			'id' => 'event-tickets-plus',
-			'title' => esc_html__( 'Event Tickets Plus', 'tribe-common' ),
+			'title' => esc_html__( 'Event Tickets Plus', 'ern-common' ),
 			'link'  => 'http://m.tri.be/18wa',
 			'plugin' => array( 'event-tickets' ),
-			'is_active' => class_exists( 'Tribe__Tickets_Plus__Main' ),
+			'is_active' => class_exists( 'E__Register__Now__Tickets_Plus__Main' ),
 			'is_important' => true,
 		);
 
 		$addons['event-community-tickets'] = array(
 			'id' => 'event-community-tickets',
-			'title' => esc_html__( 'Community Tickets', 'tribe-common' ),
+			'title' => esc_html__( 'Community Tickets', 'ern-common' ),
 			'link'  => 'http://m.tri.be/18m2',
 			'plugin' => array( 'event-tickets' ),
-			'is_active' => class_exists( 'Tribe__Events__Community__Tickets__Main' ),
+			'is_active' => class_exists( 'E__Register__Now__Events__Community__Tickets__Main' ),
 		);
 
 		/**
@@ -310,7 +310,7 @@ class Tribe__Admin__Help_Page {
 		);
 
 		if ( true === $relative ) {
-			$link = trailingslashit( Tribe__Main::$tec_url . $link );
+			$link = trailingslashit( E__Register__Now__Main::$tec_url . $link );
 		}
 
 		return esc_url( add_query_arg( $query_args, $link ) );
@@ -324,12 +324,12 @@ class Tribe__Admin__Help_Page {
 	 * @return array Feed Title and Link
 	 */
 	public function get_feed_items() {
-		$news_rss = fetch_feed( Tribe__Main::FEED_URL );
+		$news_rss = fetch_feed( E__Register__Now__Main::FEED_URL );
 		$news_feed = array();
 
 		if ( ! is_wp_error( $news_rss ) ) {
 			/**
-			 * Filter the maximum number of items returned from the tribe news feed
+			 * Filter the maximum number of items returned from the ern news feed
 			 *
 			 * @param int $max_items default 5
 			 */
@@ -391,7 +391,7 @@ class Tribe__Admin__Help_Page {
 
 			if ( ! is_wp_error( $data ) ) {
 				// Format Downloaded Infomation
-				$data->downloaded = $data->downloaded ? number_format( $data->downloaded ) : _x( 'n/a', 'not available', 'tribe-common' );
+				$data->downloaded = $data->downloaded ? number_format( $data->downloaded ) : _x( 'n/a', 'not available', 'ern-common' );
 			} else {
 				// If there was a bug on the Current Request just leave
 				return false;
@@ -399,7 +399,7 @@ class Tribe__Admin__Help_Page {
 
 			set_transient( $transient, $data, $timeout );
 		}
-		$data->up_to_date = ( version_compare( $plugin->version, $data->version, '<' ) ) ? esc_html__( 'You need to upgrade!', 'tribe-common' ) : esc_html__( 'You are up to date!', 'tribe-common' );
+		$data->up_to_date = ( version_compare( $plugin->version, $data->version, '<' ) ) ? esc_html__( 'You need to upgrade!', 'ern-common' ) : esc_html__( 'You are up to date!', 'ern-common' );
 
 		/**
 		 * Filters the API data that was stored in the Transient option
@@ -663,7 +663,7 @@ class Tribe__Admin__Help_Page {
 		/**
 		 * Allow third-party sections here
 		 *
-		 * @var Tribe__Admin__Help_Page
+		 * @var E__Register__Now__Admin__Help_Page
 		 */
 		do_action( 'tribe_help_pre_get_sections', $this );
 
@@ -707,10 +707,10 @@ class Tribe__Admin__Help_Page {
 			// Sort by Priority
 			uasort( $section->content, array( $this, 'by_priority' ) );
 
-			$html[ $section->id . '-start' ] = '<div id="tribe-' . sanitize_html_class( $section->id ) . '" class="tribe-help-section clearfix tribe-section-type-' . sanitize_html_class( $section->type ) . '">';
+			$html[ $section->id . '-start' ] = '<div id="ern-' . sanitize_html_class( $section->id ) . '" class="ern-help-section clearfix ern-section-type-' . sanitize_html_class( $section->type ) . '">';
 
 			if ( ! empty( $section->title ) ) {
-				$html[ $section->id . '-title' ] = '<h3 class="tribe-help-title">' . esc_html__( $section->title ) . '</h3>';
+				$html[ $section->id . '-title' ] = '<h3 class="ern-help-title">' . esc_html__( $section->title ) . '</h3>';
 			}
 
 			$html[ $section->id . '-content' ] = $this->get_content_html( $section->content );
@@ -764,7 +764,7 @@ class Tribe__Admin__Help_Page {
 					's' => '',
 				);
 				$activate_url = wp_nonce_url( add_query_arg( $args, 'plugins.php' ), 'activate-plugin_' . $status['file'] );
-				$link = '<a class="button" href="' . $activate_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Activate %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Activate Plugin', 'tribe-common' ) . '</a>';
+				$link = '<a class="button" href="' . $activate_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Activate %s', 'ern-common' ), $plugin->name ) ) . '">' . esc_html__( 'Activate Plugin', 'ern-common' ) . '</a>';
 			} elseif ( 'update_available' === $status['status'] ) {
 				$args = array(
 					'action' => 'upgrade-plugin',
@@ -772,9 +772,9 @@ class Tribe__Admin__Help_Page {
 				);
 				$update_url = wp_nonce_url( add_query_arg( $args, 'update.php' ), 'upgrade-plugin_' . $status['file'] );
 
-				$link = '<a class="button" href="' . $update_url . '">' . esc_html__( 'Upgrade Plugin', 'tribe-common' ) . '</a>';
+				$link = '<a class="button" href="' . $update_url . '">' . esc_html__( 'Upgrade Plugin', 'ern-common' ) . '</a>';
 			} elseif ( $plugin_exists ) {
-				$link = '<a class="button disabled">' . esc_html__( 'You are up to date!', 'tribe-common' ) . '</a>';
+				$link = '<a class="button disabled">' . esc_html__( 'You are up to date!', 'ern-common' ) . '</a>';
 			}
 		}
 
@@ -788,13 +788,13 @@ class Tribe__Admin__Help_Page {
 					'height' => 600,
 				);
 				$iframe_url = add_query_arg( $args, admin_url( '/plugin-install.php' ) );
-				$link = '<a class="button thickbox" href="' . $iframe_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Install %s', 'tribe-common' ), $plugin->name ) ) . '">' . esc_html__( 'Install Plugin', 'tribe-common' ) . '</a>';
+				$link = '<a class="button thickbox" href="' . $iframe_url . '" aria-label="' . esc_attr( sprintf( esc_attr__( 'Install %s', 'ern-common' ), $plugin->name ) ) . '">' . esc_html__( 'Install Plugin', 'ern-common' ) . '</a>';
 			} else {
 				$link = null;
 			}
 		}
 		?>
-		<div class="tribe-help-plugin-info">
+		<div class="ern-help-plugin-info">
 			<h3><a href="<?php echo esc_url( $plugin->repo ); ?>"><?php echo esc_html( $plugin->title ); ?></a></h3>
 
 			<?php
@@ -805,16 +805,16 @@ class Tribe__Admin__Help_Page {
 
 			<?php if ( $api_data ) { ?>
 				<dl>
-					<dt><?php esc_html_e( 'Latest Version:', 'tribe-common' ); ?></dt>
+					<dt><?php esc_html_e( 'Latest Version:', 'ern-common' ); ?></dt>
 					<dd><?php echo esc_html( $api_data->version ); ?></dd>
 
-					<dt><?php esc_html_e( 'Requires:', 'tribe-common' ); ?></dt>
-					<dd><?php echo esc_html__( 'WordPress ', 'tribe-common' ) . esc_html( $api_data->requires ); ?>+</dd>
+					<dt><?php esc_html_e( 'Requires:', 'ern-common' ); ?></dt>
+					<dd><?php echo esc_html__( 'WordPress ', 'ern-common' ) . esc_html( $api_data->requires ); ?>+</dd>
 
-					<dt><?php esc_html_e( 'Active Users:', 'tribe-common' ); ?></dt>
+					<dt><?php esc_html_e( 'Active Users:', 'ern-common' ); ?></dt>
 					<dd><?php echo esc_html( number_format( $api_data->active_installs ) ); ?>+</dd>
 
-					<dt><?php esc_html_e( 'Rating:', 'tribe-common' ); ?></dt>
+					<dt><?php esc_html_e( 'Rating:', 'ern-common' ); ?></dt>
 					<dd><a href="<?php echo esc_url( $plugin->stars_url ); ?>" target="_blank">
 						<?php wp_star_rating( array(
 							'rating' => $api_data->rating,
@@ -833,20 +833,20 @@ class Tribe__Admin__Help_Page {
 			?>
 
 			<?php if ( ! empty( $addons ) ) { ?>
-				<h3><?php esc_html_e( 'Premium Add-Ons', 'tribe-common' ); ?></h3>
-				<ul class='tribe-list-addons'>
+				<h3><?php esc_html_e( 'Premium Add-Ons', 'ern-common' ); ?></h3>
+				<ul class='ern-list-addons'>
 					<?php foreach ( $addons as $addon ) {
 						$addon = (object) $addon;
 
 						if ( isset( $addon->is_active ) && $addon->is_active ) {
-							$active_title = __( 'Plugin Active', 'tribe-common' );
+							$active_title = __( 'Plugin Active', 'ern-common' );
 						} else {
-							$active_title = __( 'Plugin Inactive', 'tribe-common' );
+							$active_title = __( 'Plugin Inactive', 'ern-common' );
 						}
 
-						echo '<li title="' . esc_attr( $active_title ) . '" class="' . ( isset( $addon->is_active ) && $addon->is_active ? 'tribe-active-addon' : '' ) . '">';
+						echo '<li title="' . esc_attr( $active_title ) . '" class="' . ( isset( $addon->is_active ) && $addon->is_active ? 'ern-active-addon' : '' ) . '">';
 						if ( isset( $addon->link ) ) {
-							echo '<a href="' . esc_url( $addon->link ) . '" title="' . esc_attr__( 'Visit the Add-on Page', 'tribe-common' ) . '" target="_blank">';
+							echo '<a href="' . esc_url( $addon->link ) . '" title="' . esc_attr__( 'Visit the Add-on Page', 'ern-common' ) . '" target="_blank">';
 						}
 						echo esc_html( $addon->title );
 						if ( isset( $addon->link ) ) {

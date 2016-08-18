@@ -1,4 +1,4 @@
 <?php
-_deprecated_file( __FILE__, '4.0', 'Tribe__Autoloader.php' );
+_deprecated_file( __FILE__, '4.0', 'E__Register__Now__Autoloader.php' );
 
-class Tribe__Events__Autoloader extends Tribe__Autoloader {}
+class E__Register__Now__Events__Autoloader extends E__Register__Now__Autoloader {}

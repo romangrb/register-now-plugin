@@ -70,10 +70,10 @@ jQuery( document ).ready( function( $ ) {
 
 	} );
 
-	$( '.tribe-attendees-email' ).on({
+	$( '.ern-attendees-email' ).on({
 		'submit': function( event ) {
-			$( '.tribe-attendees-email' ).hide();
-			$( document.getElementById( 'tribe-loading' ) ).show();
+			$( '.ern-attendees-email' ).hide();
+			$( document.getElementById( 'ern-loading' ) ).show();
 		}
 	});
 
@@ -83,7 +83,7 @@ jQuery( document ).ready( function( $ ) {
 		var obj = jQuery( this );
 
 		var params = {
-			action  : 'tribe-ticket-checkin-' + obj.attr( 'data-provider' ),
+			action  : 'ern-ticket-checkin-' + obj.attr( 'data-provider' ),
 			provider: obj.attr( 'data-provider' ),
 			order_ID: obj.attr( 'data-attendee-id' ),
 			nonce   : Attendees.checkin_nonce
@@ -116,7 +116,7 @@ jQuery( document ).ready( function( $ ) {
 		var obj = jQuery( this );
 
 		var params = {
-			action  : 'tribe-ticket-uncheckin-' + obj.attr( 'data-provider' ),
+			action  : 'ern-ticket-uncheckin-' + obj.attr( 'data-provider' ),
 			provider: obj.attr( 'data-provider' ),
 			order_ID: obj.attr( 'data-attendee-id' ),
 			nonce   : Attendees.uncheckin_nonce

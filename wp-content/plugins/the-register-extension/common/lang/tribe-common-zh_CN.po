@@ -72,7 +72,7 @@ msgstr ""
 msgid "Download log"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:37
+#: src/admin-views/ern-options-help.php:37
 msgid "Recent Template Changes"
 msgstr ""
 
@@ -104,11 +104,11 @@ msgstr ""
 msgid "Information about recent template changes and potentially impacted template overrides is provided below."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:35
+#: src/admin-views/ern-options-help.php:35
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:27
+#: src/admin-views/ern-options-licenses.php:27
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
 msgstr ""
 
@@ -120,71 +120,71 @@ msgstr ""
 msgid "An event settings framework for managing shared options"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:30
+#: src/admin-views/ern-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:31
+#: src/admin-views/ern-options-help.php:31
 msgid "Read more about our support policy"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:26
+#: src/admin-views/ern-options-help.php:26
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:26
+#: src/admin-views/ern-options-help.php:26
 msgid "Search our support forum"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:25
+#: src/admin-views/ern-options-help.php:25
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:25
+#: src/admin-views/ern-options-help.php:25
 msgid "Test for a theme or plugin conflict"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:24
+#: src/admin-views/ern-options-help.php:24
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:24
+#: src/admin-views/ern-options-help.php:24
 msgid "Check our Knowledgebase"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:15
+#: src/admin-views/ern-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:15
+#: src/admin-views/ern-options-help.php:15
 msgid "Knowledgebase"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:16
+#: src/admin-views/ern-options-help.php:16
 msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:16
+#: src/admin-views/ern-options-help.php:16
 msgid "list of available functions"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:19
+#: src/admin-views/ern-options-help.php:19
 msgid "Getting More Help"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:20
+#: src/admin-views/ern-options-help.php:20
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:11
+#: src/admin-views/ern-options-help.php:11
 msgid "Thanks you for using %s! All of us at Modern e_register_now sincerely appreciate your support and we’re excited to see you using our plugins."
 msgstr ""
 
-#: src/admin-views/tribe-options-help.php:14
+#: src/admin-views/ern-options-help.php:14
 msgid "Getting Support"
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:15
+#: src/admin-views/ern-options-general.php:15
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr ""
 
@@ -248,7 +248,7 @@ msgstr ""
 msgid "%s must be a positive number or percent."
 msgstr ""
 
-#: src/admin-views/tribe-options-general.php:10
+#: src/admin-views/ern-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern e_register_now sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
 msgstr ""
 
@@ -316,7 +316,7 @@ msgstr ""
 msgid "Save Changes"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:13
+#: src/admin-views/ern-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
 
@@ -328,7 +328,7 @@ msgstr "未知日期"
 msgid "Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!"
 msgstr ""
 
-#: src/admin-views/tribe-options-licenses.php:18
+#: src/admin-views/ern-options-licenses.php:18
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
@@ -400,60 +400,60 @@ msgstr "最后更新"
 msgid "View"
 msgstr "检视"
 
-#: src/admin-views/tribe-options-display.php:22
+#: src/admin-views/ern-options-display.php:22
 msgid "Date Format Settings"
 msgstr "日期格式设定"
 
-#: src/admin-views/tribe-options-display.php:26
+#: src/admin-views/ern-options-display.php:26
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr "<p>以下 3 个栏位接受 php date() 功能内置的日期格式选项 <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">由此学习如何创建你自己的日期格式</a>。</p>"
 
-#: src/admin-views/tribe-options-display.php:30
+#: src/admin-views/ern-options-display.php:30
 msgid "Datepicker Date Format"
 msgstr "日期选择器的日期格式"
 
-#: src/admin-views/tribe-options-display.php:31
+#: src/admin-views/ern-options-display.php:31
 msgid "Select the date format to use in datepickers"
 msgstr "选择用于日期选择器中的日期格式"
 
-#: src/admin-views/tribe-options-general.php:20
+#: src/admin-views/ern-options-general.php:20
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
 msgstr "寻找额外的功能，包含循环活动、自订元规则、社群活动、售票及更多？"
 
-#: src/admin-views/tribe-options-general.php:20
+#: src/admin-views/ern-options-general.php:20
 msgid "Check out the available add-ons"
 msgstr "查看可买到的附加元件"
 
-#: src/admin-views/tribe-options-general.php:25
+#: src/admin-views/ern-options-general.php:25
 msgid "We hope our plugin is helping you out."
 msgstr "我们期望我们的外挂产品能够帮助你。"
 
-#: src/admin-views/tribe-options-general.php:30
+#: src/admin-views/ern-options-general.php:30
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern e_register_now for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "是否你正想着 \"哇，这个外挂产品太棒了！我们应该感谢 Modern e_register_now 他们所有的努力。\" 而你可以给我们的最大回报，就是仅需于你的行事曆底下加入简短的文字连结到 The Events Calendar 计画。"
 
-#: src/admin-views/tribe-options-general.php:30
-#: src/admin-views/tribe-options-general.php:35
+#: src/admin-views/ern-options-general.php:30
+#: src/admin-views/ern-options-general.php:35
 msgid "See an example of the link"
 msgstr "请参考连结的范例"
 
-#: src/admin-views/tribe-options-general.php:35
+#: src/admin-views/ern-options-general.php:35
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern e_register_now for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "你正想着 \"哇，这个外挂产品太棒了！我们应该感谢 Modern e_register_now 他们所有的努力。\" 而我们可以请求的最大感谢回报，就是于你的行事曆下方处加入简短的文字连结到你的活动行事曆计画。"
 
-#: src/admin-views/tribe-options-general.php:40
+#: src/admin-views/ern-options-general.php:40
 msgid "Show The Events Calendar link"
 msgstr "显示 The Events Calendar 连结"
 
-#: src/admin-views/tribe-options-general.php:58
+#: src/admin-views/ern-options-general.php:58
 msgid "Debug mode"
 msgstr "除错模式"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/ern-options-general.php:64
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"e_register_now\" tab in the debug output."
 msgstr "启用此选项以记录除错报告，预设将记录你的伺服器 PHP 错误报告，如果你想于你的浏览器阅读纪录的讯息，我们推荐安装 %s 并于除错输出中搜寻 \"e_register_now\" 工具列标籤。"
 
-#: src/admin-views/tribe-options-general.php:64
+#: src/admin-views/ern-options-general.php:64
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Plugin"
 
@@ -546,7 +546,7 @@ msgstr "爱达荷州"
 msgid "Illinois"
 msgstr "伊利诺州"
 
-#: src/admin-views/tribe-options-help.php:63
+#: src/admin-views/ern-options-help.php:63
 msgid "More..."
 msgstr "更多..."
 
@@ -622,7 +622,7 @@ msgstr "蒙大拿州"
 msgid "Nebraska"
 msgstr "内布拉斯加州"
 
-#: src/admin-views/tribe-options-help.php:57
+#: src/admin-views/ern-options-help.php:57
 msgid "News and Tutorials"
 msgstr "消息和导览"
 
@@ -630,7 +630,7 @@ msgstr "消息和导览"
 msgid "Nevada"
 msgstr "内华达州"
 
-#: src/admin-views/tribe-options-network.php:15
+#: src/admin-views/ern-options-network.php:15
 msgid "Network Settings"
 msgstr "网络设定"
 
@@ -638,7 +638,7 @@ msgstr "网络设定"
 msgid "New Hampshire"
 msgstr "新罕布夏州"
 
-#: src/admin-views/tribe-options-network.php:19
+#: src/admin-views/ern-options-network.php:19
 msgid "This is where all of the global network settings for Modern e_register_now's The Events Calendar can be modified."
 msgstr "这裡是 Modern e_register_now 的 The Events Calendar 所有整体网路设定可以被修改的位置。"
 
@@ -646,7 +646,7 @@ msgstr "这裡是 Modern e_register_now 的 The Events Calendar 所有整体网�
 msgid "New Jersey"
 msgstr "新泽西州"
 
-#: src/admin-views/tribe-options-network.php:27
+#: src/admin-views/ern-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
 msgstr "隐藏以下设定工具列标籤于每个网站："
 
@@ -1025,7 +1025,7 @@ msgid "Holy See (Vatican City State)"
 msgstr "梵蒂冈"
 
 #: src/e_register_now/Settings_Manager.php:263
-#: src/admin-views/tribe-options-licenses.php:46
+#: src/admin-views/ern-options-licenses.php:46
 msgid "Licenses"
 msgstr "授权凭证"
 
@@ -1506,7 +1506,7 @@ msgstr "斯洛维尼亚"
 msgid "Solomon Islands"
 msgstr "所罗门群岛"
 
-#: src/admin-views/tribe-options-help.php:34
+#: src/admin-views/ern-options-help.php:34
 msgid "System Information"
 msgstr "系统资讯"
 

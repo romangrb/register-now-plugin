@@ -2,7 +2,7 @@
 /**
  * Facilitiates live date previews in the Events > Settings > Display admin screen.
  */
-class Tribe__Admin__Live_Date_Preview {
+class E__Register__Now__Admin__Live_Date_Preview {
 	protected $target_fields = array(
 		'dateWithYearFormat',
 		'dateWithoutYearFormat',
@@ -23,7 +23,7 @@ class Tribe__Admin__Live_Date_Preview {
 	 */
 	public function listen() {
 		// We are only interested in the "Display" tab
-		if ( 'display' !== Tribe__Settings::instance()->currentTab ) {
+		if ( 'display' !== E__Register__Now__Settings::instance()->currentTab ) {
 			return;
 		}
 
@@ -52,7 +52,7 @@ class Tribe__Admin__Live_Date_Preview {
 	 * Enquues a script to handle live refresh of the date previews.
 	 */
 	public function live_refresh_script() {
-		$url = Tribe__Template_Factory::getMinFile( tribe_resource_url( 'admin-date-preview.js', false, 'common' ), true );
-		wp_enqueue_script( 'tribe-date-live-refresh', $url, array( 'jquery' ), false, true );
+		$url = E__Register__Now__Template_Factory::getMinFile( tribe_resource_url( 'admin-date-preview.js', false, 'common' ), true );
+		wp_enqueue_script( 'ern-date-live-refresh', $url, array( 'jquery' ), false, true );
 	}
 }

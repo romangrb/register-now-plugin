@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Main' ) ) {
+if ( ! class_exists( 'E__Register__Now__Main' ) ) {
 	return;
 }
 
@@ -30,7 +30,7 @@ if ( ! function_exists( 'tribe_format_date' ) ) {
 	 */
 	function tribe_format_date( $date, $display_time = true, $date_format = '' ) {
 
-		if ( ! Tribe__Date_Utils::is_timestamp( $date ) ) {
+		if ( ! E__Register__Now__Date_Utils::is_timestamp( $date ) ) {
 			$date = strtotime( $date );
 		}
 
@@ -181,13 +181,13 @@ if ( ! function_exists( 'tribe_get_start_time' ) ) {
 			return;
 		}
 
-		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( E__Register__Now__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			return;
 		}
 
 		// @todo move timezones to Common
-		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
-			$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
+		if ( class_exists( 'E__Register__Now__Events__Timezones' ) ) {
+			$start_date = E__Register__Now__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 		}
 
 		if ( '' == $date_format ) {
@@ -226,13 +226,13 @@ if ( ! function_exists( 'tribe_get_end_time' ) ) {
 			return;
 		}
 
-		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( E__Register__Now__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			return;
 		}
 
 		// @todo move timezones to Common
-		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
-			$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
+		if ( class_exists( 'E__Register__Now__Events__Timezones' ) ) {
+			$end_date = E__Register__Now__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 		}
 
 		if ( '' == $date_format ) {
@@ -272,13 +272,13 @@ if ( ! function_exists( 'tribe_get_start_date' ) ) {
 			return '';
 		}
 
-		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( E__Register__Now__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			$display_time = false;
 		}
 
 		// @todo move timezones to Common
-		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
-			$start_date = Tribe__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
+		if ( class_exists( 'E__Register__Now__Events__Timezones' ) ) {
+			$start_date = E__Register__Now__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 		} else {
 			return null;
 		}
@@ -316,13 +316,13 @@ if ( ! function_exists( 'tribe_get_end_date' ) ) {
 			return '';
 		}
 
-		if ( Tribe__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( E__Register__Now__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			$display_time = false;
 		}
 
 		// @todo move timezones to Common
-		if ( class_exists( 'Tribe__Events__Timezones' ) ) {
-			$end_date = Tribe__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
+		if ( class_exists( 'E__Register__Now__Events__Timezones' ) ) {
+			$end_date = E__Register__Now__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 		} else {
 			return null;
 		}

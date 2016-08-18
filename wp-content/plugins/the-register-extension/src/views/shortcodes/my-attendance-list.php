@@ -8,7 +8,7 @@
  */
 ?>
 
-<ul class="tribe-tickets my-attendance-list">
+<ul class="ern-tickets my-attendance-list">
 	<?php foreach ( $event_ids as $id ): ?>
 		<?php $start_date = tribe_get_start_date( $id ); ?>
 		<li class="event-<?php echo esc_attr( $id ) ?>">

@@ -2,11 +2,11 @@
 
 
 /**
- * Class Tribe__Utils__Coordinates_Provider
+ * Class E__Register__Now__Utils__Coordinates_Provider
  *
  * Provided latitude and longitude coordinates for a location.
  */
-class Tribe__Utils__Coordinates_Provider {
+class E__Register__Now__Utils__Coordinates_Provider {
 
 	/**
 	 * @var string
@@ -34,14 +34,14 @@ class Tribe__Utils__Coordinates_Provider {
 	private $http;
 
 	/**
-	 * @var Tribe__Utils__Coordinates_Provider
+	 * @var E__Register__Now__Utils__Coordinates_Provider
 	 */
 	protected static $instance;
 
 	/**
 	 * The class singleton constructor.
 	 *
-	 * @return Tribe__Utils__Coordinates_Provider
+	 * @return E__Register__Now__Utils__Coordinates_Provider
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
@@ -52,7 +52,7 @@ class Tribe__Utils__Coordinates_Provider {
 	}
 
 	/**
-	 * Tribe__Utils__Coordinates_Provider constructor.
+	 * E__Register__Now__Utils__Coordinates_Provider constructor.
 	 *
 	 * @param WP_Http|null $http
 	 */

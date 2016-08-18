@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Debug {
+class E__Register__Now__Debug {
 	/**
 	 * constructor
 	 */
@@ -32,8 +32,8 @@ class Tribe__Debug {
 	 */
 	public static function render( $title, $data = false, $format = 'log' ) {
 		$format = ucfirst( $format );
-		if ( Tribe__Settings_Manager::instance()->get_option( 'debugEvents' ) ) {
-			$plugin = basename( dirname( Tribe__Main::instance()->plugin_path ) );
+		if ( E__Register__Now__Settings_Manager::instance()->get_option( 'debugEvents' ) ) {
+			$plugin = basename( dirname( E__Register__Now__Main::instance()->plugin_path ) );
 			error_log( "$plugin/common -  $format: $title" );
 			if ( $data && $data != '' ) {
 				error_log( "$plugin/common - $format: " . print_r( $data, true ) );
@@ -44,7 +44,7 @@ class Tribe__Debug {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Debug
+	 * @return E__Register__Now__Debug
 	 */
 	public static function instance() {
 		static $instance;

@@ -1,12 +1,12 @@
 <?php
-if ( class_exists( 'Tribe__Log' ) ) {
+if ( class_exists( 'E__Register__Now__Log' ) ) {
 	return;
 }
 
 /**
  * Provides access to and management of core logging facilities.
  */
-class Tribe__Log {
+class E__Register__Now__Log {
 	const DISABLE = 'disable';
 	const DEBUG   = 'debug';
 	const WARNING = 'warning';
@@ -14,12 +14,12 @@ class Tribe__Log {
 	const CLEANUP = 'tribe_common_log_cleanup';
 
 	/**
-	 * @var Tribe__Log__Admin
+	 * @var E__Register__Now__Log__Admin
 	 */
 	protected $admin;
 
 	/**
-	 * @var Tribe__Log__Logger
+	 * @var E__Register__Now__Log__Logger
 	 */
 	protected $current_logger;
 
@@ -54,7 +54,7 @@ class Tribe__Log {
 
 	public function __construct() {
 		if ( is_admin() ) {
-			$this->admin = new Tribe__Log__Admin();
+			$this->admin = new E__Register__Now__Log__Admin();
 		}
 
 		$this->current_level = $this->get_level();
@@ -62,7 +62,7 @@ class Tribe__Log {
 	}
 
 	/**
-	 * @return Tribe__Log__Admin
+	 * @return E__Register__Now__Log__Admin
 	 */
 	public function admin() {
 		return $this->admin;
@@ -94,7 +94,7 @@ class Tribe__Log {
 	public function do_cleanup() {
 		foreach ( $this->get_logging_engines() as $engine ) {
 			/**
-			 * @var Tribe__Log__Logger $engine
+			 * @var E__Register__Now__Log__Logger $engine
 			 */
 			$engine->cleanup();
 		}
@@ -150,7 +150,7 @@ class Tribe__Log {
 	public function get_logging_engines() {
 		$available_engines = array();
 		$bundled_engines   = array(
-			'Tribe__Log__File_Logger',
+			'E__Register__Now__Log__File_Logger',
 		);
 
 		foreach ( $bundled_engines as $engine_class ) {
@@ -177,7 +177,7 @@ class Tribe__Log {
 	 * Returns the currently active logger or null if none is set/none are
 	 * available.
 	 *
-	 * @return Tribe__Log__Logger|null
+	 * @return E__Register__Now__Log__Logger|null
 	 */
 	public function get_current_logger() {
 		if ( ! $this->current_logger ) {
@@ -207,7 +207,7 @@ class Tribe__Log {
 		$available_engines = $this->get_logging_engines();
 
 		if ( ! isset( $available_engines[ $engine ] ) ) {
-			throw new Exception( sprintf( __( 'Cannot set %s as the current logging engine', 'tribe-common' ), $engine ) );
+			throw new Exception( sprintf( __( 'Cannot set %s as the current logging engine', 'ern-common' ), $engine ) );
 		}
 
 		tribe_update_option( 'logging_class', $engine );
@@ -220,13 +220,13 @@ class Tribe__Log {
 	 *
 	 * @param $class_name
 	 *
-	 * @return Tribe__Log__Logger|null
+	 * @return E__Register__Now__Log__Logger|null
 	 */
 	public function get_engine( $class_name ) {
 		if ( ! isset( $this->loggers[ $class_name ] ) ) {
 			$object = new $class_name;
 
-			if ( is_a( $object, 'Tribe__Log__Logger' ) ) {
+			if ( is_a( $object, 'E__Register__Now__Log__Logger' ) ) {
 				$this->loggers[ $class_name ] = new $class_name();
 			}
 		}
@@ -292,7 +292,7 @@ class Tribe__Log {
 			/**
 			 * Provides an opportunity to add or remove logging levels. This is expected
 			 * to be organized as an array of arrays: the ordering of each inner array
-			 * is critical, see Tribe__Log::get_logging_levels() docs.
+			 * is critical, see E__Register__Now__Log::get_logging_levels() docs.
 			 *
 			 * General form:
 			 *
@@ -306,10 +306,10 @@ class Tribe__Log {
 			 * @param array $logging_levels
 			 */
 			$this->levels = (array) apply_filters( 'tribe_common_logging_levels', array(
-				array( self::DISABLE, __( 'Disabled', 'tribe-common' ) ),
-				array( self::ERROR,   __( 'Only errors', 'tribe-common' ) ),
-				array( self::WARNING, __( 'Warnings and errors', 'tribe-common' ) ),
-				array( self::DEBUG,   __( 'Full debug (all events)', 'tribe-common' ) ),
+				array( self::DISABLE, __( 'Disabled', 'ern-common' ) ),
+				array( self::ERROR,   __( 'Only errors', 'ern-common' ) ),
+				array( self::WARNING, __( 'Warnings and errors', 'ern-common' ) ),
+				array( self::DEBUG,   __( 'Full debug (all events)', 'ern-common' ) ),
 			) );
 		}
 

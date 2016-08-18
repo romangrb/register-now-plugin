@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Settings_Manager {
+class E__Register__Now__Settings_Manager {
 	protected static $network_options;
 	public static $tribe_events_mu_defaults;
 
@@ -13,8 +13,8 @@ class Tribe__Settings_Manager {
 		// Load multisite defaults
 		if ( is_multisite() ) {
 			$tribe_events_mu_defaults = array();
-			if ( file_exists( WP_CONTENT_DIR . '/tribe-events-mu-defaults.php' ) ) {
-				require_once WP_CONTENT_DIR . '/tribe-events-mu-defaults.php';
+			if ( file_exists( WP_CONTENT_DIR . '/ern-events-mu-defaults.php' ) ) {
+				require_once WP_CONTENT_DIR . '/ern-events-mu-defaults.php';
 			}
 			self::$tribe_events_mu_defaults = apply_filters( 'tribe_events_mu_defaults', $tribe_events_mu_defaults );
 		}
@@ -38,7 +38,7 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function init_options() {
-		Tribe__Settings::instance();
+		E__Register__Now__Settings::instance();
 	}
 
 	/**
@@ -47,19 +47,19 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public function do_setting_tabs() {
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-general.php';
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-display.php';
+		include_once E__Register__Now__Main::instance()->plugin_path . 'src/admin-views/ern-options-general.php';
+		include_once E__Register__Now__Main::instance()->plugin_path . 'src/admin-views/ern-options-display.php';
 
 		$showNetworkTabs = $this->get_network_option( 'showSettingsTabs', false );
 
-		new Tribe__Settings_Tab( 'general', esc_html__( 'General', 'tribe-common' ), $generalTab );
-		new Tribe__Settings_Tab( 'display', esc_html__( 'Display', 'tribe-common' ), $displayTab );
+		new E__Register__Now__Settings_Tab( 'general', esc_html__( 'General', 'ern-common' ), $generalTab );
+		new E__Register__Now__Settings_Tab( 'display', esc_html__( 'Display', 'ern-common' ), $displayTab );
 
 		$this->do_licenses_tab();
 
-		new Tribe__Settings_Tab(
+		new E__Register__Now__Settings_Tab(
 			'help',
-			esc_html__( 'Help', 'tribe-common' ),
+			esc_html__( 'Help', 'ern-common' ),
 			array(
 				'priority'  => 60,
 				'show_save' => false,
@@ -73,9 +73,9 @@ class Tribe__Settings_Manager {
 	 * @return array of options
 	 */
 	public static function get_options() {
-		$options = get_option( Tribe__Main::OPTIONNAME, array() );
+		$options = get_option( E__Register__Now__Main::OPTIONNAME, array() );
 		if ( has_filter( 'tribe_get_options' ) ) {
-			_deprecated_function( 'tribe_get_options', '3.10', 'option_' . Tribe__Main::OPTIONNAME );
+			_deprecated_function( 'tribe_get_options', '3.10', 'option_' . E__Register__Now__Main::OPTIONNAME );
 			$options = apply_filters( 'tribe_get_options', $options );
 		}
 		return $options;
@@ -118,9 +118,9 @@ class Tribe__Settings_Manager {
 			return;
 		}
 		if ( $apply_filters == true ) {
-			$options = apply_filters( 'tribe-events-save-options', $options );
+			$options = apply_filters( 'ern-events-save-options', $options );
 		}
-		update_option( Tribe__Main::OPTIONNAME, $options );
+		update_option( E__Register__Now__Main::OPTIONNAME, $options );
 	}
 
 	/**
@@ -146,7 +146,7 @@ class Tribe__Settings_Manager {
 	 */
 	public static function get_network_options() {
 		if ( ! isset( self::$network_options ) ) {
-			$options              = get_site_option( Tribe__Main::OPTIONNAMENETWORK, array() );
+			$options              = get_site_option( E__Register__Now__Main::OPTIONNAMENETWORK, array() );
 			self::$network_options = apply_filters( 'tribe_get_network_options', $options );
 		}
 
@@ -192,11 +192,11 @@ class Tribe__Settings_Manager {
 			return;
 		}
 		if ( $apply_filters == true ) {
-			$options = apply_filters( 'tribe-events-save-network-options', $options );
+			$options = apply_filters( 'ern-events-save-network-options', $options );
 		}
 
 		// @TODO use getNetworkOptions + force
-		if ( update_site_option( Tribe__Main::OPTIONNAMENETWORK, $options ) ) {
+		if ( update_site_option( E__Register__Now__Main::OPTIONNAMENETWORK, $options ) ) {
 			self::$network_options = apply_filters( 'tribe_get_network_options', $options );
 		} else {
 			self::$network_options = self::get_network_options();
@@ -209,9 +209,9 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function add_network_options_page() {
-		$tribe_settings = Tribe__Settings::instance();
+		$tribe_settings = E__Register__Now__Settings::instance();
 		add_submenu_page(
-			'settings.php', $tribe_settings->menuName, $tribe_settings->menuName, 'manage_network_options', 'tribe-common', array(
+			'settings.php', $tribe_settings->menuName, $tribe_settings->menuName, 'manage_network_options', 'ern-common', array(
 				$tribe_settings,
 				'generatePage',
 			)
@@ -224,9 +224,9 @@ class Tribe__Settings_Manager {
 	 * @return void
 	 */
 	public static function do_network_settings_tab() {
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-network.php';
+		include_once E__Register__Now__Main::instance()->plugin_path . 'src/admin-views/ern-options-network.php';
 
-		new Tribe__Settings_Tab( 'network', esc_html__( 'Network', 'tribe-common' ), $networkTab );
+		new E__Register__Now__Settings_Tab( 'network', esc_html__( 'Network', 'ern-common' ), $networkTab );
 	}
 
 	/**
@@ -251,7 +251,7 @@ class Tribe__Settings_Manager {
 		/**
 		 * @var $licenses_tab
 		 */
-		include Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-licenses.php';
+		include E__Register__Now__Main::instance()->plugin_path . 'src/admin-views/ern-options-licenses.php';
 
 		/**
 		 * Allows the fields displayed in the licenses tab to be modified.
@@ -260,7 +260,7 @@ class Tribe__Settings_Manager {
 		 */
 		$license_fields = apply_filters( 'tribe_license_fields', $licenses_tab );
 
-		new Tribe__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'tribe-common' ), array(
+		new E__Register__Now__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'ern-common' ), array(
 			'priority'      => '40',
 			'fields'        => $license_fields,
 			'network_admin' => is_network_admin() ? true : false,
@@ -271,7 +271,7 @@ class Tribe__Settings_Manager {
 	 * Create the help tab
 	 */
 	public function do_help_tab() {
-		include_once Tribe__Main::instance()->plugin_path . 'src/admin-views/tribe-options-help.php';
+		include_once E__Register__Now__Main::instance()->plugin_path . 'src/admin-views/ern-options-help.php';
 	}
 
 	/**
@@ -285,16 +285,16 @@ class Tribe__Settings_Manager {
 			return;
 		}
 
-		$parent = Tribe__Settings::$parent_slug;
-		$title  = esc_html__( 'Help', 'tribe-common' );
+		$parent = E__Register__Now__Settings::$parent_slug;
+		$title  = esc_html__( 'Help', 'ern-common' );
 		$slug   = esc_url(
 			apply_filters( 'tribe_settings_url',
 				add_query_arg(
 					array(
-						'page'      => 'tribe-common',
+						'page'      => 'ern-common',
 						'tab'       => 'help',
 					),
-					Tribe__Settings::$parent_page
+					E__Register__Now__Settings::$parent_page
 				)
 			)
 		);
@@ -320,7 +320,7 @@ class Tribe__Settings_Manager {
 	public function save_all_tabs_hidden() {
 		$all_tabs_keys = array_keys( apply_filters( 'tribe_settings_all_tabs', array() ) );
 
-		$network_options = (array) get_site_option( Tribe__Main::OPTIONNAMENETWORK );
+		$network_options = (array) get_site_option( E__Register__Now__Main::OPTIONNAMENETWORK );
 
 		if ( isset( $_POST['hideSettingsTabs'] ) && $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
 			$network_options['allSettingsTabsHidden'] = '1';
@@ -334,7 +334,7 @@ class Tribe__Settings_Manager {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Settings_Manager
+	 * @return E__Register__Now__Settings_Manager
 	 */
 	public static function instance() {
 		static $instance;

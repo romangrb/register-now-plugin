@@ -25,7 +25,7 @@ if ( ! function_exists( 'tribe_events_has_tickets' ) ) {
 			return false;
 		}
 
-		$tickets = Tribe__Tickets__Tickets::get_all_event_tickets( $event->ID );
+		$tickets = E__Register__Now__Tickets__Tickets::get_all_e__register__now( $event->ID );
 		return ! empty( $tickets );
 	}
 }//end if
@@ -71,7 +71,7 @@ if ( ! function_exists( 'tribe_events_partially_soldout' ) ) {
 		$stock_is_available = false;
 		$some_have_soldout = false;
 
-		foreach ( Tribe__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+		foreach ( E__Register__Now__Tickets__Tickets::get_all_e__register__now( $event->ID ) as $ticket ) {
 			if ( ! $stock_is_available && 0 < $ticket->stock() ) {
 				$stock_is_available = true;
 			}
@@ -101,7 +101,7 @@ if ( ! function_exists( 'tribe_events_count_available_tickets' ) ) {
 			return 0;
 		}
 
-		foreach ( Tribe__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+		foreach ( E__Register__Now__Tickets__Tickets::get_all_e__register__now( $event->ID ) as $ticket ) {
 			$count += $ticket->stock();
 		}
 
@@ -123,8 +123,8 @@ if ( ! function_exists( 'tribe_events_has_unlimited_stock_tickets' ) ) {
 			return 0;
 		}
 
-		foreach ( Tribe__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
-			if ( Tribe__Tickets__Ticket_Object::UNLIMITED_STOCK === $ticket->stock() ) return true;
+		foreach ( E__Register__Now__Tickets__Tickets::get_all_e__register__now( $event->ID ) as $ticket ) {
+			if ( E__Register__Now__Tickets__Ticket_Object::UNLIMITED_STOCK === $ticket->stock() ) return true;
 		}
 
 		return false;
@@ -158,7 +158,7 @@ if ( ! function_exists( 'tribe_events_get_ticket_event' ) ) {
 	 * @return bool|WP_Post
 	 */
 	function tribe_events_get_ticket_event( $possible_ticket ) {
-		return Tribe__Tickets__Tickets::find_matching_event( $possible_ticket );
+		return E__Register__Now__Tickets__Tickets::find_matching_event( $possible_ticket );
 	}
 }//end if
 
@@ -166,11 +166,11 @@ if ( ! function_exists( 'tribe_events_ticket_is_on_sale' ) ) {
 	/**
 	 * Checks if the ticket is on sale (in relation to it's start/end sale dates).
 	 *
-	 * @param Tribe__Tickets__Ticket_Object $ticket
+	 * @param E__Register__Now__Tickets__Ticket_Object $ticket
 	 *
 	 * @return bool
 	 */
-	function tribe_events_ticket_is_on_sale( Tribe__Tickets__Ticket_Object $ticket ) {
+	function tribe_events_ticket_is_on_sale( E__Register__Now__Tickets__Ticket_Object $ticket ) {
 		// No dates set? Then it's on sale!
 		if ( empty( $ticket->start_date ) && empty( $ticket->end_date ) ) {
 			return true;
@@ -194,20 +194,20 @@ if ( ! function_exists( 'tribe_tickets_get_ticket_stock_message' ) ) {
 	/**
 	 * Gets the "tickets sold" message for a given ticket
 	 *
-	 * @param Tribe__Tickets__Ticket_Object $ticket Ticket to analyze
+	 * @param E__Register__Now__Tickets__Ticket_Object $ticket Ticket to analyze
 	 *
 	 * @return string
 	 */
-	function tribe_tickets_get_ticket_stock_message( Tribe__Tickets__Ticket_Object $ticket ) {
+	function tribe_tickets_get_ticket_stock_message( E__Register__Now__Tickets__Ticket_Object $ticket ) {
 		$stock        = $ticket->stock();
 		$sold         = $ticket->qty_sold();
 		$cancelled    = $ticket->qty_cancelled();
 		$pending      = $ticket->qty_pending();
-		$event        = Tribe__Tickets__Tickets::find_matching_event( $ticket );
-		$global_stock = new Tribe__Tickets__Global_Stock( $event->ID );
+		$event        = E__Register__Now__Tickets__Tickets::find_matching_event( $ticket );
+		$global_stock = new E__Register__Now__Tickets__Global_Stock( $event->ID );
 
-		$is_global = Tribe__Tickets__Global_Stock::GLOBAL_STOCK_MODE === $ticket->global_stock_mode();
-		$is_capped = Tribe__Tickets__Global_Stock::CAPPED_STOCK_MODE === $ticket->global_stock_mode();
+		$is_global = E__Register__Now__Tickets__Global_Stock::GLOBAL_STOCK_MODE === $ticket->global_stock_mode();
+		$is_capped = E__Register__Now__Tickets__Global_Stock::CAPPED_STOCK_MODE === $ticket->global_stock_mode();
 		$stock_cap = $ticket->global_stock_cap();
 
 		// If ticket sales are capped, do not suggest that more than the cap amount are available
@@ -282,7 +282,7 @@ function tribe_tickets_resource_url( $resource, $echo = false, $root_dir = 'src'
 
 	$path = $resource_path . $resource;
 
-	$url  = plugins_url( E__Register__Now::instance()->plugin_dir . $path );
+	$url  = plugins_url( E__Register__Now__Tickets__Main::instance()->plugin_dir . $path );
 
 	/**
 	 * Filter the ticket resource URL
@@ -309,7 +309,7 @@ function tribe_tickets_resource_url( $resource, $echo = false, $root_dir = 'src'
  * @param array       $data (optional) array of vars to inject into the template part
  * @param boolean     $echo (optional) Allows the user to print or return the template
  *
- * @uses Tribe__Tickets__Templates::get_template_hierarchy
+ * @uses E__Register__Now__Tickets__Templates::get_template_hierarchy
  *
  * @return string|void It will depend if it's echoing or not
  **/
@@ -348,7 +348,7 @@ function tribe_tickets_get_template_part( $slug, $name = null, array $data = nul
 
 	// loop through templates, return first one found.
 	foreach ( $templates as $template ) {
-		$file = Tribe__Tickets__Templates::get_template_hierarchy( $template, array( 'disable_view_check' => true ) );
+		$file = E__Register__Now__Tickets__Templates::get_template_hierarchy( $template, array( 'disable_view_check' => true ) );
 
 		/**
 		 * Allow users to filter which template will be included

@@ -1,5 +1,5 @@
 <?php
-class Tribe__Log__Admin {
+class E__Register__Now__Log__Admin {
 	public function __construct() {
 		add_action( 'wp_ajax_tribe_logging_controls', array( $this, 'listen' ) );
 		add_action( 'init', array( $this, 'serve_log_downloads' ) );
@@ -22,7 +22,7 @@ class Tribe__Log__Admin {
 		$this->setup_script();
 
 		ob_start();
-		include trailingslashit( Tribe__Main::instance()->plugin_path ) . 'src/admin-views/event-log.php';
+		include trailingslashit( E__Register__Now__Main::instance()->plugin_path ) . 'src/admin-views/event-log.php';
 		return ob_get_clean();
 	}
 
@@ -102,10 +102,10 @@ class Tribe__Log__Admin {
 	 */
 	public function register_script() {
 		wp_register_script(
-			'tribe-common-logging-controls',
+			'ern-common-logging-controls',
 			tribe_resource_url( 'admin-log-controls.js', false, 'common' ),
 			array( 'jquery' ),
-			Tribe__Main::VERSION,
+			E__Register__Now__Main::VERSION,
 			true
 		);
 	}
@@ -114,8 +114,8 @@ class Tribe__Log__Admin {
 	 * Adds a script to handle the event log settings.
 	 */
 	protected function setup_script() {
-		wp_enqueue_script( 'tribe-common-logging-controls' );
-		wp_localize_script( 'tribe-common-logging-controls', 'tribe_logger_data', array(
+		wp_enqueue_script( 'ern-common-logging-controls' );
+		wp_localize_script( 'ern-common-logging-controls', 'tribe_logger_data', array(
 			'check' => wp_create_nonce( 'logging-controls' )
 		) );
 	}
@@ -129,7 +129,7 @@ class Tribe__Log__Admin {
 		$available_logs = $this->current_logger()->list_available_logs();
 
 		if ( empty( $available_logs ) ) {
-			return array( '' => _x( 'None currently available', 'log selector', 'tribe-common' ) );
+			return array( '' => _x( 'None currently available', 'log selector', 'ern-common' ) );
 		}
 
 		return $available_logs;
@@ -144,14 +144,14 @@ class Tribe__Log__Admin {
 		$available_engines = $this->log_manager()->get_logging_engines();
 
 		if ( empty( $available_engines ) ) {
-			return array( '' => _x( 'None currently available', 'log engines', 'tribe-common' ) );
+			return array( '' => _x( 'None currently available', 'log engines', 'ern-common' ) );
 		}
 
 		$engine_list = array();
 
 		foreach ( $available_engines as $class_name => $engine ) {
 			/**
-			 * @var Tribe__Log__Logger $engine
+			 * @var E__Register__Now__Log__Logger $engine
 			 */
 			$engine_list[ $class_name ] = $engine->get_name();
 		}
@@ -198,7 +198,7 @@ class Tribe__Log__Admin {
 	 */
 	protected function get_log_url( $log = null ) {
 		$query = array(
-			'tribe-common-log' => 'download',
+			'ern-common-log' => 'download',
 			'check' => wp_create_nonce( 'download_log' )
 		);
 
@@ -211,7 +211,7 @@ class Tribe__Log__Admin {
 	 * Facilitate downloading of logs.
 	 */
 	public function serve_log_downloads() {
-		if ( empty( $_GET['tribe-common-log'] ) || 'download' !== $_GET['tribe-common-log'] ) {
+		if ( empty( $_GET['ern-common-log'] ) || 'download' !== $_GET['ern-common-log'] ) {
 			return;
 		}
 
@@ -234,7 +234,7 @@ class Tribe__Log__Admin {
 		 */
 		$log_name = apply_filters( 'tribe_common_log_download_filename', $log_name );
 
-		header( 'Content-Disposition: attachment; filename="tribe-log-' . $log_name . '"' );
+		header( 'Content-Disposition: attachment; filename="ern-log-' . $log_name . '"' );
 		$output = fopen( 'php://output', 'w' );
 
 		foreach ( $this->current_logger()->retrieve() as $log_entry ) {
@@ -248,19 +248,19 @@ class Tribe__Log__Admin {
 	/**
 	 * Returns a reference to the main log management object.
 	 *
-	 * @return Tribe__Log
+	 * @return E__Register__Now__Log
 	 */
 	protected function log_manager() {
-		return Tribe__Main::instance()->log();
+		return E__Register__Now__Main::instance()->log();
 	}
 
 	/**
 	 * Returns the currently enabled logging object or null if it is not
 	 * available.
 	 *
-	 * @return Tribe__Log__Logger|null
+	 * @return E__Register__Now__Log__Logger|null
 	 */
 	protected function current_logger() {
-		return Tribe__Main::instance()->log()->get_current_logger();
+		return E__Register__Now__Main::instance()->log()->get_current_logger();
 	}
 }

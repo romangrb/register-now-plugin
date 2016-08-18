@@ -43,7 +43,7 @@ textarea::-webkit-input-placeholder {
 	border-width: 1px;
 	padding: 10px;
 }
-.tribe-sticky-tooltip {
+.ern-sticky-tooltip {
 	color: #bbb;
 }
 td.tribe_message {
@@ -62,14 +62,14 @@ td.tribe_message {
 }
 /* = Upgrade Screen
 =============================================*/
-#tribe-upgrade {
+#ern-upgrade {
 	background: #f6f6f6;
 	border: 1px solid #ccc;
 	border-radius: 5px;
 	margin: 20px 0 30px;
 	padding: 0 20px 20px;
 }
-#tribe-upgrade .message {
+#ern-upgrade .message {
 	background-color: #ffffe0;
 	border-color: #e6db55;
 	border-radius: 3px;
@@ -79,95 +79,95 @@ td.tribe_message {
 }
 /* = Plugin Screen
 =============================================*/
-table.plugins .tribe-plugin-update-message {
+table.plugins .ern-plugin-update-message {
 	background: #d54e21; /* taken from colour scheme in list-tables.css */
 	color: white;
 	display: inline-table;
 	margin: 6px 0;
 	padding: 10px 12px;
 }
-table.plugins .tribe-plugin-update-message h4 {
+table.plugins .ern-plugin-update-message h4 {
 	display: inline;
 	font-weight: bold;
 	margin-right: 8px;
 }
-table.plugins .tribe-plugin-update-message h4:after {
+table.plugins .ern-plugin-update-message h4:after {
 	content: ' \00BB ';
 }
-table.plugins .tribe-plugin-update-message a {
+table.plugins .ern-plugin-update-message a {
 	color: white;
 	text-decoration: underline;
 }
 /* = Settings Screen
 =============================================*/
-.tribe-settings-form {
+.ern-settings-form {
 	max-width: 1000px;
 }
-.tribe-settings-form fieldset {
+.ern-settings-form fieldset {
 	clear: both;
 	display: inline-block;
 	padding: 10px 0;
 }
-.tribe-settings-form legend {
+.ern-settings-form legend {
 	float: left;
 	font-weight: bold;
 	margin-right: 20px;
 	width: 220px;
 }
-.tribe-settings-form fieldset.tribe-field-license_key legend {
+.ern-settings-form fieldset.ern-field-license_key legend {
 	width: auto;
 }
-.tribe-settings-form .tribe-field-wrap {
+.ern-settings-form .ern-field-wrap {
 	float: left;
 	max-width: 500px;
 }
-.tribe-settings-form .tribe-field-radio label,
-.tribe-settings-form .tribe-field-checkbox_list label {
+.ern-settings-form .ern-field-radio label,
+.ern-settings-form .ern-field-checkbox_list label {
 	display: block;
 	margin: 5px 0;
 }
-.tribe-settings-form .tribe-field-radio label input,
-.tribe-settings-form .tribe-field-checkbox_list label input {
+.ern-settings-form .ern-field-radio label input,
+.ern-settings-form .ern-field-checkbox_list label input {
 	margin-right: 5px;
 }
-.tribe-settings-form .tribe-settings-form-wrap fieldset,
-.tribe-settings-form .tribe-settings-form-wrap .description,
-.tribe-settings-form fieldset[id^='tribe-field-geoloc_'] {
+.ern-settings-form .ern-settings-form-wrap fieldset,
+.ern-settings-form .ern-settings-form-wrap .description,
+.ern-settings-form fieldset[id^='ern-field-geoloc_'] {
 	padding-left: 12px;
 }
-.tribe-settings-form .tribe-settings-form-wrap fieldset .description {
+.ern-settings-form .ern-settings-form-wrap fieldset .description {
 	margin-left: 0;
 	max-width: 450px;
 	padding-left: 0;
 }
-.tribe-settings-form .tribe-settings-form-wrap h3 {
+.ern-settings-form .ern-settings-form-wrap h3 {
 	background-color: #f9f9f9;
 	margin-bottom: 10px;
 	padding: 6px 0 6px 12px;
 }
-.tribe-settings-form .tribe-settings-form-wrap h3 ~ h3 {
+.ern-settings-form .ern-settings-form-wrap h3 ~ h3 {
 	margin-top: 2.25em;
 }
-.tribe-settings-form .tribe-settings-form-wrap h3 + p {
+.ern-settings-form .ern-settings-form-wrap h3 + p {
 	margin: 0 0 10px;
 	padding-left: 12px;
 }
-.tribe_settings .tribe-field-indent {
+.tribe_settings .ern-field-indent {
 	margin-left: 245px;
 }
 .tribe_settings #pu_dashboard_message {
 	display: none;
 }
-.tribe_settings .tribe-errors-list {
+.tribe_settings .ern-errors-list {
 	margin-left: 15px;
 }
 .tribe_settings .expiring-license {
 	color: red;
 }
-.tribe_settings .tribe-error {
+.tribe_settings .ern-error {
 	border: 1px solid #f00;
 }
-.tribe_settings .tribe-field-description {
+.tribe_settings .ern-field-description {
 	margin-bottom: 0;
 	position: relative;
 	top: -12px;
@@ -175,18 +175,18 @@ table.plugins .tribe-plugin-update-message a {
 .tribe_settings #ical-link {
 	top: -14px;
 }
-.tribe-settings-form #tribe-field-stylesheetOption label {
+.ern-settings-form #ern-field-stylesheetOption label {
 	margin-left: 20px;
 }
-.tribe-settings-form #tribe-field-stylesheetOption input {
+.ern-settings-form #ern-field-stylesheetOption input {
 	margin-left: -20px;
 	margin-right: 8px;
 }
-.tribe-settings-form #tribe-field-stylesheetOption p.description {
+.ern-settings-form #ern-field-stylesheetOption p.description {
 	color: #999;
 }
 /* Modern e_register_now box */
-#modern-tribe-info {
+#modern-ern-info {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
@@ -194,59 +194,59 @@ table.plugins .tribe-plugin-update-message a {
 	margin: 20px 0;
 	padding: 8px 20px 12px;
 }
-#modern-tribe-info img {
+#modern-ern-info img {
 	height: 18px;
 	margin: 10px 0;
 	width: 250px;
 }
-#modern-tribe-info ul {
+#modern-ern-info ul {
 	list-style: disc;
 	margin-left: 20px;
 }
-#modern-tribe-info ul ul {
+#modern-ern-info ul ul {
 	list-style: circle;
 }
 /* sizes */
-.tribe-field-textarea.tribe-size-small textarea {
+.ern-field-textarea.ern-size-small textarea {
 	height: 60px;
 	width: 180px;
 }
-.tribe-field-textarea.tribe-size-medium textarea {
+.ern-field-textarea.ern-size-medium textarea {
 	height: 80px;
 	width: 300px;
 }
-.tribe-field-textarea.tribe-size-large textarea {
+.ern-field-textarea.ern-size-large textarea {
 	height: 120px;
 	width: 450px;
 }
-.tribe-field-text.tribe-size-small input,
-.tribe-field-license_key.tribe-size-small input {
+.ern-field-text.ern-size-small input,
+.ern-field-license_key.ern-size-small input {
 	width: 50px;
 }
-.tribe-field-text.tribe-size-medium input,
-.tribe-field-license_key.tribe-size-medium input {
+.ern-field-text.ern-size-medium input,
+.ern-field-license_key.ern-size-medium input {
 	width: 225px;
 }
-.tribe-field-text.tribe-size-large input,
-.tribe-field-license_key.tribe-size-large input {
+.ern-field-text.ern-size-large input,
+.ern-field-license_key.ern-size-large input {
 	width: 450px;
 }
-.tribe-field-dropdown.tribe-size-small select {
+.ern-field-dropdown.ern-size-small select {
 	width: 100px;
 }
-.tribe-field-dropdown.tribe-size-medium select {
+.ern-field-dropdown.ern-size-medium select {
 	width: 300px;
 }
-.tribe-field-dropdown.tribe-size-large select {
+.ern-field-dropdown.ern-size-large select {
 	width: 450px;
 }
-.tribe-field-dropdown_chosen.tribe-size-small select {
+.ern-field-dropdown_chosen.ern-size-small select {
 	width: 100px;
 }
-.tribe-field-dropdown_chosen.tribe-size-medium select {
+.ern-field-dropdown_chosen.ern-size-medium select {
 	width: 200px;
 }
-.tribe-field-dropdown_chosen.tribe-size-large select {
+.ern-field-dropdown_chosen.ern-size-large select {
 	width: 300px;
 }
 /* license keys */
@@ -277,7 +277,7 @@ table.plugins .tribe-plugin-update-message a {
 	margin-bottom: 20px;
 }
 /* miscellaneous */
-.tribe-admin-box-left {
+.ern-admin-box-left {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
@@ -287,7 +287,7 @@ table.plugins .tribe-plugin-update-message a {
 	padding: 0 20px 15px;
 	width: 20%;
 }
-.tribe-admin-box-right {
+.ern-admin-box-right {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
@@ -301,29 +301,29 @@ table.plugins .tribe-plugin-update-message a {
 	float: right;
 	margin: 10px;
 }
-.tribe-arrangeable-item {
+.ern-arrangeable-item {
 	border: 1px solid lightGrey;
 	border-radius: 6px;
 }
-.tribe-arrangeable-item .ui-state-default {
+.ern-arrangeable-item .ui-state-default {
 	border: none;
 }
-.tribe-arrangeable-item-top {
+.ern-arrangeable-item-top {
 	padding: 6px;
 }
-.tribe-arrangeable-item-top:hover {
+.ern-arrangeable-item-top:hover {
 	cursor: move;
 }
-.tribe-arrangeable-action {
+.ern-arrangeable-action {
 	float: right;
 }
-.tribe-arrangeable-child {
+.ern-arrangeable-child {
 	background-color: #f9f9f9;
 	border-top: 1px solid lightGrey;
 	display: none;
 	padding: 25px;
 }
-.tribe-arrangeable-child label {
+.ern-arrangeable-child label {
 	display: block;
 	margin: 0 0 7px 0;
 }
@@ -333,7 +333,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe_events_active_filter_type_options label {
 	margin: 7px 0;
 }
-.tribe-settings-form .tribe-settings-form-wrap fieldset .tribe-style-selection {
+.ern-settings-form .ern-settings-form-wrap fieldset .ern-style-selection {
 	margin-bottom: 18px;
 }
 .OrganizerInfo td small,
@@ -346,90 +346,90 @@ table.plugins .tribe-plugin-update-message a {
 #event_organizer .organizer-email {
 	vertical-align: top;
 }
-.tribe-table-field-label {
+.ern-table-field-label {
 	max-width: 100%;
 	width: 200px;
 }
 /* = Help Screen
 =============================================*/
-#tribe-help-general,
-#tribe-help-sidebar {
+#ern-help-general,
+#ern-help-sidebar {
 	float: left;
 	margin-top: 20px;
 }
-#tribe-help-general p {
+#ern-help-general p {
 	margin-left: 15px;
 }
-#tribe-help-general ul {
+#ern-help-general ul {
 	list-style-type: square;
 	margin-bottom: 20px;
 	margin-left: 35px;
 }
-#tribe-help-general ol {
+#ern-help-general ol {
 	margin-bottom: 20px;
 	margin-left: 35px;
 }
-#tribe-help-general h3 {
+#ern-help-general h3 {
 	background-color: #f9f9f9;
 	margin-bottom: 10px;
 	padding: 6px 0 6px 12px;
 }
-#tribe-help-general h3 ~ h3 {
+#ern-help-general h3 ~ h3 {
 	margin-top: 2.25em;
 }
-#tribe-help-general h3 + p {
+#ern-help-general h3 + p {
 	margin: 0 0 20px;
 	padding-left: 12px;
 }
-#tribe-help-general {
+#ern-help-general {
 	width: 65%;
 }
-.tribe-help-section {
+.ern-help-section {
 	padding-bottom: 10px;
 }
-.tribe-section-type-box {
+.ern-section-type-box {
 	-khtml-border-radius: 4px;
 	background-color: #f9f9f9;
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	padding: 8px 20px 12px;
 }
-.tribe-section-type-box img {
+.ern-section-type-box img {
 	height: auto;
 	margin: 10px 0;
 	max-width: 300px;
 }
-.tribe-section-type-box ul {
+.ern-section-type-box ul {
 	list-style: disc;
 	margin-left: 20px;
 }
-.tribe-section-type-box ul ul {
+.ern-section-type-box ul ul {
 	list-style: circle;
 }
-#tribe-log-controls {
+#ern-log-controls {
 	padding-bottom: 16px;
 	padding-bottom: 1rem;
 	
 	/* For consistency with help screen h3 and p elements */
 	padding-left: 12px;
 }
-#tribe-log-controls > div {
+#ern-log-controls > div {
 	display: inline-block;
 	padding-right: 16px;
 	padding-right: 1rem;
 }
-#tribe-log-controls .working {
+#ern-log-controls .working {
 	opacity: 1;
 	-webkit-transition: opacity 0.2s;
 	transition: opacity 0.2s;
 }
-#tribe-log-controls .working.hidden {
+#ern-log-controls .working.hidden {
 	opacity: 0;
 	-webkit-transition: opacity 0.2s;
 	transition: opacity 0.2s;
 }
-#tribe-system-info dl.support-stats,
-#tribe-log-viewer,
+#ern-system-info dl.support-stats,
+#ern-log-viewer,
 .template-updates-wrapper {
 	background: #000;
 	border-radius: 2px;
@@ -438,7 +438,7 @@ table.plugins .tribe-plugin-update-message a {
 	overflow: scroll;
 	padding: 10px;
 }
-#tribe-system-info dl.support-stats dt,
+#ern-system-info dl.support-stats dt,
 .template-updates-wrapper dt {
 	clear: both;
 	float: left;
@@ -446,7 +446,7 @@ table.plugins .tribe-plugin-update-message a {
 	text-transform: uppercase;
 	width: 25%;
 }
-#tribe-system-info dl.support-stats dd,
+#ern-system-info dl.support-stats dd,
 .template-updates-wrapper  dd {
 	margin-left: 25%;
 	padding-left: 10px;
@@ -454,44 +454,44 @@ table.plugins .tribe-plugin-update-message a {
 .template-updates-wrapper p {
 	margin-top: 0;
 }
-#tribe-help-sidebar {
+#ern-help-sidebar {
 	margin: 20px 0 0 3%;
 	max-width: 225px;
 	width: 32%;
 }
-.tribe-help-plugin-info {
+.ern-help-plugin-info {
 	border: 1px solid #ccc;
 	padding: 0 12px 12px;
 }
-.tribe-help-plugin-info dt,
-.tribe-help-plugin-info dd {
+.ern-help-plugin-info dt,
+.ern-help-plugin-info dd {
 	display: inline;
 	margin: 0;
 }
-.tribe-help-plugin-info dt {
+.ern-help-plugin-info dt {
 	font-weight: bold;
 }
-.tribe-help-plugin-info dd::after {
+.ern-help-plugin-info dd::after {
 	content: '';
 	display: block;
 	height: .4em;
 }
-.tribe-help-plugin-info dd:last-child::after {
+.ern-help-plugin-info dd:last-child::after {
 	height: 0;
 }
-.tribe-help-plugin-info + .tribe-help-plugin-info {
+.ern-help-plugin-info + .ern-help-plugin-info {
 	margin-top: 20px;
 }
-.tribe-help-plugin-info > div {
+.ern-help-plugin-info > div {
 	line-height: 2em;
 }
-.tribe-help-plugin-info .star-rating {
+.ern-help-plugin-info .star-rating {
 	display: inline-block;
 	margin-left: 3px;
 	position: relative;
 	top: -2px;
 }
-.tribe-help-plugin-info .tribe-list-addons {
+.ern-help-plugin-info .ern-list-addons {
 	color: #21a6cb;
 	font-size: 24px;
 	list-style: circle inside;
@@ -499,13 +499,13 @@ table.plugins .tribe-plugin-update-message a {
 	margin-top: 10px;
 	padding-left: 4px;
 }
-.tribe-help-plugin-info .tribe-list-addons a {
+.ern-help-plugin-info .ern-list-addons a {
 	font-size: 13px;
 	left: -5px;
 	position: relative;
 	top: -5px;
 }
-.tribe-help-plugin-info .tribe-list-addons .tribe-active-addon {
+.ern-help-plugin-info .ern-list-addons .ern-active-addon {
 	list-style: disc inside;
 }
 /* = jQuery UI
@@ -673,7 +673,7 @@ table.plugins .tribe-plugin-update-message a {
 #ui-datepicker-div {
 	display: none;
 }
-#tribe-loading {
+#ern-loading {
 	background: #fff;
 	background: rgba(255, 255, 255, .8);
 	display: none;
@@ -687,8 +687,8 @@ table.plugins .tribe-plugin-update-message a {
 	width: 100%;
 	z-index: 4;
 }
-#tribe-loading span {
-	background: url(../images/tribe-loading.gif) 0 0 no-repeat;
+#ern-loading span {
+	background: url(../images/ern-loading.gif) 0 0 no-repeat;
 	background-size: 32px 32px;
 	height: 32px;
 	left: 50%;
@@ -705,24 +705,24 @@ table.plugins .tribe-plugin-update-message a {
 .tribe_update_page {
 	max-width: 1000px;
 }
-.tribe-half-column {
+.ern-half-column {
 	float: left;
 	margin-bottom: 30px;
 	margin-right: 5%;
 	width: 45%;
 }
-.tribe-row:before,
-.tribe-row:after {
+.ern-row:before,
+.ern-row:after {
 	content: '';
 	display: table;
 }
-.tribe-row:after {
+.ern-row:after {
 	clear: both;
 }
-.tribe-row {
+.ern-row {
 	clear: both;
 }
-.tribe-row .tribe-half-column:last-child {
+.ern-row .ern-half-column:last-child {
 	margin-right: 0;
 	width: 50%;
 }
@@ -750,7 +750,7 @@ table.plugins .tribe-plugin-update-message a {
 .tribe_update_page p {
 	font-size: 14px;
 }
-p.tribe-welcome-message {
+p.ern-welcome-message {
 	font-size: 20px;
 	font-weight: 400;
 }
@@ -764,25 +764,25 @@ p.tribe-welcome-message {
 	position: relative;
 	top: 5px;
 }
-.tribe-welcome-video-wrapper {
+.ern-welcome-video-wrapper {
 	height: 0;
 	margin-bottom: 40px;
 	padding-bottom: 56.25%; /* 16:9 */
 	padding-top: 25px;
 	position: relative;
 }
-.tribe-welcome-video-wrapper iframe {
+.ern-welcome-video-wrapper iframe {
 	height: 100%;
 	left: 0;
 	position: absolute;
 	top: 0;
 	width: 100%;
 }
-a.tribe-rating-link {
+a.ern-rating-link {
 	text-decoration: none;
 }
-.tribe-welcome-links,
-.tribe-update-links {
+.ern-welcome-links,
+.ern-update-links {
 	margin-top: 30px;
 }
 .tribe_welcome_page li:before,
@@ -802,10 +802,10 @@ a.tribe-rating-link {
 	display: none;
 }
 /* Media Queries for Mobile Dashboard */
-.tribe-update-bar {
+.ern-update-bar {
 	display: inline-block;
 }
-.tribe-update-bar .progress {
+.ern-update-bar .progress {
 	border: 1px solid #ccc;
 	float: left;
 	margin-right: 16px;
@@ -814,13 +814,13 @@ a.tribe-rating-link {
 	width: 288px;
 	width: 18rem;
 }
-.tribe-update-bar .progress .bar {
+.ern-update-bar .progress .bar {
 	background: #ffba00;
 	height: 16px;
 	height: 1rem;
 	width: 1%;
 }
-.tribe-update-bar .progress .bar {
+.ern-update-bar .progress .bar {
 	background: #7ad03a;
 }
 /* bumpdown */
@@ -865,13 +865,13 @@ a.tribe-rating-link {
 }
 @media
 only screen and (min--moz-device-pixel-ratio: 2), only screen and (-o-min-device-pixel-ratio: 2/1), only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-device-pixel-ratio: 2) {
-	#tribe-loading span {
-		background-image: url(../images/tribe-loading@2x.gif);
+	#ern-loading span {
+		background-image: url(../images/ern-loading@2x.gif);
 	}
 }
 @media screen and (max-width: 782px) {
-	.tribe-half-column,
-	.tribe-row .tribe-half-column:last-child {
+	.ern-half-column,
+	.ern-row .ern-half-column:last-child {
 		margin: 0 0 20px 0;
 		width: 100%;
 	}

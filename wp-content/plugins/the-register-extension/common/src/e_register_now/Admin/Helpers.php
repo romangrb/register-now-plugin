@@ -8,17 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class with a few helpers for the Administration Pages
  */
-class Tribe__Admin__Helpers {
+class E__Register__Now__Admin__Helpers {
 	/**
 	 * Static Singleton Holder
-	 * @var Tribe__Admin__Helpers|null
+	 * @var E__Register__Now__Admin__Helpers|null
 	 */
 	protected static $instance;
 
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Admin__Helpers
+	 * @return E__Register__Now__Admin__Helpers
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
@@ -44,7 +44,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( Tribe__Main::instance()->doing_ajax() ) {
+		if ( E__Register__Now__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 
@@ -53,7 +53,7 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', Tribe__Main::get_post_types() );
+		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', E__Register__Now__Main::get_post_types() );
 
 		// Match any Post Type from e_register_now
 		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ) {
@@ -89,7 +89,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( Tribe__Main::instance()->doing_ajax() ) {
+		if ( E__Register__Now__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 
@@ -99,12 +99,12 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Match any screen from e_register_now
-		if ( is_null( $id ) && false !== strpos( $current_screen->id, 'tribe' ) ) {
+		if ( is_null( $id ) && false !== strpos( $current_screen->id, 'ern' ) ) {
 			return true;
 		}
 
 		// Match any post type page in the supported post types
-		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', Tribe__Main::get_post_types() );
+		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', E__Register__Now__Main::get_post_types() );
 
 		if ( in_array( $current_screen->post_type, $defaults ) ) {
 			return true;
@@ -139,7 +139,7 @@ class Tribe__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( Tribe__Main::instance()->doing_ajax() ) {
+		if ( E__Register__Now__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 

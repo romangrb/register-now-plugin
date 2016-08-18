@@ -6,10 +6,10 @@ var tribe_logger_data  = tribe_logger_data || {};
 	var current_view   = '';
 	var current_engine = '';
 	var view_changed   = false;
-	var $controls      = $( '#tribe-log-controls' );
+	var $controls      = $( '#ern-log-controls' );
 	var $options       = $controls.find( 'select' );
 	var $spinner       = $controls.find( '.working' );
-	var $viewer        = $( '#tribe-log-viewer' );
+	var $viewer        = $( '#ern-log-viewer' );
 	var $download_link = $( 'a.download_log' );
 
 	/**

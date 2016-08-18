@@ -13,13 +13,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
+if ( ! class_exists( 'E__Register__Now__PUE__Plugin_Info' ) ) {
 	/**
 	 * A container class for holding and transforming various plugin metadata.
 	 * @version 1.7
 	 * @access public
 	 */
-	class Tribe__PUE__Plugin_Info {
+	class E__Register__Now__PUE__Plugin_Info {
 		// Most fields map directly to the contents of the plugin's info.json file.
 
 		public $name;
@@ -44,12 +44,12 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 		public $id = 0; // The native WP.org API returns numeric plugin IDs, but they're not used for anything.
 
 		/**
-		 * Create a new instance of Tribe__PUE__Plugin_Info from JSON-encoded plugin info
+		 * Create a new instance of E__Register__Now__PUE__Plugin_Info from JSON-encoded plugin info
 		 * returned by an external update API.
 		 *
 		 * @param string $json Valid JSON string representing plugin info.
 		 *
-		 *@return Tribe__PUE__Plugin_Info New instance of Tribe__PUE__Plugin_Info, or NULL on error.
+		 *@return E__Register__Now__PUE__Plugin_Info New instance of E__Register__Now__PUE__Plugin_Info, or NULL on error.
 		 */
 		public static function from_json( $json ) {
 			$apiResponse = json_decode( $json );
@@ -63,7 +63,7 @@ if ( ! class_exists( 'Tribe__PUE__Plugin_Info' ) ) {
 				return null;
 			}
 
-			$info = new Tribe__PUE__Plugin_Info();
+			$info = new E__Register__Now__PUE__Plugin_Info();
 
 			foreach ( get_object_vars( $apiResponse ) as $key => $value ) {
 				$key = str_replace( 'plugin_', '', $key ); // let's strip out the "plugin_" prefix we've added in plugin-updater-classes.

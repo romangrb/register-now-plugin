@@ -25,7 +25,7 @@ foreach ( $all_post_type_objects as $post_type => $post_type_object ) {
 }
 
 $all_post_types = apply_filters( 'tribe_tickets_settings_post_types', $all_post_types );
-$options = get_option( Tribe__Main::OPTIONNAME, array() );
+$options = get_option( E__Register__Now__Main::OPTIONNAME, array() );
 
 /**
  * List of ticketing solutions that support login requirements (ie, disabling or
@@ -42,9 +42,9 @@ $tickets_tab = array(
 	'fields' => apply_filters(
 		'tribe_tickets_settings_tab_fields',
 		array(
-			'tribe-form-content-start' => array(
+			'ern-form-content-start' => array(
 				'type' => 'html',
-				'html' => '<div class="tribe-settings-form-wrap">',
+				'html' => '<div class="ern-settings-form-wrap">',
 			),
 			'tickets-title' => array(
 				'type' => 'html',
@@ -77,7 +77,7 @@ $tickets_tab = array(
 				'validation_type' => 'options_multi',
 				'can_be_empty' => true,
 			),
-			'tribe-form-content-end' => array(
+			'ern-form-content-end' => array(
 				'type' => 'html',
 				'html' => '</div>',
 			),

@@ -6,7 +6,7 @@
  * 
  * Logs nothing, reads nothing.
  */
-class Tribe__Log__Null_Logger implements Tribe__Log__Logger{
+class E__Register__Now__Log__Null_Logger implements E__Register__Now__Log__Logger{
 
 	/**
 	 * Indicates if the logger will work in the current environment.
@@ -23,7 +23,7 @@ class Tribe__Log__Null_Logger implements Tribe__Log__Logger{
 	 * @return string
 	 */
 	public function get_name() {
-		return __( 'Null logger (will log nothing)', 'tribe-common' );
+		return __( 'Null logger (will log nothing)', 'ern-common' );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class Tribe__Log__Null_Logger implements Tribe__Log__Logger{
 	 * @param string $type
 	 * @param string $src
 	 */
-	public function log( $entry, $type = Tribe__Log::DEBUG, $src = '' ) {
+	public function log( $entry, $type = E__Register__Now__Log::DEBUG, $src = '' ) {
 		// no-op
 	}
 
@@ -47,7 +47,7 @@ class Tribe__Log__Null_Logger implements Tribe__Log__Logger{
 	 * obtained via the list_availalbe_logs() method is passed in order to query
 	 * a specific archived log.
 	 *
-	 * @see Tribe__Log__Logger::list_available_logs()
+	 * @see E__Register__Now__Log__Logger::list_available_logs()
 	 *
 	 * @param int   $limit
 	 * @param array $args

@@ -5,26 +5,26 @@
  *
  * Simple example (will assume the current user as the person of interest):
  *
- *     [tribe-user-event-confirmations]
+ *     [ern-user-event-confirmations]
  *
  * Example specifying a user:
  *
- *     [tribe-user-event-confirmations user="512"]
+ *     [ern-user-event-confirmations user="512"]
  *
  * Example specifying a limit to the number of events which should be returned:
  *
- *     [tribe-user-event-confirmations limit="16"]
+ *     [ern-user-event-confirmations limit="16"]
  */
-class Tribe__Tickets__Shortcodes__User_Event_Confirmation_List {
+class E__Register__Now__Tickets__Shortcodes__User_Event_Confirmation_List {
 	protected $params = array();
 
 	/**
 	 * Registers a user event confirmation list shortcode using the specified
-	 * name (or else defaults to "tribe-user-event-confirmations").
+	 * name (or else defaults to "ern-user-event-confirmations").
 	 *
 	 * @param string $shortcode_name
 	 */
-	public function __construct( $shortcode_name = 'tribe-user-event-confirmations' ) {
+	public function __construct( $shortcode_name = 'ern-user-event-confirmations' ) {
 		/**
 		 * Provides an opportunity to modify the registered shortcode name
 		 * for the frontend attendee list.
@@ -49,7 +49,7 @@ class Tribe__Tickets__Shortcodes__User_Event_Confirmation_List {
 		ob_start();
 
 		if ( ! is_user_logged_in() ) {
-			include Tribe__Tickets__Templates::get_template_hierarchy( 'shortcodes/my-attendance-list-logged-out' );
+			include E__Register__Now__Tickets__Templates::get_template_hierarchy( 'shortcodes/my-attendance-list-logged-out' );
 		} else {
 			$this->generate_attendance_list();
 		}
@@ -75,7 +75,7 @@ class Tribe__Tickets__Shortcodes__User_Event_Confirmation_List {
 	 */
 	protected function generate_attendance_list() {
 		$event_ids = $this->get_upcoming_attendances();
-		include Tribe__Tickets__Templates::get_template_hierarchy( 'shortcodes/my-attendance-list' );
+		include E__Register__Now__Tickets__Templates::get_template_hierarchy( 'shortcodes/my-attendance-list' );
 	}
 
 	/**
@@ -138,7 +138,7 @@ class Tribe__Tickets__Shortcodes__User_Event_Confirmation_List {
 	protected function get_event_keys() {
 		$event_keys = array();
 
-		foreach ( Tribe__Tickets__Tickets::modules() as $module_class => $module_instance ) {
+		foreach ( E__Register__Now__Tickets__Tickets::modules() as $module_class => $module_instance ) {
 			/**
 			 * The usage of plain `$module_class::ATTENDEE_EVENT_KEY` will throw a `T_PAAMAYIM_NEKUDOTAYIM`
 			 * when using PHP 5.2, which is a fatal.

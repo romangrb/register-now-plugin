@@ -2,11 +2,11 @@
 
 
 /**
- * Class Tribe__Tickets__CSV_Importer__Rows
+ * Class E__Register__Now__Tickets__CSV_Importer__Rows
  *
  * Modifies the CSV Importer import option rows.
  */
-class Tribe__Tickets__CSV_Importer__Rows {
+class E__Register__Now__Tickets__CSV_Importer__Rows {
 
 	/**
 	 * @var self
@@ -16,7 +16,7 @@ class Tribe__Tickets__CSV_Importer__Rows {
 	/**
 	 * The class singleton constructor.
 	 *
-	 * @return Tribe__Tickets__CSV_Importer__Rows
+	 * @return E__Register__Now__Tickets__CSV_Importer__Rows
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {

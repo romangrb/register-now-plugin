@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * A JSON-LD class to hook and change how Orders work on Events
  * @todo rework this class to make it standalone from The Events Calendar
  */
-class Tribe__Tickets__JSON_LD__Order {
+class E__Register__Now__Tickets__JSON_LD__Order {
 
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
@@ -81,7 +81,7 @@ class Tribe__Tickets__JSON_LD__Order {
 			return $data;
 		}
 
-		$tickets = Tribe__Tickets__Tickets::get_all_event_tickets( $post->ID );
+		$tickets = E__Register__Now__Tickets__Tickets::get_all_e__register__now( $post->ID );
 
 		// Reset it
 		$data->offers = array();
@@ -131,7 +131,7 @@ class Tribe__Tickets__JSON_LD__Order {
 		 * event ticket.
 		 *
 		 * @param object                        $offer
-		 * @param Tribe__Tickets__Ticket_Object $ticket
+		 * @param E__Register__Now__Tickets__Ticket_Object $ticket
 		 * @param object                        $event
 		 */
 		return (object) apply_filters( 'tribe_json_ld_offer_object', $offer, $ticket, $event );

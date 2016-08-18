@@ -8,15 +8,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Support' ) ) {
+if ( ! class_exists( 'E__Register__Now__Support' ) ) {
 
-	class Tribe__Support {
+	class E__Register__Now__Support {
 
 		public static $support;
 		public $rewrite_rules_purged = false;
 
 		/**
-		 * @var Tribe__Support__Obfuscator
+		 * @var E__Register__Now__Support__Obfuscator
 		 */
 		protected $obfuscator;
 
@@ -48,9 +48,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 
 		/**
 		 * Display help tab info in events settings
-		 * @param Tribe__Admin__Help_Page $help The Help Page Instance
+		 * @param E__Register__Now__Admin__Help_Page $help The Help Page Instance
 		 */
-		public function append_system_info( Tribe__Admin__Help_Page $help ) {
+		public function append_system_info( E__Register__Now__Admin__Help_Page $help ) {
 			$help->add_section_content( 'system-info', $this->formattedSupportStats(), 10 );
 		}
 
@@ -118,7 +118,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				}
 			}
 
-			$keys = apply_filters( 'tribe-pue-install-keys', array() );
+			$keys = apply_filters( 'ern-pue-install-keys', array() );
 
 			$systeminfo = array(
 				'Home URL'           => get_home_url(),
@@ -133,18 +133,18 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 				'mu plugins'         => $mu_plugins,
 				'theme'              => wp_get_theme()->get( 'Name' ),
 				'multisite'          => is_multisite(),
-				'settings'           => Tribe__Settings_Manager::get_options(),
-				'WordPress timezone' => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'tribe-common' ) ),
+				'settings'           => E__Register__Now__Settings_Manager::get_options(),
+				'WordPress timezone' => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'ern-common' ) ),
 				'server timezone'    => date_default_timezone_get(),
-				'common library dir' => $GLOBALS['tribe-common-info']['dir'],
-				'common library version' => $GLOBALS['tribe-common-info']['version'],
+				'common library dir' => $GLOBALS['ern-common-info']['dir'],
+				'common library version' => $GLOBALS['ern-common-info']['version'],
 			);
 
 			if ( $this->rewrite_rules_purged ) {
-				$systeminfo['rewrite rules purged'] = esc_html__( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'tribe-common' );
+				$systeminfo['rewrite rules purged'] = esc_html__( 'Rewrite rules were purged on load of this help page. Chances are there is a rewrite rule flush occurring in a plugin or theme!', 'ern-common' );
 			}
 
-			$systeminfo = apply_filters( 'tribe-events-pro-support', $systeminfo );
+			$systeminfo = apply_filters( 'ern-events-pro-support', $systeminfo );
 
 			return $systeminfo;
 		}
@@ -221,9 +221,9 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		/**
 		 * Sets the obfuscator to be used.
 		 *
-		 * @param Tribe__Support__Obfuscator $obfuscator
+		 * @param E__Register__Now__Support__Obfuscator $obfuscator
 		 */
-		public function set_obfuscator( Tribe__Support__Obfuscator $obfuscator ) {
+		public function set_obfuscator( E__Register__Now__Support__Obfuscator $obfuscator ) {
 			$this->obfuscator = $obfuscator;
 		}
 
@@ -238,7 +238,7 @@ if ( ! class_exists( 'Tribe__Support' ) ) {
 		public static function getInstance() {
 			if ( null == self::$instance ) {
 				$instance       = new self;
-				$instance->set_obfuscator( new Tribe__Support__Obfuscator( $instance->must_obfuscate_prefixes ) );
+				$instance->set_obfuscator( new E__Register__Now__Support__Obfuscator( $instance->must_obfuscate_prefixes ) );
 				self::$instance = $instance;
 			}
 

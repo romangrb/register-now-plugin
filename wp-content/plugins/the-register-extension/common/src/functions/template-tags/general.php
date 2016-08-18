@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Main' ) ) {
+if ( ! class_exists( 'E__Register__Now__Main' ) ) {
 	return;
 }
 
@@ -26,7 +26,7 @@ if ( ! function_exists( 'tribe_get_option' ) ) {
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
 	function tribe_get_option( $optionName, $default = '' ) {
-		return apply_filters( 'tribe_get_option', Tribe__Settings_Manager::get_option( $optionName, $default ), $optionName, $default );
+		return apply_filters( 'tribe_get_option', E__Register__Now__Settings_Manager::get_option( $optionName, $default ), $optionName, $default );
 	}
 }//end if
 
@@ -43,7 +43,7 @@ if ( ! function_exists( 'tribe_update_option' ) ) {
 	 * @return void
 	 */
 	function tribe_update_option( $optionName, $value ) {
-		Tribe__Settings_Manager::set_option( $optionName, $value );
+		E__Register__Now__Settings_Manager::set_option( $optionName, $value );
 	}
 }//end if
 
@@ -61,7 +61,7 @@ if ( ! function_exists( 'tribe_get_network_option' ) ) {
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
 	function tribe_get_network_option( $optionName, $default = '' ) {
-		return Tribe__Settings_Manager::get_network_option( $optionName, $default );
+		return E__Register__Now__Settings_Manager::get_network_option( $optionName, $default );
 	}
 }
 
@@ -144,7 +144,7 @@ if ( ! function_exists( 'tribe_multi_line_remove_empty_lines' ) ) {
 
 if ( ! function_exists( 'tribe_get_date_format' ) ) {
 	/**
-	 * Get the date format specified in the tribe options
+	 * Get the date format specified in the ern options
 	 *
 	 * @category Events
 	 * @param bool $with_year
@@ -209,7 +209,7 @@ if ( ! function_exists( 'tribe_get_days_between' ) ) {
 	 * @param string|bool $day_cutoff
 	 *
 	 * @return int
-	 * @see Tribe__Date_Utils::date_diff()
+	 * @see E__Register__Now__Date_Utils::date_diff()
 	 **/
 	function tribe_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
 		if ( $day_cutoff === false ) {
@@ -227,7 +227,7 @@ if ( ! function_exists( 'tribe_get_days_between' ) ) {
 			$end_date->modify( '-1 day' );
 		}
 
-		return Tribe__Date_Utils::date_diff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
+		return E__Register__Now__Date_Utils::date_diff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
 	}
 }//end if
 
@@ -287,12 +287,12 @@ if ( ! function_exists( 'tribe_the_notices' ) ) {
 	 * @param bool $echo Whether or not to echo the notices html
 	 *
 	 * @return void | string
-	 * @see Tribe__Notices::get()
+	 * @see E__Register__Now__Notices::get()
 	 **/
 	function tribe_the_notices( $echo = true ) {
-		$notices = Tribe__Notices::get();
+		$notices = E__Register__Now__Notices::get();
 
-		$html        = ! empty( $notices ) ? '<div class="tribe-events-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
+		$html        = ! empty( $notices ) ? '<div class="ern-events-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
 
 		/**
 		 * Deprecated the tribe_events_the_notices filter in 4.0 in favor of tribe_the_notices. Remove in 5.0
@@ -413,7 +413,7 @@ if ( ! function_exists( 'tribe_format_currency' ) ) {
 	 */
 	function tribe_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
 
-		$post_id = Tribe__Main::post_id_helper( $post_id );
+		$post_id = E__Register__Now__Main::post_id_helper( $post_id );
 
 		$currency_symbol = apply_filters( 'tribe_currency_symbol', $currency_symbol, $post_id );
 
@@ -451,6 +451,6 @@ if ( ! function_exists( 'tribe_get_date_option' ) ) {
 	function tribe_get_date_option( $optionName, $default = '' ) {
 		$value = tribe_get_option( $optionName, $default );
 
-		return Tribe__Date_Utils::unescape_date_format($value);
+		return E__Register__Now__Date_Utils::unescape_date_format($value);
 	}
 }

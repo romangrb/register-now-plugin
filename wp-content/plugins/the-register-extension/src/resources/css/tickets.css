@@ -78,7 +78,7 @@ p.ticket_name {
 	display: none;
 }
 
-.tribe-tickets-remaining {
+.ern-tickets-remaining {
 	font-size: 10px;
 }
 
@@ -88,14 +88,14 @@ p.ticket_name {
 	width: 100%;
 }
 
-#event_tickets,
+#e__register__now,
 .eventtable.ticket_list.eventForm {
 	table-layout: fixed;
 }
 
 /* Specific goal of this rule is to prevent the number input busting the ticket form layout under Twenty Fifteen */
 
-.tribe-theme-twentyfifteen .tribe-events-tickets input[type='number'] {
+.ern-theme-twentyfifteen .ern-events-tickets input[type='number'] {
 	padding: .375em;
 	width: 100%;
 }

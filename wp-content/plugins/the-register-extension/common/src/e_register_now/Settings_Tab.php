@@ -5,14 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
+if ( ! class_exists( 'E__Register__Now__Settings_Tab' ) ) {
 	/**
 	 * helper class that creates a settings tab
 	 * this is a public API, use it to create tabs
 	 * simply by instantiating this class
 	 *
 	 */
-	class Tribe__Settings_Tab {
+	class E__Register__Now__Settings_Tab {
 
 		/**
 		 * Tab ID, used in query string and elsewhere
@@ -74,16 +74,16 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		}
 
 		/**
-		 * filters the tabs array from Tribe__Settings
+		 * filters the tabs array from E__Register__Now__Settings
 		 * and adds the current tab to it
 		 * does not add a tab if it's empty
 		 *
-		 * @param array $tabs the $tabs from Tribe__Settings
+		 * @param array $tabs the $tabs from E__Register__Now__Settings
 		 *
 		 * @return array $tabs the filtered tabs
 		 */
 		public function addTab( $tabs ) {
-			$hideSettingsTabs = Tribe__Settings_Manager::get_network_option( 'hideSettingsTabs', array() );
+			$hideSettingsTabs = E__Register__Now__Settings_Manager::get_network_option( 'hideSettingsTabs', array() );
 			if ( ( isset( $this->fields ) || has_action( 'tribe_settings_content_tab_' . $this->id ) ) && ( empty( $hideSettingsTabs ) || ! in_array( $this->id, $hideSettingsTabs ) ) ) {
 				if ( ( is_network_admin() && $this->args['network_admin'] ) || ( ! is_network_admin() && ! $this->args['network_admin'] ) ) {
 					$tabs[ $this->id ] = $this->name;
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		/**
 		 * Adds this tab to the list of total tabs, even if it is not displayed.
 		 *
-		 * @param array $allTabs All the tabs from Tribe__Settings.
+		 * @param array $allTabs All the tabs from E__Register__Now__Settings.
 		 *
 		 * @return array $allTabs All the tabs.
 		 */
@@ -111,10 +111,10 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 
 
 		/**
-		 * filters the fields array from Tribe__Settings
+		 * filters the fields array from E__Register__Now__Settings
 		 * and adds the current tab's fields to it
 		 *
-		 * @param array $field the $fields from Tribe__Settings
+		 * @param array $field the $fields from E__Register__Now__Settings
 		 *
 		 * @return array $fields the filtered fields
 		 */
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 		 * sets whether the current tab should show the save
 		 * button or not
 		 *
-		 * @param array $noSaveTabs the $noSaveTabs from Tribe__Settings
+		 * @param array $noSaveTabs the $noSaveTabs from E__Register__Now__Settings
 		 *
 		 * @return array $noSaveTabs the filtered non saving tabs
 		 */
@@ -168,10 +168,10 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 						$network_option = isset( $field['network_option'] ) ? (bool) $field['network_option'] : false;
 
 						if ( is_network_admin() ) {
-							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAMENETWORK;
+							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : E__Register__Now__Main::OPTIONNAMENETWORK;
 						}
 						if ( ! is_network_admin() ) {
-							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : Tribe__Main::OPTIONNAME;
+							$parent_option = ( isset( $field['parent_option'] ) ) ? $field['parent_option'] : E__Register__Now__Main::OPTIONNAME;
 						}
 						// get the field's parent_option in order to later get the field's value
 						$parent_option = apply_filters( 'tribe_settings_do_content_parent_option', $parent_option, $key );
@@ -187,11 +187,11 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 							}
 						} else {
 							// there's a parent option
-							if ( $parent_option == Tribe__Main::OPTIONNAME ) {
-								// get the options from Tribe__Settings_Manager if we're getting the main array
-								$value = Tribe__Settings_Manager::get_option( $key, $default );
-							} elseif ( $parent_option == Tribe__Main::OPTIONNAMENETWORK ) {
-								$value = Tribe__Settings_Manager::get_network_option( $key, $default );
+							if ( $parent_option == E__Register__Now__Main::OPTIONNAME ) {
+								// get the options from E__Register__Now__Settings_Manager if we're getting the main array
+								$value = E__Register__Now__Settings_Manager::get_option( $key, $default );
+							} elseif ( $parent_option == E__Register__Now__Main::OPTIONNAMENETWORK ) {
+								$value = E__Register__Now__Settings_Manager::get_network_option( $key, $default );
 							} else {
 								// else, get the parent option normally
 								if ( is_network_admin() ) {
@@ -215,11 +215,11 @@ if ( ! class_exists( 'Tribe__Settings_Tab' ) ) {
 					$value = apply_filters( 'tribe_settings_get_option_value_pre_display', $value, $key, $field );
 
 					// create the field
-					new Tribe__Field( $key, $field, $value );
+					new E__Register__Now__Field( $key, $field, $value );
 				}
 			} else {
 				// no fields setup for this tab yet
-				echo '<p>' . esc_html__( 'There are no fields setup for this tab yet.', 'tribe-common' ) . '</p>';
+				echo '<p>' . esc_html__( 'There are no fields setup for this tab yet.', 'ern-common' ) . '</p>';
 			}
 		}
 

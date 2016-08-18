@@ -6,11 +6,11 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 
 
 /**
- * Class Tribe__Tickets__Attendees_Table
+ * Class E__Register__Now__Tickets__Attendees_Table
  *
  * See documentation for WP_List_Table
  */
-class Tribe__Tickets__Attendees_Table extends WP_List_Table {
+class E__Register__Now__Tickets__Attendees_Table extends WP_List_Table {
 
 	// Store a possible Event
 	public $event = false;
@@ -174,7 +174,7 @@ class Tribe__Tickets__Attendees_Table extends WP_List_Table {
 
 		// If the warning flag is set, add the appropriate icon
 		if ( $warning ) {
-			$icon = sprintf( "<span class='warning'><img src='%s'/></span> ", esc_url( E__Register__Now::instance()->plugin_url . 'src/resources/images/warning.png' ) );
+			$icon = sprintf( "<span class='warning'><img src='%s'/></span> ", esc_url( E__Register__Now__Tickets__Main::instance()->plugin_url . 'src/resources/images/warning.png' ) );
 		}
 
 		// Look for an order_status_label, fall back on the actual order_status string @todo remove fallback in 3.4.3
@@ -209,7 +209,7 @@ class Tribe__Tickets__Attendees_Table extends WP_List_Table {
 		 *
 		 * @var $item Attendee row item
 		 */
-		do_action( 'event_tickets_attendees_table_ticket_column', $item );
+		do_action( 'e__register__now_attendees_table_ticket_column', $item );
 
 		$output = ob_get_clean();
 
@@ -237,7 +237,7 @@ class Tribe__Tickets__Attendees_Table extends WP_List_Table {
 		 * @param string $provider              The ticket provider slug.
 		 * @param int    $order_id              The order post ID.
 		 */
-		$check_in_stati = apply_filters( 'event_tickets_attendees_checkin_stati', $default_checkin_stati, $provider, $order_id );
+		$check_in_stati = apply_filters( 'e__register__now_attendees_checkin_stati', $default_checkin_stati, $provider, $order_id );
 
 		/**
 		 * Filters the order stati that will allow for a ticket to be checked in for a specific commerce provider.
@@ -247,7 +247,7 @@ class Tribe__Tickets__Attendees_Table extends WP_List_Table {
 		 * @param array  $default_checkin_stati An array of default order stati that will make a ticket eligible for check-in.
 		 * @param int    $order_id              The order post ID.
 		 */
-		$check_in_stati = apply_filters( "event_tickets_attendees_{$provider}_checkin_stati", $check_in_stati, $order_id );
+		$check_in_stati = apply_filters( "e__register__now_attendees_{$provider}_checkin_stati", $check_in_stati, $order_id );
 
 		if (
 			! empty( $item['order_status'] )
@@ -294,7 +294,7 @@ class Tribe__Tickets__Attendees_Table extends WP_List_Table {
 		 *
 		 * @var $item Attendee data
 		 */
-		do_action( 'event_tickets_attendees_table_after_row', $item );
+		do_action( 'e__register__now_attendees_table_after_row', $item );
 	}
 
 	/**
@@ -319,7 +319,7 @@ class Tribe__Tickets__Attendees_Table extends WP_List_Table {
 		 */
 		add_thickbox();
 
-		$email_link = Tribe__Settings::instance()->get_url( array(
+		$email_link = E__Register__Now__Settings::instance()->get_url( array(
 			'page' => 'tickets-attendees',
 			'action' => 'email',
 			'event_id' => $this->event->ID,
@@ -459,7 +459,7 @@ class Tribe__Tickets__Attendees_Table extends WP_List_Table {
 		}
 
 		$addon = call_user_func( array( $parts[1], 'get_instance' ) );
-		if ( ! is_subclass_of( $addon, 'Tribe__Tickets__Tickets' ) ) {
+		if ( ! is_subclass_of( $addon, 'E__Register__Now__Tickets__Tickets' ) ) {
 			return $failed;
 		}
 
@@ -475,7 +475,7 @@ class Tribe__Tickets__Attendees_Table extends WP_List_Table {
 
 		$event_id = isset( $_GET['event_id'] ) ? $_GET['event_id'] : 0;
 
-		$items = Tribe__Tickets__Tickets::get_event_attendees( $event_id );
+		$items = E__Register__Now__Tickets__Tickets::get_event_attendees( $event_id );
 
 
 		$this->items = $items;

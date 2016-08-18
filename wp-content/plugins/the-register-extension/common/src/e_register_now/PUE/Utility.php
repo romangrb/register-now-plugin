@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
+if ( ! class_exists( 'E__Register__Now__PUE__Utility' ) ) {
 
 	/**
 	 * A simple container class for holding information about an available update.
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 	 * @version 1.7
 	 * @access  public
 	 */
-	class Tribe__PUE__Utility {
+	class E__Register__Now__PUE__Utility {
 		public $id = 0;
 		public $plugin;
 		public $slug;
@@ -32,17 +32,17 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		public $upgrade_notice;
 
 		/**
-		 * Create a new instance of Tribe__PUE__Utility from its JSON-encoded representation.
+		 * Create a new instance of E__Register__Now__PUE__Utility from its JSON-encoded representation.
 		 *
 		 * @param string $json
 		 *
-		 * @return Tribe__PUE__Utility
+		 * @return E__Register__Now__PUE__Utility
 		 */
 		public static function from_json( $json ) {
 			//Since update-related information is simply a subset of the full plugin info,
 			//we can parse the update JSON as if it was a plugin info string, then copy over
 			//the parts that we care about.
-			$pluginInfo = Tribe__PUE__Plugin_Info::from_json( $json );
+			$pluginInfo = E__Register__Now__PUE__Plugin_Info::from_json( $json );
 			if ( $pluginInfo != null ) {
 				return self::from_plugin_info( $pluginInfo );
 			} else {
@@ -51,15 +51,15 @@ if ( ! class_exists( 'Tribe__PUE__Utility' ) ) {
 		}
 
 		/**
-		 * Create a new instance of Tribe__PUE__Utility based on an instance of Tribe__PUE__Plugin_Info.
+		 * Create a new instance of E__Register__Now__PUE__Utility based on an instance of E__Register__Now__PUE__Plugin_Info.
 		 * Basically, this just copies a subset of fields from one object to another.
 		 *
-		 * @param Tribe__PUE__Plugin_Info $info
+		 * @param E__Register__Now__PUE__Plugin_Info $info
 		 *
-		 * @return Tribe__PUE__Utility
+		 * @return E__Register__Now__PUE__Utility
 		 */
 		public static function from_plugin_info( $info ) {
-			$update     = new Tribe__PUE__Utility();
+			$update     = new E__Register__Now__PUE__Utility();
 			$copyFields = array( 'id', 'slug', 'version', 'homepage', 'download_url', 'upgrade_notice', 'sections', 'plugin' );
 			foreach ( $copyFields as $field ) {
 				$update->$field = $info->$field;

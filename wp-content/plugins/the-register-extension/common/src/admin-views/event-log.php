@@ -7,18 +7,18 @@
  * @var string $download_url
  */
 ?>
-<div id="tribe-log-controls">
+<div id="ern-log-controls">
 
 	<?php
 	/**
-	 * Fires within the #tribe-log-controls div, before any of the default
+	 * Fires within the #ern-log-controls div, before any of the default
 	 * controls are generated.
 	 */
 	do_action( 'tribe_common_log_controls_top' );
 	?>
 
 	<div>
-		<label for="log-levels"><?php esc_html_e( 'Logging level', 'tribe-common' ) ?></label>
+		<label for="log-levels"><?php esc_html_e( 'Logging level', 'ern-common' ) ?></label>
 		<select name="log-level" id="log-level">
 			<?php foreach ( $log_levels as $code => $name ): ?>
 				<option name="<?php echo esc_attr( $code ) ?>" <?php selected( $code, tribe_get_option( 'logging_level') ); ?>>
@@ -30,13 +30,13 @@
 
 	<?php
 	/**
-	 * Fires within the #tribe-log-controls div, after the #log-level control.
+	 * Fires within the #ern-log-controls div, after the #log-level control.
 	 */
 	do_action( 'tribe_common_log_controls_after_log_level' );
 	?>
 
 	<div>
-		<label for="log-engine"><?php esc_html_e( 'Method', 'tribe-common' ) ?></label>
+		<label for="log-engine"><?php esc_html_e( 'Method', 'ern-common' ) ?></label>
 		<select name="log-engine" id="log-engine">
 			<?php foreach ( $log_engines as $code => $name ): ?>
 				<option name="<?php echo esc_attr( $code ) ?>" <?php selected( $code, tribe_get_option( 'logging_engine') ); ?>>
@@ -48,13 +48,13 @@
 
 	<?php
 	/**
-	 * Fires within the #tribe-log-controls div, after the #log-engine control.
+	 * Fires within the #ern-log-controls div, after the #log-engine control.
 	 */
 	do_action( 'tribe_common_log_controls_after_log_engine' );
 	?>
 
 	<div>
-		<label for="log-selector"><?php esc_html_e( 'View', 'tribe-common' ) ?></label>
+		<label for="log-selector"><?php esc_html_e( 'View', 'ern-common' ) ?></label>
 		<select name="log-selector" id="log-selector">
 			<?php foreach ( $log_choices as $name ): ?>
 				<option name="<?php echo esc_attr( $name ) ?>"><?php echo esc_html( $name ) ?></option>
@@ -64,7 +64,7 @@
 
 	<?php
 	/**
-	 * Fires within the #tribe-log-controls div, after the #log-selector control.
+	 * Fires within the #ern-log-controls div, after the #log-selector control.
 	 */
 	do_action( 'tribe_common_log_controls_after_log_selector' );
 	?>
@@ -75,7 +75,7 @@
 
 	<?php
 	/**
-	 * Fires within the #tribe-log-controls div, after all of the default
+	 * Fires within the #ern-log-controls div, after all of the default
 	 * controls have been generated.
 	 */
 	do_action( 'tribe_common_log_controls_bottom' );
@@ -83,7 +83,7 @@
 
 </div>
 
-<div id="tribe-log-viewer">
+<div id="ern-log-viewer">
 
 	<table>
 		<?php foreach ( $log_entries as $data ): ?>
@@ -96,9 +96,9 @@
 	</table>
 
 	<?php if ( empty( $log_entries ) ): ?>
-		<p><?php esc_html_e( 'The selected log file is empty or has not been generated yet.', 'tribe-common' ); ?></p>
+		<p><?php esc_html_e( 'The selected log file is empty or has not been generated yet.', 'ern-common' ); ?></p>
 	<?php endif; ?>
 
 </div>
 
-<p> <a href="<?php echo esc_url( $download_url ) ?>" class="download_log" target="_blank"><?php esc_html_e( 'Download log', 'tribe-common' ); ?> </a> </p>
+<p> <a href="<?php echo esc_url( $download_url ) ?>" class="download_log" target="_blank"><?php esc_html_e( 'Download log', 'ern-common' ); ?> </a> </p>

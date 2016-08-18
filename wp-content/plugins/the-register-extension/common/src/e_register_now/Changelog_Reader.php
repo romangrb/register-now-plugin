@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Changelog_Reader {
+class E__Register__Now__Changelog_Reader {
 	protected $version_count = 3;
 	protected $readme_file = '';
 
@@ -10,7 +10,7 @@ class Tribe__Changelog_Reader {
 	}
 
 	protected function default_readme_file() {
-		return dirname( Tribe__Main::instance()->plugin_path ) . '/readme.txt';
+		return dirname( E__Register__Now__Main::instance()->plugin_path ) . '/readme.txt';
 	}
 
 	public function get_changelog() {

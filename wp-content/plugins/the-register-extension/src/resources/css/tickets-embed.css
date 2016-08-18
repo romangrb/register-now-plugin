@@ -8,7 +8,7 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-.tribe-embed .tribe-event-buy {
+.ern-embed .ern-event-buy {
     background: #808285;
     color: #fff;
     display: inline-block;
@@ -19,7 +19,7 @@
     text-decoration: none;
     text-transform: uppercase;
 }
-.tribe-embed .tribe-event-buy:hover {
+.ern-embed .ern-event-buy:hover {
     background: #414042;
     text-decoration: none;
 }

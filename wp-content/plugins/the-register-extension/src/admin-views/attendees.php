@@ -3,10 +3,10 @@ $this->attendees_table->prepare_items();
 
 $event_id = $this->attendees_table->event->ID;
 $event = $this->attendees_table->event;
-$tickets = Tribe__Tickets__Tickets::get_event_tickets( $event_id );
+$tickets = E__Register__Now__Tickets__Tickets::get_e__register__now( $event_id );
 $post_type_object = get_post_type_object( $event->post_type );
 
-$checkedin = Tribe__Tickets__Tickets::get_event_checkedin_attendees_count( $event_id );
+$checkedin = E__Register__Now__Tickets__Tickets::get_event_checkedin_attendees_count( $event_id );
 $total_sold = 0;
 $total_pending = 0;
 $total_deleted = 0;
@@ -18,13 +18,13 @@ foreach ( $tickets as $ticket ) {
 }
 
 $total_completed = $total_sold - $total_pending;
-$total_attendees = Tribe__Tickets__Tickets::get_event_attendees_count( $event_id );
-$total_deleted   = Tribe__Tickets__Attendance::instance( $event_id )->get_deleted_attendees_count();
+$total_attendees = E__Register__Now__Tickets__Tickets::get_event_attendees_count( $event_id );
+$total_deleted   = E__Register__Now__Tickets__Attendance::instance( $event_id )->get_deleted_attendees_count();
 ?>
 
-<div class="wrap tribe-attendees-page">
+<div class="wrap ern-attendees-page">
 	<h1><?php esc_html_e( 'Attendees', 'event-tickets' ); ?></h1>
-	<div id="tribe-attendees-summary" class="welcome-panel">
+	<div id="ern-attendees-summary" class="welcome-panel">
 		<div class="welcome-panel-content">
 			<h3><?php echo '<a href="' . get_edit_post_link( $event_id ) . '" title="' . esc_attr__( 'Edit Event', 'event-tickets' ) . '">' . wp_kses( apply_filters( 'tribe_events_tickets_attendees_event_title', $event->post_title, $event->ID ), array() ) . '</a>'; ?></h3>
 			<p class="about-description"><?php echo '<a href="' . get_permalink( $event_id ) . '" title="' . esc_attr__( 'See Event Page', 'event-tickets' ) . '">' . get_permalink( $event_id ) . '</a>'; ?></p>
@@ -110,9 +110,9 @@ $total_deleted   = Tribe__Tickets__Attendance::instance( $event_id )->get_delete
 	<?php do_action( 'tribe_events_tickets_attendees_event_summary_table_after', $event_id ); ?>
 
 	<form id="topics-filter" method="post">
-		<input type="hidden" name="<?php echo esc_attr( is_admin() ? 'page' : 'tribe[page]' ); ?>" value="<?php echo esc_attr( isset( $_GET['page'] ) ? $_GET['page'] : '' ); ?>" />
-		<input type="hidden" name="<?php echo esc_attr( is_admin() ? 'event_id' : 'tribe[event_id]' ); ?>" id="event_id" value="<?php echo esc_attr( $event_id ); ?>" />
-		<input type="hidden" name="<?php echo esc_attr( is_admin() ? 'post_type' : 'tribe[post_type]' ); ?>" value="<?php echo esc_attr( $event->post_type ); ?>" />
+		<input type="hidden" name="<?php echo esc_attr( is_admin() ? 'page' : 'ern[page]' ); ?>" value="<?php echo esc_attr( isset( $_GET['page'] ) ? $_GET['page'] : '' ); ?>" />
+		<input type="hidden" name="<?php echo esc_attr( is_admin() ? 'event_id' : 'ern[event_id]' ); ?>" id="event_id" value="<?php echo esc_attr( $event_id ); ?>" />
+		<input type="hidden" name="<?php echo esc_attr( is_admin() ? 'post_type' : 'ern[post_type]' ); ?>" value="<?php echo esc_attr( $event->post_type ); ?>" />
 		<?php $this->attendees_table->display() ?>
 	</form>
 </div>

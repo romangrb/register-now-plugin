@@ -5,13 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Validate' ) ) {
+if ( ! class_exists( 'E__Register__Now__Validate' ) ) {
 	/**
 	 * helper class that validates fields for use in Settings, MetaBoxes, Users, anywhere.
 	 * Instantiate whenever you want to validate a field
 	 *
 	 */
-	class Tribe__Validate {
+	class E__Register__Now__Validate {
 
 		/**
 		 * the field object to validate
@@ -73,8 +73,8 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 			// if the field is invalid or incomplete, fail validation
 			if ( ! is_array( $this->field ) || ( ! isset( $this->field['validation_type'] ) && ! isset( $this->field['validation_callback'] ) ) ) {
 				$this->result->valid = false;
-				$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'tribe-common' );
-				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' )' : '';
+				$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'ern-common' );
+				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'ern-common' ) . ' ' . $this->field['id'] . ' )' : '';
 
 				return $this->result;
 			}
@@ -108,14 +108,14 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				} else {
 					// invalid validation type set, validation fails
 					$this->result->valid = false;
-					$this->result->error = esc_html__( 'Non-existant field validation function passed', 'tribe-common' );
-					$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' ' . _x( 'with function name:', 'non-existant function name passed for field validation', 'tribe-common' ) . ' ' . $this->field['validation_type'] . ' )' : '';
+					$this->result->error = esc_html__( 'Non-existant field validation function passed', 'ern-common' );
+					$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'ern-common' ) . ' ' . $this->field['id'] . ' ' . _x( 'with function name:', 'non-existant function name passed for field validation', 'ern-common' ) . ' ' . $this->field['validation_type'] . ' )' : '';
 				}
 			} else {
 				// no validation type set, validation fails
 				$this->result->valid = false;
-				$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'tribe-common' );
-				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'tribe-common' ) . ' ' . $this->field['id'] . ' )' : '';
+				$this->result->error = esc_html__( 'Invalid or incomplete field passed', 'ern-common' );
+				$this->result->error .= ( isset( $this->field['id'] ) ) ? ' (' . esc_html__( 'Field ID:', 'ern-common' ) . ' ' . $this->field['id'] . ' )' : '';
 			}
 
 			// return the result
@@ -132,7 +132,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must contain numbers and letters only', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must contain numbers and letters only', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -148,7 +148,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->value         = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must contain numbers and letters only', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must contain numbers and letters only', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -164,7 +164,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->value         = tribe_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters and dots only', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters and dots only', 'ern-common' ), $this->label );
 			}
 		}
 		
@@ -180,7 +180,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters, dashes and undescores only', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters, dashes and undescores only', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -194,7 +194,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a positive number.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a positive number.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -208,7 +208,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a positive number or percent.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a positive number or percent.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -222,7 +222,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a positive number.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a positive number.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -237,7 +237,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->value         = sanitize_title( $this->value );
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a valid slug (numbers, letters, dashes, and underscores).', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a valid slug (numbers, letters, dashes, and underscores).', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -252,7 +252,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a valid absolute URL.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a valid absolute URL.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -268,7 +268,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'ern-common' ), $this->label );
 			}
 		}
 
@@ -285,7 +285,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 					$this->result->valid = true;
 				} else {
 					$this->result->valid = false;
-					$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'tribe-common' ), $this->label );
+					$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'ern-common' ), $this->label );
 				}
 			}
 		}
@@ -307,7 +307,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( "%s must have a value that's part of its options.", 'ern-common' ), $this->label );
 			}
 		}
 
@@ -321,16 +321,16 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 		public function cannot_be_the_same_as() {
 			if ( ! isset( $this->additional_args['compare'] ) ) {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( 'Comparison validation failed because no comparison value was provided, for field %s', 'tribe-common' ), $this->field['id'] );
+				$this->result->error = sprintf( esc_html__( 'Comparison validation failed because no comparison value was provided, for field %s', 'ern-common' ), $this->field['id'] );
 			} else {
 				if ( $this->value != $this->additional_args['compare'] ) {
 					$this->result = true;
 				} else {
 					$this->result->valid = false;
 					if ( isset( $this->additional_args['compare_name'] ) ) {
-						$this->result->error = sprintf( esc_html__( '%s cannot be the same as %s.', 'tribe-common' ), $this->label, $this->additional_args['compare_name'] );
+						$this->result->error = sprintf( esc_html__( '%s cannot be the same as %s.', 'ern-common' ), $this->label, $this->additional_args['compare_name'] );
 					} else {
-						$this->result->error = sprintf( esc_html__( '%s cannot be a duplicate', 'tribe-common' ), $this->label );
+						$this->result->error = sprintf( esc_html__( '%s cannot be a duplicate', 'ern-common' ), $this->label );
 					}
 				}
 			}
@@ -346,7 +346,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a number or percentage.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a number or percentage.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -400,7 +400,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a number between 0 and 21.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a number between 0 and 21.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -416,7 +416,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must consist of letters, numbers, dashes, apostrophes, and spaces only.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must consist of letters, numbers, dashes, apostrophes, and spaces only.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -432,7 +432,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must consist of letters, spaces, apostrophes, and dashes.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must consist of letters, spaces, apostrophes, and dashes.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -446,7 +446,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must consist of 5 numbers.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must consist of 5 numbers.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -460,7 +460,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 				$this->result->valid = true;
 			} else {
 				$this->result->valid = false;
-				$this->result->error = sprintf( esc_html__( '%s must be a phone number.', 'tribe-common' ), $this->label );
+				$this->result->error = sprintf( esc_html__( '%s must be a phone number.', 'ern-common' ), $this->label );
 			}
 		}
 
@@ -476,7 +476,7 @@ if ( ! class_exists( 'Tribe__Validate' ) ) {
 					$country = explode( ',', $crow );
 					if ( ! isset( $country[0] ) || ! isset( $country[1] ) ) {
 						$this->result->valid = false;
-						$this->result->error = sprintf( esc_html__( 'Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom.', 'tribe-common' ), $this->label );
+						$this->result->error = sprintf( esc_html__( 'Country List must be formatted as one country per line in the following format: <br>US, United States <br> UK, United Kingdom.', 'ern-common' ), $this->label );
 						$this->value         = wp_kses( $this->value, array() );
 
 						return;

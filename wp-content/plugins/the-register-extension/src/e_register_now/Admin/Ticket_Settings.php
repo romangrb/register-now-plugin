@@ -2,7 +2,7 @@
 /**
  * Manages the admin settings UI in relation to ticket configuration.
  */
-class Tribe__Tickets__Admin__Ticket_Settings {
+class E__Register__Now__Tickets__Admin__Ticket_Settings {
 	/**
 	 * Sets up the display of timezone-related settings and listeners to deal with timezone-update
 	 * requests (which are initiated from within the settings screen).
@@ -19,7 +19,7 @@ class Tribe__Tickets__Admin__Ticket_Settings {
 	public function settings_ui() {
 		$settings = $this->get_settings_array();
 
-		new Tribe__Settings_Tab( 'event-tickets', __( 'Tickets', 'event-tickets' ), $settings );
+		new E__Register__Now__Settings_Tab( 'event-tickets', __( 'Tickets', 'event-tickets' ), $settings );
 	}
 
 	/**
@@ -28,8 +28,8 @@ class Tribe__Tickets__Admin__Ticket_Settings {
 	 * @return array
 	 */
 	protected function get_settings_array() {
-		$plugin_path = E__Register__Now::instance()->plugin_path;
-		include $plugin_path . 'src/admin-views/tribe-options-tickets.php';
+		$plugin_path = E__Register__Now__Tickets__Main::instance()->plugin_path;
+		include $plugin_path . 'src/admin-views/ern-options-tickets.php';
 		return $tickets_tab;
 	}
 }

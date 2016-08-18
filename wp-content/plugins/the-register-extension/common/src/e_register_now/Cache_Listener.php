@@ -2,7 +2,7 @@
 	/**
 	 * Listen for events and update their timestamps
 	 */
-	class Tribe__Cache_Listener {
+	class E__Register__Now__Cache_Listener {
 
 		private static $instance = null;
 		private $cache    = null;
@@ -13,7 +13,7 @@
 		 * @return void
 		 */
 		public function __construct() {
-			$this->cache = new Tribe__Cache();
+			$this->cache = new E__Register__Now__Cache();
 		}
 
 		/**
@@ -42,13 +42,13 @@
 		 * @param WP_Post $post    The current post object being saved.
 		 */
 		public function save_post( $post_id, $post ) {
-			if ( in_array( $post->post_type, Tribe__Main::get_post_types() ) ) {
+			if ( in_array( $post->post_type, E__Register__Now__Main::get_post_types() ) ) {
 				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}
 
 		/**
-		 * Run the caching functionality that is executed on saving tribe calendar options.
+		 * Run the caching functionality that is executed on saving ern calendar options.
 		 *
 		 * @param string    $option
 		 * @see 'updated_option'
@@ -72,7 +72,7 @@
 		/**
 		 * Instance method of the cache listener.
 		 *
-		 * @return Tribe__Cache_Listener
+		 * @return E__Register__Now__Cache_Listener
 		 */
 		public static function instance() {
 			if ( empty( self::$instance ) ) {
@@ -85,7 +85,7 @@
 		/**
 		 * Create a cache listener.
 		 *
-		 * @return Tribe__Cache_Listener
+		 * @return E__Register__Now__Cache_Listener
 		 */
 		private static function create_listener() {
 			$listener = new self();

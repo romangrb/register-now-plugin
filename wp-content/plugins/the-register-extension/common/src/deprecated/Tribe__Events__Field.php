@@ -1,4 +1,4 @@
 <?php
-_deprecated_file( __FILE__, '4.0', 'Tribe__Field.php' );
+_deprecated_file( __FILE__, '4.0', 'E__Register__Now__Field.php' );
 
-class Tribe__Events__Field extends Tribe__Field {}
+class E__Register__Now__Events__Field extends E__Register__Now__Field {}

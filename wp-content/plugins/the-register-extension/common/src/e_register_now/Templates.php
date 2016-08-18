@@ -1,6 +1,6 @@
 <?php
 /**
- * Templating functionality for common tribe
+ * Templating functionality for common ern
  */
 
 // don't load directly
@@ -8,14 +8,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Templates' ) ) {
+if ( class_exists( 'E__Register__Now__Templates' ) ) {
 	return;
 }
 
 /**
  * Handle views and template files.
  */
-class Tribe__Templates {
+class E__Register__Now__Templates {
 	/**
 	 * Check to see if this is operating in the main loop
 	 *

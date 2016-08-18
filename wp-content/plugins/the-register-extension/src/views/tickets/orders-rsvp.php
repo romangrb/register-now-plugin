@@ -2,7 +2,7 @@
 /**
  * List of RSVP Orders
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/tickets/orders-rsvp.php
+ * Override this template in your own theme by creating a file at [your-theme]/ern-events/tickets/orders-rsvp.php
  *
  * @package TribeEventsCalendar
  * @version 4.2.2
@@ -12,7 +12,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-$view      = Tribe__Tickets__Tickets_View::instance();
+$view      = E__Register__Now__Tickets__Tickets_View::instance();
 $post_id   = get_the_ID();
 $post      = get_post( $post_id );
 $post_type = get_post_type_object( $post->post_type );
@@ -25,7 +25,7 @@ if ( ! $view->has_rsvp_attendees( $post_id, $user_id ) ) {
 
 $attendee_groups = $view->get_event_rsvp_attendees_by_purchaser( $post_id, $user_id );
 ?>
-<div class="tribe-rsvp">
+<div class="ern-rsvp">
 	<h2><?php printf( esc_html__( 'My RSVPs for This %s', 'event-tickets' ), $post_type->labels->singular_name ); ?></h2>
 	<?php foreach ( $attendee_groups as $attendee_group ): ?>
 		<?php
@@ -53,15 +53,15 @@ $attendee_groups = $view->get_event_rsvp_attendees_by_purchaser( $post_id, $user
 				* @param array $attendee_group Attendee array
 				* @param int $post_id
 				*/
-				do_action( 'event_tickets_user_details_rsvp', $attendee_group, $post_id );
+				do_action( 'e__register__now_user_details_rsvp', $attendee_group, $post_id );
 				?>
 		</div>
-		<ul class="tribe-rsvp-list tribe-list">
+		<ul class="ern-rsvp-list ern-list">
 			<?php foreach ( $attendee_group as $i => $attendee ): ?>
 				<?php $key = $attendee['order_id']; ?>
-				<li class="tribe-item<?php echo $view->is_rsvp_restricted( $post_id, $attendee['product_id'] ) ? 'tribe-disabled' : ''; ?>" <?php echo $view->get_restriction_attr( $post_id, $attendee['product_id'] ); ?> id="attendee-<?php echo $attendee['order_id']; ?>">
+				<li class="ern-item<?php echo $view->is_rsvp_restricted( $post_id, $attendee['product_id'] ) ? 'ern-disabled' : ''; ?>" <?php echo $view->get_restriction_attr( $post_id, $attendee['product_id'] ); ?> id="attendee-<?php echo $attendee['order_id']; ?>">
 					<p class="list-attendee"><?php printf( esc_html__( 'Attendee %d', 'event-tickets' ), $i + 1 ); ?></p>
-					<div class="tribe-answer">
+					<div class="ern-answer">
 						<!-- Wrapping <label> around both the text and the <select> will implicitly associate the text with the label. -->
 						<!-- See https://www.w3.org/WAI/tutorials/forms/labels/#associating-labels-implicitly -->
 						<label>
@@ -77,7 +77,7 @@ $attendee_groups = $view->get_event_rsvp_attendees_by_purchaser( $post_id, $user
 					 * @param array $attendee Attendee array
 					 * @param WP_Post $post Post object that the tickets are tied to
 					 */
-					do_action( 'event_tickets_orders_attendee_contents', $attendee, $post );
+					do_action( 'e__register__now_orders_attendee_contents', $attendee, $post );
 					?>
 				</li>
 			<?php endforeach; ?>

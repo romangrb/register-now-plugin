@@ -6,7 +6,7 @@
  * In our timezone logic, the term "local" refers to the locality of an event
  * rather than the local WordPress timezone.
  */
-class Tribe__Timezones {
+class E__Register__Now__Timezones {
 	const SITE_TIMEZONE  = 'site';
 	const EVENT_TIMEZONE = 'event';
 
@@ -166,7 +166,7 @@ class Tribe__Timezones {
 			$utc   = self::get_timezone( 'UTC' );
 
 			$datetime = date_create( $datetime, $local )->setTimezone( $utc );
-			return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			return $datetime->format( E__Register__Now__Date_Utils::DBDATETIMEFORMAT );
 		}
 		catch ( Exception $e ) {
 			return $datetime;
@@ -194,7 +194,7 @@ class Tribe__Timezones {
 			$utc   = self::get_timezone( 'UTC' );
 
 			$datetime = date_create( $datetime, $utc )->setTimezone( $local );
-			return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			return $datetime->format( E__Register__Now__Date_Utils::DBDATETIMEFORMAT );
 		}
 		catch ( Exception $e ) {
 			return $datetime;
@@ -247,7 +247,7 @@ class Tribe__Timezones {
 			$offset = $offset . ' minutes';
 
 			$datetime = date_create( $datetime )->modify( $offset );
-			return $datetime->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			return $datetime->format( E__Register__Now__Date_Utils::DBDATETIMEFORMAT );
 		}
 		catch ( Exception $e ) {
 			return $datetime;
@@ -266,7 +266,7 @@ class Tribe__Timezones {
 	public static function adjust_timestamp( $unix_timestamp, $tzstring ) {
 		try {
 			$local = self::get_timezone( $tzstring );
-			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Tribe__Date_Utils::DBDATETIMEFORMAT );
+			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( E__Register__Now__Date_Utils::DBDATETIMEFORMAT );
 			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->getTimestamp();
 		}
 		catch( Exception $e ) {

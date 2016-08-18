@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-class Tribe__Tickets__Tickets_View {
+class E__Register__Now__Tickets__Tickets_View {
 
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
@@ -43,7 +43,7 @@ class Tribe__Tickets__Tickets_View {
 		add_action( 'parse_request', array( $myself, 'maybe_regenerate_rewrite_rules' ) );
 
 		// Only Applies this to TEC users
-		if ( class_exists( 'Tribe__Events__Rewrite' ) ) {
+		if ( class_exists( 'E__Register__Now__Events__Rewrite' ) ) {
 			add_action( 'tribe_events_pre_rewrite', array( $myself, 'add_permalink' ) );
 			add_filter( 'tribe_events_rewrite_base_slugs', array( $myself, 'add_rewrite_base_slug' ) );
 		}
@@ -66,7 +66,7 @@ class Tribe__Tickets__Tickets_View {
 	 * @return void
 	 */
 	public function prevent_page_redirect( $query ) {
-		$is_correct_page = isset( $query->query_vars['tribe-edit-orders'] ) && $query->query_vars['tribe-edit-orders'];
+		$is_correct_page = isset( $query->query_vars['ern-edit-orders'] ) && $query->query_vars['ern-edit-orders'];
 
 		if ( ! $is_correct_page ) {
 			return;
@@ -122,7 +122,7 @@ class Tribe__Tickets__Tickets_View {
 		$bases = $this->add_rewrite_base_slug();
 
 		$rules = array(
-			sanitize_title_with_dashes( $bases['tickets'][0] ) . '/([0-9]{1,})/?' => 'index.php?p=$matches[1]&tribe-edit-orders=1',
+			sanitize_title_with_dashes( $bases['tickets'][0] ) . '/([0-9]{1,})/?' => 'index.php?p=$matches[1]&ern-edit-orders=1',
 		);
 		return $rules;
 	}
@@ -142,7 +142,7 @@ class Tribe__Tickets__Tickets_View {
 	 * @return array
 	 */
 	public function add_query_vars( $vars ) {
-		$vars[] = 'tribe-edit-orders';
+		$vars[] = 'ern-edit-orders';
 		return $vars;
 	}
 
@@ -150,7 +150,7 @@ class Tribe__Tickets__Tickets_View {
 	 * Update the RSVP and Tickets values for each Attendee
 	 */
 	public function update_tickets() {
-		$is_correct_page = get_query_var( 'tribe-edit-orders', false );
+		$is_correct_page = get_query_var( 'ern-edit-orders', false );
 
 		// Now fetch the display and check it
 		$display = get_query_var( 'eventDisplay', false );
@@ -158,7 +158,7 @@ class Tribe__Tickets__Tickets_View {
 			return;
 		}
 
-		if ( empty( $_POST['process-tickets'] ) || ( empty( $_POST['attendee'] ) && empty( $_POST['tribe-tickets-meta'] ) ) ) {
+		if ( empty( $_POST['process-tickets'] ) || ( empty( $_POST['attendee'] ) && empty( $_POST['ern-tickets-meta'] ) ) ) {
 			return;
 		}
 
@@ -173,7 +173,7 @@ class Tribe__Tickets__Tickets_View {
 			 * @var $order_id ID of attendee ticket
 			 * @var $post_id  ID of event
 			 */
-			do_action( 'event_tickets_attendee_update', $data, $order_id, $post_id );
+			do_action( 'e__register__now_attendee_update', $data, $order_id, $post_id );
 		}
 
 		/**
@@ -181,10 +181,10 @@ class Tribe__Tickets__Tickets_View {
 		 *
 		 * @var $post_id ID of event
 		 */
-		do_action( 'event_tickets_after_attendees_update', $post_id );
+		do_action( 'e__register__now_after_attendees_update', $post_id );
 
 		// After Editing the Values we Update the Transient
-		Tribe__Post_Transient::instance()->delete( $post_id, Tribe__Tickets__Tickets::ATTENDEES_CACHE );
+		E__Register__Now__Post_Transient::instance()->delete( $post_id, E__Register__Now__Tickets__Tickets::ATTENDEES_CACHE );
 
 		// If it's not events CPT
 		if ( $is_correct_page ) {
@@ -212,7 +212,7 @@ class Tribe__Tickets__Tickets_View {
 		$is_event_query = ! empty( $GLOBALS['wp_query']->tribe_is_event_query );
 
 		// When it's not Events Query and we have TEC active we dont care
-		if ( class_exists( 'Tribe__Events__Main' ) && ! $is_event_query ) {
+		if ( class_exists( 'E__Register__Now__Events__Main' ) && ! $is_event_query ) {
 			return;
 		}
 
@@ -250,7 +250,7 @@ class Tribe__Tickets__Tickets_View {
 		 * @param string $slug
 		 * @param array  $bases
 		 */
-		$bases['tickets'] = (array) apply_filters( 'event_tickets_rewrite_slug_orders_page', 'tickets', $bases );
+		$bases['tickets'] = (array) apply_filters( 'e__register__now_rewrite_slug_orders_page', 'tickets', $bases );
 
 		return $bases;
 	}
@@ -258,16 +258,16 @@ class Tribe__Tickets__Tickets_View {
 	/**
 	 * Adds the Permalink for the tickets end point
 	 *
-	 * @param Tribe__Events__Rewrite $rewrite
+	 * @param E__Register__Now__Events__Rewrite $rewrite
 	 */
-	public function add_permalink( Tribe__Events__Rewrite $rewrite ) {
+	public function add_permalink( E__Register__Now__Events__Rewrite $rewrite ) {
 
 		// Adds the 'tickets' endpoint for single event pages.
 		$rewrite->single(
 			array( '{{ tickets }}' ),
 			array(
-				Tribe__Events__Main::POSTTYPE => '%1',
-				'post_type' => Tribe__Events__Main::POSTTYPE,
+				E__Register__Now__Events__Main::POSTTYPE => '%1',
+				'post_type' => E__Register__Now__Events__Main::POSTTYPE,
 				'eventDisplay' => 'tickets',
 			)
 		);
@@ -276,9 +276,9 @@ class Tribe__Tickets__Tickets_View {
 		$rewrite->single(
 			array( '(\d{4}-\d{2}-\d{2})', '{{ tickets }}' ),
 			array(
-				Tribe__Events__Main::POSTTYPE => '%1',
+				E__Register__Now__Events__Main::POSTTYPE => '%1',
 				'eventDate' => '%2',
-				'post_type' => Tribe__Events__Main::POSTTYPE,
+				'post_type' => E__Register__Now__Events__Main::POSTTYPE,
 				'eventDisplay' => 'tickets',
 			)
 		);
@@ -296,13 +296,13 @@ class Tribe__Tickets__Tickets_View {
 		$in_the_loop = isset( $GLOBALS['wp_query']->in_the_loop ) && $GLOBALS['wp_query']->in_the_loop;
 
 		// Prevents Weird
-		$is_correct_page = get_query_var( 'tribe-edit-orders', false );
+		$is_correct_page = get_query_var( 'ern-edit-orders', false );
 		if ( ! $is_correct_page || ! $in_the_loop ) {
 			return $content;
 		}
 
 		ob_start();
-		include Tribe__Tickets__Templates::get_template_hierarchy( 'tickets/orders.php' );
+		include E__Register__Now__Tickets__Templates::get_template_hierarchy( 'tickets/orders.php' );
 		$content = ob_get_clean();
 
 		return $content;
@@ -345,7 +345,7 @@ class Tribe__Tickets__Tickets_View {
 		}
 
 		// Fetch the Correct File using the Tickets Hiearchy
-		$file = Tribe__Tickets__Templates::get_template_hierarchy( 'tickets/orders.php' );
+		$file = E__Register__Now__Tickets__Templates::get_template_hierarchy( 'tickets/orders.php' );
 
 		return $file;
 	}
@@ -363,7 +363,7 @@ class Tribe__Tickets__Tickets_View {
 			return;
 		}
 
-		$file = Tribe__Tickets__Templates::get_template_hierarchy( 'tickets/orders-link.php' );
+		$file = E__Register__Now__Tickets__Templates::get_template_hierarchy( 'tickets/orders-link.php' );
 
 		include $file;
 	}
@@ -387,12 +387,12 @@ class Tribe__Tickets__Tickets_View {
 		$is_event_query = ! empty( $GLOBALS['wp_query']->tribe_is_event_query );
 
 		// When it's not our query we don't care
-		if ( ( class_exists( 'Tribe__Events__Main' ) && $is_event_query ) || ! $in_the_loop ) {
+		if ( ( class_exists( 'E__Register__Now__Events__Main' ) && $is_event_query ) || ! $in_the_loop ) {
 			return $content;
 		}
 
 		// If we have this we are already on the tickets page
-		$is_correct_page = get_query_var( 'tribe-edit-orders', false );
+		$is_correct_page = get_query_var( 'ern-edit-orders', false );
 		if ( $is_correct_page ) {
 			return $content;
 		}
@@ -402,7 +402,7 @@ class Tribe__Tickets__Tickets_View {
 		}
 
 		ob_start();
-		include Tribe__Tickets__Templates::get_template_hierarchy( 'tickets/orders-link.php' );
+		include E__Register__Now__Tickets__Templates::get_template_hierarchy( 'tickets/orders-link.php' );
 		$content .= ob_get_clean();
 
 		return $content;
@@ -418,7 +418,7 @@ class Tribe__Tickets__Tickets_View {
 	 * @return array                    List of Attendees grouped by order id
 	 */
 	public function get_event_attendees_by_order( $event_id, $user_id = null, $include_rsvp = false ) {
-		$attendees = Tribe__Tickets__Tickets::get_event_attendees( $event_id );
+		$attendees = E__Register__Now__Tickets__Tickets::get_event_attendees( $event_id );
 		$orders = array();
 
 		foreach ( $attendees as $key => $attendee ) {
@@ -449,7 +449,7 @@ class Tribe__Tickets__Tickets_View {
 	 * @return array                   Array with the RSVP attendees
 	 */
 	public function get_event_rsvp_attendees( $event_id, $user_id = null ) {
-		$all_attendees = Tribe__Tickets__Tickets::get_event_attendees( $event_id );
+		$all_attendees = E__Register__Now__Tickets__Tickets::get_event_attendees( $event_id );
 		$attendees = array();
 
 		foreach ( $all_attendees as $key => $attendee ) {
@@ -517,7 +517,7 @@ class Tribe__Tickets__Tickets_View {
 		 * @param array $options
 		 * @param string $selected
 		 */
-		$options = apply_filters( 'event_tickets_rsvp_options', $options, $selected );
+		$options = apply_filters( 'e__register__now_rsvp_options', $options, $selected );
 
 		// If an option was passed return it's label, but if doesn't exist return false
 		if ( ! is_null( $selected ) ) {
@@ -658,7 +658,7 @@ class Tribe__Tickets__Tickets_View {
 		 * @param  int      $ticket_id  The Ticket/RSVP ID (optional)
 		 * @param  int      $user_id    An User ID (optional)
 		 */
-		return apply_filters( 'event_tickets_is_rsvp_restricted', false, $event_id, $ticket_id, $user_id );
+		return apply_filters( 'e__register__now_is_rsvp_restricted', false, $event_id, $ticket_id, $user_id );
 	}
 
 	/**

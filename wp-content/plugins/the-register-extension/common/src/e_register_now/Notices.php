@@ -1,6 +1,6 @@
 <?php
 
-class Tribe__Notices {
+class E__Register__Now__Notices {
 	/**
 	 * Notices to be displayed in the admin
 	 * @var array
@@ -61,7 +61,7 @@ class Tribe__Notices {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Notices
+	 * @return E__Register__Now__Notices
 	 */
 	public static function instance() {
 		static $instance;

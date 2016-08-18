@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
+if ( ! class_exists( 'E__Register__Now__PUE__Checker' ) ) {
 	/**
 	 * A custom plugin update checker.
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 	 * @version  1.7
 	 * @access   public
 	 */
-	class Tribe__PUE__Checker {
+	class E__Register__Now__PUE__Checker {
 
 		private $pue_update_url = ''; //The URL of the plugin's metadata file.
 		private $plugin_file = ''; //Plugin filename relative to the plugins directory.
@@ -91,7 +91,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Dashboard message "dismiss upgrade" link
 			add_action( 'wp_ajax_' . $this->dismiss_upgrade, array( $this, 'dashboard_dismiss_upgrade' ) );
 
-			add_filter( 'tribe-pue-install-keys', array( $this, 'return_install_key' ) );
+			add_filter( 'ern-pue-install-keys', array( $this, 'return_install_key' ) );
 		}
 
 		/********************** Getter / Setter Functions **********************/
@@ -296,7 +296,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		public function do_license_key_fields( $fields ) {
 
 			// we want to inject the following license settings at the end of the licenses tab
-			$fields = self::array_insert_after_key( 'tribe-form-content-start', $fields, array(
+			$fields = self::array_insert_after_key( 'ern-form-content-start', $fields, array(
 					$this->pue_install_key . '-heading' => array(
 						'type'  => 'heading',
 						'label' => $this->get_plugin_name(),
@@ -305,8 +305,8 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 						'type'            => 'license_key',
 						'size'            => 'large',
 						'validation_type' => 'license_key',
-						'label'           => sprintf( esc_attr__( 'License Key', 'tribe-common' ) ),
-						'tooltip'         => esc_html__( 'A valid license key is required for support and updates', 'tribe-common' ),
+						'label'           => sprintf( esc_attr__( 'License Key', 'ern-common' ) ),
+						'tooltip'         => esc_html__( 'A valid license key is required for support and updates', 'ern-common' ),
 						'parent_option'   => false,
 						'network_option'  => true,
 					),
@@ -325,13 +325,13 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			?>
 			<script>
 				jQuery(document).ready(function ($) {
-					$('#tribe-field-<?php echo $this->pue_install_key ?>').change(function () {
+					$('#ern-field-<?php echo $this->pue_install_key ?>').change(function () {
 						<?php echo $this->pue_install_key ?>_validateKey();
 					});
 					<?php echo $this->pue_install_key ?>_validateKey();
 				});
 				function <?php echo $this->pue_install_key ?>_validateKey() {
-					var this_id       = '#tribe-field-<?php echo $this->pue_install_key ?>';
+					var this_id       = '#ern-field-<?php echo $this->pue_install_key ?>';
 					var $validity_msg = jQuery(this_id + ' .key-validity');
 
 					if (jQuery(this_id + ' input').val() != '') {
@@ -377,7 +377,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				return $message;
 			}
 
-			return '<div id="message" class="updated"><p><strong>' . esc_html__( 'License key(s) updated.', 'tribe-common' ) . '</strong></p></div>';
+			return '<div id="message" class="updated"><p><strong>' . esc_html__( 'License key(s) updated.', 'ern-common' ) . '</strong></p></div>';
 
 		}
 
@@ -416,10 +416,10 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				}
 
 				$pluginInfo = $this->request_info( $queryArgs );
-				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : esc_html__( 'unknown date', 'tribe-common' );
+				$expiration = isset( $pluginInfo->expiration ) ? $pluginInfo->expiration : esc_html__( 'unknown date', 'ern-common' );
 
 				if ( empty( $pluginInfo ) ) {
-					$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'tribe-common' );
+					$response['message'] = esc_html__( 'Sorry, key validation server is not available.', 'ern-common' );
 				} elseif ( isset( $pluginInfo->api_expired ) && $pluginInfo->api_expired == 1 ) {
 					$response['message'] = $this->get_api_message( $pluginInfo );
 				} elseif ( isset( $pluginInfo->api_upgrade ) && $pluginInfo->api_upgrade == 1 ) {
@@ -429,12 +429,12 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				} else {
 					$api_secret_key = get_option( $this->pue_install_key );
 					if ( $api_secret_key && $api_secret_key === $queryArgs['pu_install_key'] ){
-						$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'tribe-common' ), $expiration );
+						$default_success_msg = sprintf( esc_html__( 'Valid Key! Expires on %s', 'ern-common' ), $expiration );
 					} else {
 						// Set the key
 						update_option( $this->pue_install_key, $queryArgs['pu_install_key'] );
 
-						$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'tribe-common' ), $expiration );
+						$default_success_msg = sprintf( esc_html__( 'Thanks for setting up a valid key, it will expire on %s', 'ern-common' ), $expiration );
 					}
 
 					$response['status']     = isset( $pluginInfo->api_message ) ? 2 : 1;
@@ -442,7 +442,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 					$response['expiration'] = $expiration;
 				}
 			} else {
-				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.', 'tribe-common' ), '<a href="http://m.tri.be/1u">', '</a>' );
+				$response['message'] = sprintf( esc_html__( 'Hmmm... something\'s wrong with this validator. Please contact %ssupport%s.', 'ern-common' ), '<a href="http://m.tri.be/1u">', '</a>' );
 			}
 			echo json_encode( $response );
 			exit;
@@ -454,7 +454,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		private function get_api_message( $info ) {
 			// this default message should never show, but is here as a fallback just in case.
 			$message = sprintf(
-				esc_html__( 'Sorry, there is a problem with your license key. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'tribe-common' ),
+				esc_html__( 'Sorry, there is a problem with your license key. You\'ll need to %scheck your license%s to have access to updates, downloads, and support.', 'ern-common' ),
 				'<a href="https://theeventscalendar.com/license-keys/">',
 				'</a>'
 			);
@@ -588,7 +588,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			//Try to parse the response
 			$pluginInfo = null;
 			if ( ! is_wp_error( $result ) && isset( $result['response']['code'] ) && ( $result['response']['code'] == 200 ) && ! empty( $result['body'] ) ) {
-				$pluginInfo = Tribe__PUE__Plugin_Info::from_json( $result['body'] );
+				$pluginInfo = E__Register__Now__PUE__Plugin_Info::from_json( $result['body'] );
 			}
 			$pluginInfo = apply_filters( 'tribe_puc_request_info_result-' . $this->get_slug(), $pluginInfo, $result );
 
@@ -614,9 +614,9 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		/**
 		 * Retrieve the latest update (if any) from the configured API endpoint.
 		 *
-		 * @uses Tribe__PUE__Checker::request_info()
+		 * @uses E__Register__Now__PUE__Checker::request_info()
 		 *
-		 * @return Tribe__PUE__Utility An instance of Tribe__PUE__Utility, or NULL when no updates are available.
+		 * @return E__Register__Now__PUE__Utility An instance of E__Register__Now__PUE__Utility, or NULL when no updates are available.
 		 */
 		public function request_update() {
 			//For the sake of simplicity, this function just calls request_info()
@@ -647,7 +647,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 			// Add plugin dirname/file (this will be expected by WordPress when it builds the plugin list table)
 			$pluginInfo->plugin = $this->get_plugin_file();
 
-			return Tribe__PUE__Utility::from_plugin_info( $pluginInfo );
+			return E__Register__Now__PUE__Utility::from_plugin_info( $pluginInfo );
 		}
 
 
@@ -828,11 +828,11 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * Register a callback for filtering the plugin info retrieved from the external API.
 		 *
 		 * The callback function should take two arguments. If the plugin info was retrieved
-		 * successfully, the first argument passed will be an instance of Tribe__PUE__Plugin_Info. Otherwise,
+		 * successfully, the first argument passed will be an instance of E__Register__Now__PUE__Plugin_Info. Otherwise,
 		 * it will be NULL. The second argument will be the corresponding return value of
 		 * wp_remote_get (see WP docs for details).
 		 *
-		 * The callback function should return a new or modified instance of Tribe__PUE__Plugin_Info or NULL.
+		 * The callback function should return a new or modified instance of E__Register__Now__PUE__Plugin_Info or NULL.
 		 *
 		 * @uses add_filter() This method is a convenience wrapper for add_filter().
 		 *

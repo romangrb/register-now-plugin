@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Always extend this when doing a new JSON-LD object
  */
-abstract class Tribe__JSON_LD__Abstract {
+abstract class E__Register__Now__JSON_LD__Abstract {
 
 	/**
 	 * Holder of the Instances
@@ -22,7 +22,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	/**
 	 * The class singleton constructor.
 	 *
-	 * @return Tribe__JSON_LD__Abstract
+	 * @return E__Register__Now__JSON_LD__Abstract
 	 */
 	public static function instance( $name = null ) {
 		if ( empty( self::$instances[ $name ] ) ) {
@@ -45,7 +45,7 @@ abstract class Tribe__JSON_LD__Abstract {
 	 */
 	public function get_data( $post = null, $args = array() ) {
 		if ( ! $post instanceof WP_Post ) {
-			$post = Tribe__Main::post_id_helper( $post );
+			$post = E__Register__Now__Main::post_id_helper( $post );
 		}
 		$post = get_post( $post );
 

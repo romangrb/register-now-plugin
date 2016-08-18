@@ -5,7 +5,7 @@
  * By default, this logger uses the system temporary directory for logging
  * purposes and performs daily log rotation.
  */
-class Tribe__Log__File_Logger implements Tribe__Log__Logger {
+class E__Register__Now__Log__File_Logger implements E__Register__Now__Log__Logger {
 	protected $module_id = 'tribe_tmp_file_logger';
 	protected $log_dir   = '';
 	protected $log_file  = '';
@@ -113,7 +113,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 * @return string
 	 */
 	public function get_name() {
-		return __( 'Default (uses temporary files)', 'tribe-common' );
+		return __( 'Default (uses temporary files)', 'ern-common' );
 	}
 
 	/**
@@ -132,7 +132,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 * @param string $type
 	 * @param string $src
 	 */
-	public function log( $entry, $type = Tribe__Log::DEBUG, $src = '' ) {
+	public function log( $entry, $type = E__Register__Now__Log::DEBUG, $src = '' ) {
 		// Ensure we're in 'append' mode before we try to write
 		if ( 'a' !== $this->context ) {
 			$this->set_context( 'a' );
@@ -147,7 +147,7 @@ class Tribe__Log__File_Logger implements Tribe__Log__Logger {
 	 *
 	 * Supports passing a 'log' argument to recover
 	 *
-	 * @see Tribe__Log__Logger::list_available_logs()
+	 * @see E__Register__Now__Log__Logger::list_available_logs()
 	 *
 	 * @param int   $limit
 	 * @param array $args

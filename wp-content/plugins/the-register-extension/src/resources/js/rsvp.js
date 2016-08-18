@@ -7,15 +7,15 @@ var tribe_tickets_rsvp = {
 	'use strict';
 
 	my.init = function() {
-		this.$rsvp = $( '.tribe-events-tickets-rsvp' );
-		this.attendee_template = $( document.getElementById( 'tribe-tickets-rsvp-tmpl' ) ).html();
+		this.$rsvp = $( '.ern-events-tickets-rsvp' );
+		this.attendee_template = $( document.getElementById( 'ern-tickets-rsvp-tmpl' ) ).html();
 
-		this.$rsvp.on( 'change', '.tribe-ticket-quantity', this.event.quantity_changed );
+		this.$rsvp.on( 'change', '.ern-ticket-quantity', this.event.quantity_changed );
 
 		this.$rsvp.closest( '.cart' )
 			.on( 'submit', this.event.handle_submission );
 
-		$( '.tribe-rsvp-list' ).on( 'click', '.attendee-meta-row .toggle', function() {
+		$( '.ern-rsvp-list' ).on( 'click', '.attendee-meta-row .toggle', function() {
 			$( this )
 				.toggleClass( 'on' )
 				.siblings( '.attendee-meta-details' )
@@ -25,19 +25,19 @@ var tribe_tickets_rsvp = {
 
 	my.quantity_changed = function( $quantity ) {
 		var i = 0;
-		var $rsvp = $quantity.closest( '.tribe-events-tickets-rsvp' );
+		var $rsvp = $quantity.closest( '.ern-events-tickets-rsvp' );
 		var quantity = parseInt( $quantity.val(), 10 );
 
 		if ( ! quantity ) {
-			$rsvp.removeClass( 'tribe-tickets-has-rsvp' );
+			$rsvp.removeClass( 'ern-tickets-has-rsvp' );
 		} else {
-			$rsvp.addClass( 'tribe-tickets-has-rsvp' );
+			$rsvp.addClass( 'ern-tickets-has-rsvp' );
 		}
 	};
 
 	my.validate_submission = function() {
-		var $name = $( document.getElementById( 'tribe-tickets-full-name' ) );
-		var $email = $( document.getElementById( 'tribe-tickets-email' ) );
+		var $name = $( document.getElementById( 'ern-tickets-full-name' ) );
+		var $email = $( document.getElementById( 'ern-tickets-email' ) );
 
 		if ( ! $.trim( $name.val() ).length || ! $.trim( $email.val() ).length ) {
 			return false;
@@ -55,8 +55,8 @@ var tribe_tickets_rsvp = {
 			e.preventDefault();
 			var $form = $( this ).closest( 'form' );
 
-			$form.addClass( 'tribe-rsvp-message-display' );
-			$form.find( '.tribe-rsvp-message-confirmation-error' ).show();
+			$form.addClass( 'ern-rsvp-message-display' );
+			$form.find( '.ern-rsvp-message-confirmation-error' ).show();
 
 			$( 'html, body').animate({
 				scrollTop: $form.offset().top

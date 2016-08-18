@@ -2,7 +2,7 @@
 /**
  * Specifies the minimal interface required of all logging implementations.
  */
-interface Tribe__Log__Logger {
+interface E__Register__Now__Log__Logger {
 	/**
 	 * Indicates if the logger will work in the current environment.
 	 *
@@ -25,7 +25,7 @@ interface Tribe__Log__Logger {
 	 * @param string $type
 	 * @param string $src
 	 */
-	public function log( $entry, $type = Tribe__Log::DEBUG, $src = '' );
+	public function log( $entry, $type = E__Register__Now__Log::DEBUG, $src = '' );
 
 	/**
 	 * Retrieve up to $limit most recent log entries in reverse chronological
@@ -36,7 +36,7 @@ interface Tribe__Log__Logger {
 	 * obtained via the list_availalbe_logs() method is passed in order to query
 	 * a specific archived log.
 	 *
-	 * @see Tribe__Log__Logger::list_available_logs()
+	 * @see E__Register__Now__Log__Logger::list_available_logs()
 	 *
 	 * @param int   $limit
 	 * @param array $args

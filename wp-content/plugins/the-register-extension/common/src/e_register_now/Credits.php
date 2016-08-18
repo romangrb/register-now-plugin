@@ -3,7 +3,7 @@
 /**
  * Handles output of The Events Calendar credits
  */
-class Tribe__Credits {
+class E__Register__Now__Credits {
 
 	public static function init() {
 		self::instance()->hook();
@@ -24,11 +24,11 @@ class Tribe__Credits {
 	 **/
 	public function html_comment_credit( $after_html ) {
 
-		if ( ! class_exists( 'Tribe__Events__Main' ) ) {
+		if ( ! class_exists( 'E__Register__Now__Events__Main' ) ) {
 			return $after_html;
 		}
 
-		$html_credit = "\n<!--\n" . esc_html__( 'This calendar is powered by %1$s.', 'tribe-common' ) . "\nhttp://m.tri.be/18wn\n-->\n";
+		$html_credit = "\n<!--\n" . esc_html__( 'This calendar is powered by %1$s.', 'ern-common' ) . "\nhttp://m.tri.be/18wn\n-->\n";
 		$after_html .= apply_filters( 'tribe_html_credit', $html_credit );
 		return $after_html;
 	}
@@ -41,18 +41,18 @@ class Tribe__Credits {
 	 * @return string
 	 */
 	public function rating_nudge( $footer_text ) {
-		$admin_helpers = Tribe__Admin__Helpers::instance();
+		$admin_helpers = E__Register__Now__Admin__Helpers::instance();
 
 		add_filter( 'tribe_tickets_post_types', array( $this, 'tmp_return_tribe_events' ), 99 );
 
 		// only display custom text on e_register_now Admin Pages
 		if ( $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen() ) {
 
-			if ( class_exists( 'Tribe__Events__Main' ) ) {
+			if ( class_exists( 'E__Register__Now__Events__Main' ) ) {
 				$review_url = 'https://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5';
 
 				$footer_text = sprintf(
-					esc_html__( 'Rate %1$sThe Events Calendar%2$s %3$s', 'tribe-common' ),
+					esc_html__( 'Rate %1$sThe Events Calendar%2$s %3$s', 'ern-common' ),
 					'<strong>',
 					'</strong>',
 					'<a href="' . $review_url . '" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
@@ -61,7 +61,7 @@ class Tribe__Credits {
 				$review_url = 'https://wordpress.org/support/view/plugin-reviews/event-tickets?filter=5';
 
 				$footer_text = sprintf(
-					esc_html__( 'Rate %1$sEvent Tickets%2$s %3$s', 'tribe-common' ),
+					esc_html__( 'Rate %1$sEvent Tickets%2$s %3$s', 'ern-common' ),
 					'<strong>',
 					'</strong>',
 					'<a href="' . $review_url . '" target="_blank">&#9733;&#9733;&#9733;&#9733;&#9733;</a>'
@@ -75,7 +75,7 @@ class Tribe__Credits {
 	}
 
 	/**
-	 * temporary function to filter event types down to only tribe-specific types
+	 * temporary function to filter event types down to only ern-specific types
 	 *
 	 * This will limit the request for ratings to only those post type pages
 	 */

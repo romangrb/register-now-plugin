@@ -8,7 +8,7 @@
  * @see: http://moderntribe.github.io/products-engineering/css/
  */
 
-.tribe-addon {
+.ern-addon {
 	box-sizing: border-box;
 	display: inline-block;
 	margin-right: 10px;
@@ -18,16 +18,16 @@
 	width: 300px;
 }
 
-.tribe-addon .thumb img {
+.ern-addon .thumb img {
 	max-width: 100%;
 	width: 100%;
 }
 
-.tribe-addon h4 {
+.ern-addon h4 {
 	font-size: 1.17em;
 }
 
-.tribe-addon h4 a {
+.ern-addon h4 a {
 	text-decoration: none;
 }
 
@@ -41,7 +41,7 @@
 	margin-bottom: 10px;
 }
 
-.tribe-addon.first {
+.ern-addon.first {
 	border-bottom: 1px solid #dfdfdf;
 	margin: 20px 0 10px;
 	overflow: hidden;
@@ -49,18 +49,18 @@
 	width: 100%;
 }
 
-.tribe-addon.first h4 {
+.ern-addon.first h4 {
 	font-size: 20px;
 	line-height: 1.4;
 	margin: 0;
 }
 
-.tribe-addon.first .thumb {
+.ern-addon.first .thumb {
 	float: left;
 	margin-left: -330px;
 	width: 300px;
 }
 
-.tribe-addon.first .description {
+.ern-addon.first .description {
 	max-width: 600px;
 }

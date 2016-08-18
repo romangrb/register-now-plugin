@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
+if ( ! class_exists( 'E__Register__Now__Tickets__Tickets' ) ) {
 	/**
 	 * Abstract class with the API definition and common functionality
 	 * for e_register_now Tickets Pro. Providers for this functionality need to
@@ -21,7 +21,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 	 *
 	 *     ATTENDEE_OBJECT
 	 */
-	abstract class Tribe__Tickets__Tickets {
+	abstract class E__Register__Now__Tickets__Tickets {
 
 		/**
 		 * Flag used to track if the registration form link has been displayed or not.
@@ -31,7 +31,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		private static $have_displayed_reg_link = false;
 
 		/**
-		 * All Tribe__Tickets__Tickets api consumers. It's static, so it's shared across all child.
+		 * All E__Register__Now__Tickets__Tickets api consumers. It's static, so it's shared across all child.
 		 *
 		 * @var array
 		 */
@@ -296,7 +296,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		public function __construct() {
 
 			// Start the singleton with the generic functionality to all providers.
-			Tribe__Tickets__Tickets_Handler::instance();
+			E__Register__Now__Tickets__Tickets_Handler::instance();
 
 			// As this is an abstract class, we want to know which child instantiated it
 			$this->className = get_class( $this );
@@ -304,7 +304,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			$this->parentPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 			$this->parentUrl  = trailingslashit( plugins_url( '', $this->parentPath ) );
 
-			// Register all Tribe__Tickets__Tickets api consumers
+			// Register all E__Register__Now__Tickets__Tickets api consumers
 			self::$active_modules[ $this->className ] = $this->pluginName;
 
 			add_filter( 'tribe_events_tickets_modules', array( $this, 'modules' ) );
@@ -373,8 +373,8 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			// Successful?
 			if ( $return ) {
 				// Let's create a tickets list markup to return
-				$tickets = $this->get_event_tickets( $post_id );
-				$return  = Tribe__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
+				$tickets = $this->get_e__register__now( $post_id );
+				$return  = E__Register__Now__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
 
 				$return = $this->notice( esc_html__( 'Your ticket has been saved.', 'event-tickets' ) ) . $return;
 
@@ -393,7 +393,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			 *
 			 * @var array Array of data to return to the ajax call
 			 */
-			$return = apply_filters( 'event_tickets_ajax_ticket_add_data', $return, $post_id );
+			$return = apply_filters( 'e__register__now_ajax_ticket_add_data', $return, $post_id );
 
 			$this->ajax_ok( $return );
 		}
@@ -407,7 +407,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 * @return boolean
 		 */
 		final public function ticket_add( $post_id, $data ) {
-			$ticket = new Tribe__Tickets__Ticket_Object();
+			$ticket = new E__Register__Now__Tickets__Ticket_Object();
 
 			$ticket->ID          = isset( $data['ticket_id'] ) ? absint( $data['ticket_id'] ) : null;
 			$ticket->name        = isset( $data['ticket_name'] ) ? esc_html( $data['ticket_name'] ) : null;
@@ -422,12 +422,12 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 
 			if ( ! empty( $data['ticket_start_date'] ) ) {
 				$meridian           = ! empty( $data['ticket_start_meridian'] ) ? ' ' . $data['ticket_start_meridian'] : '';
-				$ticket->start_date = date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . ' ' . $data['ticket_start_hour'] . ':' . $data['ticket_start_minute'] . ':00' . $meridian ) );
+				$ticket->start_date = date( E__Register__Now__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . ' ' . $data['ticket_start_hour'] . ':' . $data['ticket_start_minute'] . ':00' . $meridian ) );
 			}
 
 			if ( ! empty( $data['ticket_end_date'] ) ) {
 				$meridian         = ! empty( $data['ticket_end_meridian'] ) ? ' ' . $data['ticket_end_meridian'] : '';
-				$ticket->end_date = date( Tribe__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . ' ' . $data['ticket_end_hour'] . ':' . $data['ticket_end_minute'] . ':00' . $meridian ) );
+				$ticket->end_date = date( E__Register__Now__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . ' ' . $data['ticket_end_hour'] . ':' . $data['ticket_end_minute'] . ':00' . $meridian ) );
 			}
 
 			$ticket->provider_class = $this->className;
@@ -537,8 +537,8 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			// Successfully deleted?
 			if ( $return ) {
 				// Let's create a tickets list markup to return
-				$tickets = $this->get_event_tickets( $post_id );
-				$return  = Tribe__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
+				$tickets = $this->get_e__register__now( $post_id );
+				$return  = E__Register__Now__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
 
 				$return = $this->notice( esc_html__( 'Your ticket has been deleted.', 'event-tickets' ) ) . $return;
 
@@ -621,7 +621,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			 * the edit-ticket form.
 			 *
 			 * @var array $return data returned to the client
-			 * @var Tribe__Events__Tickets $ticket_object
+			 * @var E__Register__Now__Events__Tickets $ticket_object
 			 */
 			$return = (array) apply_filters( 'tribe_events_tickets_ajax_ticket_edit', $return, $this );
 
@@ -657,7 +657,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		public static function get_event_attendees( $event_id ) {
 			$attendees = array();
 			if ( ! is_admin() ) {
-				$post_transient = Tribe__Post_Transient::instance();
+				$post_transient = E__Register__Now__Post_Transient::instance();
 
 				$attendees = $post_transient->get( $event_id, self::ATTENDEES_CACHE );
 				if ( ! $attendees ) {
@@ -701,7 +701,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 *
 		 * @return array
 		 */
-		public static function get_all_event_tickets( $event_id ) {
+		public static function get_all_e__register__now( $event_id ) {
 			$tickets = array();
 
 			foreach ( self::$active_modules as $class => $module ) {
@@ -743,7 +743,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		final public static function get_event_checkedin_attendees_count( $event_id ) {
 			$checkedin = self::get_event_attendees( $event_id );
 
-			return array_reduce( $checkedin, array( 'Tribe__Tickets__Tickets', '_checkedin_attendees_array_filter' ), 0 );
+			return array_reduce( $checkedin, array( 'E__Register__Now__Tickets__Tickets', '_checkedin_attendees_array_filter' ), 0 );
 		}
 
 		/**
@@ -818,7 +818,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			// Default to using own stock unless the user explicitly specifies otherwise (important
 			// to avoid assuming global stock mode if global stock is enabled/disabled accidentally etc)
 			if ( empty( $current_option ) ) {
-				$current_option = Tribe__Tickets__Global_Stock::OWN_STOCK_MODE;
+				$current_option = E__Register__Now__Tickets__Global_Stock::OWN_STOCK_MODE;
 			}
 
 			foreach ( $this->global_stock_mode_options() as $identifier => $name ) {
@@ -841,9 +841,9 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 */
 		protected function global_stock_mode_options() {
 			return array(
-				Tribe__Tickets__Global_Stock::GLOBAL_STOCK_MODE => __( 'Use global stock', 'event-tickets' ),
-				Tribe__Tickets__Global_Stock::CAPPED_STOCK_MODE => __( 'Use global stock but cap sales', 'event-tickets' ),
-				Tribe__Tickets__Global_Stock::OWN_STOCK_MODE    => __( 'Independent (do not use global stock)', 'event-tickets' ),
+				E__Register__Now__Tickets__Global_Stock::GLOBAL_STOCK_MODE => __( 'Use global stock', 'event-tickets' ),
+				E__Register__Now__Tickets__Global_Stock::CAPPED_STOCK_MODE => __( 'Use global stock but cap sales', 'event-tickets' ),
+				E__Register__Now__Tickets__Global_Stock::OWN_STOCK_MODE    => __( 'Independent (do not use global stock)', 'event-tickets' ),
 			);
 		}
 
@@ -857,10 +857,10 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			// Add the frontend ticket form script as needed (we do this lazily since right now
 			// it's only required for certain combinations of event/ticket
 			if ( ! self::$frontend_script_enqueued ) {
-				$url = E__Register__Now::instance()->plugin_url . 'src/resources/js/frontend-ticket-form.js';
-				$url = Tribe__Template_Factory::getMinFile( $url, true );
+				$url = E__Register__Now__Tickets__Main::instance()->plugin_url . 'src/resources/js/frontend-ticket-form.js';
+				$url = E__Register__Now__Template_Factory::getMinFile( $url, true );
 
-				wp_enqueue_script( 'tribe_tickets_frontend_tickets', $url, array( 'jquery' ), E__Register__Now::VERSION, true );
+				wp_enqueue_script( 'tribe_tickets_frontend_tickets', $url, array( 'jquery' ), E__Register__Now__Tickets__Main::VERSION, true );
 				add_action( 'wp_footer', array( __CLASS__, 'enqueue_frontend_stock_data' ), 1 );
 			}
 
@@ -878,10 +878,10 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 
 			foreach ( self::$frontend_ticket_data as $ticket ) {
 				/**
-				 * @var Tribe__Tickets__Ticket_Object $ticket
+				 * @var E__Register__Now__Tickets__Ticket_Object $ticket
 				 */
 				$event_id = $ticket->get_event()->ID;
-				$global_stock = new Tribe__Tickets__Global_Stock( $event_id );
+				$global_stock = new E__Register__Now__Tickets__Global_Stock( $event_id );
 				$stock_mode = $ticket->global_stock_mode();
 
 				$data[ 'tickets' ][ $ticket->ID ] = array(
@@ -889,12 +889,12 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 					'mode' => $stock_mode,
 				);
 
-				if ( Tribe__Tickets__Global_Stock::CAPPED_STOCK_MODE === $stock_mode ) {
+				if ( E__Register__Now__Tickets__Global_Stock::CAPPED_STOCK_MODE === $stock_mode ) {
 					$data[ 'tickets' ][ $ticket->ID ][ 'cap' ] = $ticket->global_stock_cap();
 				}
 
 				if (
-					Tribe__Tickets__Global_Stock::OWN_STOCK_MODE === $stock_mode
+					E__Register__Now__Tickets__Global_Stock::OWN_STOCK_MODE === $stock_mode
 					&& $ticket->managing_stock()
 				) {
 					$data[ 'tickets' ][ $ticket->ID ][ 'stock' ] = $ticket->stock();
@@ -927,7 +927,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 *
 		 * @return array
 		 */
-		final public static function get_event_tickets( $event_id ) {
+		final public static function get_e__register__now( $event_id ) {
 
 			$tickets = array();
 
@@ -993,7 +993,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			$file = $this->getTemplateHierarchy( 'tickets/email.php' );
 
 			if ( ! file_exists( $file ) ) {
-				$file = E__Register__Now::instance()->plugin_path . 'src/views/tickets/email.php';
+				$file = E__Register__Now__Tickets__Main::instance()->plugin_path . 'src/views/tickets/email.php';
 			}
 
 			include $file;
@@ -1014,7 +1014,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 				$template .= '.php';
 			}
 
-			if ( $theme_file = locate_template( array( 'tribe-events/' . $template ) ) ) {
+			if ( $theme_file = locate_template( array( 'ern-events/' . $template ) ) ) {
 				$file = $theme_file;
 			} else {
 				$file = $this->pluginPath . 'src/views/' . $template;
@@ -1034,7 +1034,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 */
 		public function get_ticket_prices( array $prices, $event_id ) {
 			// Iterate through all tickets from all providers
-			foreach ( self::get_all_event_tickets( $event_id ) as $ticket ) {
+			foreach ( self::get_all_e__register__now( $event_id ) as $ticket ) {
 				// No need to add the pricepoint if it is already in the array
 				if ( in_array( $ticket->price, $prices ) ) {
 					continue;
@@ -1059,7 +1059,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 * "edit_bananas" or whatever is appropriate.
 		 *
 		 * @internal for internal plugin use only (in spite of having public visibility)
-		 * @see Tribe__Tickets__Tickets_Handler::user_can()
+		 * @see E__Register__Now__Tickets__Tickets_Handler::user_can()
 		 *
 		 * @param  string $generic_cap
 		 * @param  int    $attendee_id
@@ -1072,7 +1072,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 				return false;
 			}
 
-			return Tribe__Tickets__Tickets_Handler::instance()->user_can( $generic_cap, $event_id );
+			return E__Register__Now__Tickets__Tickets_Handler::instance()->user_can( $generic_cap, $event_id );
 		}
 
 		/**
@@ -1145,10 +1145,10 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 
 			if ( empty( $attendee_order_key ) ) {
 				switch( $this->className ) {
-					case 'Tribe__Events__Tickets__Woo__Main':   return '_tribe_wooticket_order';   break;
-					case 'Tribe__Events__Tickets__EDD__Main':   return '_tribe_eddticket_order';   break;
-					case 'Tribe__Events__Tickets__Shopp__Main': return '_tribe_shoppticket_order'; break;
-					case 'Tribe__Events__Tickets__Wpec__Main':  return '_tribe_wpecticket_order';  break;
+					case 'E__Register__Now__Events__Tickets__Woo__Main':   return '_tribe_wooticket_order';   break;
+					case 'E__Register__Now__Events__Tickets__EDD__Main':   return '_tribe_eddticket_order';   break;
+					case 'E__Register__Now__Events__Tickets__Shopp__Main': return '_tribe_shoppticket_order'; break;
+					case 'E__Register__Now__Events__Tickets__Wpec__Main':  return '_tribe_wpecticket_order';  break;
 				}
 			}
 
@@ -1170,10 +1170,10 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 
 			if ( empty( $attendee_order_key ) ) {
 				switch( $this->className ) {
-					case 'Tribe__Events__Tickets__Woo__Main':   return 'tribe_wooticket';   break;
-					case 'Tribe__Events__Tickets__EDD__Main':   return 'tribe_eddticket';   break;
-					case 'Tribe__Events__Tickets__Shopp__Main': return 'tribe_shoppticket'; break;
-					case 'Tribe__Events__Tickets__Wpec__Main':  return 'tribe_wpecticket';  break;
+					case 'E__Register__Now__Events__Tickets__Woo__Main':   return 'tribe_wooticket';   break;
+					case 'E__Register__Now__Events__Tickets__EDD__Main':   return 'tribe_eddticket';   break;
+					case 'E__Register__Now__Events__Tickets__Shopp__Main': return 'tribe_shoppticket'; break;
+					case 'E__Register__Now__Events__Tickets__Wpec__Main':  return 'tribe_wpecticket';  break;
 				}
 			}
 
@@ -1197,10 +1197,10 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 
 			if ( empty( $attendee_event_key ) ) {
 				switch( $this->className ) {
-					case 'Tribe__Events__Tickets__Woo__Main':   return '_tribe_wooticket_event';   break;
-					case 'Tribe__Events__Tickets__EDD__Main':   return '_tribe_eddticket_event';   break;
-					case 'Tribe__Events__Tickets__Shopp__Main': return '_tribe_shoppticket_event'; break;
-					case 'Tribe__Events__Tickets__Wpec__Main':  return '_tribe_wpecticket_event';  break;
+					case 'E__Register__Now__Events__Tickets__Woo__Main':   return '_tribe_wooticket_event';   break;
+					case 'E__Register__Now__Events__Tickets__EDD__Main':   return '_tribe_eddticket_event';   break;
+					case 'E__Register__Now__Events__Tickets__Shopp__Main': return '_tribe_shoppticket_event'; break;
+					case 'E__Register__Now__Events__Tickets__Wpec__Main':  return '_tribe_wpecticket_event';  break;
 				}
 			}
 
@@ -1265,7 +1265,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			 * @var array Collection of tickets
 			 * @var string Datetime string
 			 */
-			return apply_filters( 'event_tickets_availability_slug_by_collection', $collection_availability_slug, $tickets, $datetime );
+			return apply_filters( 'e__register__now_availability_slug_by_collection', $collection_availability_slug, $tickets, $datetime );
 		}
 
 		/**
@@ -1295,7 +1295,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			 * @var string Unavailability message
 			 * @var array Collection of tickets
 			 */
-			$message = apply_filters( 'event_tickets_unvailable_message', $message, $tickets );
+			$message = apply_filters( 'e__register__now_unvailable_message', $message, $tickets );
 
 			return $message;
 		}
@@ -1334,7 +1334,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			}
 
 			// if this isn't a supported post type, bail
-			if ( ! in_array( $post->post_type, E__Register__Now::instance()->post_types() ) ) {
+			if ( ! in_array( $post->post_type, E__Register__Now__Tickets__Main::instance()->post_types() ) ) {
 				return $content;
 			}
 
@@ -1399,7 +1399,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 		 */
 		private function maybe_update_attendees_cache( $operation_did_complete ) {
 			if ( $operation_did_complete && ! empty( $_POST['event_ID'] ) && tribe_is_event( $_POST['event_ID'] ) ) {
-				$post_transient = Tribe__Post_Transient::instance();
+				$post_transient = E__Register__Now__Post_Transient::instance();
 				$post_transient->delete( $_POST['event_ID'], self::ATTENDEES_CACHE );
 			}
 		}

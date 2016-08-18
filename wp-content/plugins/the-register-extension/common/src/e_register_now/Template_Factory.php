@@ -10,11 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Template_Factory' ) ) {
+if ( class_exists( 'E__Register__Now__Template_Factory' ) ) {
 	return;
 }
 
-class Tribe__Template_Factory {
+class E__Register__Now__Template_Factory {
 
 	/**
 	 * Array of asset packages needed for this template
@@ -66,7 +66,7 @@ class Tribe__Template_Factory {
 	 * @param array               $deps          An array of dependency handles
 	 * @param string              $vendor_url    URL to vendor scripts and styles dir
 	 * @param string              $prefix        MT script and style prefix
-	 * @param Tribe__Main         $tec           An instance of the main plugin class
+	 * @param E__Register__Now__Main         $tec           An instance of the main plugin class
 	 */
 	protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
@@ -78,12 +78,12 @@ class Tribe__Template_Factory {
 	/**
 	 * initializes asset package request
 	 *
-	 * @param object              $asset         The Tribe__*Asset object
+	 * @param object              $asset         The E__Register__Now__*Asset object
 	 * @param string              $name          The asset name in the `hyphen-separated-format`
 	 * @param array               $deps          An array of dependency handles
 	 * @param string              $vendor_url    URL to vendor scripts and styles dir
 	 * @param string              $prefix        MT script and style prefix
-	 * @param Tribe__Main         $common        An instance of the main plugin class
+	 * @param E__Register__Now__Main         $common        An instance of the main plugin class
 	 */
 	protected static function prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $common ) {
 		if ( ! $asset ) {
@@ -105,7 +105,7 @@ class Tribe__Template_Factory {
 	 * Retrieves the appropriate asset factory instance
 	 */
 	protected static function get_asset_factory_instance( $name ) {
-		$asset = Tribe__Asset__Factory::instance()->make_for_name( $name );
+		$asset = E__Register__Now__Asset__Factory::instance()->make_for_name( $name );
 		return $asset;
 	}
 
@@ -134,8 +134,8 @@ class Tribe__Template_Factory {
 	 */
 	public static function asset_package( $name, $deps = array() ) {
 
-		$common = Tribe__Main::instance();
-		$prefix = 'tribe-events';
+		$common = E__Register__Now__Main::instance();
+		$prefix = 'ern-events';
 
 		// setup plugin resources & 3rd party vendor urls
 		$vendor_url = trailingslashit( $common->plugin_url ) . 'vendor/';
@@ -180,7 +180,7 @@ class Tribe__Template_Factory {
 		global $woocommerce;
 		if ( class_exists( 'Woocommerce' ) && version_compare( $woocommerce->version, '2.0.11', '>=' ) && version_compare( $woocommerce->version, '2.0.13', '<=' )
 		) {
-			$placeholder_handle = 'tribe-placeholder';
+			$placeholder_handle = 'ern-placeholder';
 		}
 
 		return $placeholder_handle;

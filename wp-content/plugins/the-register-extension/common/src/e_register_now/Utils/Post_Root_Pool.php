@@ -1,7 +1,7 @@
 <?php
 
 
-class Tribe__Utils__Post_Root_Pool {
+class E__Register__Now__Utils__Post_Root_Pool {
 
 	/**
 	 * @var string

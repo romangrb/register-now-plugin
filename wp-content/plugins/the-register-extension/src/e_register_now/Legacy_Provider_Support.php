@@ -6,7 +6,7 @@
  * @todo consider removing this class once we are satisfied that enough users
  *       have transitioned away from legacy ticketing solutions
  */
-class Tribe__Tickets__Legacy_Provider_Support {
+class E__Register__Now__Tickets__Legacy_Provider_Support {
 	protected $active_legacy_modules = array();
 
 
@@ -37,13 +37,13 @@ class Tribe__Tickets__Legacy_Provider_Support {
 	 */
 	protected function find_active_legacy_modules() {
 		$legacy_classes = array(
-			'Tribe__Events__Tickets__Woo__Main',
-			'Tribe__Events__Tickets__EDD__Main',
-			'Tribe__Events__Tickets__Shopp__Main',
-			'Tribe__Events__Tickets__Wpec__Main',
+			'E__Register__Now__Events__Tickets__Woo__Main',
+			'E__Register__Now__Events__Tickets__EDD__Main',
+			'E__Register__Now__Events__Tickets__Shopp__Main',
+			'E__Register__Now__Events__Tickets__Wpec__Main',
 		);
 
-		$active_ticket_modules = Tribe__Tickets__Tickets::modules();
+		$active_ticket_modules = E__Register__Now__Tickets__Tickets::modules();
 
 		$this->active_legacy_modules = array_intersect(
 			array_keys( $active_ticket_modules ),
@@ -56,7 +56,7 @@ class Tribe__Tickets__Legacy_Provider_Support {
 	 * this method takes over that responsibility.
 	 */
 	public function add_fields( $price = null, $regular_price = null ) {
-		$metabox_template = E__Register__Now::instance()->plugin_path . 'src/admin-views/legacy-ticket-fields.php';
+		$metabox_template = E__Register__Now__Tickets__Main::instance()->plugin_path . 'src/admin-views/legacy-ticket-fields.php';
 
 		foreach ( $this->active_legacy_modules as $legacy_identifier ) {
 			include $metabox_template;

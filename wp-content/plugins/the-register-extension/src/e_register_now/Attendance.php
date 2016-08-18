@@ -2,7 +2,7 @@
 /**
  * Utilities for tracking ticket provider-agnostic attendance data.
  */
-class Tribe__Tickets__Attendance {
+class E__Register__Now__Tickets__Attendance {
 	/**
 	 * Meta key used to track the number of attendees that have been deleted
 	 * for each event.
@@ -23,11 +23,11 @@ class Tribe__Tickets__Attendance {
 
 
 	/**
-	 * Returns a Tribe__Tickets__Attendance object for the specified post ID.
+	 * Returns a E__Register__Now__Tickets__Attendance object for the specified post ID.
 	 *
 	 * @param int $post_id
 	 *
-	 * @return Tribe__Tickets__Attendance
+	 * @return E__Register__Now__Tickets__Attendance
 	 */
 	public static function instance( $post_id ) {
 		if ( ! isset( self::$instances[ $post_id ] ) ) {

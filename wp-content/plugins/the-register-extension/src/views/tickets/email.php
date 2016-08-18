@@ -3,7 +3,7 @@
  * Tickets Email Template
  * The template for the email with the purchased tickets when using ticketing plugins (Like WooTickets)
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/tickets/email.php
+ * Override this template in your own theme by creating a file at [your-theme]/ern-events/tickets/email.php
  *
  * This file is being included in events/lib/tickets/Tickets.php
  *  in the function generate_tickets_email_content. That function has a $tickets
@@ -236,7 +236,7 @@
 				}
 
 				$event      = get_post( $ticket['event_id'] );
-				$header_id  = Tribe__Tickets__Tickets_Handler::instance()->get_header_image_id( $ticket['event_id'] );
+				$header_id  = E__Register__Now__Tickets__Tickets_Handler::instance()->get_header_image_id( $ticket['event_id'] );
 				$header_img = false;
 				if ( ! empty( $header_id ) ) {
 					$header_img = wp_get_attachment_image_src( $header_id, 'full' );
@@ -271,7 +271,7 @@
 				 * @var boolean Include start date? Defaults to false
 				 * @var int Event ID
 				 */
-				$include_start_date = apply_filters( 'event_tickets_email_include_start_date', false, $event->ID );
+				$include_start_date = apply_filters( 'e__register__now_email_include_start_date', false, $event->ID );
 
 				if ( $include_start_date && function_exists( 'tribe_get_start_date' ) ) {
 					$start_date = tribe_get_start_date( $event, true );

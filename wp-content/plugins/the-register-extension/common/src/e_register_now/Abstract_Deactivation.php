@@ -1,6 +1,6 @@
 <?php
 
-abstract class Tribe__Abstract_Deactivation {
+abstract class E__Register__Now__Abstract_Deactivation {
 	protected $network = false;
 
 	public function __construct( $network ) {

@@ -1,5 +1,5 @@
 <?php
-class Tribe__Tickets__Global_Stock {
+class E__Register__Now__Tickets__Global_Stock {
 	/**
 	 * Post meta key used to store the global stock flag.
 	 */
@@ -109,9 +109,9 @@ class Tribe__Tickets__Global_Stock {
 	public function tickets_sold() {
 		$sales = 0;
 
-		foreach ( Tribe__Tickets__Tickets::get_all_event_tickets( $this->post_id ) as $ticket ) {
+		foreach ( E__Register__Now__Tickets__Tickets::get_all_e__register__now( $this->post_id ) as $ticket ) {
 			/**
-			 * @var Tribe__Tickets__Ticket_Object $ticket
+			 * @var E__Register__Now__Tickets__Ticket_Object $ticket
 			 */
 			switch ( $ticket->global_stock_mode() ) {
 				case self::CAPPED_STOCK_MODE:

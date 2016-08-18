@@ -3,7 +3,7 @@
  * Examines a plugin's views directory and builds a list of view filenames
  * and their respective version numbers.
  */
-class Tribe__Support__Template_Checker {
+class E__Register__Now__Support__Template_Checker {
 	protected $plugin_name = '';
 	protected $plugin_version = '';
 	protected $plugin_views_dir = '';

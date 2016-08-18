@@ -583,23 +583,23 @@ msgstr ""
 msgid "If you are creating a recurring event, Tickets will only show up once per Event Series, meaning that the same ticket will apper across all events. Please configure your events accordingly."
 msgstr ""
 
-#: src/admin-views/tribe-options-tickets.php:37
+#: src/admin-views/ern-options-tickets.php:37
 msgid "Require users to log in before they RSVP"
 msgstr ""
 
-#: src/admin-views/tribe-options-tickets.php:51
+#: src/admin-views/ern-options-tickets.php:51
 msgid "Ticket Settings"
 msgstr ""
 
-#: src/admin-views/tribe-options-tickets.php:55
+#: src/admin-views/ern-options-tickets.php:55
 msgid "Post types that can have tickets"
 msgstr ""
 
-#: src/admin-views/tribe-options-tickets.php:64
+#: src/admin-views/ern-options-tickets.php:64
 msgid "Login requirements"
 msgstr ""
 
-#: src/admin-views/tribe-options-tickets.php:69
+#: src/admin-views/ern-options-tickets.php:69
 msgid "You can require that users log into your site before they are able to RSVP (or buy tickets). Please review your WordPress Membership option (via the General Settings admin screen) before adjusting this setting."
 msgstr ""
 

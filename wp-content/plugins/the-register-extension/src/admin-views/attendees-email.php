@@ -1,5 +1,5 @@
-<div id="tribe-loading"><span></span></div>
-<form method="POST" class="tribe-attendees-email">
+<div id="ern-loading"><span></span></div>
+<form method="POST" class="ern-attendees-email">
 	<div id="plugin-information-title">
 		<?php esc_html_e( 'Send the attendee list by email', 'event-tickets' ); ?>
 	</div>
@@ -26,7 +26,7 @@
 		<div id="plugin-information-footer">
 		<?php
 		if ( false !== $status ) {
-			echo '<div class="tribe-attendees-email-message ' . ( is_wp_error( $status ) ? 'error ' : 'updated ' ) . 'notice is-dismissible">';
+			echo '<div class="ern-attendees-email-message ' . ( is_wp_error( $status ) ? 'error ' : 'updated ' ) . 'notice is-dismissible">';
 			if ( is_wp_error( $status ) ) {
 				echo '<ul>';
 				foreach ( $status->errors as $key => $error ) {
@@ -40,6 +40,6 @@
 		}
 		?>
 
-		<?php echo '<button type="submit" class="button button-primary right" name="tribe-send-email" value="1">' . esc_html__( 'Send Email', 'event-tickets' ) . '</button>'; ?>
+		<?php echo '<button type="submit" class="button button-primary right" name="ern-send-email" value="1">' . esc_html__( 'Send Email', 'event-tickets' ) . '</button>'; ?>
 	</div>
 </form>

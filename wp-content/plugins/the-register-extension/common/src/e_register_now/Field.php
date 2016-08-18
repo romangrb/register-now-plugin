@@ -5,13 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Field' ) ) {
+if ( ! class_exists( 'E__Register__Now__Field' ) ) {
 	/**
 	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere.
 	 * Instantiate it whenever you need a field
 	 *
 	 */
-	class Tribe__Field {
+	class E__Register__Now__Field {
 
 		/**
 		 * the field's id
@@ -206,7 +206,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 				} else {
 
 					// fail, log the error
-					Tribe__Main::debug( esc_html__( 'Invalid field type specified', 'tribe-common' ), $this->type, 'notice' );
+					E__Register__Now__Main::debug( esc_html__( 'Invalid field type specified', 'ern-common' ), $this->type, 'notice' );
 
 				}
 			}
@@ -218,10 +218,10 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field start
 		 */
 		public function doFieldStart() {
-			$return = '<fieldset id="tribe-field-' . $this->id . '"';
-			$return .= ' class="tribe-field tribe-field-' . $this->type;
-			$return .= ( $this->error ) ? ' tribe-error' : '';
-			$return .= ( $this->size ) ? ' tribe-size-' . $this->size : '';
+			$return = '<fieldset id="ern-field-' . $this->id . '"';
+			$return .= ' class="ern-field ern-field-' . $this->type;
+			$return .= ( $this->error ) ? ' ern-error' : '';
+			$return .= ( $this->size ) ? ' ern-size-' . $this->size : '';
 			$return .= ( $this->class ) ? ' ' . $this->class . '"' : '"';
 			$return .= '>';
 
@@ -248,7 +248,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		public function doFieldLabel() {
 			$return = '';
 			if ( $this->label ) {
-				$return = '<legend class="tribe-field-label">' . $this->label . '</legend>';
+				$return = '<legend class="ern-field-label">' . $this->label . '</legend>';
 			}
 
 			return apply_filters( 'tribe_field_label', $return, $this->label, $this );
@@ -260,7 +260,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 		 * @return string the field div start
 		 */
 		public function doFieldDivStart() {
-			$return = '<div class="tribe-field-wrap">';
+			$return = '<div class="ern-field-wrap">';
 
 			return apply_filters( 'tribe_field_div_start', $return, $this );
 		}
@@ -463,7 +463,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$field .= '</label>';
 				}
 			} else {
-				$field .= '<span class="tribe-error">' . esc_html__( 'No radio options specified', 'tribe-common' ) . '</span>';
+				$field .= '<span class="ern-error">' . esc_html__( 'No radio options specified', 'ern-common' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
@@ -499,7 +499,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 					$field .= '</label>';
 				}
 			} else {
-				$field .= '<span class="tribe-error">' . esc_html__( 'No checkbox options specified', 'tribe-common' ) . '</span>';
+				$field .= '<span class="ern-error">' . esc_html__( 'No checkbox options specified', 'ern-common' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();
@@ -555,7 +555,7 @@ if ( ! class_exists( 'Tribe__Field' ) ) {
 			} elseif ( $this->if_empty ) {
 				$field .= '<span class="empty-field">' . (string) $this->if_empty . '</span>';
 			} else {
-				$field .= '<span class="tribe-error">' . esc_html__( 'No select options specified', 'tribe-common' ) . '</span>';
+				$field .= '<span class="ern-error">' . esc_html__( 'No select options specified', 'ern-common' ) . '</span>';
 			}
 			$field .= $this->doFieldDivEnd();
 			$field .= $this->doFieldEnd();

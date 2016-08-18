@@ -118,7 +118,7 @@ msgstr "Zrušiť"
 msgid "Sold all %1$d %2$s"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:35
+#: common/src/admin-views/ern-options-help.php:35
 msgid "The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!"
 msgstr ""
 
@@ -182,59 +182,59 @@ msgstr ""
 msgid "Already have Events Tickets Plus? You can %s in our premium support forums. Our support team monitors the forums and will respond to your thread within 24-48 hours (during the week)."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:30
+#: common/src/admin-views/ern-options-help.php:30
 msgid "Please note that all hands-on support is provided via the forums. You can email or tweet at us… ​but we will probably point you back to the forums "
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:31
+#: common/src/admin-views/ern-options-help.php:31
 msgid "Read more about our support policy"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:26
+#: common/src/admin-views/ern-options-help.php:26
 msgid "%s. There are very few issues we haven’t seen and it’s likely another user has already asked your question and gotten an answer from our support staff. While posting to the forums is open only to paid customers, they are open for anyone to search and review."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:26
+#: common/src/admin-views/ern-options-help.php:26
 msgid "Search our support forum"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:24
+#: common/src/admin-views/ern-options-help.php:24
 msgid "%s. All of the common (and not-so-common) answers to questions we see are here. It’s often the fastest path to finding an answer!"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:24
+#: common/src/admin-views/ern-options-help.php:24
 msgid "Check our Knowledgebase"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:25
+#: common/src/admin-views/ern-options-help.php:25
 msgid "%s. Testing for an existing conflict is the best start for in-depth troubleshooting. We will often ask you to follow these steps when opening a new thread, so doing this ahead of time will be super helpful."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:25
+#: common/src/admin-views/ern-options-help.php:25
 msgid "Test for a theme or plugin conflict"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:15
+#: common/src/admin-views/ern-options-help.php:15
 msgid "Our website’s %s is a great place to find tips and tricks for using and customizing our plugins."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:15
+#: common/src/admin-views/ern-options-help.php:15
 msgid "Knowledgebase"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:16
+#: common/src/admin-views/ern-options-help.php:16
 msgid "<strong>Want to dive deeper?</strong> Check out our %s for developers."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:16
+#: common/src/admin-views/ern-options-help.php:16
 msgid "list of available functions"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:19
+#: common/src/admin-views/ern-options-help.php:19
 msgid "Getting More Help"
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:20
+#: common/src/admin-views/ern-options-help.php:20
 msgid "While the resources above help solve a majority of the issues we see, there are times you might be looking for extra support. If you need assistance using our plugins and would like us to take a look, please follow these steps:"
 msgstr ""
 
@@ -250,23 +250,23 @@ msgstr ""
 msgid "%s must be a positive number or percent."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-display.php:31
+#: common/src/admin-views/ern-options-display.php:31
 msgid "Enter the format to use for displaying dates with the year. Used when displaying a date in a future year."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-general.php:10
+#: common/src/admin-views/ern-options-general.php:10
 msgid "Thank you for using Event Tickets! All of us at Modern e_register_now sincerely appreciate your support and we're excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-general.php:15
+#: common/src/admin-views/ern-options-general.php:15
 msgid "Optimize your site's event listings with %1$sThe Events Calendar%2$s, our free calendar plugin. Looking for additional functionality including recurring events, user-submission, advanced ticket sales and more? Check out our %3$spremium add-ons%4$s."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:11
+#: common/src/admin-views/ern-options-help.php:11
 msgid "Thanks you for using %s! All of us at Modern e_register_now sincerely appreciate your support and we’re excited to see you using our plugins."
 msgstr ""
 
-#: common/src/admin-views/tribe-options-help.php:14
+#: common/src/admin-views/ern-options-help.php:14
 msgid "Getting Support"
 msgstr ""
 
@@ -516,7 +516,7 @@ msgstr "Hong Kong"
 msgid "Hungary"
 msgstr "Maďarsko"
 
-#: common/src/admin-views/tribe-options-help.php:60
+#: common/src/admin-views/ern-options-help.php:60
 msgid "More..."
 msgstr "Viac..."
 
@@ -556,7 +556,7 @@ msgstr "Izrael"
 msgid "Italy"
 msgstr "Taliansko"
 
-#: common/src/admin-views/tribe-options-help.php:54
+#: common/src/admin-views/ern-options-help.php:54
 msgid "News and Tutorials"
 msgstr "Novinky a tutoriály"
 
@@ -564,7 +564,7 @@ msgstr "Novinky a tutoriály"
 msgid "Jamaica"
 msgstr "Jamajka"
 
-#: common/src/admin-views/tribe-options-licenses.php:13
+#: common/src/admin-views/ern-options-licenses.php:13
 msgid "<p>The license key you received when completing your purchase from %1$s will grant you access to support and updates until it expires. You do not need to enter the key below for the plugins to work, but you will need to enter it to get automatic updates. <strong>Find your license keys at <a href=\"%2$s\" target=\"_blank\">%3$s</a></strong>.</p> <p>Each paid add-on has its own unique license key. Simply paste the key into its appropriate field on below, and give it a moment to validate. You know you're set when a green expiration date appears alongside a \"valid\" message.</p> <p>If you're seeing a red message telling you that your key isn't valid or is out of installs, visit <a href=\"%4$s\" target=\"_blank\">%5$s</a> to manage your installs or renew / upgrade your license.</p><p>Not seeing an update but expecting one? In WordPress, go to <a href=\"%6$s\">Dashboard > Updates</a> and click \"Check Again\".</p>"
 msgstr ""
 
@@ -572,7 +572,7 @@ msgstr ""
 msgid "Japan"
 msgstr "Japonsko"
 
-#: common/src/admin-views/tribe-options-licenses.php:18
+#: common/src/admin-views/ern-options-licenses.php:18
 msgid "%1$s Using our plugins in a multisite network? %2$s Please note that your license key will be applied to the entire network, not just this site."
 msgstr ""
 
@@ -580,7 +580,7 @@ msgstr ""
 msgid "Jordan"
 msgstr "Jordánsko"
 
-#: common/src/admin-views/tribe-options-licenses.php:28
+#: common/src/admin-views/ern-options-licenses.php:28
 msgid "Only license fields for %1$snetwork activated%2$s plugins will be listed on this screen. "
 msgstr ""
 
@@ -588,7 +588,7 @@ msgstr ""
 msgid "Kazakhstan"
 msgstr "Kazachstan"
 
-#: common/src/admin-views/tribe-options-network.php:15
+#: common/src/admin-views/ern-options-network.php:15
 msgid "Network Settings"
 msgstr "Nastavenia siete"
 
@@ -596,7 +596,7 @@ msgstr "Nastavenia siete"
 msgid "Kenya"
 msgstr "Keňa"
 
-#: common/src/admin-views/tribe-options-network.php:19
+#: common/src/admin-views/ern-options-network.php:19
 msgid "This is where all of the global network settings for Modern e_register_now's The Events Calendar can be modified."
 msgstr "Toto je miesto, kde všetky globálne nastavenia siete Modern e_register_now Kalendára udalostí možete modifikovať."
 
@@ -604,7 +604,7 @@ msgstr "Toto je miesto, kde všetky globálne nastavenia siete Modern e_register
 msgid "Kiribati"
 msgstr "Kiribati"
 
-#: common/src/admin-views/tribe-options-network.php:27
+#: common/src/admin-views/ern-options-network.php:27
 msgid "Hide the following settings tabs on every site:"
 msgstr "Schovať nasledujúce nastavenia záložky na každej stránke:"
 
@@ -1215,7 +1215,7 @@ msgstr ""
 msgid "Sierra Leone"
 msgstr "Sierra Leone"
 
-#: src/admin-views/tribe-options-tickets.php:41
+#: src/admin-views/ern-options-tickets.php:41
 msgid "Ticket Settings"
 msgstr ""
 
@@ -1223,7 +1223,7 @@ msgstr ""
 msgid "Singapore"
 msgstr "Singapur"
 
-#: src/admin-views/tribe-options-tickets.php:45
+#: src/admin-views/ern-options-tickets.php:45
 msgid "Post types that can have tickets"
 msgstr ""
 
@@ -1554,7 +1554,7 @@ msgid "United States Minor Outlying Islands"
 msgstr "Menšie odľahlé ostrovy USA"
 
 #: common/src/e_register_now/Settings_Manager.php:263
-#: common/src/admin-views/tribe-options-licenses.php:46
+#: common/src/admin-views/ern-options-licenses.php:46
 msgid "Licenses"
 msgstr "Licencie"
 
@@ -1578,7 +1578,7 @@ msgstr "Vanuatu"
 msgid "Venezuela"
 msgstr "Venezuela"
 
-#: common/src/admin-views/tribe-options-help.php:34
+#: common/src/admin-views/ern-options-help.php:34
 msgid "System Information"
 msgstr "Systémové informácie"
 
@@ -2073,7 +2073,7 @@ msgstr "Posledná aktualizácia"
 msgid "Cameroon"
 msgstr "Kamerun"
 
-#: common/src/admin-views/tribe-options-display.php:22
+#: common/src/admin-views/ern-options-display.php:22
 msgid "Date Format Settings"
 msgstr "Nastavenia formátu dátumu"
 
@@ -2081,7 +2081,7 @@ msgstr "Nastavenia formátu dátumu"
 msgid "Canada"
 msgstr "Kanada"
 
-#: common/src/admin-views/tribe-options-display.php:26
+#: common/src/admin-views/ern-options-display.php:26
 msgid "<p>The following three fields accept the date format options available to the php date() function. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Learn how to make your own date format here</a>.</p>"
 msgstr "<p>Tieto tri polia akceptujú nastavenia formátu dátumu dostupné pre php date() funkciu. <a href=\"http://codex.wordpress.org/Formatting_Date_and_Time\" target=\"_blank\">Naučte sa, ako nastaviť váš vlastný formát dátumu tu</a>.</p>"
 
@@ -2089,7 +2089,7 @@ msgstr "<p>Tieto tri polia akceptujú nastavenia formátu dátumu dostupné pre 
 msgid "Cape Verde"
 msgstr "Cape Verde"
 
-#: common/src/admin-views/tribe-options-display.php:30
+#: common/src/admin-views/ern-options-display.php:30
 msgid "Date with year"
 msgstr "Dátum s rokom"
 
@@ -2117,7 +2117,7 @@ msgstr "Čína"
 msgid "Christmas Island"
 msgstr "Vianočné ostrovy"
 
-#: common/src/admin-views/tribe-options-display.php:38
+#: common/src/admin-views/ern-options-display.php:38
 msgid "Date time separator"
 msgstr "Oddeľovač času"
 
@@ -2125,7 +2125,7 @@ msgstr "Oddeľovač času"
 msgid "Cocos (Keeling) Islands"
 msgstr "Kokosové ostrovy (Keeling)"
 
-#: common/src/admin-views/tribe-options-display.php:39
+#: common/src/admin-views/ern-options-display.php:39
 msgid "Enter the separator that will be placed between the date and time, when both are shown."
 msgstr "Vložte oddeľovač, ktorý bude medzi dátumom a časom, keď sa zobrazujú súčasne."
 
@@ -2141,7 +2141,7 @@ msgstr "Komory"
 msgid "Congo"
 msgstr "Kongo"
 
-#: common/src/admin-views/tribe-options-display.php:46
+#: common/src/admin-views/ern-options-display.php:46
 msgid "Datepicker Date Format"
 msgstr "Formát dátumu pre Datepicker"
 
@@ -2149,7 +2149,7 @@ msgstr "Formát dátumu pre Datepicker"
 msgid "Congo, The Democratic Republic Of The"
 msgstr "Kongo, demokratická republika"
 
-#: common/src/admin-views/tribe-options-display.php:47
+#: common/src/admin-views/ern-options-display.php:47
 msgid "Select the date format to use in datepickers"
 msgstr "Vyberte formát dátumu pre používanie datepickera"
 
@@ -2157,7 +2157,7 @@ msgstr "Vyberte formát dátumu pre používanie datepickera"
 msgid "Cook Islands"
 msgstr "Cookove ostrovy"
 
-#: common/src/admin-views/tribe-options-general.php:20
+#: common/src/admin-views/ern-options-general.php:20
 msgid "Looking for additional functionality including recurring events, custom meta, community events, ticket sales and more?"
 msgstr "Hľadáte doplnkové funkcionality vrátane pravidelne sa opakujúcich udalosti, vlastné meta data, verejné udalosti, predaj lístkov a iné?"
 
@@ -2165,7 +2165,7 @@ msgstr "Hľadáte doplnkové funkcionality vrátane pravidelne sa opakujúcich u
 msgid "Costa Rica"
 msgstr "Costa Rica"
 
-#: common/src/admin-views/tribe-options-general.php:20
+#: common/src/admin-views/ern-options-general.php:20
 msgid "Check out the available add-ons"
 msgstr "Prezrieť si dostupné doplnky"
 
@@ -2173,7 +2173,7 @@ msgstr "Prezrieť si dostupné doplnky"
 msgid "Cote D'Ivoire"
 msgstr "Cote D'Ivoire"
 
-#: common/src/admin-views/tribe-options-general.php:25
+#: common/src/admin-views/ern-options-general.php:25
 msgid "We hope our plugin is helping you out."
 msgstr "Dúfame, že vám doplnok pomohol."
 
@@ -2181,7 +2181,7 @@ msgstr "Dúfame, že vám doplnok pomohol."
 msgid "Croatia (Local Name: Hrvatska)"
 msgstr "Chorvátsko (Miestny názov: Hrvatska)"
 
-#: common/src/admin-views/tribe-options-general.php:30
+#: common/src/admin-views/ern-options-general.php:30
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern e_register_now for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "Myslíte si, že \"Wow, tento doplnok je úžasný. Mali by ste sa poďakovať Modern e_register_now za ich tvrdú prácu.\" Najväčšie ďakujem bude, že dáte o nás vedieť. Stačí pridať malý textový odkaz do spodnej časti vášho kalendára na projekt Kalendár udalosti."
 
@@ -2189,8 +2189,8 @@ msgstr "Myslíte si, že \"Wow, tento doplnok je úžasný. Mali by ste sa poďa
 msgid "Cuba"
 msgstr "Kuba"
 
-#: common/src/admin-views/tribe-options-general.php:30
-#: common/src/admin-views/tribe-options-general.php:35
+#: common/src/admin-views/ern-options-general.php:30
+#: common/src/admin-views/ern-options-general.php:35
 msgid "See an example of the link"
 msgstr "Pozrite si príklad linku"
 
@@ -2198,7 +2198,7 @@ msgstr "Pozrite si príklad linku"
 msgid "Cyprus"
 msgstr "Cyprus"
 
-#: common/src/admin-views/tribe-options-general.php:35
+#: common/src/admin-views/ern-options-general.php:35
 msgid "Are you thinking \"Wow, this plugin is amazing! I should say thanks to Modern e_register_now for all their hard work.\" The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project."
 msgstr "Myslíte si, že \"Wow, tento plugin je úžasný. Mali by ste sa poďakovať Modern e_register_now za ich tvrdú prácu.\" Najväčšie ďakujem bude,  ak dáte o nás vedieť. Stačí pridať malý textový odkaz do spodnej časti vášho kalendára na projekt Kalendár udalosti."
 
@@ -2206,7 +2206,7 @@ msgstr "Myslíte si, že \"Wow, tento plugin je úžasný. Mali by ste sa poďak
 msgid "Czech Republic"
 msgstr "Česká republika"
 
-#: common/src/admin-views/tribe-options-general.php:40
+#: common/src/admin-views/ern-options-general.php:40
 msgid "Show The Events Calendar link"
 msgstr "Ukázať link na Kalendár udalostí"
 
@@ -2214,7 +2214,7 @@ msgstr "Ukázať link na Kalendár udalostí"
 msgid "Denmark"
 msgstr "Dánsko"
 
-#: common/src/admin-views/tribe-options-general.php:55
+#: common/src/admin-views/ern-options-general.php:55
 msgid "General Settings"
 msgstr "Všeobecné nastavenia"
 
@@ -2230,7 +2230,7 @@ msgstr "Dominika"
 msgid "Dominican Republic"
 msgstr "Dominikánska republika"
 
-#: common/src/admin-views/tribe-options-general.php:59
+#: common/src/admin-views/ern-options-general.php:59
 msgid "Default currency symbol"
 msgstr "Predvolený symbol meny"
 
@@ -2238,7 +2238,7 @@ msgstr "Predvolený symbol meny"
 msgid "East Timor"
 msgstr "Južný Timor"
 
-#: common/src/admin-views/tribe-options-general.php:60
+#: common/src/admin-views/ern-options-general.php:60
 msgid "Set the default currency symbol for event costs. Note that this only impacts future events, and changes made will not apply retroactively."
 msgstr "Nastaviť predvolený symbol meny pre cenu udalosti. Nezabudnite, že túto menu budú mať nastavené budúce udalosti a nie udalosti, ktoré sa už konali"
 
@@ -2246,7 +2246,7 @@ msgstr "Nastaviť predvolený symbol meny pre cenu udalosti. Nezabudnite, že t�
 msgid "Ecuador"
 msgstr "Ekvádor"
 
-#: common/src/admin-views/tribe-options-general.php:67
+#: common/src/admin-views/ern-options-general.php:67
 msgid "Currency symbol follows value"
 msgstr "Symbol meny uvádzať za hodnotou"
 
@@ -2254,7 +2254,7 @@ msgstr "Symbol meny uvádzať za hodnotou"
 msgid "Egypt"
 msgstr "Egypt"
 
-#: common/src/admin-views/tribe-options-general.php:68
+#: common/src/admin-views/ern-options-general.php:68
 msgid "The currency symbol normally precedes the value. Enabling this option positions the symbol after the value."
 msgstr "Symbol meny zvyčajne predchádza hodnotu. Povoľte nastavenie pozície symbolu po hodnote."
 
@@ -2262,7 +2262,7 @@ msgstr "Symbol meny zvyčajne predchádza hodnotu. Povoľte nastavenie pozície 
 msgid "El Salvador"
 msgstr "Salvádor"
 
-#: common/src/admin-views/tribe-options-general.php:74
+#: common/src/admin-views/ern-options-general.php:74
 msgid "Miscellaneous Settings"
 msgstr "Rôzne nastavenia"
 
@@ -2286,7 +2286,7 @@ msgstr "Etiópia"
 msgid "Falkland Islands (Malvinas)"
 msgstr "Falklandy"
 
-#: common/src/admin-views/tribe-options-general.php:81
+#: common/src/admin-views/ern-options-general.php:81
 msgid "Debug mode"
 msgstr "Debugovací mód"
 
@@ -2294,7 +2294,7 @@ msgstr "Debugovací mód"
 msgid "Faroe Islands"
 msgstr "Faerské ostrovy"
 
-#: common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/ern-options-general.php:87
 msgid "Enable this option to log debug information. By default this will log to your server PHP error log. If you'd like to see the log messages in your browser, then we recommend that you install the %s and look for the \"e_register_now\" tab in the debug output."
 msgstr "Povoľte tieto nastavenia pre logovanie debugovacích informácií. Prednastavením bude váš server logovať do PHP chybových logov. Ak by ste chceli vidieť logové hlásenia v prehliadači, potom vám odporúčame nainštalovať  %s a pozrieť  \"e_register_now\" záložky na výstup debugovania."
 
@@ -2302,7 +2302,7 @@ msgstr "Povoľte tieto nastavenia pre logovanie debugovacích informácií. Pred
 msgid "Fiji"
 msgstr "Fidži"
 
-#: common/src/admin-views/tribe-options-general.php:87
+#: common/src/admin-views/ern-options-general.php:87
 msgid "Debug Bar Plugin"
 msgstr "Debug Bar Doplnok"
 

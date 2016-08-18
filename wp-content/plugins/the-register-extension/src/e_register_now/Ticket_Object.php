@@ -1,9 +1,9 @@
 <?php
-if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
+if ( ! class_exists( 'E__Register__Now__Tickets__Ticket_Object' ) ) {
 	/**
 	 *    Generic object to hold information about a single ticket
 	 */
-	class Tribe__Tickets__Ticket_Object {
+	class E__Register__Now__Tickets__Ticket_Object {
 		/**
 		 * This value - an empty string - should be used to populate the stock
 		 * property in situations where no limit has been placed on stock
@@ -72,7 +72,7 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 		public $provider_class;
 
 		/**
-		 * @var Tribe__Tickets__Tickets
+		 * @var E__Register__Now__Tickets__Tickets
 		 */
 		protected $provider;
 
@@ -90,7 +90,7 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $global_stock_mode = Tribe__Tickets__Global_Stock::OWN_STOCK_MODE;
+		protected $global_stock_mode = E__Register__Now__Tickets__Global_Stock::OWN_STOCK_MODE;
 
 		/**
 		 * The maximum permitted number of sales for this ticket when global stock
@@ -315,7 +315,7 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 			 * @var string Slug
 			 * @var string Datetime string
 			 */
-			$slug = apply_filters( 'event_tickets_availability_slug', $slug, $datetime );
+			$slug = apply_filters( 'e__register__now_availability_slug', $slug, $datetime );
 
 			return $slug;
 		}
@@ -351,7 +351,7 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 			$remaining = $this->original_stock() - $this->qty_sold() - $this->qty_pending();
 
 			// Adjust if using global stock with a sales cap
-			if ( Tribe__Tickets__Global_Stock::CAPPED_STOCK_MODE === $this->global_stock_mode() ) {
+			if ( E__Register__Now__Tickets__Global_Stock::CAPPED_STOCK_MODE === $this->global_stock_mode() ) {
 				$remaining = min( $remaining, $this->global_stock_cap() );
 			}
 
@@ -402,7 +402,7 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 		/**
 		 * Sets or gets the current global stock mode in effect for the ticket.
 		 *
-		 * Typically this is one of the constants provided by Tribe__Tickets__Global_Stock:
+		 * Typically this is one of the constants provided by E__Register__Now__Tickets__Global_Stock:
 		 *
 		 *     GLOBAL_STOCK_MODE if it should draw on the global stock
 		 *     CAPPED_STOCK_MODE as above but with a limit on the total number of allowed sales
@@ -551,7 +551,7 @@ if ( ! class_exists( 'Tribe__Tickets__Ticket_Object' ) ) {
 		/**
 		 * Returns an instance of the provider class.
 		 *
-		 * @return Tribe__Tickets__Tickets|null
+		 * @return E__Register__Now__Tickets__Tickets|null
 		 */
 		public function get_provider() {
 			if ( empty( $this->provider ) ) {

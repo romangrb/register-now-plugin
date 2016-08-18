@@ -8,11 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'Tribe__Main' ) ) {
+if ( class_exists( 'E__Register__Now__Main' ) ) {
 	return;
 }
 
-class Tribe__Main {
+class E__Register__Now__Main {
 	const EVENTSERROROPT      = '_tribe_events_errors';
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
@@ -45,7 +45,7 @@ class Tribe__Main {
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->plugin_dir );
 
-		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
+		$this->load_text_domain( 'ern-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
 
@@ -66,12 +66,12 @@ class Tribe__Main {
 	 * Setup the autoloader for common files
 	 */
 	protected function init_autoloading() {
-		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
+		if ( ! class_exists( 'E__Register__Now__Autoloader' ) ) {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
 
-		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
-		$autoloader = Tribe__Autoloader::instance();
+		$prefixes = array( 'E__Register__Now__' => dirname( __FILE__ ) );
+		$autoloader = E__Register__Now__Autoloader::instance();
 		$autoloader->register_prefixes( $prefixes );
 		$autoloader->register_autoloader();
 	}
@@ -87,14 +87,14 @@ class Tribe__Main {
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
-		Tribe__Debug::instance();
-		Tribe__Settings_Manager::instance();
+		E__Register__Now__Debug::instance();
+		E__Register__Now__Settings_Manager::instance();
 
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 
 		// Starting the log manager needs to wait until after the tribe_*_option() functions have loaded
-		$this->log = new Tribe__Log();
+		$this->log = new E__Register__Now__Log();
 	}
 
 	/**
@@ -104,8 +104,8 @@ class Tribe__Main {
 		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
 
 		wp_register_style(
-			'tribe-common-admin',
-			$resources_url . '/css/tribe-common-admin.css',
+			'ern-common-admin',
+			$resources_url . '/css/ern-common-admin.css',
 			array(),
 			apply_filters( 'tribe_events_css_version', self::VERSION )
 		);
@@ -121,7 +121,7 @@ class Tribe__Main {
 		);
 
 		wp_register_script(
-			'tribe-inline-bumpdown',
+			'ern-inline-bumpdown',
 			$resources_url . '/js/inline-bumpdown.js',
 			array(
 				'ba-dotimeout',
@@ -131,7 +131,7 @@ class Tribe__Main {
 		);
 
 		wp_register_script(
-			'tribe-notice-dismiss',
+			'ern-notice-dismiss',
 			$resources_url . '/js/notice-dismiss.js',
 			array( 'jquery' ),
 			apply_filters( 'tribe_events_css_version', self::VERSION ),
@@ -146,16 +146,16 @@ class Tribe__Main {
 		$vendor_base = plugins_url( 'vendor', dirname( dirname( __FILE__ ) ) );
 
 		wp_register_style(
-			'tribe-jquery-ui-theme',
+			'ern-jquery-ui-theme',
 			$vendor_base . '/jquery/ui.theme.css',
 			array(),
 			apply_filters( 'tribe_events_css_version', self::VERSION )
 		);
 
 		wp_register_style(
-			'tribe-jquery-ui-datepicker',
+			'ern-jquery-ui-datepicker',
 			$vendor_base . '/jquery/ui.datepicker.css',
-			array( 'tribe-jquery-ui-theme' ),
+			array( 'ern-jquery-ui-theme' ),
 			apply_filters( 'tribe_events_css_version', self::VERSION )
 		);
 
@@ -165,7 +165,7 @@ class Tribe__Main {
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
-		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'E__Register__Now__App_Shop', 'instance' ) );
 
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
@@ -215,18 +215,18 @@ class Tribe__Main {
 	}
 
 	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'tribe-inline-bumpdown' );
-		wp_enqueue_script( 'tribe-notice-dismiss' );
-		wp_enqueue_style( 'tribe-common-admin' );
+		wp_enqueue_script( 'ern-inline-bumpdown' );
+		wp_enqueue_script( 'ern-notice-dismiss' );
+		wp_enqueue_style( 'ern-common-admin' );
 
-		$helper = Tribe__Admin__Helpers::instance();
+		$helper = E__Register__Now__Admin__Helpers::instance();
 		if ( $helper->is_post_type_screen() ) {
-			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
+			wp_enqueue_style( 'ern-jquery-ui-datepicker' );
 		}
 	}
 
 	/**
-	 * @return Tribe__Log
+	 * @return E__Register__Now__Log
 	 */
 	public function log() {
 		return $this->log;
@@ -236,7 +236,7 @@ class Tribe__Main {
 	 * Returns the post types registered by e_register_now plugins
 	 */
 	public static function get_post_types() {
-		// we default the post type array to empty in tribe-common. Plugins like TEC add to it
+		// we default the post type array to empty in ern-common. Plugins like TEC add to it
 		return apply_filters( 'tribe_post_types', array() );
 	}
 
@@ -324,7 +324,7 @@ class Tribe__Main {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Main
+	 * @return E__Register__Now__Main
 	 */
 	public static function instance() {
 		static $instance;

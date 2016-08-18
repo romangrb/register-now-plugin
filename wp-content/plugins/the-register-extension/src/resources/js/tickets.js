@@ -44,11 +44,11 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 
 	$( document ).ready( function() {
-		var $event_pickers = $( '#tribe-event-datepickers' ),
+		var $event_pickers = $( '#ern-event-datepickers' ),
 			$tribe_tickets = $( '#tribetickets' ),
-			$tickets_container = $( '#event_tickets' ),
-			$enable_global_stock = $( "#tribe-tickets-enable-global-stock" ),
-			$global_stock_level = $( "#tribe-tickets-global-stock-level" ),
+			$tickets_container = $( '#e__register__now' ),
+			$enable_global_stock = $( "#ern-tickets-enable-global-stock" ),
+			$global_stock_level = $( "#ern-tickets-global-stock-level" ),
 			global_stock_setting_changed = false,
 			$body = $( 'html, body' ),
 			startofweek = 0;
@@ -62,17 +62,17 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 * @param  {string} action You can use `start` or `stop`
 			 * @return {void}
 			 */
-			'spin.tribe': function( event, action ) {
+			'spin.ern': function( event, action ) {
 				if ( typeof action === 'undefined' || $.inArray( action, [ 'start', 'stop' ] ) ){
 					action = 'stop';
 				}
 
 				if ( 'stop' === action ) {
 					$tickets_container.css( 'opacity', '1' )
-						.find( '#tribe-loading' ).hide();
+						.find( '#ern-loading' ).hide();
 				} else {
 					$tickets_container.css( 'opacity', '0.5' )
-						.find( '#tribe-loading' ).show();
+						.find( '#ern-loading' ).show();
 
 				}
 			},
@@ -82,7 +82,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 *
 			 * @return {void}
 			 */
-			'clear.tribe': function() {
+			'clear.ern': function() {
 				var $this = $( this ),
 					$ticket_form = $this.find( '#ticket_form'),
 					$ticket_settings = $ticket_form.find( "tr:not(.event-wide-settings)" );
@@ -111,8 +111,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					.siblings( '.no-update-message' ).html( '' ).hide()
 					.end().siblings( '.description' ).show();
 
-				$('#tribe-tickets-attendee-sortables').empty();
-				$('.tribe-tickets-attendee-saved-fields').show();
+				$('#ern-tickets-attendee-sortables').empty();
+				$('.ern-tickets-attendee-saved-fields').show();
 
 				$ticket_form.hide();
 			},
@@ -122,7 +122,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 *
 			 * @return {void}
 			 */
-			'focus.tribe': function() {
+			'focus.ern': function() {
 				$body.animate( {
 					scrollTop: $tickets_container.offset().top - 50
 				}, 500 );
@@ -134,7 +134,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 *
 			 * @return {void}
 			 */
-			'set-advanced-fields.tribe': function() {
+			'set-advanced-fields.ern': function() {
 				var $this = $( this );
 				var $ticket_form = $this.find( '#ticket_form' );
 				var $ticket_advanced = $ticket_form.find( 'tr.ticket_advanced:not(.ticket_advanced_meta)' ).find( 'input, select, textarea' );
@@ -166,15 +166,15 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				} );
 
 				// (Re-)set the global stock fields
-				$tribe_tickets.trigger( 'set-global-stock-fields.tribe' );
+				$tribe_tickets.trigger( 'set-global-stock-fields.ern' );
 
 				// Also reset each time the global stock mode selector is changed
 				$( '#ticket_global_stock' ).change( function() {
-					$tribe_tickets.trigger( 'set-global-stock-fields.tribe' );
+					$tribe_tickets.trigger( 'set-global-stock-fields.ern' );
 				});
 			},
 
-			'set-global-stock-fields.tribe': function() {
+			'set-global-stock-fields.ern': function() {
 				var provider_class   = currently_selected_provider();
 				var $provider_fields = $( this ).find( '#ticket_form').find( '.ticket_advanced_' + provider_class );
 
@@ -279,7 +279,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		 */
 		function show_hide_global_stock() {
 			global_stock_setting_changed = true;
-			$tribe_tickets.trigger( 'set-global-stock-fields.tribe' );
+			$tribe_tickets.trigger( 'set-global-stock-fields.ern' );
 		}
 
 		/**
@@ -288,8 +288,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		function show_hide_advanced_fields() {
 			$( 'tr.ticket_advanced' ).hide();
 			$( 'tr.ticket_advanced_' + currently_selected_provider() + ':not(.sale_price)' ).show();
-			$tribe_tickets.trigger( 'set-advanced-fields.tribe' );
-			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.tribe' );
+			$tribe_tickets.trigger( 'set-advanced-fields.ern' );
+			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.ern' );
 		}
 
 		/**
@@ -328,20 +328,20 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$( 'h4.ticket_form_title_add' ).show();
 			$( this ).hide();
 			$tribe_tickets
-				.trigger( 'clear.tribe' )
-				.trigger( 'set-advanced-fields.tribe' )
-				.trigger( 'focus.tribe' );
+				.trigger( 'clear.ern' )
+				.trigger( 'set-advanced-fields.ern' )
+				.trigger( 'focus.ern' );
 			$( '#ticket_form' ).show();
-			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.tribe' );
+			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.ern' );
 			e.preventDefault();
 		} );
 
 		/* "Cancel" button action */
 		$( '#ticket_form_cancel' ).click( function() {
 			$tribe_tickets
-				.trigger( 'clear.tribe' )
-				.trigger( 'set-advanced-fields.tribe' )
-				.trigger( 'focus.tribe' );
+				.trigger( 'clear.ern' )
+				.trigger( 'set-advanced-fields.ern' )
+				.trigger( 'focus.ern' );
 		} );
 
 		/* "Save Ticket" button action */
@@ -350,10 +350,10 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				type = $form.find( '#ticket_provider:checked' ).val(),
 				$rows = $form.find( '.ticket, .ticket_advanced_meta, .ticket_advanced_' + type );
 
-			$tribe_tickets.trigger( 'save-ticket.tribe', e ).trigger( 'spin.tribe', 'start' );
+			$tribe_tickets.trigger( 'save-ticket.ern', e ).trigger( 'spin.ern', 'start' );
 
 			var params = {
-				action  : 'tribe-ticket-add-' + $( 'input[name=ticket_provider]:checked' ).val(),
+				action  : 'ern-ticket-add-' + $( 'input[name=ticket_provider]:checked' ).val(),
 				formdata: $rows.find( '.ticket_field' ).serialize(),
 				post_ID : $( '#post_ID' ).val(),
 				nonce   : TribeTickets.add_ticket_nonce
@@ -363,17 +363,17 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$tribe_tickets.trigger( 'saved-ticket.tribe', response );
+					$tribe_tickets.trigger( 'saved-ticket.ern', response );
 
 					if ( response.success ) {
-						$tribe_tickets.trigger( 'clear.tribe' );
+						$tribe_tickets.trigger( 'clear.ern' );
 						$( 'td.ticket_list_container' ).empty().html( response.data.html );
 						$( '.ticket_time' ).hide();
 					}
 				},
 				'json'
 			).complete( function() {
-				$tribe_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
+				$tribe_tickets.trigger( 'spin.ern', 'stop' ).trigger( 'focus.ern' );
 			} );
 
 		} );
@@ -384,10 +384,10 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 			e.preventDefault();
 
-			$tribe_tickets.trigger( 'delete-ticket.tribe', e ).trigger( 'spin.tribe', 'start' );
+			$tribe_tickets.trigger( 'delete-ticket.ern', e ).trigger( 'spin.ern', 'start' );
 
 			var params = {
-				action   : 'tribe-ticket-delete-' + $( this ).attr( 'attr-provider' ),
+				action   : 'ern-ticket-delete-' + $( this ).attr( 'attr-provider' ),
 				post_ID  : $( '#post_ID' ).val(),
 				ticket_id: $( this ).attr( 'attr-ticket-id' ),
 				nonce    : TribeTickets.remove_ticket_nonce
@@ -397,16 +397,16 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$tribe_tickets.trigger( 'deleted-ticket.tribe', response );
+					$tribe_tickets.trigger( 'deleted-ticket.ern', response );
 
 					if ( response.success ) {
-						$tribe_tickets.trigger( 'clear.tribe' );
+						$tribe_tickets.trigger( 'clear.ern' );
 						$( 'td.ticket_list_container' ).empty().html( response.data );
 					}
 				},
 				'json'
 			).complete( function() {
-				$tribe_tickets.trigger( 'spin.tribe', 'stop' );
+				$tribe_tickets.trigger( 'spin.ern', 'stop' );
 			} );
 		} );
 
@@ -420,10 +420,10 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				$( 'h4.ticket_form_title_edit' ).show();
 				$( 'h4.ticket_form_title_add' ).hide();
 
-				$tribe_tickets.trigger( 'spin.tribe', 'start' );
+				$tribe_tickets.trigger( 'spin.ern', 'start' );
 
 				var params = {
-					action   : 'tribe-ticket-edit-' + $( this ).attr( 'attr-provider' ),
+					action   : 'ern-ticket-edit-' + $( this ).attr( 'attr-provider' ),
 					post_ID  : $( '#post_ID' ).val(),
 					ticket_id: $( this ).attr( 'attr-ticket-id' ),
 					nonce    : TribeTickets.edit_ticket_nonce
@@ -434,9 +434,9 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					params,
 					function( response ) {
 						$tribe_tickets
-							.trigger( 'clear.tribe' )
-							.trigger( 'set-advanced-fields.tribe' )
-							.trigger( 'edit-ticket.tribe', response );
+							.trigger( 'clear.ern' )
+							.trigger( 'set-advanced-fields.ern' )
+							.trigger( 'edit-ticket.ern', response );
 
 						var regularPrice = response.data.price;
 						var salePrice    = regularPrice;
@@ -578,13 +578,13 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( '#ticket_form' ).show();
 
 						$tribe_tickets
-							.trigger( 'set-advanced-fields.tribe' )
-							.trigger( 'edit-ticket.tribe' );
+							.trigger( 'set-advanced-fields.ern' )
+							.trigger( 'edit-ticket.ern' );
 
 					},
 					'json'
 				).complete( function() {
-					$tribe_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
+					$tribe_tickets.trigger( 'spin.ern', 'stop' ).trigger( 'focus.ern' );
 				} );
 
 			} )

@@ -8,7 +8,7 @@
 </tr>
 
 <?php
-if ( class_exists( 'Tribe__Events__Pro__Main' ) ) {
+if ( class_exists( 'E__Register__Now__Events__Pro__Main' ) ) {
 	?>
 	<tr class="<?php $this->tr_class(); ?>">
 		<td colspan="2" class="tribe_sectionheader updated">

@@ -1,7 +1,7 @@
 <?php
-	_deprecated_file( __FILE__, '3.10', 'Tribe__Tickets__Tickets_Handler' );
+	_deprecated_file( __FILE__, '3.10', 'E__Register__Now__Tickets__Tickets_Handler' );
 
 
-	class TribeEventsTicketsPro extends Tribe__Tickets__Tickets_Handler {
+	class TribeEventsTicketsPro extends E__Register__Now__Tickets__Tickets_Handler {
 
 	}

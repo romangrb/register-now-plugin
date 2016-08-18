@@ -1,9 +1,9 @@
 <?php
-class Tribe__Tickets__Tickets_Handler {
+class E__Register__Now__Tickets__Tickets_Handler {
 	/**
 	 * Singleton instance of this class
 	 *
-	 * @var Tribe__Tickets__Tickets_Handler
+	 * @var E__Register__Now__Tickets__Tickets_Handler
 	 * @static
 	 */
 	protected static $instance;
@@ -34,7 +34,7 @@ class Tribe__Tickets__Tickets_Handler {
 
 	/**
 	 * WP_Post_List children for Attendees
-	 * @var Tribe__Tickets__Attendees_Table
+	 * @var E__Register__Now__Tickets__Attendees_Table
 	 */
 	private $attendees_table;
 
@@ -42,7 +42,7 @@ class Tribe__Tickets__Tickets_Handler {
 	 *    Class constructor.
 	 */
 	public function __construct() {
-		$main = E__Register__Now::instance();
+		$main = E__Register__Now__Tickets__Main::instance();
 
 		foreach ( $main->post_types() as $post_type ) {
 			add_action( 'save_post_' . $post_type, array( $this, 'save_image_header' ) );
@@ -65,9 +65,9 @@ class Tribe__Tickets__Tickets_Handler {
 	 */
 	public function attendees_row_action( $actions ) {
 		global $post;
-		$tickets = Tribe__Tickets__Tickets::get_event_tickets( $post->ID );
+		$tickets = E__Register__Now__Tickets__Tickets::get_e__register__now( $post->ID );
 
-		if ( in_array( $post->post_type, E__Register__Now::instance()->post_types() ) && ! empty( $tickets ) ) {
+		if ( in_array( $post->post_type, E__Register__Now__Tickets__Main::instance()->post_types() ) && ! empty( $tickets ) ) {
 			$url = add_query_arg( array(
 				'post_type' => $post->post_type,
 				'page'      => self::$attendees_slug,
@@ -122,9 +122,9 @@ class Tribe__Tickets__Tickets_Handler {
 
 		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
 
-		wp_enqueue_style( self::$attendees_slug, $resources_url . '/css/tickets-attendees.css', array(), E__Register__Now::instance()->css_version() );
-		wp_enqueue_style( self::$attendees_slug . '-print', $resources_url . '/css/tickets-attendees-print.css', array(), E__Register__Now::instance()->css_version(), 'print' );
-		wp_enqueue_script( self::$attendees_slug, $resources_url . '/js/tickets-attendees.js', array( 'jquery' ), E__Register__Now::instance()->js_version() );
+		wp_enqueue_style( self::$attendees_slug, $resources_url . '/css/tickets-attendees.css', array(), E__Register__Now__Tickets__Main::instance()->css_version() );
+		wp_enqueue_style( self::$attendees_slug . '-print', $resources_url . '/css/tickets-attendees-print.css', array(), E__Register__Now__Tickets__Main::instance()->css_version(), 'print' );
+		wp_enqueue_script( self::$attendees_slug, $resources_url . '/js/tickets-attendees.js', array( 'jquery' ), E__Register__Now__Tickets__Main::instance()->js_version() );
 
 		$mail_data = array(
 			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
@@ -193,7 +193,7 @@ class Tribe__Tickets__Tickets_Handler {
 			iframe_header();
 
 			// Check if we need to send an Email!
-			if ( isset( $_POST['tribe-send-email'] ) && $_POST['tribe-send-email'] ) {
+			if ( isset( $_POST['ern-send-email'] ) && $_POST['ern-send-email'] ) {
 				$status = $this->send_attendee_mail_list();
 			} else {
 				$status = false;
@@ -208,7 +208,7 @@ class Tribe__Tickets__Tickets_Handler {
 			// We need nothing else here
 			exit;
 		} else {
-			$this->attendees_table = new Tribe__Tickets__Attendees_Table();
+			$this->attendees_table = new E__Register__Now__Tickets__Attendees_Table();
 
 			$this->maybe_generate_attendees_csv();
 
@@ -270,7 +270,7 @@ class Tribe__Tickets__Tickets_Handler {
 		$filter_name = "manage_{$this->attendees_page}_columns";
 		add_filter( $filter_name, array( $this->attendees_table, 'get_columns' ), 15 );
 
-		$items = Tribe__Tickets__Tickets::get_event_attendees( $event_id );
+		$items = E__Register__Now__Tickets__Tickets::get_event_attendees( $event_id );
 
 		//Add Handler for Community Tickets to Prevent Notices in Exports
 		if ( ! is_admin() ) {
@@ -452,14 +452,14 @@ class Tribe__Tickets__Tickets_Handler {
 			$email = $user->data->user_email;
 		}
 
-		$this->attendees_table = new Tribe__Tickets__Attendees_Table();
+		$this->attendees_table = new E__Register__Now__Tickets__Attendees_Table();
 
 		$items = $this->generate_filtered_attendees_list( $_GET['event_id'] );
 
 		$event = get_post( $_GET['event_id'] );
 
 		ob_start();
-		$attendee_tpl = Tribe__Tickets__Templates::get_template_hierarchy( 'tickets/attendees-email.php', array( 'disable_view_check' => true ) );
+		$attendee_tpl = E__Register__Now__Tickets__Templates::get_template_hierarchy( 'tickets/attendees-email.php', array( 'disable_view_check' => true ) );
 		include $attendee_tpl;
 		$content = ob_get_clean();
 
@@ -524,16 +524,16 @@ class Tribe__Tickets__Tickets_Handler {
 	 */
 	public function do_meta_box( $post ) {
 
-		$startMinuteOptions   = Tribe__View_Helpers::getMinuteOptions( null );
-		$endMinuteOptions     = Tribe__View_Helpers::getMinuteOptions( null );
-		$startHourOptions     = Tribe__View_Helpers::getHourOptions( null, true );
-		$endHourOptions       = Tribe__View_Helpers::getHourOptions( null, false );
-		$startMeridianOptions = Tribe__View_Helpers::getMeridianOptions( null, true );
-		$endMeridianOptions   = Tribe__View_Helpers::getMeridianOptions( null );
+		$startMinuteOptions   = E__Register__Now__View_Helpers::getMinuteOptions( null );
+		$endMinuteOptions     = E__Register__Now__View_Helpers::getMinuteOptions( null );
+		$startHourOptions     = E__Register__Now__View_Helpers::getHourOptions( null, true );
+		$endHourOptions       = E__Register__Now__View_Helpers::getHourOptions( null, false );
+		$startMeridianOptions = E__Register__Now__View_Helpers::getMeridianOptions( null, true );
+		$endMeridianOptions   = E__Register__Now__View_Helpers::getMeridianOptions( null );
 
-		$show_global_stock = Tribe__Tickets__Tickets::global_stock_available();
-		$tickets = Tribe__Tickets__Tickets::get_event_tickets( $post->ID );
-		$global_stock = new Tribe__Tickets__Global_Stock( $post->ID );
+		$show_global_stock = E__Register__Now__Tickets__Tickets::global_stock_available();
+		$tickets = E__Register__Now__Tickets__Tickets::get_e__register__now( $post->ID );
+		$global_stock = new E__Register__Now__Tickets__Global_Stock( $post->ID );
 
 		include $this->path . 'src/admin-views/meta-box.php';
 	}
@@ -583,7 +583,7 @@ class Tribe__Tickets__Tickets_Handler {
 	 * @param int $post_id
 	 */
 	public function save_image_header( $post_id ) {
-		if ( ! ( isset($_POST[ 'tribe-tickets-post-settings' ])  && wp_verify_nonce( $_POST[ 'tribe-tickets-post-settings' ], 'tribe-tickets-meta-box' ) ) ) {
+		if ( ! ( isset($_POST[ 'ern-tickets-post-settings' ])  && wp_verify_nonce( $_POST[ 'ern-tickets-post-settings' ], 'ern-tickets-meta-box' ) ) ) {
 			return;
 		}
 
@@ -607,7 +607,7 @@ class Tribe__Tickets__Tickets_Handler {
 	 * @param int $post_id
 	 */
 	public function save_global_stock( $post_id ) {
-		if ( ! ( isset( $_POST[ 'tribe-tickets-post-settings' ] ) && wp_verify_nonce( $_POST[ 'tribe-tickets-post-settings' ], 'tribe-tickets-meta-box' ) ) ) {
+		if ( ! ( isset( $_POST[ 'ern-tickets-post-settings' ] ) && wp_verify_nonce( $_POST[ 'ern-tickets-post-settings' ], 'ern-tickets-meta-box' ) ) ) {
 			return;
 		}
 
@@ -616,10 +616,10 @@ class Tribe__Tickets__Tickets_Handler {
 			return;
 		}
 
-		$enable = ! empty( $_POST[ 'tribe-tickets-enable-global-stock' ] );
-		$stock  = (int) @$_POST[ 'tribe-tickets-global-stock' ];
+		$enable = ! empty( $_POST[ 'ern-tickets-enable-global-stock' ] );
+		$stock  = (int) @$_POST[ 'ern-tickets-global-stock' ];
 
-		$post_global_stock = new Tribe__Tickets__Global_Stock( $post_id );
+		$post_global_stock = new E__Register__Now__Tickets__Global_Stock( $post_id );
 		$post_global_stock->enable( $enable );
 		$post_global_stock->set_stock_level( $stock );
 	}
@@ -627,7 +627,7 @@ class Tribe__Tickets__Tickets_Handler {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return Tribe__Tickets__Tickets_Handler
+	 * @return E__Register__Now__Tickets__Tickets_Handler
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {

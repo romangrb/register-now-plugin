@@ -1,7 +1,7 @@
 <?php
 
 
-class Tribe__Tickets__CSV_Importer__Column_Names {
+class E__Register__Now__Tickets__CSV_Importer__Column_Names {
 
 	/**
 	 * @var self
@@ -11,7 +11,7 @@ class Tribe__Tickets__CSV_Importer__Column_Names {
 	/**
 	 * The class singleton constructor.
 	 *
-	 * @return Tribe__Tickets__CSV_Importer__Column_Names
+	 * @return E__Register__Now__Tickets__CSV_Importer__Column_Names
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {

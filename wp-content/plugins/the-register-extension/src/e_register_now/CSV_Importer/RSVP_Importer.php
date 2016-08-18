@@ -2,9 +2,9 @@
 
 
 /**
- * Class Tribe__Tickets__CSV_Importer__RSVP_Importer
+ * Class E__Register__Now__Tickets__CSV_Importer__RSVP_Importer
  */
-class Tribe__Tickets__CSV_Importer__RSVP_Importer extends Tribe__Events__Importer__File_Importer {
+class E__Register__Now__Tickets__CSV_Importer__RSVP_Importer extends E__Register__Now__Events__Importer__File_Importer {
 
 	/**
 	 * @var array
@@ -22,7 +22,7 @@ class Tribe__Tickets__CSV_Importer__RSVP_Importer extends Tribe__Events__Importe
 	protected static $ticket_name_cache = array();
 
 	/**
-	 * @var Tribe__Tickets__RSVP
+	 * @var E__Register__Now__Tickets__RSVP
 	 */
 	protected $rsvp_tickets;
 
@@ -34,12 +34,12 @@ class Tribe__Tickets__CSV_Importer__RSVP_Importer extends Tribe__Events__Importe
 	/**
 	 * The class constructor proxy method.
 	 *
-	 * @param Tribe__Events__Importer__File_Importer|null $instance The default instance that would be used for the type.
-	 * @param Tribe__Events__Importer__File_Reader        $file_reader
+	 * @param E__Register__Now__Events__Importer__File_Importer|null $instance The default instance that would be used for the type.
+	 * @param E__Register__Now__Events__Importer__File_Reader        $file_reader
 	 *
-	 * @return Tribe__Tickets__CSV_Importer__RSVP_Importer
+	 * @return E__Register__Now__Tickets__CSV_Importer__RSVP_Importer
 	 */
-	public static function instance( $instance, Tribe__Events__Importer__File_Reader $file_reader ) {
+	public static function instance( $instance, E__Register__Now__Events__Importer__File_Reader $file_reader ) {
 		return new self( $file_reader );
 	}
 
@@ -52,17 +52,17 @@ class Tribe__Tickets__CSV_Importer__RSVP_Importer extends Tribe__Events__Importe
 	}
 
 	/**
-	 * Tribe__Tickets__CSV_Importer__RSVP_Importer constructor.
+	 * E__Register__Now__Tickets__CSV_Importer__RSVP_Importer constructor.
 	 *
-	 * @param Tribe__Events__Importer__File_Reader                  $file_reader
-	 * @param Tribe__Events__Importer__Featured_Image_Uploader|null $featured_image_uploader
-	 * @param Tribe__Tickets__RSVP|null                             $rsvp_tickets
+	 * @param E__Register__Now__Events__Importer__File_Reader                  $file_reader
+	 * @param E__Register__Now__Events__Importer__Featured_Image_Uploader|null $featured_image_uploader
+	 * @param E__Register__Now__Tickets__RSVP|null                             $rsvp_tickets
 	 */
 	public function __construct(
-		Tribe__Events__Importer__File_Reader $file_reader, Tribe__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null, Tribe__Tickets__RSVP $rsvp_tickets = null
+		E__Register__Now__Events__Importer__File_Reader $file_reader, E__Register__Now__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null, E__Register__Now__Tickets__RSVP $rsvp_tickets = null
 	) {
 		parent::__construct( $file_reader, $featured_image_uploader );
-		$this->rsvp_tickets = ! empty( $rsvp_tickets ) ? $rsvp_tickets : Tribe__Tickets__RSVP::get_instance();
+		$this->rsvp_tickets = ! empty( $rsvp_tickets ) ? $rsvp_tickets : E__Register__Now__Tickets__RSVP::get_instance();
 	}
 
 	/**
@@ -142,10 +142,10 @@ class Tribe__Tickets__CSV_Importer__RSVP_Importer extends Tribe__Events__Importe
 		}
 
 		// by title
-		$event = get_page_by_title( $event_name, OBJECT, Tribe__Events__Main::POSTTYPE );
+		$event = get_page_by_title( $event_name, OBJECT, E__Register__Now__Events__Main::POSTTYPE );
 		if ( empty( $event ) ) {
 			// by slug
-			$event = get_page_by_path( $event_name, OBJECT, Tribe__Events__Main::POSTTYPE );
+			$event = get_page_by_path( $event_name, OBJECT, E__Register__Now__Events__Main::POSTTYPE );
 		}
 		if ( empty( $event ) ) {
 			// by ID

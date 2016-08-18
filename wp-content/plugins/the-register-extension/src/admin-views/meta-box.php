@@ -2,7 +2,7 @@
 /**
  * @var WP_Post $post
  * @var bool $show_global_stock
- * @var Tribe__Tickets__Global_Stock $global_stock
+ * @var E__Register__Now__Tickets__Global_Stock $global_stock
  */
 
 // Don't load directly
@@ -17,12 +17,12 @@ if ( ! empty( $header_id ) ) {
 	$header_img = wp_get_attachment_image( $header_id, 'full' );
 }
 
-$modules = Tribe__Tickets__Tickets::modules();
+$modules = E__Register__Now__Tickets__Tickets::modules();
 ?>
 
-<table id="event_tickets" class="eventtable">
+<table id="e__register__now" class="eventtable">
 	<?php
-	wp_nonce_field( 'tribe-tickets-meta-box', 'tribe-tickets-post-settings' );
+	wp_nonce_field( 'ern-tickets-meta-box', 'ern-tickets-post-settings' );
 
 	if ( get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ) {
 		?>
@@ -37,7 +37,7 @@ $modules = Tribe__Tickets__Tickets::modules();
 	<tr class="event-wide-settings">
 		<td colspan="2" class="tribe_sectionheader updated">
 			<table class="eventtable ticket_list eventForm">
-				<tr class="tribe-tickets-image-upload">
+				<tr class="ern-tickets-image-upload">
 					<td>
 						<?php esc_html_e( 'Upload image for the ticket header.', 'event-tickets' ); ?>
 						<p class="description"><?php esc_html_e( 'The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like "retina" support use an image sized to 1160px wide.', 'event-tickets' ); ?></p>
@@ -46,7 +46,7 @@ $modules = Tribe__Tickets__Tickets::modules();
 						<input type="button" class="button" name="tribe_ticket_header_image" id="tribe_ticket_header_image" value="<?php esc_html_e( 'Select an Image', 'event-tickets' ); ?>" />
 					</td>
 				</tr>
-				<tr class="tribe-tickets-image-preview">
+				<tr class="ern-tickets-image-preview">
 					<td colspan="2">
 						<div class="tribe_preview" id="tribe_ticket_header_preview">
 							<?php echo $header_img; ?>
@@ -60,28 +60,28 @@ $modules = Tribe__Tickets__Tickets::modules();
 		</td>
 	</tr>
 	<?php if ( $show_global_stock ): ?>
-		<tr id="tribe-global-stock-settings" class="event-wide-settings">
+		<tr id="ern-global-stock-settings" class="event-wide-settings">
 			<td colspan="2">
 				<table class="eventtable ticket_list eventForm">
 					<tr>
 						<td>
-							<label for="tribe-tickets-enable-global-stock">
+							<label for="ern-tickets-enable-global-stock">
 								<?php esc_html_e( 'Enable global stock', 'event-tickets' ); ?>
 							</label>
 						</td>
 						<td>
-							<input type="checkbox" name="tribe-tickets-enable-global-stock" id="tribe-tickets-enable-global-stock" value="1" <?php checked( $global_stock->is_enabled() ); ?> />
+							<input type="checkbox" name="ern-tickets-enable-global-stock" id="ern-tickets-enable-global-stock" value="1" <?php checked( $global_stock->is_enabled() ); ?> />
 						</td>
 					</tr>
-					<tr id="tribe-tickets-global-stock-level">
+					<tr id="ern-tickets-global-stock-level">
 						<td>
-							<label for="tribe-tickets-global-stock">
+							<label for="ern-tickets-global-stock">
 								<?php esc_html_e( 'Global stock level', 'event-tickets' ); ?>
 							</label>
 						</td>
 						<td>
-							<input type="number" name="tribe-tickets-global-stock" id="tribe-tickets-global-stock" value="<?php echo esc_attr( $global_stock->get_stock_level() ); ?>" />
-							<span class="tribe-tickets-global-sales">
+							<input type="number" name="ern-tickets-global-stock" id="ern-tickets-global-stock" value="<?php echo esc_attr( $global_stock->get_stock_level() ); ?>" />
+							<span class="ern-tickets-global-sales">
 								<?php echo esc_html( sprintf( _n( '(%s sold)', '(%s sold)', $global_stock->tickets_sold(), 'event-tickets' ), $global_stock->tickets_sold() ) ); ?>
 							</span>
 						</td>
@@ -114,7 +114,7 @@ $modules = Tribe__Tickets__Tickets::modules();
 	</tr>
 	<tr id="ticket_form" class="ticket_form">
 		<td colspan="2" class="tribe_sectionheader">
-			<div id="tribe-loading"><span></span></div>
+			<div id="ern-loading"><span></span></div>
 			<table id="ticket_form_table" class="eventtable ticket_form">
 
 				<tr>
@@ -171,7 +171,7 @@ $modules = Tribe__Tickets__Tickets::modules();
 							<select name="ticket_start_minute" id="ticket_start_minute" class="ticket_field">
 								<?php echo $startMinuteOptions; ?>
 							</select>
-							<?php if ( ! strstr( get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
+							<?php if ( ! strstr( get_option( 'time_format', E__Register__Now__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
 								<select name="ticket_start_meridian" id="ticket_start_meridian" class="ticket_field">
 									<?php echo $startMeridianOptions; ?>
 								</select>
@@ -196,7 +196,7 @@ $modules = Tribe__Tickets__Tickets::modules();
 							<select name="ticket_end_minute" id="ticket_end_minute" class="ticket_field">
 								<?php echo $endMinuteOptions; ?>
 							</select>
-							<?php if ( ! strstr( get_option( 'time_format', Tribe__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
+							<?php if ( ! strstr( get_option( 'time_format', E__Register__Now__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
 								<select name="ticket_end_meridian" id="ticket_end_meridian" class="ticket_field">
 									<?php echo $endMeridianOptions; ?>
 								</select>
@@ -208,7 +208,7 @@ $modules = Tribe__Tickets__Tickets::modules();
 							<?php esc_html_e( 'When will ticket sales occur?', 'event-tickets' ); ?>
 							<?php
 							// Why break in and out of PHP? because I want the space between the phrases without including them in the translations
-							if ( class_exists( 'Tribe__Events__Main' ) && Tribe__Events__Main::POSTTYPE === get_post_type( $post ) ) {
+							if ( class_exists( 'E__Register__Now__Events__Main' ) && E__Register__Now__Events__Main::POSTTYPE === get_post_type( $post ) ) {
 								esc_html_e( "If you don't set a start/end date for sales, tickets will be available from now until the event ends.", 'event-tickets' );
 							}
 							?>

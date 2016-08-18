@@ -20,11 +20,11 @@
 		}
 	}
 
-	$modules = Tribe__Tickets__Tickets::modules();
+	$modules = E__Register__Now__Tickets__Tickets::modules();
 
 	foreach ( $tickets as $ticket ) {
 		/**
-		 * @var Tribe__Tickets__Ticket_Object $ticket
+		 * @var E__Register__Now__Tickets__Ticket_Object $ticket
 		 */
 		$controls     = array();
 		$provider     = $ticket->provider_class;
@@ -71,7 +71,7 @@
 					$attendees_url = add_query_arg(
 						array(
 							'post_type' => $post_type,
-							'page' => Tribe__Tickets__Tickets_Handler::$attendees_slug,
+							'page' => E__Register__Now__Tickets__Tickets_Handler::$attendees_slug,
 							'event_id' => $post_id,
 						),
 						admin_url( 'edit.php' )
@@ -96,7 +96,7 @@
 						esc_attr( $ticket->ID ),
 						esc_html( $ticket->name )
 					);
-					do_action( 'event_tickets_ticket_list_after_ticket_name', $ticket );
+					do_action( 'e__register__now_ticket_list_after_ticket_name', $ticket );
 					?>
 				</p>
 

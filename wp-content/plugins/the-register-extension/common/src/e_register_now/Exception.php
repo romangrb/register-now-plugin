@@ -2,11 +2,11 @@
 
 
 /**
- * Class Tribe__Exception
+ * Class E__Register__Now__Exception
  *
  * Handles exceptions to log when not in debug mode.
  */
-class Tribe__Exception extends Exception {
+class E__Register__Now__Exception extends Exception {
 
 	/**
 	 * @var Exception
@@ -14,7 +14,7 @@ class Tribe__Exception extends Exception {
 	private $original_exception;
 
 	/**
-	 * Tribe__Exception constructor.
+	 * E__Register__Now__Exception constructor.
 	 *
 	 * @param Exception $original_exception
 	 */
@@ -48,7 +48,7 @@ class Tribe__Exception extends Exception {
 			// @todo: let's add a decent exception code to log type map here
 		);
 
-		return isset( $map[ $code ] ) ? $map[ $code ] : Tribe__Log::ERROR;
+		return isset( $map[ $code ] ) ? $map[ $code ] : E__Register__Now__Log::ERROR;
 	}
 
 	/**
@@ -56,7 +56,7 @@ class Tribe__Exception extends Exception {
 	 *
 	 * Provided as a manual override over the default `WP_DEBUG` dependent behaviour.
 	 *
-	 * @see Tribe__Exception::handle()
+	 * @see E__Register__Now__Exception::handle()
 	 *
 	 * @throws Exception
 	 */
@@ -69,16 +69,16 @@ class Tribe__Exception extends Exception {
 	 *
 	 * Provided as a manual override over the default `WP_DEBUG` dependent behaviour.
 	 *
-	 * @see Tribe__Exception::handle()
+	 * @see E__Register__Now__Exception::handle()
 	 *
 	 * @return bool  `true` if the message was logged, `false` otherwise.
 	 */
 	private function log_original_exception_message() {
-		if ( ! class_exists( 'Tribe__Log' ) ) {
+		if ( ! class_exists( 'E__Register__Now__Log' ) ) {
 			return false;
 		}
 
-		$logger   = new Tribe__Log();
+		$logger   = new E__Register__Now__Log();
 		$message  = $this->original_exception->getMessage();
 		$log_type = $this->get_log_type_for_exception_code( $this->original_exception->getCode() );
 		$src      = $this->original_exception->getFile() . ':' . $this->original_exception->getLine();

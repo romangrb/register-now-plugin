@@ -1,6 +1,6 @@
 <?php
 
-class E__Register__Now__Tickets__Main {
+class Register__Now__Main {
 	/**
 	 * Instance of this class for use as singleton
 	 */
@@ -9,12 +9,12 @@ class E__Register__Now__Tickets__Main {
 	/**
 	 * Current version of this plugin
 	 */
-	const VERSION = '4.2.5';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Min required The Events Calendar version
 	 */
-	const MIN_TEC_VERSION = '4.2.2';
+	const MIN_TEC_VERSION = '1.1.0';
 
 	/**
 	 * Name of the provider
@@ -39,24 +39,18 @@ class E__Register__Now__Tickets__Main {
 	 * @var
 	 */
 	public $plugin_url;
-
-	/**
-	 * @var E__Register__Now__Tickets__Legacy_Provider_Support
+    
+    /**
+	 * Bool of plugin initialization 
+	 * @var
 	 */
-	public $legacy_provider_support;
-
-	/**
-	 * @var E__Register__Now__Tickets__Shortcodes__User_Event_Confirmation_List
-	 */
-	private $user_event_confirmation_list_shortcode;
-
-	private $has_initialized = false;
-
+    
+    private $has_initialized = false;
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
 	 *
 	 * @static
-	 * @return E__Register__Now__Tickets__Woo__Main
+	 * @return Register__Now__Woo__Main
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
@@ -65,21 +59,32 @@ class E__Register__Now__Tickets__Main {
 
 		return self::$instance;
 	}
+	
+	/**
+	 * Plugin dependencies  
+	 * @var
+	 */
+	
+	private  $dependencies_plugin = array(
+		// ["name"=>"event-tickets", "class"=>"E__Register__Now", "v_def"=>"VERSION", "ptrn"=>"/event-tickets.php/", "ver"=>"4.2.4", "src"=>"http://.."],
+		["name"=>"the-events-calendar", "class"=>"Tribe__Events__Main", "v_def"=>"VERSION", "ptrn"=>"/the-events-calendar.php/", "ver"=>"4.2.4", "src"=>"http://.."],
+		["name"=>"woocommerce-gateway-stripe", "class"=>"Tribe__Events__Main","v_def"=>"WC_STRIPE_VERSION", "ptrn"=>"/woocommerce-gateway-stripe.php/", "ver"=>"3.0.2", "src"=>"http://.."],
+		["name"=>"woocommerce", "class"=>"Tribe__Events__Main", "v_def"=>"WC_VERSION", "ptrn"=>"/woocommerce.php/", "ver"=>"2.6.4", "src"=>"http://.."]);
 
 	/**
 	 * Class constructor
 	 */
 	public function __construct() {
 		/* Set up some parent's vars */
-		$this->plugin_name = 'Tickets';
-		$this->plugin_slug = 'tickets';
-		$this->plugin_path = trailingslashit( E__REGISTER__NOW_DIR );
-		$this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
+		$this->plugin_name = 'E-Register-Now';
+		$this->plugin_slug = 'register_now';
+		$this->plugin_path = trailingslashit( E__REGISTER_NOW_DIR );
+		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 
 		$dir_prefix = '';
 
-		if ( false !== strstr( E__REGISTER__NOW_DIR, '/vendor/' ) ) {
-			$dir_prefix = basename( dirname( dirname( E__REGISTER__NOW_DIR ) ) ) . '/vendor/';
+		if ( false !== strstr( E__REGISTER_NOW_DIR, '/vendor/' ) ) {
+			$dir_prefix = basename( dirname( dirname( E__REGISTER_NOW_DIR ) ) ) . '/vendor/';
 		}
 
 		$this->plugin_url = trailingslashit( plugins_url( $dir_prefix . $this->plugin_dir ) );
@@ -88,6 +93,7 @@ class E__Register__Now__Tickets__Main {
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 	}
+
 
 	/**
 	 * Finalize the initialization of this plugin
@@ -99,26 +105,25 @@ class E__Register__Now__Tickets__Main {
 			return;
 		}
 
-		if (
-			class_exists( 'TribeEvents', false )
-			|| ( class_exists( 'E__Register__Now__Events__Main' ) && ! version_compare( E__Register__Now__Events__Main::VERSION, self::MIN_TEC_VERSION, '>=' ) )
-		) {
+		if ($this->tec_compatibility_check()) {
+				
 			add_action( 'admin_notices', array( $this, 'tec_compatibility_notice' ) );
 
 			/**
-			 * Fires if Event Tickets cannot load due to compatibility or other problems.
+			 * Fires if Register Now cannot load due to compatibility or other problems.
 			 */
 			do_action( 'tribe_tickets_plugin_failed_to_load' );
 
 			return;
 		}
 
+
 		$this->init_autoloading();
 
 		// initialize the common libraries
 		$this->common();
 
-		E__Register__Now__Main::instance()->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
+		Tribe__Main::instance()->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
 
 		$this->hooks();
 
@@ -129,40 +134,60 @@ class E__Register__Now__Tickets__Main {
 		$this->user_event_confirmation_list_shortcode();
 
 		// Load the Hooks on JSON_LD
-		E__Register__Now__Tickets__JSON_LD__Order::hook();
+		Tribe__Tickets__JSON_LD__Order::hook();
 
 		/**
 		 * Fires once Event Tickets has completed basic setup.
 		 */
-		do_action( 'tribe_tickets_plugin_loaded' );
+		do_action( 'register_now_plugin_loaded' );
 	}
+	/**
+	 * Hooked to admin_notices, this error is thrown when Event Tickets is run alongside a version of
+	 * TEC that is too old
+	 */
+	public function tec_compatibility_check() {
+		
+		$active_plugins = get_option( 'active_plugins' );
+		$dependencies_plugin = $this->dependencies_plugin;
+		$plugins_need_to_install_or_update = &$this->plugins_need_to_install_or_update;
+    	$plugins_need_to_install_or_update = $dependencies_plugin;
 
+	    foreach ($dependencies_plugin as $require_p => $value) {
+	        foreach ($active_plugins  as $actived_p) {
+	        	
+	            if (preg_match($value['ptrn'], $actived_p)){
+					$class_def = $value['class'].'::'.$value['v_def'];
+				
+		            if (class_exists($value['class'])&&defined($value['v_def'])||defined($class_def)){
+		            	
+		            	$current_ver = defined($value['v_def'])? $value['v_def'] : $class_def;
+		            	
+						if (version_compare( $current_ver, $value['ver'], '<=' )) unset($plugins_need_to_install_or_update[$require_p]);
+
+		            }
+	            } 
+	        }
+	    }
+	    
+	    return (count($plugins_need_to_install_or_update))? true : false;
+	    
+	} 
 	/**
 	 * Hooked to admin_notices, this error is thrown when Event Tickets is run alongside a version of
 	 * TEC that is too old
 	 */
 	public function tec_compatibility_notice() {
-		$active_plugins = get_option( 'active_plugins' );
-
-		$plugin_short_path = null;
-
-		foreach ( $active_plugins as $plugin ) {
-			if ( false !== strstr( $plugin, 'the-events-calendar.php' ) ) {
-				$plugin_short_path = $plugin;
-				break;
-			}
-		}
-
-		$upgrade_path      = wp_nonce_url(
-			add_query_arg(
-				array(
-					'action' => 'upgrade-plugin',
-					'plugin' => $plugin_short_path,
-				), get_admin_url() . 'update.php'
-			), 'upgrade-plugin_' . $plugin_short_path
-		);
-		$output = '<div class="error">';
-		$output .= '<p>' . sprintf( __( 'When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s', 'event-tickets' ), self::MIN_TEC_VERSION, '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
+		
+		$target = $this->plugins_need_to_install_or_update;
+		$message = '';
+	    
+	    foreach ($target as $key => $value) {
+	    	$dwn_link = $value['src'];
+	    	$message .= "<br>" . $value['name'] . "<a href=$dwn_link> version " .  $value['ver'] . "</a>"; 
+	    }
+		
+		$output  = '<div class="error">';
+		$output .= '<p>' . sprintf( __( "The Register Now dependence on those plugin/s. $message")) . '</p>';
 		$output .= '</div>';
 
 		echo $output;
@@ -171,7 +196,7 @@ class E__Register__Now__Tickets__Main {
 	public function maybe_set_common_lib_info() {
 		$common_version = file_get_contents( $this->plugin_path . 'common/src/e_register_now/Main.php' );
 
-		// if there isn't a ern-common version, bail
+		// if there isn't a tribe-common version, bail
 		if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
 			add_action( 'admin_head', array( $this, 'missing_common_libs' ) );
 
@@ -180,13 +205,13 @@ class E__Register__Now__Tickets__Main {
 
 		$common_version = $matches[1];
 
-		if ( empty( $GLOBALS['ern-common-info'] ) ) {
-			$GLOBALS['ern-common-info'] = array(
+		if ( empty( $GLOBALS['tribe-common-info'] ) ) {
+			$GLOBALS['tribe-common-info'] = array(
 				'dir' => "{$this->plugin_path}common/src/e_register_now",
 				'version' => $common_version,
 			);
-		} elseif ( 1 == version_compare( $GLOBALS['ern-common-info']['version'], $common_version, '<' ) ) {
-			$GLOBALS['ern-common-info'] = array(
+		} elseif ( 1 == version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' ) ) {
+			$GLOBALS['tribe-common-info'] = array(
 				'dir' => "{$this->plugin_path}common/src/e_register_now",
 				'version' => $common_version,
 			);
@@ -200,7 +225,7 @@ class E__Register__Now__Tickets__Main {
 		static $common;
 
 		if ( ! $common ) {
-			$common = new E__Register__Now__Main( $this );
+			$common = new Tribe__Main( $this );
 		}
 
 		return $common;
@@ -211,16 +236,16 @@ class E__Register__Now__Tickets__Main {
 	 */
 	protected function init_autoloading() {
 		$prefixes = array(
-			'E__Register__Now__Tickets__' => $this->plugin_path . 'src/e_register_now',
+			'Tribe__Tickets__' => $this->plugin_path . 'src/e_register_now',
 		);
 
-		if ( ! class_exists( 'E__Register__Now__Autoloader' ) ) {
-			require_once( $GLOBALS['ern-common-info']['dir'] . '/Autoloader.php' );
+		if ( ! class_exists( 'Tribe__Autoloader' ) ) {
+			require_once( $GLOBALS['tribe-common-info']['dir'] . '/Autoloader.php' );
 
-			$prefixes['E__Register__Now__'] = $GLOBALS['ern-common-info']['dir'];
+			$prefixes['Tribe__'] = $GLOBALS['tribe-common-info']['dir'];
 		}
 
-		$autoloader = E__Register__Now__Autoloader::instance();
+		$autoloader = Tribe__Autoloader::instance();
 		$autoloader->register_prefixes( $prefixes );
 
 		require_once $this->plugin_path . 'src/template-tags/tickets.php';
@@ -239,8 +264,8 @@ class E__Register__Now__Tickets__Main {
 	 */
 	public function hooks() {
 		add_action( 'init', array( $this, 'init' ) );
-		add_action( 'add_meta_boxes', array( 'E__Register__Now__Tickets__Metabox', 'maybe_add_meta_box' ) );
-		add_action( 'admin_enqueue_scripts', array( 'E__Register__Now__Tickets__Metabox', 'add_admin_scripts' ) );
+		add_action( 'add_meta_boxes', array( 'Tribe__Tickets__Metabox', 'maybe_add_meta_box' ) );
+		add_action( 'admin_enqueue_scripts', array( 'Tribe__Tickets__Metabox', 'add_admin_scripts' ) );
 		add_filter( 'tribe_post_types', array( $this, 'inject_post_types' ) );
 
 		// Setup Help Tab texting
@@ -248,7 +273,7 @@ class E__Register__Now__Tickets__Main {
 		add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_featured_content' ) );
 		add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
 		add_filter( 'tribe_support_registered_template_systems', array( $this, 'add_template_updates_check' ) );
-		add_action( 'plugins_loaded', array( 'E__Register__Now__Support', 'getInstance' ) );
+		add_action( 'plugins_loaded', array( 'Tribe__Supports', 'getInstance' ) );
 		add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'add_linking_archor' ), 5 );
 
 		// Hook to oembeds
@@ -256,10 +281,10 @@ class E__Register__Now__Tickets__Main {
 		add_action( 'embed_head', array( $this, 'embed_head' ) );
 
 		// CSV Import options
-		if ( class_exists( 'E__Register__Now__Events__Main' ) ) {
-			add_filter( 'tribe_events_import_options_rows', array( E__Register__Now__Tickets__CSV_Importer__Rows::instance(), 'filter_import_options_rows' ) );
-			add_filter( 'tribe_event_import_rsvp_column_names', array( E__Register__Now__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
-			add_filter( 'tribe_events_import_rsvp_importer', array( 'E__Register__Now__Tickets__CSV_Importer__RSVP_Importer', 'instance' ), 10, 2 );
+		if ( class_exists( 'Tribe__Events__Main' ) ) {
+			add_filter( 'tribe_events_import_options_rows', array( Tribe__Tickets__CSV_Importer__Rows::instance(), 'filter_import_options_rows' ) );
+			add_filter( 'tribe_event_import_rsvp_column_names', array( Tribe__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
+			add_filter( 'tribe_events_import_rsvp_importer', array( 'Tribe__Tickets__CSV_Importer__RSVP_Importer', 'instance' ), 10, 2 );
 		}
 	}
 
@@ -277,7 +302,7 @@ class E__Register__Now__Tickets__Main {
 		/**
 		 * @todo remove this after 4.4
 		 */
-		_deprecated_function( __METHOD__, '4.2', 'E__Register__Now__Tickets__JSON_LD__Order' );
+		_deprecated_function( __METHOD__, '4.2', 'Tribe__Tickets__JSON_LD__Order' );
 
 		return false;
 	}
@@ -296,7 +321,7 @@ class E__Register__Now__Tickets__Main {
 	 * Append the text about Event Tickets to the support section on the Help page
 	 *
 	 * @filter "tribe_help_pre_get_sections"
-	 * @param E__Register__Now__Admin__Help_Page $help The Help Page Instance
+	 * @param Tribe__Admin__Help_Page $help The Help Page Instance
 	 * @return void
 	 */
 	public function add_help_section_support_content( $help ) {
@@ -313,7 +338,7 @@ class E__Register__Now__Tickets__Main {
 	 * Append the text about Event Tickets to the Feature box section on the Help page
 	 *
 	 * @filter "tribe_help_pre_get_sections"
-	 * @param E__Register__Now__Admin__Help_Page $help The Help Page Instance
+	 * @param Tribe__Admin__Help_Page $help The Help Page Instance
 	 * @return void
 	 */
 	public function add_help_section_featured_content( $help ) {
@@ -331,7 +356,7 @@ class E__Register__Now__Tickets__Main {
 	 * Append the text about Event Tickets to the Extra Help section on the Help page
 	 *
 	 * @filter "tribe_help_pre_get_sections"
-	 * @param E__Register__Now__Admin__Help_Page $help The Help Page Instance
+	 * @param Tribe__Admin__Help_Page $help The Help Page Instance
 	 * @return void
 	 */
 	public function add_help_section_extra_content( $help ) {
@@ -371,7 +396,7 @@ class E__Register__Now__Tickets__Main {
 		$plugins[ __( 'Event Tickets', 'event-tickets' ) ] = array(
 			self::VERSION,
 			$this->plugin_path . 'src/views/tickets',
-			trailingslashit( get_stylesheet_directory() ) . 'ern-events/tickets',
+			trailingslashit( get_stylesheet_directory() ) . 'tribe-events/tickets',
 		);
 
 		return $plugins;
@@ -382,20 +407,20 @@ class E__Register__Now__Tickets__Main {
 	 */
 	public function init() {
 		// Provide continued support for legacy ticketing modules
-		$this->legacy_provider_support = new E__Register__Now__Tickets__Legacy_Provider_Support;
+		$this->legacy_provider_support = new Tribe__Tickets__Legacy_Provider_Support;
 
 		$this->settings_tab();
 
 		$this->tickets_view();
 
-		E__Register__Now__Credits::init();
+		Tribe__Credits::init();
 	}
 
 	/**
 	 * rsvp ticket object accessor
 	 */
 	public function rsvp() {
-		return E__Register__Now__Tickets__RSVP::get_instance();
+		return Tribe__Tickets__RSVP::get_instance();
 	}
 
 	/**
@@ -403,20 +428,20 @@ class E__Register__Now__Tickets__Main {
 	 *
 	 * This will happen on `plugins_loaded` by default
 	 *
-	 * @return E__Register__Now__Tickets__Tickets_View
+	 * @return Tribe__Tickets__Tickets_View
 	 */
 	public function tickets_view() {
-		return E__Register__Now__Tickets__Tickets_View::hook();
+		return Tribe__Tickets__Tickets_View::hook();
 	}
 
 	/**
 	 * Default attendee list shortcode handler.
 	 *
-	 * @return E__Register__Now__Tickets__Shortcodes__User_Event_Confirmation_List
+	 * @return Tribe__Tickets__Shortcodes__User_Event_Confirmation_List
 	 */
 	public function user_event_confirmation_list_shortcode() {
 		if ( empty( $this->user_event_confirmation_list_shortcode ) ) {
-			$this->user_event_confirmation_list_shortcode = new E__Register__Now__Tickets__Shortcodes__User_Event_Confirmation_List;
+			$this->user_event_confirmation_list_shortcode = new Tribe__Tickets__Shortcodes__User_Event_Confirmation_List;
 		}
 
 		return $this->user_event_confirmation_list_shortcode;
@@ -459,7 +484,7 @@ class E__Register__Now__Tickets__Main {
 		static $settings;
 
 		if ( ! $settings ) {
-			$settings = new E__Register__Now__Tickets__Admin__Ticket_Settings;
+			$settings = new Tribe__Tickets__Admin__Ticket_Settings;
 		}
 
 		return $settings;
@@ -469,7 +494,7 @@ class E__Register__Now__Tickets__Main {
 	 * Returns the supported post types for tickets
 	 */
 	public function post_types() {
-		$options = get_option( E__Register__Now__Main::OPTIONNAME, array() );
+		$options = get_option( Tribe__Main::OPTIONNAME, array() );
 
 		// if the ticket-enabled-post-types index has never been set, default it to tribe_events
 		if ( ! array_key_exists( 'ticket-enabled-post-types', $options ) ) {
@@ -487,7 +512,7 @@ class E__Register__Now__Tickets__Main {
 	}
 
 	/**
-	 * Injects post types into the ern-common post_types array
+	 * Injects post types into the tribe-common post_types array
 	 */
 	public function inject_post_types( $post_types ) {
 		$post_types = array_merge( $post_types, $this->post_types() );
@@ -504,13 +529,13 @@ class E__Register__Now__Tickets__Main {
 			return;
 		}
 
-		$tickets      = E__Register__Now__Tickets__Tickets::get_all_e__register__now( $event_id );
+		$tickets      = Tribe__Tickets__Tickets::get_all_event_tickets( $event_id );
 		$has_non_rsvp = false;
 		$available    = false;
 		$now          = current_time( 'timestamp' );
 
 		foreach ( $tickets as $ticket ) {
-			if ( 'E__Register__Now__Tickets__RSVP' !== $ticket->provider_class ) {
+			if ( 'Tribe__Tickets__RSVP' !== $ticket->provider_class ) {
 				$has_non_rsvp = true;
 			}
 
@@ -534,11 +559,11 @@ class E__Register__Now__Tickets__Main {
 		 * @var string The button text
 		 * @var int Event ID
 		 */
-		$button_text = apply_filters( 'e__register__now_embed_buy_button_text', $button_text, $event_id );
+		$button_text = apply_filters( 'event_tickets_embed_buy_button_text', $button_text, $event_id );
 
 		ob_start();
 		?>
-		<a class="ern-event-buy" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title_attribute() ?>" rel="bookmark"><?php echo esc_html( $button_text ); ?></a>
+		<a class="tribe-event-buy" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title_attribute() ?>" rel="bookmark"><?php echo esc_html( $button_text ); ?></a>
 		<?php
 		$buy_button = ob_get_clean();
 
@@ -548,7 +573,7 @@ class E__Register__Now__Tickets__Main {
 		 * @var string The button markup
 		 * @var int Event ID
 		 */
-		echo apply_filters( 'e__register__now_embed_buy_button', $buy_button, $event_id );
+		echo apply_filters( 'event_tickets_embed_buy_button', $buy_button, $event_id );
 	}
 
 	/**
@@ -558,10 +583,10 @@ class E__Register__Now__Tickets__Main {
 	 * are explicitly output
 	 */
 	public function embed_head() {
-		$css_path = E__Register__Now__Template_Factory::getMinFile( $this->plugin_url . 'src/resources/css/tickets-embed.css', true );
+		$css_path = Tribe__Template_Factory::getMinFile( $this->plugin_url . 'src/resources/css/tickets-embed.css', true );
 		$css_path = add_query_arg( 'ver', self::VERSION, $css_path );
 		?>
-		<link rel="stylesheet" id="ern-tickets-embed-css" href="<?php echo esc_url( $css_path ); ?>" type="text/css" media="all">
+		<link rel="stylesheet" id="tribe-tickets-embed-css" href="<?php echo esc_url( $css_path ); ?>" type="text/css" media="all">
 		<?php
 	}
 }

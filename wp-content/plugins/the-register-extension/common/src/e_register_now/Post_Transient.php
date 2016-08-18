@@ -7,7 +7,7 @@
  *
  * @since   4.1
  */
-class Tribe__Post_Transient {
+class E__Register__Now__Post_Transient {
 
 		/**
 		 * Get (and instantiate, if necessary) the instance of the class

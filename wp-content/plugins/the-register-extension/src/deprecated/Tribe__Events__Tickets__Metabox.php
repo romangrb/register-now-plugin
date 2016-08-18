@@ -1,5 +1,5 @@
 <?php
-_deprecated_file( __FILE__, '4.0', 'Tribe__Tickets__Metabox' );
+_deprecated_file( __FILE__, '4.0', 'E__Register__Now__Tickets__Metabox' );
 
 
-class Tribe__Events__Tickets__Metabox extends Tribe__Tickets__Metabox {}
+class E__Register__Now__Events__Tickets__Metabox extends E__Register__Now__Tickets__Metabox {}

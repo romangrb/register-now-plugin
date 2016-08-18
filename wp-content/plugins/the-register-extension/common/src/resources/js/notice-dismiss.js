@@ -20,8 +20,8 @@
 	}
 
 	$( document ).ready( function() {
-		$( '.tribe-dismiss-notice.is-dismissible' ).on( 'click', '.notice-dismiss', function() {
-			window.location.href = update_query_string( window.location.href, 'tribe-dismiss-notice', $( this ).parents( '.tribe-dismiss-notice' ).data( 'ref' ) );
+		$( '.ern-dismiss-notice.is-dismissible' ).on( 'click', '.notice-dismiss', function() {
+			window.location.href = update_query_string( window.location.href, 'ern-dismiss-notice', $( this ).parents( '.ern-dismiss-notice' ).data( 'ref' ) );
 		} );
 	} );
 }( jQuery ) );

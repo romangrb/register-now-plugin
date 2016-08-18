@@ -8,15 +8,15 @@ $networkTab = array(
 		'tribe_network_settings_tab_fields', array(
 			'info-start'           => array(
 				'type' => 'html',
-				'html' => '<div id="modern-tribe-info">',
+				'html' => '<div id="modern-ern-info">',
 			),
 			'info-box-title'       => array(
 				'type' => 'html',
-				'html' => '<h1>' . esc_html__( 'Network Settings', 'tribe-common' ) . '</h1>',
+				'html' => '<h1>' . esc_html__( 'Network Settings', 'ern-common' ) . '</h1>',
 			),
 			'info-box-description' => array(
 				'type' => 'html',
-				'html' => '<p>' . esc_html__( 'This is where all of the global network settings for Modern e_register_now\'s The Events Calendar can be modified.', 'tribe-common' ) . '</p>',
+				'html' => '<p>' . esc_html__( 'This is where all of the global network settings for Modern e_register_now\'s The Events Calendar can be modified.', 'ern-common' ) . '</p>',
 			),
 			'info-end'             => array(
 				'type' => 'html',
@@ -24,7 +24,7 @@ $networkTab = array(
 			),
 			'hideSettingsTabs'     => array(
 				'type'            => 'checkbox_list',
-				'label'           => esc_html__( 'Hide the following settings tabs on every site:', 'tribe-common' ),
+				'label'           => esc_html__( 'Hide the following settings tabs on every site:', 'ern-common' ),
 				'default'         => false,
 				'options'         => $allTabs,
 				'validation_type' => 'options_multi',

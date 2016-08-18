@@ -1,7 +1,7 @@
 <?php
 
 
-class Tribe__Support__Obfuscator {
+class E__Register__Now__Support__Obfuscator {
 
 	/**
 	 * @var array
@@ -9,7 +9,7 @@ class Tribe__Support__Obfuscator {
 	protected $prefixes = array();
 
 	/**
-	 * Tribe__Support__Obfuscator constructor.
+	 * E__Register__Now__Support__Obfuscator constructor.
 	 *
 	 * @param array $prefixes
 	 */

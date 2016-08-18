@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Tribe__Date_Utils' ) ) {
-	class Tribe__Date_Utils {
+if ( ! class_exists( 'E__Register__Now__Date_Utils' ) ) {
+	class E__Register__Now__Date_Utils {
 		// Default formats, they are overridden by WP options or by arguments to date methods
 		const DATEONLYFORMAT        = 'F j, Y';
 		const TIMEFORMAT            = 'g:i A';

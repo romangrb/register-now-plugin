@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class Tribe__Template_Part_Cache
+ * Class E__Register__Now__Template_Part_Cache
  *
  * @uses TribeEventsCache
  */
-class Tribe__Template_Part_Cache {
+class E__Register__Now__Template_Part_Cache {
 
 	/**
 	 * @var string
@@ -45,7 +45,7 @@ class Tribe__Template_Part_Cache {
 		$this->key                = $template . '_' . $id;
 		$this->expiration         = $expiration;
 		$this->expiration_trigger = $expiration_trigger;
-		$this->cache              = new Tribe__Cache();
+		$this->cache              = new E__Register__Now__Cache();
 
 		$this->add_hooks();
 	}
