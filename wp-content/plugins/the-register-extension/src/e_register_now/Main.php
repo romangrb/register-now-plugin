@@ -105,14 +105,12 @@ class E__Register__Now__Tickets__Main {
 			return;
 		}
 
-		if (
-			class_exists( 'TribeEvents', false )
-			|| ( class_exists( 'E__Register__Now__Events__Main' ) && ! version_compare( E__Register__Now__Events__Main::VERSION, self::MIN_TEC_VERSION, '>=' ) )
-		) {
+		if ($this->tec_compatibility_check()) {
+				
 			add_action( 'admin_notices', array( $this, 'tec_compatibility_notice' ) );
 
 			/**
-			 * Fires if Event Tickets cannot load due to compatibility or other problems.
+			 * Fires if Register Now cannot load due to compatibility or other problems.
 			 */
 			do_action( 'tribe_tickets_plugin_failed_to_load' );
 
@@ -247,13 +245,13 @@ class E__Register__Now__Tickets__Main {
 		$autoloader = E__Register__Now__Autoloader::instance();
 		$autoloader->register_prefixes( $prefixes );
 
-		require_once $this->plugin_path . 'src/template-tags/tickets.php';
+		// require_once $this->plugin_path . 'src/template-tags/tickets.php';
 
 		// deprecated classes are registered in a class to path fashion
-		foreach ( glob( $this->plugin_path . '{common/src,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
-			$class_name = str_replace( '.php', '', basename( $file ) );
-			$autoloader->register_class( $class_name, $file );
-		}
+		// foreach ( glob( $this->plugin_path . '{common/src,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
+		// 	$class_name = str_replace( '.php', '', basename( $file ) );
+		// 	$autoloader->register_class( $class_name, $file );
+		// }
 
 		$autoloader->register_autoloader();
 	}

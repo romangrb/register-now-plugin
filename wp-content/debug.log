@@ -229,3 +229,5 @@
 [18-Aug-2016 17:48:49 UTC] PHP Notice:  Undefined index: ern-common-info in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/src/e_register_now/Main.php on line 242
 [18-Aug-2016 17:48:49 UTC] PHP Warning:  require_once(/Autoloader.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/src/e_register_now/Main.php on line 242
 [18-Aug-2016 17:48:49 UTC] PHP Fatal error:  require_once(): Failed opening required '/Autoloader.php' (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/src/e_register_now/Main.php on line 242
+[18-Aug-2016 18:01:39 UTC] PHP Fatal error:  Class 'Tribe__Tickets__JSON_LD__Order' not found in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/src/e_register_now/Main.php on line 137
+[18-Aug-2016 18:02:05 UTC] PHP Fatal error:  Class 'Tribe__Tickets__JSON_LD__Order' not found in /home/ubuntu/workspace/wp-content/plugins/the-register-extension/src/e_register_now/Main.php on line 137
