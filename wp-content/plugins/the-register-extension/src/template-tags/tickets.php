@@ -302,7 +302,7 @@ function tribe_tickets_resource_url( $resource, $echo = false, $root_dir = 'src'
 
 /**
  * Includes a template part, similar to the WP get template part, but looks
- * in the correct directories for Tribe Tickets templates
+ * in the correct directories for e_register_now Tickets templates
  *
  * @param string      $slug The Base template name
  * @param null|string $name (optional) if set will try to include `{$slug}-{$name}.php` file

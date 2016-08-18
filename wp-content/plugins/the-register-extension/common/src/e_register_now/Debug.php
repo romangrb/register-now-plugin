@@ -9,7 +9,7 @@ class Tribe__Debug {
 	}
 
 	/**
-	 * Tribe debug function. usage: self::debug( 'Message', $data, 'log' );
+	 * e_register_now debug function. usage: self::debug( 'Message', $data, 'log' );
 	 *
 	 * @param string      $title  Message to display in log
 	 * @param string|bool $data   Optional data to display

@@ -1,7 +1,7 @@
 <div id="tribe-app-shop" class="wrap">
 
 	<div class="header">
-		<h1><?php esc_html_e( 'Tribe Event Add-Ons', 'tribe-common' ); ?></h1>
+		<h1><?php esc_html_e( 'e_register_now Event Add-Ons', 'tribe-common' ); ?></h1>
 		<a href="https://theeventscalendar.com/?utm_campaign=in-app&utm_source=addonspage&utm_medium=top-banner" target="_blank"><img src="<?php echo esc_url( tribe_resource_url( 'images/app-shop-banner.jpg', false, 'common' ) ); ?>" /></a>
 	</div>
 

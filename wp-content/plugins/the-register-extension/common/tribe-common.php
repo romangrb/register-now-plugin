@@ -2,14 +2,14 @@
 /*
 Description: An event settings framework for managing shared options
 Version: 4.2.4dev
-Author: Modern Tribe, Inc.
+Author: Modern e_register_now, Inc.
 Author URI: http://m.tri.be/1x
 Text Domain: tribe-common
 License: GPLv2 or later
 */
 
 /*
-Copyright 2009-2015 by Modern Tribe Inc and the contributors
+Copyright 2009-2015 by Modern e_register_now Inc and the contributors
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -28,6 +28,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 
 // the main plugin class
-require_once dirname( __FILE__ ) . '/src/Tribe/Main.php';
+require_once dirname( __FILE__ ) . '/src/e_register_now/Main.php';
 
 Tribe__Main::instance();

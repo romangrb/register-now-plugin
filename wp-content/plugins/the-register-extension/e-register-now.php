@@ -35,7 +35,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'E__REGISTER_NOW_DIR', dirname( __FILE__ ) );
 
 // the main plugin class
-require_once E__REGISTER_NOW_DIR . '/src/Tribe/Main.php';
+require_once E__REGISTER_NOW_DIR . '/src/e_register_now/Main.php';
 
 Register__Now__Main::instance();
 
@@ -44,9 +44,9 @@ Register__Now__Main::instance();
 * created by romangrb on 15.07.2016
 * get the base class of EventCalendar
 */
-// require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/Tribe/Main.php';
-// require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/Tribe/API.php';
-// require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/Tribe/Query.php';
+// require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/e_register_now/Main.php';
+// require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/e_register_now/API.php';
+// require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/e_register_now/Query.php';
 // require_once dirname(plugin_dir_path( __FILE__ )) . '/the-events-calendar/src/functions/template_tags/general.php';
 
 if (!class_exists( 'Tribe__Events__Main' ) ) return;

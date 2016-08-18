@@ -3,11 +3,11 @@
 $generalTabFields = array(
 	'info-start'                    => array(
 		'type' => 'html',
-		'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) . '" alt="Modern Tribe Inc." title="Modern Tribe Inc.">',
+		'html' => '<div id="modern-tribe-info"><img src="' . plugins_url( 'resources/images/modern-tribe@2x.png', dirname( __FILE__ ) ) . '" alt="Modern e_register_now Inc." title="Modern e_register_now Inc.">',
 	),
 	'event-tickets-info' => array(
 		'type'        => 'html',
-		'html'        => '<p>' . sprintf( esc_html__( 'Thank you for using Event Tickets! All of us at Modern Tribe sincerely appreciate your support and we\'re excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started.', 'tribe-common' ), '<a href="http://m.tri.be/18nd">', '</a>' ) . '</p>',
+		'html'        => '<p>' . sprintf( esc_html__( 'Thank you for using Event Tickets! All of us at Modern e_register_now sincerely appreciate your support and we\'re excited to see you using our plugins. Check out our handy %1$sNew User Primer%2$s to get started.', 'tribe-common' ), '<a href="http://m.tri.be/18nd">', '</a>' ) . '</p>',
 		'conditional' => ! class_exists( 'Tribe__Events__Main' ),
 	),
 	'event-tickets-upsell-info' => array(
@@ -27,12 +27,12 @@ $generalTabFields = array(
 	),
 	'donate-link-info'              => array(
 		'type'        => 'html',
-		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-common' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'tribe-common' ) . '</a>.</p>',
+		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern e_register_now for all their hard work." The greatest thanks we could ask for is recognition. Add a small text-only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-common' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-screenshot.jpg', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'tribe-common' ) . '</a>.</p>',
 		'conditional' => ! class_exists( 'Tribe__Events__Pro__Main' ) && class_exists( 'Tribe__Events__Main' ),
 	),
 	'donate-link-pro-info'          => array(
 		'type'        => 'html',
-		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern Tribe for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-common' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'tribe-common' ) . '</a>.</p>',
+		'html'        => '<p>' . esc_html__( 'Are you thinking "Wow, this plugin is amazing! I should say thanks to Modern e_register_now for all their hard work." The greatest thanks we could ask for is recognition. Add a small text only link at the bottom of your calendar pointing to The Events Calendar project.', 'tribe-common' ) . '<br><a href="' . esc_url( plugins_url( 'resources/images/donate-link-pro-screenshot.jpg', dirname( __FILE__ ) ) ) . '" class="thickbox">' . esc_html__( 'See an example of the link', 'tribe-common' ) . '</a>.</p>',
 		'conditional' => class_exists( 'Tribe__Events__Pro__Main' ),
 	),
 	'donate-link'                   => array(
@@ -61,7 +61,7 @@ if ( is_super_admin() ) {
 	);
 	$generalTabFields['debugEventsHelper'] = array(
 		'type'        => 'html',
-		'html'        => '<p class="tribe-field-indent tribe-field-description description" style="max-width:400px;">' . sprintf( esc_html__( 'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "Tribe" tab in the debug output.', 'tribe-common' ), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . esc_html__( 'Debug Bar Plugin', 'tribe-common' ) . '</a>' ) . '</p>',
+		'html'        => '<p class="tribe-field-indent tribe-field-description description" style="max-width:400px;">' . sprintf( esc_html__( 'Enable this option to log debug information. By default this will log to your server PHP error log. If you\'d like to see the log messages in your browser, then we recommend that you install the %s and look for the "e_register_now" tab in the debug output.', 'tribe-common' ), '<a href="http://wordpress.org/extend/plugins/debug-bar/" target="_blank">' . esc_html__( 'Debug Bar Plugin', 'tribe-common' ) . '</a>' ) . '</p>',
 		'conditional' => ( '' != get_option( 'permalink_structure' ) ),
 	);
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Update Utility Class.
  *
- * This is a direct port to Tribe Commons of the PUE classes contained
+ * This is a direct port to e_register_now Commons of the PUE classes contained
  * in The Events Calendar.
  *
  * @todo switch all plugins over to use the PUE utilities here in Commons

@@ -11,7 +11,7 @@ class Tribe__Tickets__Metabox {
 
 	/**
 	 * Registers the tickets metabox if there's at least
-	 * one Tribe Tickets module (provider) enabled
+	 * one e_register_now Tickets module (provider) enabled
 	 * @static
 	 *
 	 * @param $post_type
@@ -41,7 +41,7 @@ class Tribe__Tickets__Metabox {
 
 	/**
 	 * Loads the content of the tickets metabox if there's at
-	 * least one Tribe Tickets module (provider) enabled
+	 * least one e_register_now Tickets module (provider) enabled
 	 * @static
 	 *
 	 * @param $post_id

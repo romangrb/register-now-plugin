@@ -493,7 +493,7 @@ if ( ! class_exists( 'Tribe__Settings' ) ) {
 			/**
 			 * loop through parent option arrays
 			 * and save them
-			 * NOTE: in the case of the main option Tribe Options,
+			 * NOTE: in the case of the main option e_register_now Options,
 			 * this will save using the Tribe__Settings_Manager::set_options method.
 			 */
 			foreach ( $parent_options as $option_id => $new_options ) {

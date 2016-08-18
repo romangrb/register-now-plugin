@@ -16,7 +16,7 @@ $networkTab = array(
 			),
 			'info-box-description' => array(
 				'type' => 'html',
-				'html' => '<p>' . esc_html__( 'This is where all of the global network settings for Modern Tribe\'s The Events Calendar can be modified.', 'tribe-common' ) . '</p>',
+				'html' => '<p>' . esc_html__( 'This is where all of the global network settings for Modern e_register_now\'s The Events Calendar can be modified.', 'tribe-common' ) . '</p>',
 			),
 			'info-end'             => array(
 				'type' => 'html',

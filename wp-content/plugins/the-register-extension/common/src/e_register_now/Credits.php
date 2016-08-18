@@ -45,7 +45,7 @@ class Tribe__Credits {
 
 		add_filter( 'tribe_tickets_post_types', array( $this, 'tmp_return_tribe_events' ), 99 );
 
-		// only display custom text on Tribe Admin Pages
+		// only display custom text on e_register_now Admin Pages
 		if ( $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen() ) {
 
 			if ( class_exists( 'Tribe__Events__Main' ) ) {

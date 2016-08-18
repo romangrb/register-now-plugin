@@ -1,6 +1,6 @@
 <?php
 /**
- * Main Tribe Common class.
+ * Main e_register_now Common class.
  */
 
 // Don't load directly
@@ -233,7 +233,7 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Returns the post types registered by Tribe plugins
+	 * Returns the post types registered by e_register_now plugins
 	 */
 	public static function get_post_types() {
 		// we default the post type array to empty in tribe-common. Plugins like TEC add to it

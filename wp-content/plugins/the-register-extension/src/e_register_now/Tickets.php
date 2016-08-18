@@ -3,9 +3,9 @@
 if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 	/**
 	 * Abstract class with the API definition and common functionality
-	 * for Tribe Tickets Pro. Providers for this functionality need to
+	 * for e_register_now Tickets Pro. Providers for this functionality need to
 	 * extend this class. For a functional example of how this works
-	 * see Tribe WooTickets.
+	 * see e_register_now WooTickets.
 	 *
 	 * The relationship between orders, attendees and event posts is
 	 * maintained through post meta fields set for the attendee object.

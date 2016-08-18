@@ -194,7 +194,7 @@ class Register__Now__Main {
 	}
 
 	public function maybe_set_common_lib_info() {
-		$common_version = file_get_contents( $this->plugin_path . 'common/src/Tribe/Main.php' );
+		$common_version = file_get_contents( $this->plugin_path . 'common/src/e_register_now/Main.php' );
 
 		// if there isn't a tribe-common version, bail
 		if ( ! preg_match( "/const\s+VERSION\s*=\s*'([^']+)'/m", $common_version, $matches ) ) {
@@ -207,12 +207,12 @@ class Register__Now__Main {
 
 		if ( empty( $GLOBALS['tribe-common-info'] ) ) {
 			$GLOBALS['tribe-common-info'] = array(
-				'dir' => "{$this->plugin_path}common/src/Tribe",
+				'dir' => "{$this->plugin_path}common/src/e_register_now",
 				'version' => $common_version,
 			);
 		} elseif ( 1 == version_compare( $GLOBALS['tribe-common-info']['version'], $common_version, '<' ) ) {
 			$GLOBALS['tribe-common-info'] = array(
-				'dir' => "{$this->plugin_path}common/src/Tribe",
+				'dir' => "{$this->plugin_path}common/src/e_register_now",
 				'version' => $common_version,
 			);
 		}
@@ -236,7 +236,7 @@ class Register__Now__Main {
 	 */
 	protected function init_autoloading() {
 		$prefixes = array(
-			'Tribe__Tickets__' => $this->plugin_path . 'src/Tribe',
+			'Tribe__Tickets__' => $this->plugin_path . 'src/e_register_now',
 		);
 
 		if ( ! class_exists( 'Tribe__Autoloader' ) ) {

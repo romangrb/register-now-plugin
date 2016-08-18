@@ -55,7 +55,7 @@ class Tribe__Admin__Helpers {
 
 		$defaults = apply_filters( 'tribe_is_post_type_screen_post_types', Tribe__Main::get_post_types() );
 
-		// Match any Post Type from Tribe
+		// Match any Post Type from e_register_now
 		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ) {
 			return true;
 		}
@@ -74,7 +74,7 @@ class Tribe__Admin__Helpers {
 	}
 
 	/**
-	 * Matcher for administration pages that are from Tribe the easier way
+	 * Matcher for administration pages that are from e_register_now the easier way
 	 *
 	 * @param  string|array|null $id What will be checked to see if we return true or false
 	 *
@@ -98,7 +98,7 @@ class Tribe__Admin__Helpers {
 			return false;
 		}
 
-		// Match any screen from Tribe
+		// Match any screen from e_register_now
 		if ( is_null( $id ) && false !== strpos( $current_screen->id, 'tribe' ) ) {
 			return true;
 		}
