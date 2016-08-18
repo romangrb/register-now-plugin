@@ -9,12 +9,12 @@ class E__Register__Now__Tickets__Main {
 	/**
 	 * Current version of this plugin
 	 */
-	const VERSION = '4.2.5';
+	const VERSION = '1.1.0';
 
 	/**
 	 * Min required The Events Calendar version
 	 */
-	const MIN_TEC_VERSION = '4.2.2';
+	const MIN_TEC_VERSION = '1.1.0';
 
 	/**
 	 * Name of the provider
@@ -39,24 +39,18 @@ class E__Register__Now__Tickets__Main {
 	 * @var
 	 */
 	public $plugin_url;
-
-	/**
-	 * @var E__Register__Now__Tickets__Legacy_Provider_Support
+    
+    /**
+	 * Bool of plugin initialization 
+	 * @var
 	 */
-	public $legacy_provider_support;
-
-	/**
-	 * @var E__Register__Now__Tickets__Shortcodes__User_Event_Confirmation_List
-	 */
-	private $user_event_confirmation_list_shortcode;
-
-	private $has_initialized = false;
-
+    
+    private $has_initialized = false;
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
 	 *
 	 * @static
-	 * @return E__Register__Now__Tickets__Woo__Main
+	 * @return Register__Now__Woo__Main
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
@@ -65,21 +59,32 @@ class E__Register__Now__Tickets__Main {
 
 		return self::$instance;
 	}
+	
+	/**
+	 * Plugin dependencies  
+	 * @var
+	 */
+	
+	private  $dependencies_plugin = array(
+		// ["name"=>"event-tickets", "class"=>"E__Register__Now", "v_def"=>"VERSION", "ptrn"=>"/event-tickets.php/", "ver"=>"4.2.4", "src"=>"http://.."],
+		["name"=>"the-events-calendar", "class"=>"Tribe__Events__Main", "v_def"=>"VERSION", "ptrn"=>"/the-events-calendar.php/", "ver"=>"4.2.4", "src"=>"http://.."],
+		["name"=>"woocommerce-gateway-stripe", "class"=>"Tribe__Events__Main","v_def"=>"WC_STRIPE_VERSION", "ptrn"=>"/woocommerce-gateway-stripe.php/", "ver"=>"3.0.2", "src"=>"http://.."],
+		["name"=>"woocommerce", "class"=>"Tribe__Events__Main", "v_def"=>"WC_VERSION", "ptrn"=>"/woocommerce.php/", "ver"=>"2.6.4", "src"=>"http://.."]);
 
 	/**
 	 * Class constructor
 	 */
 	public function __construct() {
 		/* Set up some parent's vars */
-		$this->plugin_name = 'Tickets';
-		$this->plugin_slug = 'tickets';
-		$this->plugin_path = trailingslashit( E__REGISTER__NOW_DIR );
-		$this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
+		$this->plugin_name = 'E-Register-Now';
+		$this->plugin_slug = 'register_now';
+		$this->plugin_path = trailingslashit( E__REGISTER__NOW__DIR );
+		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 
 		$dir_prefix = '';
 
-		if ( false !== strstr( E__REGISTER__NOW_DIR, '/vendor/' ) ) {
-			$dir_prefix = basename( dirname( dirname( E__REGISTER__NOW_DIR ) ) ) . '/vendor/';
+		if ( false !== strstr( E__REGISTER__NOW__DIR, '/vendor/' ) ) {
+			$dir_prefix = basename( dirname( dirname( E__REGISTER__NOW__DIR ) ) ) . '/vendor/';
 		}
 
 		$this->plugin_url = trailingslashit( plugins_url( $dir_prefix . $this->plugin_dir ) );
@@ -88,6 +93,7 @@ class E__Register__Now__Tickets__Main {
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
 	}
+
 
 	/**
 	 * Finalize the initialization of this plugin
@@ -141,28 +147,46 @@ class E__Register__Now__Tickets__Main {
 	 * Hooked to admin_notices, this error is thrown when Event Tickets is run alongside a version of
 	 * TEC that is too old
 	 */
-	public function tec_compatibility_notice() {
+	public function tec_compatibility_check() {
+		
 		$active_plugins = get_option( 'active_plugins' );
+		$dependencies_plugin = $this->dependencies_plugin;
+		$plugins_need_to_install_or_update = &$this->plugins_need_to_install_or_update;
+    	$plugins_need_to_install_or_update = $dependencies_plugin;
 
-		$plugin_short_path = null;
+	    foreach ($dependencies_plugin as $require_p => $value) {
+	        foreach ($active_plugins  as $actived_p) {
+	        	
+	            if (preg_match($value['ptrn'], $actived_p)){
+					$class_def = $value['class'].'::'.$value['v_def'];
+				
+		            if (class_exists($value['class'])&&defined($value['v_def'])||defined($class_def)){
+		            	
+		            	$current_ver = defined($value['v_def'])? $value['v_def'] : $class_def;
+		            	
+						if (version_compare( $current_ver, $value['ver'], '<=' )) unset($plugins_need_to_install_or_update[$require_p]);
 
-		foreach ( $active_plugins as $plugin ) {
-			if ( false !== strstr( $plugin, 'the-events-calendar.php' ) ) {
-				$plugin_short_path = $plugin;
-				break;
-			}
-		}
-
-		$upgrade_path      = wp_nonce_url(
-			add_query_arg(
-				array(
-					'action' => 'upgrade-plugin',
-					'plugin' => $plugin_short_path,
-				), get_admin_url() . 'update.php'
-			), 'upgrade-plugin_' . $plugin_short_path
-		);
-		$output = '<div class="error">';
-		$output .= '<p>' . sprintf( __( 'When The Events Calendar and Event Tickets are both activated, The Events Calendar must be running version %1$s or greater. Please %2$supdate now.%3$s', 'event-tickets' ), self::MIN_TEC_VERSION, '<a href="' . esc_url( $upgrade_path ) . '">', '</a>' ) . '</p>';
+		            }
+	            } 
+	        }
+	    }
+	    
+	    return (count($plugins_need_to_install_or_update))? true : false;
+	    
+	} 
+	
+	public function tec_compatibility_notice() {
+		
+		$target = $this->plugins_need_to_install_or_update;
+		$message = '';
+	    
+	    foreach ($target as $key => $value) {
+	    	$dwn_link = $value['src'];
+	    	$message .= "<br>" . $value['name'] . "<a href=$dwn_link> version " .  $value['ver'] . "</a>"; 
+	    }
+		
+		$output  = '<div class="error">';
+		$output .= '<p>' . sprintf( __( "The Register Now dependence on those plugin/s. $message")) . '</p>';
 		$output .= '</div>';
 
 		echo $output;

@@ -31,9 +31,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-define( 'E__REGISTER__NOW_DIR', dirname( __FILE__ ) );
+define( 'E__REGISTER__NOW__DIR', dirname( __FILE__ ) );
 
 // the main plugin class
-require_once E__REGISTER__NOW_DIR . '/src/e_register_now/Main.php';
+require_once E__REGISTER__NOW__DIR . '/src/e_register_now/Main.php';
 
 E__Register__Now__Tickets__Main::instance();
