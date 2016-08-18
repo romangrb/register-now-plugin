@@ -282,7 +282,7 @@ function tribe_tickets_resource_url( $resource, $echo = false, $root_dir = 'src'
 
 	$path = $resource_path . $resource;
 
-	$url  = plugins_url( Tribe__Tickets__Main::instance()->plugin_dir . $path );
+	$url  = plugins_url( E__Register__Now::instance()->plugin_dir . $path );
 
 	/**
 	 * Filter the ticket resource URL

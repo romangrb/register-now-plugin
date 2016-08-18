@@ -32,10 +32,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-define( 'EVENT_TICKETS_DIR', dirname( __FILE__ ) );
+define( 'E__REGISTER_NOW_DIR', dirname( __FILE__ ) );
 
 // the main plugin class
-require_once EVENT_TICKETS_DIR . '/src/Tribe/Main.php';
+require_once E__REGISTER_NOW_DIR . '/src/Tribe/Main.php';
 
 Register__Now__Main::instance();
 

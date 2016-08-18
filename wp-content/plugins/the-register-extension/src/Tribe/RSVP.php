@@ -142,7 +142,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 	 * Class constructor
 	 */
 	public function __construct() {
-		$main = Tribe__Tickets__Main::instance();
+		$main = E__Register__Now::instance();
 
 		/* Set up some parent's vars */
 		$this->pluginName = 'RSVP';
@@ -190,7 +190,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 	 * registers resources
 	 */
 	public function register_resources() {
-		$main = Tribe__Tickets__Main::instance();
+		$main = E__Register__Now::instance();
 
 		$stylesheet_url = $main->plugin_url . 'src/resources/css/rsvp.css';
 		$stylesheet_url = Tribe__Template_Factory::getMinFile( $stylesheet_url, true );
@@ -202,7 +202,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 			'event-tickets-rsvp',
 			$stylesheet_url,
 			array(),
-			apply_filters( 'tribe_tickets_rsvp_css_version', Tribe__Tickets__Main::VERSION )
+			apply_filters( 'tribe_tickets_rsvp_css_version', E__Register__Now::VERSION )
 		);
 
 		$js_url = $main->plugin_url . 'src/resources/js/rsvp.js';
@@ -213,7 +213,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 			'event-tickets-rsvp',
 			$js_url,
 			array( 'jquery', 'jquery-ui-datepicker' ),
-			apply_filters( 'tribe_tickets_rsvp_js_version', Tribe__Tickets__Main::VERSION ),
+			apply_filters( 'tribe_tickets_rsvp_js_version', E__Register__Now::VERSION ),
 			true
 		);
 
@@ -230,7 +230,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 	 * @return void
 	 */
 	public function enqueue_resources() {
-		$post_types = Tribe__Tickets__Main::instance()->post_types();
+		$post_types = E__Register__Now::instance()->post_types();
 
 		if ( ! is_singular( $post_types ) ) {
 			return;
@@ -930,7 +930,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 			return false;
 		}
 
-		if ( in_array( get_post_type( $event_id ), Tribe__Tickets__Main::instance()->post_types() ) ) {
+		if ( in_array( get_post_type( $event_id ), E__Register__Now::instance()->post_types() ) ) {
 			return get_post( $event_id );
 		}
 
@@ -1187,7 +1187,7 @@ class Tribe__Tickets__RSVP extends Tribe__Tickets__Tickets {
 			}
 		}
 
-		include Tribe__Tickets__Main::instance()->plugin_path . 'src/admin-views/rsvp-metabox-advanced.php';
+		include E__Register__Now::instance()->plugin_path . 'src/admin-views/rsvp-metabox-advanced.php';
 	}
 
 	public function get_messages() {

@@ -857,10 +857,10 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			// Add the frontend ticket form script as needed (we do this lazily since right now
 			// it's only required for certain combinations of event/ticket
 			if ( ! self::$frontend_script_enqueued ) {
-				$url = Tribe__Tickets__Main::instance()->plugin_url . 'src/resources/js/frontend-ticket-form.js';
+				$url = E__Register__Now::instance()->plugin_url . 'src/resources/js/frontend-ticket-form.js';
 				$url = Tribe__Template_Factory::getMinFile( $url, true );
 
-				wp_enqueue_script( 'tribe_tickets_frontend_tickets', $url, array( 'jquery' ), Tribe__Tickets__Main::VERSION, true );
+				wp_enqueue_script( 'tribe_tickets_frontend_tickets', $url, array( 'jquery' ), E__Register__Now::VERSION, true );
 				add_action( 'wp_footer', array( __CLASS__, 'enqueue_frontend_stock_data' ), 1 );
 			}
 
@@ -993,7 +993,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			$file = $this->getTemplateHierarchy( 'tickets/email.php' );
 
 			if ( ! file_exists( $file ) ) {
-				$file = Tribe__Tickets__Main::instance()->plugin_path . 'src/views/tickets/email.php';
+				$file = E__Register__Now::instance()->plugin_path . 'src/views/tickets/email.php';
 			}
 
 			include $file;
@@ -1334,7 +1334,7 @@ if ( ! class_exists( 'Tribe__Tickets__Tickets' ) ) {
 			}
 
 			// if this isn't a supported post type, bail
-			if ( ! in_array( $post->post_type, Tribe__Tickets__Main::instance()->post_types() ) ) {
+			if ( ! in_array( $post->post_type, E__Register__Now::instance()->post_types() ) ) {
 				return $content;
 			}
 

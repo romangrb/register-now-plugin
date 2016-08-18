@@ -70,8 +70,8 @@ class Tribe__Admin__Help_Page {
 			'version' => null,
 		);
 
-		if ( class_exists( 'Tribe__Tickets__Main' ) ) {
-			$plugins['event-tickets']['version'] = Tribe__Tickets__Main::VERSION;
+		if ( class_exists( 'E__Register__Now' ) ) {
+			$plugins['event-tickets']['version'] = E__Register__Now::VERSION;
 			$plugins['event-tickets']['is_active'] = true;
 		}
 

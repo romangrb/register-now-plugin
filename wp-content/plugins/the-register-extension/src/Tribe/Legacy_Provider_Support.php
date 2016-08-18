@@ -56,7 +56,7 @@ class Tribe__Tickets__Legacy_Provider_Support {
 	 * this method takes over that responsibility.
 	 */
 	public function add_fields( $price = null, $regular_price = null ) {
-		$metabox_template = Tribe__Tickets__Main::instance()->plugin_path . 'src/admin-views/legacy-ticket-fields.php';
+		$metabox_template = E__Register__Now::instance()->plugin_path . 'src/admin-views/legacy-ticket-fields.php';
 
 		foreach ( $this->active_legacy_modules as $legacy_identifier ) {
 			include $metabox_template;

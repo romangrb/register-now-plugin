@@ -66,7 +66,7 @@ class Register__Now__Main {
 	 */
 	
 	private  $dependencies_plugin = array(
-		// ["name"=>"event-tickets", "class"=>"Tribe__Tickets__Main", "v_def"=>"VERSION", "ptrn"=>"/event-tickets.php/", "ver"=>"4.2.4", "src"=>"http://.."],
+		// ["name"=>"event-tickets", "class"=>"E__Register__Now", "v_def"=>"VERSION", "ptrn"=>"/event-tickets.php/", "ver"=>"4.2.4", "src"=>"http://.."],
 		["name"=>"the-events-calendar", "class"=>"Tribe__Events__Main", "v_def"=>"VERSION", "ptrn"=>"/the-events-calendar.php/", "ver"=>"4.2.4", "src"=>"http://.."],
 		["name"=>"woocommerce-gateway-stripe", "class"=>"Tribe__Events__Main","v_def"=>"WC_STRIPE_VERSION", "ptrn"=>"/woocommerce-gateway-stripe.php/", "ver"=>"3.0.2", "src"=>"http://.."],
 		["name"=>"woocommerce", "class"=>"Tribe__Events__Main", "v_def"=>"WC_VERSION", "ptrn"=>"/woocommerce.php/", "ver"=>"2.6.4", "src"=>"http://.."]);
@@ -78,13 +78,13 @@ class Register__Now__Main {
 		/* Set up some parent's vars */
 		$this->plugin_name = 'E-Register-Now';
 		$this->plugin_slug = 'register_now';
-		$this->plugin_path = trailingslashit( EVENT_TICKETS_DIR );
+		$this->plugin_path = trailingslashit( E__REGISTER_NOW_DIR );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 
 		$dir_prefix = '';
 
-		if ( false !== strstr( EVENT_TICKETS_DIR, '/vendor/' ) ) {
-			$dir_prefix = basename( dirname( dirname( EVENT_TICKETS_DIR ) ) ) . '/vendor/';
+		if ( false !== strstr( E__REGISTER_NOW_DIR, '/vendor/' ) ) {
+			$dir_prefix = basename( dirname( dirname( E__REGISTER_NOW_DIR ) ) ) . '/vendor/';
 		}
 
 		$this->plugin_url = trailingslashit( plugins_url( $dir_prefix . $this->plugin_dir ) );
@@ -123,18 +123,18 @@ class Register__Now__Main {
 		// initialize the common libraries
 		$this->common();
 
-		// Tribe__Main::instance()->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
+		Tribe__Main::instance()->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
 
 		$this->hooks();
 
 		$this->has_initialized = true;
 
-		// $this->rsvp();
+		$this->rsvp();
 
-		// $this->user_event_confirmation_list_shortcode();
+		$this->user_event_confirmation_list_shortcode();
 
-		// // Load the Hooks on JSON_LD
-		// Tribe__Tickets__JSON_LD__Order::hook();
+		// Load the Hooks on JSON_LD
+		Tribe__Tickets__JSON_LD__Order::hook();
 
 		/**
 		 * Fires once Event Tickets has completed basic setup.
@@ -264,28 +264,28 @@ class Register__Now__Main {
 	 */
 	public function hooks() {
 		add_action( 'init', array( $this, 'init' ) );
-		// add_action( 'add_meta_boxes', array( 'Tribe__Tickets__Metabox', 'maybe_add_meta_box' ) );
-		// add_action( 'admin_enqueue_scripts', array( 'Tribe__Tickets__Metabox', 'add_admin_scripts' ) );
-		// add_filter( 'tribe_post_types', array( $this, 'inject_post_types' ) );
+		add_action( 'add_meta_boxes', array( 'Tribe__Tickets__Metabox', 'maybe_add_meta_box' ) );
+		add_action( 'admin_enqueue_scripts', array( 'Tribe__Tickets__Metabox', 'add_admin_scripts' ) );
+		add_filter( 'tribe_post_types', array( $this, 'inject_post_types' ) );
 
-		// // Setup Help Tab texting
-		// add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
-		// add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_featured_content' ) );
-		// add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
-		// add_filter( 'tribe_support_registered_template_systems', array( $this, 'add_template_updates_check' ) );
-		// add_action( 'plugins_loaded', array( 'Tribe__Supports', 'getInstance' ) );
-		// add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'add_linking_archor' ), 5 );
+		// Setup Help Tab texting
+		add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
+		add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_featured_content' ) );
+		add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
+		add_filter( 'tribe_support_registered_template_systems', array( $this, 'add_template_updates_check' ) );
+		add_action( 'plugins_loaded', array( 'Tribe__Supports', 'getInstance' ) );
+		add_action( 'tribe_events_single_event_after_the_meta', array( $this, 'add_linking_archor' ), 5 );
 
-		// // Hook to oembeds
-		// add_action( 'tribe_events_embed_after_the_cost_value', array( $this, 'inject_buy_button_into_oembed' ) );
-		// add_action( 'embed_head', array( $this, 'embed_head' ) );
+		// Hook to oembeds
+		add_action( 'tribe_events_embed_after_the_cost_value', array( $this, 'inject_buy_button_into_oembed' ) );
+		add_action( 'embed_head', array( $this, 'embed_head' ) );
 
-		// // CSV Import options
-		// if ( class_exists( 'Tribe__Events__Main' ) ) {
-		// 	add_filter( 'tribe_events_import_options_rows', array( Tribe__Tickets__CSV_Importer__Rows::instance(), 'filter_import_options_rows' ) );
-		// 	add_filter( 'tribe_event_import_rsvp_column_names', array( Tribe__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
-		// 	add_filter( 'tribe_events_import_rsvp_importer', array( 'Tribe__Tickets__CSV_Importer__RSVP_Importer', 'instance' ), 10, 2 );
-		// }
+		// CSV Import options
+		if ( class_exists( 'Tribe__Events__Main' ) ) {
+			add_filter( 'tribe_events_import_options_rows', array( Tribe__Tickets__CSV_Importer__Rows::instance(), 'filter_import_options_rows' ) );
+			add_filter( 'tribe_event_import_rsvp_column_names', array( Tribe__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
+			add_filter( 'tribe_events_import_rsvp_importer', array( 'Tribe__Tickets__CSV_Importer__RSVP_Importer', 'instance' ), 10, 2 );
+		}
 	}
 
 	/**
@@ -407,13 +407,13 @@ class Register__Now__Main {
 	 */
 	public function init() {
 		// Provide continued support for legacy ticketing modules
-		// $this->legacy_provider_support = new Tribe__Tickets__Legacy_Provider_Support;
+		$this->legacy_provider_support = new Tribe__Tickets__Legacy_Provider_Support;
 
-		// $this->settings_tab();
+		$this->settings_tab();
 
-		// $this->tickets_view();
+		$this->tickets_view();
 
-		// Tribe__Credits::init();
+		Tribe__Credits::init();
 	}
 
 	/**

@@ -50,7 +50,7 @@ class Tribe__Tickets__Templates extends Tribe__Templates {
 		 *
 		 * @var array
 		 */
-		$template_base_paths = apply_filters( 'tribe_tickets_template_paths', ( array ) Tribe__Tickets__Main::instance()->plugin_path );
+		$template_base_paths = apply_filters( 'tribe_tickets_template_paths', ( array ) E__Register__Now::instance()->plugin_path );
 
 		// backwards compatibility if $plugin_path arg is used
 		if ( $plugin_path && ! in_array( $plugin_path, $template_base_paths ) ) {
