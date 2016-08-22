@@ -245,13 +245,13 @@ class E__Register__Now__Tickets__Main {
 		$autoloader = E__Register__Now__Autoloader::instance();
 		$autoloader->register_prefixes( $prefixes );
 
-		// require_once $this->plugin_path . 'src/template-tags/tickets.php';
+		require_once $this->plugin_path . 'src/template-tags/tickets.php';
 
-		// deprecated classes are registered in a class to path fashion
-		// foreach ( glob( $this->plugin_path . '{common/src,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
-		// 	$class_name = str_replace( '.php', '', basename( $file ) );
-		// 	$autoloader->register_class( $class_name, $file );
-		// }
+		/*deprecated classes are registered in a class to path fashion*/
+		foreach ( glob( $this->plugin_path . '{common/src,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
+			$class_name = str_replace( '.php', '', basename( $file ) );
+			$autoloader->register_class( $class_name, $file );
+		}
 
 		$autoloader->register_autoloader();
 	}
