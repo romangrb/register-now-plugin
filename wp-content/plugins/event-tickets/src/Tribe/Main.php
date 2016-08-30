@@ -387,10 +387,37 @@ class Tribe__Tickets__Main {
 		$this->settings_tab();
 
 		$this->tickets_view();
-
+$this->create_events_tab();
 		Tribe__Credits::init();
 	}
-
+function create_events_tab() {
+	    register_post_type( 'register_now',
+	        array(
+	            'labels' => array(
+	                'name' => 'E-Register Now',
+	                'singular_name' => 'E-Register Now',
+	                'add_new' => 'Add New',
+	                'add_new_item' => 'Event Title',
+	                'edit' => 'Edit',
+	                'edit_item' => 'Edit Event Review',
+	                'new_item' => 'New Event Review',
+	                'view' => 'View',
+	                'view_item' => 'View Event Review',
+	                'search_items' => 'Search Event Reviews',
+	                'not_found' => 'No Event Reviews found',
+	                'not_found_in_trash' => 'No Event Reviews found in Trash',
+	                'parent' => 'Parent Event Review'
+	            ),
+	 
+	            'public' => true,
+	            'menu_position' => 15,
+	            'supports' => array( 'title', 'editor', 'comments', 'thumbnail' ),
+	            'taxonomies' => array( '' ),
+	            'menu_icon' => 'dashicons-calendar-alt',
+	            'has_archive' => true
+	        )
+	    );
+	}
 	/**
 	 * rsvp ticket object accessor
 	 */
