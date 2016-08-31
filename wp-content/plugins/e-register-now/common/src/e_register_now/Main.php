@@ -165,8 +165,10 @@ class E_Register_Now__Main {
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
+		add_action( 'plugins_loaded', array( 'E_Register_Now__Authentication', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'E_Register_Now__Configuration', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'E_Register_Now__App_Shop', 'instance' ) );
-
+		
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
 		add_action( 'init', array( $this, 'register_vendor' ), 1 );
@@ -174,6 +176,7 @@ class E_Register_Now__Main {
 		// Enqueue only when needed (admin)
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
 	}
+	
 
 	/**
 	 * A Helper method to load text domain

@@ -16,6 +16,9 @@ class E_Register_Now__Tickets__Main {
 	 */
 	const MIN_TEC_VERSION = '4.2.2';
 
+	const POSTTYPE		  = 'tribe_events';
+	const TAXONOMY		  = 'tribe_events_cat';
+	
 	/**
 	 * Name of the provider
 	 * @var
@@ -64,6 +67,24 @@ class E_Register_Now__Tickets__Main {
 		}
 
 		return self::$instance;
+	}
+	
+	public $singular_event_label;
+	public $plural_event_label;
+	
+	/**
+	 * Allow users to specify their own singular label for Events
+	 * @return string
+	 */
+	public function get_event_label_singular() {
+		return apply_filters( 'e_rn_event_label_singular', esc_html__( 'Event', 'E-Register-Now' ) );
+	}
+	/**
+	 * Allow users to specify their own plural label for Events
+	 * @return string
+	 */
+	public function get_event_label_plural() {
+		return apply_filters( 'e_rn_event_label_plural', esc_html__( 'Events', 'E-Register-Now' ) );
 	}
 
 	/**
@@ -262,6 +283,31 @@ class E_Register_Now__Tickets__Main {
 			add_filter( 'e_rn_events_import_rsvp_importer', array( 'E_Register_Now__Tickets__CSV_Importer__RSVP_Importer', 'instance' ), 10, 2 );
 		}
 	}
+	
+	protected function generatePostTypeLabels() {
+			/**
+			 * Provides an opportunity to modify the labels used for the event post type.
+			 *
+			 * @var array
+			 */
+			$this->postTypeArgs['labels'] = apply_filters( 'e_rn_register_event_post_type_labels', array(
+				'name'               => $this->plural_event_label,
+				'singular_name'      => $this->singular_event_label,
+				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
+				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'E-Register-Now' ), $this->singular_event_label ),
+				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label )
+			) );
+		}
+	/**
+	 * Register the post types.
+	 */
+	public function registerPostType() {
+		$this->generatePostTypeLabels();
+		register_post_type( self::POSTTYPE, apply_filters( 'e_rn_register_event_type_args', $this->postTypeArgs ) );
+	}
 
 	/**
 	 * Used to add our beloved tickets to the JSON-LD markup
@@ -386,6 +432,11 @@ class E_Register_Now__Tickets__Main {
 
 		$this->settings_tab();
 
+		$this->singular_event_label = $this->get_event_label_singular();
+		$this->plural_event_label   = $this->get_event_label_plural();
+		
+		$this->registerPostType();
+		
 		$this->tickets_view();
 
 		E_Register_Now__Credits::init();

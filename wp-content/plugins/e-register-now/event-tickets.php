@@ -1,32 +1,31 @@
 <?php
 /*
-Plugin Name: Event Tickets
-Description: Event Tickets allows your guests to RSVP from any post, page, or event.
-Version: 4.2.5
-Author: Modern Tribe, Inc.
-Author URI: http://m.tri.be/28
+Plugin Name: e-Register-Now
+Description: This is wordpress plugin for e-Register-now service
+Version: 1.0
+Author: Roman Hrabar
+Author URI: http://...
+Text Domain: E-Register-Now
 License: GPLv2 or later
-Text Domain: event-tickets
-Domain Path: /lang/
- */
+*/
 
 /*
- Copyright 2010-2012 by Modern Tribe Inc and the contributors
+Copyright 2016-2022 by Roman Hrabar Inc and the contributors
 
- This program is free software; you can redistribute it and/or
- modify it under the terms of the GNU General Public License
- as published by the Free Software Foundation; either version 2
- of the License, or (at your option) any later version.
+This program is free software; you can redistribute it and/or
+modify it under the terms of the GNU General Public License
+as published by the Free Software Foundation; either version 2
+of the License, or (at your option) any later version.
 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- GNU General Public License for more details.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
- You should have received a copy of the GNU General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
- */
+You should have received a copy of the GNU General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+*/
 
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );

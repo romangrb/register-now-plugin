@@ -45,8 +45,8 @@ if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
 				return;
 			}
 
-			$page_title = esc_html__( 'Event Add-Ons', 'e-rn-common' );
-			$menu_title = esc_html__( 'Event Add-Ons', 'e-rn-common' );
+			$page_title = esc_html__( 'Our Products', 'e-rn-common' );
+			$menu_title = esc_html__( 'Our Products', 'e-rn-common' );
 			$capability = apply_filters( 'e_rn_events_addon_page_capability', 'install_plugins' );
 
 			$where = E_Register_Now__Settings::instance()->get_parent_slug();

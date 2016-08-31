@@ -157,7 +157,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 
 			// run actions & filters
 			add_action( 'admin_menu', array( $this, 'addPage' ) );
-			add_action( 'network_admin_menu', array( $this, 'addNetworkPage' ) );
+			// add_action( 'network_admin_menu', array( $this, 'addNetworkPage' ) );
 			add_action( 'admin_init', array( $this, 'initTabs' ) );
 			add_action( 'e_rn_settings_below_tabs', array( $this, 'displayErrors' ) );
 			add_action( 'e_rn_settings_below_tabs', array( $this, 'displaySuccess' ) );
@@ -173,7 +173,8 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 * @return boolean
 		 */
 		public function should_setup_pages() {
-			if ( ! class_exists( 'E_Register_Now__Events__Main' ) ) {
+			
+			if ( ! class_exists( 'E_Register_Now__Events__Main' )) {
 				return true;
 			}
 
@@ -183,6 +184,30 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 
 			return false;
 		}
+		
+		protected function check_role() {
+			
+			global $wp_roles;
+			
+			$current_user = wp_get_current_user();
+			$roles = $current_user->roles;
+			$role = array_shift($roles);
+			
+			return isset($wp_roles->role_names[$role]) ? translate_user_role($wp_roles->role_names[$role] ) : false;
+		}
+		
+		public function wp_allow_config() {
+			
+			$current_role = $this->check_role(); 
+			return ( $current_role === 'Subscriber' )? false : true;
+		}
+			// Super Admin – somebody with access to the site network administration features and all other features. See the Create a Network article.
+			// Administrator – somebody who has access to all the administration features within a single site.
+			// Editor – somebody who can publish and manage posts including the posts of other users.
+			// Author – somebody who can publish and manage their own posts.
+			// Contributor – somebody who can write and manage their own posts but cannot publish them.
+			// Subscriber – somebody who can only manage their profile.
+		
 
 		/**
 		 * create the main option page
@@ -199,10 +224,10 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 					self::$parent_page = 'edit.php?post_type=e_rn_events';
 				} else {
 					self::$parent_page = 'admin.php?page=e-rn-common';
-
+					
 					add_menu_page(
 						esc_html__( 'Events', 'e-rn-common' ),
-						esc_html__( 'Events', 'e-rn-common' ),
+						esc_html__( 'Register in One Click', 'e-rn-common' ),
 						apply_filters( 'e_rn_common_event_page_capability', 'manage_options' ),
 						self::$parent_slug,
 						null,
@@ -211,14 +236,14 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 					);
 				}
 
-				$this->admin_page = add_submenu_page(
-					$this->get_parent_slug(),
-					esc_html__( 'Events Settings', 'e-rn-common' ),
-					esc_html__( 'Settings', 'e-rn-common' ),
-					$this->requiredCap,
-					self::$parent_slug,
-					array( $this, 'generatePage' )
-				);
+				// $this->admin_page = add_submenu_page(
+				// 	$this->get_parent_slug(),
+				// 	esc_html__( 'Events Settings', 'e-rn-common' ),
+				// 	esc_html__( 'Settings', 'e-rn-common' ),
+				// 	$this->requiredCap,
+				// 	self::$parent_slug,
+				// 	array( $this, 'generatePage' )
+				// );
 			}
 		}
 
