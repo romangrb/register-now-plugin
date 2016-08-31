@@ -290,24 +290,56 @@ class E_Register_Now__Tickets__Main {
 			 *
 			 * @var array
 			 */
-			$this->postTypeArgs['labels'] = apply_filters( 'e_rn_register_event_post_type_labels', array(
+			$this->postTypeArgs['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
 				'name'               => $this->plural_event_label,
 				'singular_name'      => $this->singular_event_label,
 				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
-				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'E-Register-Now' ), $this->singular_event_label ),
+				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_event_label ),
 				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
 				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
 				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label )
-			) );
+				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
+				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label ),
+				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label ),
+			));
+			 
 		}
-	/**
-	 * Register the post types.
-	 */
-	public function registerPostType() {
-		$this->generatePostTypeLabels();
-		register_post_type( self::POSTTYPE, apply_filters( 'e_rn_register_event_type_args', $this->postTypeArgs ) );
-	}
+		/**
+		 * Register the post types.
+		 */
+		public function registerPostType() {
+			$this->generatePostTypeLabels();
+			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $this->postTypeArgs ) );
+
+			// Setup Linked Posts singleton after we've set up the post types that we care about
+			// Tribe__Events__Linked_Posts::instance();
+
+			register_taxonomy(
+				self::POSTTYPE, self::POSTTYPE, array(
+					'hierarchical'          => true,
+					'update_count_callback' => '',
+					'rewrite'               => array(
+						// 'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
+						'with_front'   => false,
+						'hierarchical' => true,
+					),
+					'public'                => true,
+					'show_ui'               => true,
+					// 'labels'                => $this->taxonomyLabels,
+					'capabilities'          => array(
+						'manage_terms' => 'publish_tribe_events',
+						'edit_terms'   => 'publish_tribe_events',
+						'delete_terms' => 'publish_tribe_events',
+						'assign_terms' => 'edit_tribe_events',
+					),
+				)
+			);
+
+			if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
+				add_post_type_support( self::POSTTYPE, 'comments' );
+			}
+
+		}
 
 	/**
 	 * Used to add our beloved tickets to the JSON-LD markup
@@ -429,7 +461,7 @@ class E_Register_Now__Tickets__Main {
 	public function init() {
 		// Provide continued support for legacy ticketing modules
 		$this->legacy_provider_support = new E_Register_Now__Tickets__Legacy_Provider_Support;
-
+		
 		$this->settings_tab();
 
 		$this->singular_event_label = $this->get_event_label_singular();

@@ -645,3 +645,98 @@
 [31-Aug-2016 15:29:15 UTC] PHP Fatal error:  Call to undefined method E_Register_Now__Settings::get_url() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Authentication.php on line 73
 [31-Aug-2016 15:29:17 UTC] PHP Fatal error:  Call to undefined method E_Register_Now__Settings::get_url() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Authentication.php on line 73
 [31-Aug-2016 15:30:38 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
+[31-Aug-2016 20:18:08 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:08 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:08 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:08 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:08 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:09 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:09 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:09 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:09 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:09 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:12 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:12 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:12 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:13 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:13 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:13 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:13 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:13 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:13 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:13 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:13 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:13 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:13 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:13 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:13 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:25 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:25 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:25 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:25 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:25 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:26 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:26 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:26 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:26 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:26 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:27 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:27 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:27 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:28 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:28 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:28 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:28 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:28 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:28 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:28 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 352
+[31-Aug-2016 20:18:28 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 358
+[31-Aug-2016 20:18:28 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:28 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:18:28 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:18:28 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:19:17 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:19:17 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:19:17 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:19:17 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:19:17 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:19:18 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:19:18 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:19:18 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:19:18 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:19:18 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:19:18 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:19:18 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:19:18 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:19:19 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:19:19 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:20:20 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:20:20 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:20:20 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:21:21 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:21:21 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:21:21 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:22:21 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$rewriteSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:22:21 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$category_slug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 322
+[31-Aug-2016 20:22:21 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:22:35 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:22:35 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:22:35 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:22:36 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:22:36 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:22:36 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:22:36 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Main::$taxonomyLabels in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/Main.php on line 328
+[31-Aug-2016 20:22:36 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:22:36 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:23:05 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:23:05 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:23:06 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:23:06 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:23:06 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:23:06 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:25:05 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:25:05 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:25:07 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:25:07 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
+[31-Aug-2016 20:25:07 UTC] PHP Warning:  array_keys() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 58
+[31-Aug-2016 20:25:07 UTC] PHP Warning:  Invalid argument supplied for foreach() in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Linked_Posts.php on line 63
