@@ -26,9 +26,11 @@ class E_Register_Now__Settings_Manager {
 		add_action( '_admin_menu', array( $this, 'init_options' ) );
 
 		add_action( 'admin_menu', array( $this, 'add_help_admin_menu_item' ), 50 );
+		
 		add_action( 'e_rn_settings_do_tabs', array( $this, 'do_setting_tabs' ) );
 		add_action( 'e_rn_settings_do_tabs', array( $this, 'do_network_settings_tab' ), 400 );
 		add_action( 'e_rn_settings_content_tab_help', array( $this, 'do_help_tab' ) );
+		
 		add_action( 'e_rn_settings_validate_tab_network', array( $this, 'save_all_tabs_hidden' ) );
 	}
 
@@ -146,7 +148,7 @@ class E_Register_Now__Settings_Manager {
 	 */
 	public static function get_network_options() {
 		if ( ! isset( self::$network_options ) ) {
-			$options              = get_site_option( E_Register_Now__Main::OPTIONNAMENETWORK, array() );
+			$options               = get_site_option( E_Register_Now__Main::OPTIONNAMENETWORK, array() );
 			self::$network_options = apply_filters( 'e_rn_get_network_options', $options );
 		}
 
@@ -273,7 +275,7 @@ class E_Register_Now__Settings_Manager {
 	public function do_help_tab() {
 		include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/e-rn-options-help.php';
 	}
-
+	
 	/**
 	 * Add help menu item to the admin (unless blocked via network admin settings).
 	 *
@@ -284,9 +286,9 @@ class E_Register_Now__Settings_Manager {
 		if ( in_array( 'help', $hidden_settings_tabs ) ) {
 			return;
 		}
-
+		
 		$parent = E_Register_Now__Settings::$parent_slug;
-		$title  = esc_html__( 'Help', 'e-rn-common' );
+		$title  = esc_html__( 'Help and Support', 'e-rn-common' );
 		$slug   = esc_url(
 			apply_filters( 'e_rn_settings_url',
 				add_query_arg(

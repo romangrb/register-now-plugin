@@ -592,3 +592,56 @@
 [31-Aug-2016 12:31:51 UTC] PHP Notice:  Trying to get property of non-object in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 63
 [31-Aug-2016 12:31:51 UTC] PHP Notice:  Trying to get property of non-object in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 63
 [31-Aug-2016 12:31:51 UTC] PHP Warning:  key() expects parameter 1 to be array, null given in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 64
+[31-Aug-2016 13:37:30 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$adminSlug in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 73
+[31-Aug-2016 13:39:53 UTC] PHP Fatal error:  Access to undeclared static property: E_Register_Now__Configuration::$parent_page in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 107
+[31-Aug-2016 13:40:59 UTC] PHP Fatal error:  Call to undefined method E_Register_Now__Configuration::validate() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 121
+[31-Aug-2016 15:01:58 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$menuName in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 100
+[31-Aug-2016 15:01:58 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$errors in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 287
+[31-Aug-2016 15:01:58 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$errors in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 321
+[31-Aug-2016 15:04:49 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$errors in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 294
+[31-Aug-2016 15:04:49 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$errors in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 328
+[31-Aug-2016 15:06:57 UTC] PHP Fatal error:  Call to undefined method E_Register_Now__Configuration::save() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 246
+[31-Aug-2016 15:11:32 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$tabs in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 154
+[31-Aug-2016 15:16:34 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:16:34 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:16:34 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:16:37 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:16:37 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:16:37 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:16:49 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:16:49 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:16:49 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:17:03 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:17:03 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:17:03 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:17:09 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:17:09 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:17:09 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:17:40 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:17:40 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:17:40 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:18:16 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:18:16 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:18:16 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:18:27 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:18:27 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:18:27 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:18:32 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:18:32 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:18:32 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:18:34 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:18:34 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:18:34 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:18:39 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:18:39 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:18:39 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:18:39 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
+[31-Aug-2016 15:18:44 UTC] PHP Notice:  Undefined variable: generalTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 57
+[31-Aug-2016 15:18:44 UTC] PHP Notice:  Undefined variable: displayTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 58
+[31-Aug-2016 15:18:44 UTC] PHP Notice:  Undefined variable: networkTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Settings_Manager.php on line 231
+[31-Aug-2016 15:19:52 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
+[31-Aug-2016 15:27:44 UTC] PHP Fatal error:  Call to undefined method E_Register_Now__Settings::get_parent_slug() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/App_Shop.php on line 52
+[31-Aug-2016 15:27:46 UTC] PHP Fatal error:  Call to undefined method E_Register_Now__Settings::get_parent_slug() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/App_Shop.php on line 52
+[31-Aug-2016 15:29:15 UTC] PHP Fatal error:  Call to undefined method E_Register_Now__Settings::get_url() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Authentication.php on line 73
+[31-Aug-2016 15:29:17 UTC] PHP Fatal error:  Call to undefined method E_Register_Now__Settings::get_url() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Authentication.php on line 73
+[31-Aug-2016 15:30:38 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
