@@ -18,7 +18,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 * Slug of the parent menu slug
 		 * @var string
 		 */
-		public static $parent_slug = 'e-rn-common';
+		public static $parent_slug = 'e_rn_common';
 
 		/**
 		 * Page of the parent menu
@@ -198,13 +198,14 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 			if ( ! $this->should_setup_pages() ) {
 				return;
 			}
-
+			
 			if ( ! is_multisite() || ( is_multisite() && '0' == E_Register_Now__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
-				if ( post_type_exists( 'e_rn_events' ) ) {
-					self::$parent_page = 'edit.php?post_type=e_rn_events';
-				} else {
-					self::$parent_page = 'admin.php?page=e-rn-common';
+				if ( post_type_exists( 'e_rn' ) ) {
+					self::$parent_page = 'edit.php?post_type=e_rn';
 					
+				} else {
+					self::$parent_page = 'admin.php?post_type=e_rn';
+
 					add_menu_page(
 						esc_html__( 'Events', 'e-rn-common' ),
 						esc_html__( 'Register in One Click', 'e-rn-common' ),

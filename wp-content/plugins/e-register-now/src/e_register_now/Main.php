@@ -16,8 +16,8 @@ class E_Register_Now__Tickets__Main {
 	 */
 	const MIN_TEC_VERSION = '4.2.2';
 
-	const POSTTYPE		  = 'e_register_now';
-	const TAXONOMY		  = 'e_register_now_cat';
+	const POSTTYPE		  = 'e_rn';
+	const TAXONOMY		  = 'e_rn_cat';
 	
 	/**
 	 * Name of the provider
@@ -126,7 +126,7 @@ class E_Register_Now__Tickets__Main {
 	public function __construct() {
 		/* Set up some parent's vars */
 		$this->plugin_name = 'E-Register-Now';
-		$this->plugin_slug = 'E-Register-Now';
+		$this->plugin_slug = 'e_rn';
 		$this->plugin_path = trailingslashit( EVENT_TICKETS_DIR );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 

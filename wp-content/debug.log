@@ -859,3 +859,14 @@
 [01-Sep-2016 09:36:01 UTC] PHP Notice:  Trying to get property of non-object in /home/ubuntu/workspace/wp-admin/includes/class-wp-terms-list-table.php on line 526
 [01-Sep-2016 09:37:43 UTC] PHP Notice:  Trying to get property of non-object in /home/ubuntu/workspace/wp-admin/includes/class-wp-terms-list-table.php on line 526
 [01-Sep-2016 12:12:54 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
+[01-Sep-2016 15:27:02 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:27:02 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:27:07 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:27:28 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:27:31 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:27:31 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:28:33 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:30:32 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:31:37 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:31:38 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[01-Sep-2016 15:31:39 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__App_Shoping' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524

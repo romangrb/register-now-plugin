@@ -45,8 +45,8 @@ if ( ! class_exists( 'Tribe__App_Shop' ) ) {
 				return;
 			}
 
-			$page_title = esc_html__( 'Event Add-Ons', 'tribe-common' );
-			$menu_title = esc_html__( 'Event Add-Ons', 'tribe-common' );
+			$page_title = esc_html__( 'Event saAdd-Ons', 'tribe-common' );
+			$menu_title = esc_html__( 'Eventas Add-Ons', 'tribe-common' );
 			$capability = apply_filters( 'tribe_events_addon_page_capability', 'install_plugins' );
 
 			$where = Tribe__Settings::instance()->get_parent_slug();
