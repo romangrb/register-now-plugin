@@ -138,8 +138,8 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 */
 		public function __construct() {
 			// run actions & filters
-			// add_action( 'admin_menu', array( $this, 'addPage' ) );
-			// add_action( 'network_admin_menu', array( $this, 'addNetworkPage' ) );
+			add_action( 'admin_menu', array( $this, 'addPage' ) );
+			add_action( 'network_admin_menu', array( $this, 'addNetworkPage' ) );
 			
 		}
 

@@ -537,9 +537,9 @@ class E_Register_Now__Tickets__Main {
 		
 		$this->legacy_provider_support = new E_Register_Now__Tickets__Legacy_Provider_Support;
 		
-		$this->settings_tab();
-		
 		$this->registerPostType();
+		
+		$this->settings_tab();
 		
 		$this->tickets_view();
 

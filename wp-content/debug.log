@@ -858,3 +858,4 @@
 [01-Sep-2016 09:12:19 UTC] PHP Notice:  Undefined offset: 0 in /home/ubuntu/workspace/wp-includes/capabilities.php on line 117
 [01-Sep-2016 09:36:01 UTC] PHP Notice:  Trying to get property of non-object in /home/ubuntu/workspace/wp-admin/includes/class-wp-terms-list-table.php on line 526
 [01-Sep-2016 09:37:43 UTC] PHP Notice:  Trying to get property of non-object in /home/ubuntu/workspace/wp-admin/includes/class-wp-terms-list-table.php on line 526
+[01-Sep-2016 12:12:54 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
