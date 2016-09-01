@@ -16,8 +16,8 @@ class E_Register_Now__Tickets__Main {
 	 */
 	const MIN_TEC_VERSION = '4.2.2';
 
-	const POSTTYPE		  = 'e_rn';
-	const TAXONOMY		  = 'e_rn_cat';
+	const POSTTYPE		  = 'e-rn-common';
+	const TAXONOMY		  = 'e-rn-common-cat';
 	
 	/**
 	 * Name of the provider
@@ -110,7 +110,7 @@ class E_Register_Now__Tickets__Main {
 	 * @return string
 	 */
 	public function get_event_label_singular() {
-		return apply_filters( 'e_rn_event_label_singular', esc_html__( 'Event', 'e_rn' ) );
+		return apply_filters( 'e_rn_event_label_singular', esc_html__( 'Event', $this::POSTTYPE ) );
 	}
 	/**
 	 * Allow users to specify their own plural label for Events
@@ -126,7 +126,7 @@ class E_Register_Now__Tickets__Main {
 	public function __construct() {
 		/* Set up some parent's vars */
 		$this->plugin_name = 'E-Register-Now';
-		$this->plugin_slug = 'e_rn';
+		$this->plugin_slug = $this::POSTTYPE;
 		$this->plugin_path = trailingslashit( EVENT_TICKETS_DIR );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 
@@ -201,7 +201,7 @@ class E_Register_Now__Tickets__Main {
 		$plugin_short_path = null;
 
 		foreach ( $active_plugins as $plugin ) {
-			if ( false !== strstr( $plugin, 'e_rn.php' ) ) {
+			if ( false !== strstr( $plugin, $this::POSTTYPE . 'php' ) ) {
 				$plugin_short_path = $plugin;
 				break;
 			}
@@ -465,7 +465,7 @@ class E_Register_Now__Tickets__Main {
 	 */
 	public function add_help_section_featured_content( $help ) {
 		// If The Events Calendar is active dont add
-		if ( $help->is_active( 'e_rn', true ) ) {
+		if ( $help->is_active( 'e-rn-common', true ) ) {
 			return;
 		}
 
@@ -482,10 +482,10 @@ class E_Register_Now__Tickets__Main {
 	 * @return void
 	 */
 	public function add_help_section_extra_content( $help ) {
-		if ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets-plus' ) ) && $help->is_active( 'e_rn' ) ) {
+		if ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets-plus' ) ) && $help->is_active( 'e-rn-common' ) ) {
 			// We just skip because it's treated on TEC
 			return;
-		} elseif ( ! $help->is_active( 'e_rn' ) ) {
+		} elseif ( ! $help->is_active( 'e-rn-common' ) ) {
 			if ( ! $help->is_active( 'event-tickets-plus' ) ) {
 
 				$link = '<a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'event-tickets' ) . '</a>';
@@ -529,7 +529,7 @@ class E_Register_Now__Tickets__Main {
 	 */
 	public function init() {
 		
-		$this->pluginName = $this->plugin_name  = esc_html__( 'Register In One Click', 'e_rn' );
+		$this->pluginName = $this->plugin_name  = esc_html__( 'Register In One Click', 'e-rn-common' );
 		$this->singular_event_label				= $this->get_event_label_singular();
 		$this->plural_event_label				= $this->get_event_label_plural();
 		

@@ -14,8 +14,9 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		/**
 		 * Slug of the WP admin menu item
 		 */
-		const MENU_SLUG = 'e-rn-common';
-
+		const MENU_SLUG  = 'e-rn-common';
+		const ADMIN_SLUG = 'e-rn-common';
+		
 		/**
 		 * Singleton instance
 		 *
@@ -28,15 +29,38 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		 * @var string
 		 */
 		private $admin_page = null;
+		
+		/**
+		 * the slug used in the admin to generate the settings page
+		 * @var string
+		 */
+		public $adminSlug;
+		 
+		 /**
+		 * Page of the parent menu
+		 * @var string
+		 */
+		public static $parent_page = 'edit.php';
+		/**
+		 * the menu name used for the settings page
+		 * @var string
+		 */
+		public $menuName;
+		/**
+		 * generate the main option page
+		 * includes the view file
+		 *
+		 * @return void
+		 */
 
 		/**
 		 * Class constructor
 		 */
 		public function __construct() {
 			
-			$this->menuName    = apply_filters( 'e_rn_settings_menu_name', esc_html__( 'Events', 'e-rn-common' ) );
+			$this->menuName    = apply_filters( 'e_rn_settings_menu_name', esc_html__( 'Events', $this::MENU_SLUG ) );
 			$this->requiredCap = apply_filters( 'e_rn_settings_req_cap', 'manage_options' );
-			$this->adminSlug   = apply_filters( 'e_rn_settings_admin_slug', 'e-rn-common' );
+			$this->adminSlug   = apply_filters( 'e_rn_settings_admin_slug', $this::ADMIN_SLUG );
 			$this->errors      = get_option( 'e_rn_settings_errors', array() );
 			$this->major_error = get_option( 'e_rn_settings_major_error', false );
 			$this->sent_data   = get_option( 'e_rn_settings_sent_data', array() );
@@ -80,33 +104,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 
 			add_action( 'admin_print_styles-' . $this->admin_page, array( $this, 'enqueue' ) );
 		}
-		/**
-		 * the slug used in the admin to generate the settings page
-		 * @var string
-		 */
-		public $adminSlug;
-		/**
-		 * init all the tabs
-		 *
-		 * @return void
-		 */
-		 
-		 /**
-		 * Page of the parent menu
-		 * @var string
-		 */
-		public static $parent_page = 'edit.php';
-		/**
-		 * the menu name used for the settings page
-		 * @var string
-		 */
-		public $menuName;
-		/**
-		 * generate the main option page
-		 * includes the view file
-		 *
-		 * @return void
-		 */
+		
 		public function generatePage() {
 			do_action( 'e_rn_settings_top' );
 			echo '<div class="e_rn_settings wrap">';
@@ -160,11 +158,11 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 				echo '<h2 id="e-rn-settings-tabs" class="nav-tab-wrapper">';
 				foreach ( $this->tabs as $tab => $name ) {
 					if ( ! is_network_admin() ) {
-						$url = '?page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
+						$url = '?post_type=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '&page=' . $this->adminSlug;
 						$url = apply_filters( 'e_rn_settings_url', $url );
 					}
 					if ( is_network_admin() ) {
-						$url = '?page=' . $this->adminSlug . '&tab=' . urlencode( $tab );
+						$url = '?post_type=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '&page=' . $this->adminSlug;
 					}
 					$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
 					echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
@@ -351,7 +349,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		}
 		
 		public function initTabs() {
-			if ( isset( $_GET['page'] ) && $_GET['page'] == $this->adminSlug ) {
+			if ( isset( $_GET['post_type'] ) && $_GET['post_type'] == $this->adminSlug ) {
 				// Load settings tab-specific helpers and enhancements
 				$this->live_date_preview = new E_Register_Now__Admin__Live_Date_Preview;
 
@@ -365,7 +363,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 					$this->url        = apply_filters(
 						'e_rn_settings_url', add_query_arg(
 							array(
-								'page' => $this->adminSlug,
+								'post_type' => $this->adminSlug,
 								'tab'  => $this->currentTab,
 							), network_admin_url( 'settings.php' )
 						)
@@ -378,7 +376,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 					$this->url        = apply_filters(
 						'e_rn_settings_url', add_query_arg(
 							array(
-								'page' => $this->adminSlug,
+								'post_type' => $this->adminSlug,
 								'tab'  => $this->currentTab,
 							),
 							admin_url( self::$parent_page )
@@ -474,7 +472,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			$wp_admin_bar->add_menu( array(
 				'id'     => 'e-rn-events-configuration',
 				'title'  => esc_html__( 'Configuration', 'e-rn-common' ),
-				'href'   => E_Register_Now__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
+				'href'   => E_Register_Now__Settings::instance()->get_url( array( 'post_type' => self::MENU_SLUG ) ),
 				'parent' => 'e-rn-events-settings-group',
 			) );
 		

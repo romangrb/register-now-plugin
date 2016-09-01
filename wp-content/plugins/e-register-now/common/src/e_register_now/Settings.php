@@ -18,13 +18,13 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 * Slug of the parent menu slug
 		 * @var string
 		 */
-		public static $parent_slug = 'e_rn_common';
+		public static $parent_slug = 'e-rn-common';
 
 		/**
 		 * Page of the parent menu
 		 * @var string
 		 */
-		public static $parent_page = 'edit.php';
+		public static $parent_page = 'admin.php';
 
 		/**
 		 * @var E_Register_Now__Admin__Live_Date_Preview
@@ -198,14 +198,13 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 			if ( ! $this->should_setup_pages() ) {
 				return;
 			}
-			
-			if ( ! is_multisite() || ( is_multisite() && '0' == E_Register_Now__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
-				if ( post_type_exists( 'e_rn' ) ) {
-					self::$parent_page = 'edit.php?post_type=e_rn';
-					
-				} else {
-					self::$parent_page = 'admin.php?post_type=e_rn';
 
+			if ( ! is_multisite() || ( is_multisite() && '0' == E_Register_Now__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
+				if ( post_type_exists( 'e-rn-common' ) ) {
+					self::$parent_page = 'edit.php?post_type=e-rn-common';
+				} else {
+					self::$parent_page = 'admin.php?post_type=e-rn-common';
+					
 					add_menu_page(
 						esc_html__( 'Events', 'e-rn-common' ),
 						esc_html__( 'Register in One Click', 'e-rn-common' ),
@@ -227,7 +226,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 			$slug = self::$parent_page;
 
 			// if we don't have an event post type, then we can just use the e-rn-common slug
-			if ( 'edit.php' === $slug || 'admin.php?page=e-rn-common' === $slug ) {
+			if ( 'edit.php' === $slug || 'admin.php?post_type=e-rn-common' === $slug ) {
 				$slug = self::$parent_slug;
 			}
 
@@ -241,7 +240,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 */
 		public function get_url( array $args = array() ) {
 			$defaults = array(
-				'page' => $this->adminSlug,
+				'post_type' => $this->adminSlug,
 				'parent' => self::$parent_page,
 			);
 

@@ -239,12 +239,12 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			// include the autoloader class
 			$this->init_autoloading();
 
-			// add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
+			add_action( 'init', array( $this, 'loadTextDomain' ), 1 );
 
 			if ( self::supportedVersion( 'wordpress' ) && self::supportedVersion( 'php' ) ) {
 
 				$this->addHooks();
-				// $this->maybe_load_tickets_framework();
+				$this->maybe_load_tickets_framework();
 				$this->loadLibraries();
 			} else {
 				// Either PHP or WordPress version is inadequate so we simply return an error.
@@ -407,175 +407,175 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 */
 		protected function addHooks() {
 			// Since TEC is active, change the base page for the Event Settings page
-			// Tribe__Settings::$parent_page = 'edit.php';
+			Tribe__Settings::$parent_page = 'edit.php';
 
-			// // Load Rewrite
-			// add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
+			// Load Rewrite
+			add_action( 'plugins_loaded', array( Tribe__Events__Rewrite::instance(), 'hooks' ) );
 
 			add_action( 'init', array( $this, 'init' ), 10 );
-			// add_action( 'admin_init', array( $this, 'admin_init' ) );
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
 
 			// Frontend Javascript
-			// add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
-			// add_filter( 'tribe_events_before_html', array( $this, 'before_html_data_wrapper' ) );
-			// add_filter( 'tribe_events_after_html', array( $this, 'after_html_data_wrapper' ) );
+			add_action( 'wp_enqueue_scripts', array( $this, 'loadStyle' ) );
+			add_filter( 'tribe_events_before_html', array( $this, 'before_html_data_wrapper' ) );
+			add_filter( 'tribe_events_after_html', array( $this, 'after_html_data_wrapper' ) );
 
-			// // Styling
-			// add_filter( 'post_class', array( $this, 'post_class' ) );
-			// add_filter( 'body_class', array( $this, 'body_class' ) );
-			// add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+			// Styling
+			add_filter( 'post_class', array( $this, 'post_class' ) );
+			add_filter( 'body_class', array( $this, 'body_class' ) );
+			add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 
-			// add_filter( 'post_type_archive_link', array( $this, 'event_archive_link' ), 10, 2 );
-			// add_filter( 'query_vars', array( $this, 'eventQueryVars' ) );
-			// add_filter( 'bloginfo_rss', array( $this, 'add_space_to_rss' ) );
-			// add_filter( 'post_updated_messages', array( $this, 'updatePostMessage' ) );
+			add_filter( 'post_type_archive_link', array( $this, 'event_archive_link' ), 10, 2 );
+			add_filter( 'query_vars', array( $this, 'eventQueryVars' ) );
+			add_filter( 'bloginfo_rss', array( $this, 'add_space_to_rss' ) );
+			add_filter( 'post_updated_messages', array( $this, 'updatePostMessage' ) );
 
-			// /* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
-			// add_filter( 'nav_menu_items_' . self::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
-			// add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
+			/* Add nav menu item - thanks to http://wordpress.org/extend/plugins/cpt-archives-in-nav-menus/ */
+			add_filter( 'nav_menu_items_' . self::POSTTYPE, array( $this, 'add_events_checkbox_to_menu' ), null, 3 );
+			add_filter( 'wp_nav_menu_objects', array( $this, 'add_current_menu_item_class_to_events' ), null, 2 );
 
-			// add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 11 );
+			add_filter( 'template_redirect', array( $this, 'redirect_past_upcoming_view_urls' ), 11 );
 
-			// /* Setup Tribe Events Bar */
-			// add_filter( 'tribe-events-bar-views', array( $this, 'setup_listview_in_bar' ), 1, 1 );
-			// add_filter( 'tribe-events-bar-views', array( $this, 'setup_gridview_in_bar' ), 5, 1 );
-			// add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 15, 1 );
+			/* Setup Tribe Events Bar */
+			add_filter( 'tribe-events-bar-views', array( $this, 'setup_listview_in_bar' ), 1, 1 );
+			add_filter( 'tribe-events-bar-views', array( $this, 'setup_gridview_in_bar' ), 5, 1 );
+			add_filter( 'tribe-events-bar-views', array( $this, 'setup_dayview_in_bar' ), 15, 1 );
 
-			// add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 1, 1 );
-			// add_filter( 'tribe-events-bar-filters', array( $this, 'setup_keyword_search_in_bar' ), 1, 1 );
+			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_date_search_in_bar' ), 1, 1 );
+			add_filter( 'tribe-events-bar-filters', array( $this, 'setup_keyword_search_in_bar' ), 1, 1 );
 
-			// add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
-			// /* End Setup Tribe Events Bar */
+			add_filter( 'tribe-events-bar-views', array( $this, 'remove_hidden_views' ), 9999, 2 );
+			/* End Setup Tribe Events Bar */
 
-			// add_action( 'admin_menu', array( $this, 'addEventBox' ) );
-			// add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
-			// add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
+			add_action( 'admin_menu', array( $this, 'addEventBox' ) );
+			add_action( 'wp_insert_post', array( $this, 'addPostOrigin' ), 10, 2 );
+			add_action( 'save_post', array( $this, 'addEventMeta' ), 15, 2 );
 
-			// /* Registers the list widget */
-			// add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
+			/* Registers the list widget */
+			add_action( 'widgets_init', array( $this, 'register_list_widget' ), 90 );
 
-			// add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
-			// add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
-			// add_action( 'save_post_' . self::POSTTYPE, array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_update_known_range' ) );
-			// add_action( 'tribe_events_csv_import_complete', array( Tribe__Events__Dates__Known_Range::instance(), 'rebuild_known_range' ) );
-			// add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
-			// add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
-			// add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
-			// add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
-			// add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
-			// add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_assets' ) );
-			// add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
-			// add_action( 'trash_' . self::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
-			// add_action( 'trash_' . self::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
-			// add_action( 'wp_ajax_tribe_event_validation', array( $this, 'ajax_form_validate' ) );
-			// add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
-			// add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
-			// add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
-			// add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
+			add_action( 'save_post_' . self::VENUE_POST_TYPE, array( $this, 'save_venue_data' ), 16, 2 );
+			add_action( 'save_post_' . self::ORGANIZER_POST_TYPE, array( $this, 'save_organizer_data' ), 16, 2 );
+			add_action( 'save_post_' . self::POSTTYPE, array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_update_known_range' ) );
+			add_action( 'tribe_events_csv_import_complete', array( Tribe__Events__Dates__Known_Range::instance(), 'rebuild_known_range' ) );
+			add_action( 'publish_' . self::POSTTYPE, array( $this, 'publishAssociatedTypes' ), 25, 2 );
+			add_action( 'delete_post', array( Tribe__Events__Dates__Known_Range::instance(), 'maybe_rebuild_known_range' ) );
+			add_action( 'parse_query', array( $this, 'setDisplay' ), 51, 0 );
+			add_action( 'tribe_events_post_errors', array( 'Tribe__Events__Post_Exception', 'displayMessage' ) );
+			add_action( 'tribe_settings_top', array( 'Tribe__Events__Options_Exception', 'displayMessage' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_assets' ) );
+			add_filter( 'tribe_events_register_event_type_args', array( $this, 'setDashicon' ) );
+			add_action( 'trash_' . self::VENUE_POST_TYPE, array( $this, 'cleanupPostVenues' ) );
+			add_action( 'trash_' . self::ORGANIZER_POST_TYPE, array( $this, 'cleanupPostOrganizers' ) );
+			add_action( 'wp_ajax_tribe_event_validation', array( $this, 'ajax_form_validate' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Cache_Listener', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Cache', 'setup' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Support', 'getInstance' ) );
+			add_action( 'plugins_loaded', array( $this, 'set_meta_factory_global' ) );
 
-			// if ( ! Tribe__Main::instance()->doing_ajax() ) {
-			// 	add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
-			// } else {
-			// 	add_action( 'admin_init', array( $this, 'init_admin_list_screen' ) );
-			// }
+			if ( ! Tribe__Main::instance()->doing_ajax() ) {
+				add_action( 'current_screen', array( $this, 'init_admin_list_screen' ) );
+			} else {
+				add_action( 'admin_init', array( $this, 'init_admin_list_screen' ) );
+			}
 
-			// // Load organizer and venue editors
-			// add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
-			// add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
-			// add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
+			// Load organizer and venue editors
+			add_action( 'admin_menu', array( $this, 'addVenueAndOrganizerEditor' ) );
+			add_action( 'tribe_venue_table_top', array( $this, 'displayEventVenueDropdown' ) );
+			add_action( 'tribe_venue_table_top', array( $this, 'display_rich_snippets_helper' ), 5 );
 
-			// add_action( 'template_redirect', array( $this, 'template_redirect' ) );
+			add_action( 'template_redirect', array( $this, 'template_redirect' ) );
 
-			// add_action( 'wp', array( $this, 'issue_noindex' ) );
-			// add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
-			// // organizer and venue
-			// if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ) {
-			// 	add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
-			// 	add_action( 'tribe_events_cost_table', array( $this, 'maybeShowMetaUpsell' ) );
-			// }
-			// // option pages
-			// add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
-			// add_action( '_admin_menu', array( $this, 'initOptions' ) );
+			add_action( 'wp', array( $this, 'issue_noindex' ) );
+			add_action( 'plugin_row_meta', array( $this, 'addMetaLinks' ), 10, 2 );
+			// organizer and venue
+			if ( ! defined( 'TRIBE_HIDE_UPSELL' ) || ! TRIBE_HIDE_UPSELL ) {
+				add_action( 'wp_dashboard_setup', array( $this, 'dashboardWidget' ) );
+				add_action( 'tribe_events_cost_table', array( $this, 'maybeShowMetaUpsell' ) );
+			}
+			// option pages
+			add_action( '_network_admin_menu', array( $this, 'initOptions' ) );
+			add_action( '_admin_menu', array( $this, 'initOptions' ) );
 
-			// add_action( 'load-tribe_events_page_' . Tribe__Settings::$parent_slug, array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
-			// add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
+			add_action( 'load-tribe_events_page_' . Tribe__Settings::$parent_slug, array( 'Tribe__Events__Amalgamator', 'listen_for_migration_button' ), 10, 0 );
+			add_action( 'tribe_settings_after_save', array( $this, 'flushRewriteRules' ) );
 
-			// add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
+			add_action( 'update_option_' . Tribe__Main::OPTIONNAME, array( $this, 'fix_all_day_events' ), 10, 2 );
 
-			// // Check for a page that might conflict with events archive (but we only need to do that
-			// // on non-ajax requests
-			// if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
-			// 	add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_dismiss' ), 5 );
-			// 	add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
-			// }
+			// Check for a page that might conflict with events archive (but we only need to do that
+			// on non-ajax requests
+			if ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+				add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_dismiss' ), 5 );
+				add_action( 'admin_init', array( Tribe__Admin__Notice__Archive_Slug_Conflict::instance(), 'maybe_add_admin_notice' ) );
+			}
 
-			// // add-on compatibility
-			// if ( is_multisite() ) {
-			// 	add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
-			// } else {
-			// 	add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
-			// }
+			// add-on compatibility
+			if ( is_multisite() ) {
+				add_action( 'network_admin_notices', array( $this, 'checkAddOnCompatibility' ) );
+			} else {
+				add_action( 'admin_notices', array( $this, 'checkAddOnCompatibility' ) );
+			}
 
-			// add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_items' ), 10 );
-			// add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
-			// add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
-			// add_action( 'plugin_action_links_' . trailingslashit( $this->plugin_dir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
+			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_items' ), 10 );
+			add_action( 'all_admin_notices', array( $this, 'addViewCalendar' ) );
+			add_action( 'admin_head', array( $this, 'setInitialMenuMetaBoxes' ), 500 );
+			add_action( 'plugin_action_links_' . trailingslashit( $this->plugin_dir ) . 'the-events-calendar.php', array( $this, 'addLinksToPluginActions' ) );
 
-			// // override default wp_terms_checklist arguments to prevent checked items from bubbling to the top. Instead, retain hierarchy.
-			// add_filter( 'wp_terms_checklist_args', array( $this, 'prevent_checked_on_top_terms' ), 10, 2 );
+			// override default wp_terms_checklist arguments to prevent checked items from bubbling to the top. Instead, retain hierarchy.
+			add_filter( 'wp_terms_checklist_args', array( $this, 'prevent_checked_on_top_terms' ), 10, 2 );
 
-			// add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
+			add_action( 'tribe_events_pre_get_posts', array( $this, 'set_tribe_paged' ) );
 
-			// // Upgrade material.
-			// add_action( 'init', array( $this, 'run_updates' ), 0, 0 );
+			// Upgrade material.
+			add_action( 'init', array( $this, 'run_updates' ), 0, 0 );
 
-			// if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
-			// 	add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
-			// 	add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
-			// }
+			if ( defined( 'WP_LOAD_IMPORTERS' ) && WP_LOAD_IMPORTERS ) {
+				add_filter( 'wp_import_post_data_raw', array( $this, 'filter_wp_import_data_before' ), 10, 1 );
+				add_filter( 'wp_import_post_data_processed', array( $this, 'filter_wp_import_data_after' ), 10, 1 );
+			}
 
-			// add_action( 'plugins_loaded', array( $this, 'init_ical' ), 2, 0 );
-			// add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
+			add_action( 'plugins_loaded', array( $this, 'init_ical' ), 2, 0 );
+			add_action( 'plugins_loaded', array( $this, 'init_day_view' ), 2 );
 
-			// add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
-			// add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Bar', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Templates', 'init' ) );
 
-			// add_action( 'init', array( $this, 'filter_cron_schedules' ) );
+			add_action( 'init', array( $this, 'filter_cron_schedules' ) );
 
-			// add_action( 'plugins_loaded', array( 'Tribe__Events__Event_Tickets__Main', 'instance' ) );
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Event_Tickets__Main', 'instance' ) );
 
-			// // Add support for tickets plugin
-			// add_action( 'tribe_tickets_ticket_added', array( 'Tribe__Events__API', 'update_event_cost' ) );
-			// add_action( 'tribe_tickets_ticket_deleted', array( 'Tribe__Events__API', 'update_event_cost' ) );
-			// add_filter( 'tribe_tickets_default_end_date', array( $this, 'default_end_date_for_tickets' ), 10, 2 );
+			// Add support for tickets plugin
+			add_action( 'tribe_tickets_ticket_added', array( 'Tribe__Events__API', 'update_event_cost' ) );
+			add_action( 'tribe_tickets_ticket_deleted', array( 'Tribe__Events__API', 'update_event_cost' ) );
+			add_filter( 'tribe_tickets_default_end_date', array( $this, 'default_end_date_for_tickets' ), 10, 2 );
 
-			// add_filter( 'tribe_post_types', array( $this, 'filter_post_types' ) );
-			// add_filter( 'tribe_is_post_type_screen_post_types', array( $this, 'is_post_type_screen_post_types' ) );
-			// add_filter( 'tribe_currency_symbol', array( $this, 'maybe_set_currency_symbol_with_post' ), 10, 2 );
-			// add_filter( 'tribe_reverse_currency_position', array( $this, 'maybe_set_currency_position_with_post' ), 10, 2 );
+			add_filter( 'tribe_post_types', array( $this, 'filter_post_types' ) );
+			add_filter( 'tribe_is_post_type_screen_post_types', array( $this, 'is_post_type_screen_post_types' ) );
+			add_filter( 'tribe_currency_symbol', array( $this, 'maybe_set_currency_symbol_with_post' ), 10, 2 );
+			add_filter( 'tribe_reverse_currency_position', array( $this, 'maybe_set_currency_position_with_post' ), 10, 2 );
 
-			// // Settings page hooks
-			// add_action( 'tribe_settings_do_tabs', array( $this, 'do_addons_api_settings_tab' ) );
-			// add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
-			// add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
-			// add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
+			// Settings page hooks
+			add_action( 'tribe_settings_do_tabs', array( $this, 'do_addons_api_settings_tab' ) );
+			add_filter( 'tribe_general_settings_tab_fields', array( $this, 'general_settings_tab_fields' ) );
+			add_filter( 'tribe_display_settings_tab_fields', array( $this, 'display_settings_tab_fields' ) );
+			add_filter( 'tribe_settings_url', array( $this, 'tribe_settings_url' ) );
 
-			// // Setup Help Tab texting
-			// add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_feature_box_content' ) );
-			// add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
-			// add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
+			// Setup Help Tab texting
+			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_feature_box_content' ) );
+			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
+			add_action( 'tribe_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
 
-			// // Setup Shortcodes
-			// add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
+			// Setup Shortcodes
+			add_action( 'plugins_loaded', array( 'Tribe__Events__Shortcode__Event_Details', 'hook' ) );
 
-			// // Google Maps API key setting
-			// $google_maps_api_key = Tribe__Events__Google__Maps_API_Key::instance();
-			// add_filter( 'tribe_addons_tab_fields', array( $google_maps_api_key, 'filter_tribe_addons_tab_fields' ) );
-			// add_filter( 'tribe_events_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
-			// add_filter( 'tribe_events_pro_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
+			// Google Maps API key setting
+			$google_maps_api_key = Tribe__Events__Google__Maps_API_Key::instance();
+			add_filter( 'tribe_addons_tab_fields', array( $google_maps_api_key, 'filter_tribe_addons_tab_fields' ) );
+			add_filter( 'tribe_events_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
+			add_filter( 'tribe_events_pro_google_maps_api', array( $google_maps_api_key, 'filter_tribe_events_google_maps_api' ) );
 
-			// // Preview handling
-			// add_action( 'template_redirect', array( Tribe__Events__Revisions__Preview::instance(), 'hook' ) );
+			// Preview handling
+			add_action( 'template_redirect', array( Tribe__Events__Revisions__Preview::instance(), 'hook' ) );
 		}
 
 		/**
@@ -769,26 +769,26 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 		 * Run on applied action init
 		 */
 		public function init() {
-			// $rewrite = Tribe__Events__Rewrite::instance();
+			$rewrite = Tribe__Events__Rewrite::instance();
 
-			// $venue                       = Tribe__Events__Venue::instance();
-			// $organizer                   = Tribe__Events__Organizer::instance();
-			// $this->postVenueTypeArgs     = $venue->post_type_args;
-			// $this->postOrganizerTypeArgs = $organizer->post_type_args;
+			$venue                       = Tribe__Events__Venue::instance();
+			$organizer                   = Tribe__Events__Organizer::instance();
+			$this->postVenueTypeArgs     = $venue->post_type_args;
+			$this->postOrganizerTypeArgs = $organizer->post_type_args;
 
 			$this->pluginName = $this->plugin_name            = esc_html__( 'The Events Calendar', 'the-events-calendar' );
-			// $this->rewriteSlug                                = $this->getRewriteSlug();
-			// $this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
-			// $this->category_slug                              = $this->get_category_slug();
-			// $this->tag_slug                                   = $this->get_tag_slug();
-			// $this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
-			// $this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
-			// $this->monthSlug                                  = sanitize_title( __( 'month', 'the-events-calendar' ) );
-			// $this->listSlug                               	  = sanitize_title( __( 'list', 'the-events-calendar' ) );
-			// $this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'the-events-calendar' ) );
-			// $this->pastSlug                                   = sanitize_title( __( 'past', 'the-events-calendar' ) );
-			// $this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
-			// $this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
+			$this->rewriteSlug                                = $this->getRewriteSlug();
+			$this->rewriteSlugSingular                        = $this->getRewriteSlugSingular();
+			$this->category_slug                              = $this->get_category_slug();
+			$this->tag_slug                                   = $this->get_tag_slug();
+			$this->taxRewriteSlug                             = $this->rewriteSlug . '/' . $this->category_slug;
+			$this->tagRewriteSlug                             = $this->rewriteSlug . '/' . $this->tag_slug;
+			$this->monthSlug                                  = sanitize_title( __( 'month', 'the-events-calendar' ) );
+			$this->listSlug                               	  = sanitize_title( __( 'list', 'the-events-calendar' ) );
+			$this->upcomingSlug                               = sanitize_title( __( 'upcoming', 'the-events-calendar' ) );
+			$this->pastSlug                                   = sanitize_title( __( 'past', 'the-events-calendar' ) );
+			$this->daySlug                                    = sanitize_title( __( 'day', 'the-events-calendar' ) );
+			$this->todaySlug                                  = sanitize_title( __( 'today', 'the-events-calendar' ) );
 
 			$this->singular_venue_label                       = $this->get_venue_label_singular();
 			$this->plural_venue_label                         = $this->get_venue_label_plural();
@@ -799,20 +799,20 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			$this->singular_event_label_lowercase             = tribe_get_event_label_singular_lowercase();
 			$this->plural_event_label_lowercase               = tribe_get_event_label_plural_lowercase();
 
-			// $this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
-			// $this->currentDay                                 = '';
-			// $this->errors                                     = '';
+			$this->postTypeArgs['rewrite']['slug']            = $rewrite->prepare_slug( $this->rewriteSlugSingular, self::POSTTYPE, false );
+			$this->currentDay                                 = '';
+			$this->errors                                     = '';
 
-			// $this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
+			$this->default_values                             = apply_filters( 'tribe_events_default_value_strategy', new Tribe__Events__Default_Values() );
 
-			// Tribe__Events__Query::init();
-			// Tribe__Events__Backcompat::init();
-			// Tribe__Credits::init();
-			// Tribe__Events__Timezones::init();
+			Tribe__Events__Query::init();
+			Tribe__Events__Backcompat::init();
+			Tribe__Credits::init();
+			Tribe__Events__Timezones::init();
 			$this->registerPostType();
 
-			// Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
-			// $this->maybeSetTECVersion();
+			Tribe__Debug::debug( sprintf( esc_html__( 'Initializing Tribe Events on %s', 'the-events-calendar' ), date( 'M, jS \a\t h:m:s a' ) ) );
+			$this->maybeSetTECVersion();
 		}
 
 		/**
@@ -1348,9 +1348,9 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 				)
 			);
 
-			// if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
-			// 	add_post_type_support( self::POSTTYPE, 'comments' );
-			// }
+			if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
+				add_post_type_support( self::POSTTYPE, 'comments' );
+			}
 
 		}
 
@@ -1473,27 +1473,16 @@ if ( ! class_exists( 'Tribe__Events__Main' ) ) {
 			 */
 			$this->postTypeArgs['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
 				
-				'name'               => '11',
-				'singular_name'      => '12',
-				'add_new'            => '13',
-				'add_new_item'       => '14',
-				'edit_item'          => '15',
-				'new_item'           => '16',
-				'view_item'          => '17',
-				'search_items'       => '18',
-				'not_found'          => '19',
-				'not_found_in_trash' => '20',
-					
-				// 'name'               => $this->plural_event_label,
-				// 'singular_name'      => $this->singular_event_label,
-				// 'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
-				// 'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_event_label ),
-				// 'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
-				// 'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
-				// 'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
-				// 'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
-				// 'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
-				// 'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
+				'name'               => $this->plural_event_label,
+				'singular_name'      => $this->singular_event_label,
+				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
+				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
+				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
+				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
+				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label_lowercase ),
 				
 				
 			) );
