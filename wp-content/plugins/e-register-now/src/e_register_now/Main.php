@@ -16,8 +16,8 @@ class E_Register_Now__Tickets__Main {
 	 */
 	const MIN_TEC_VERSION = '4.2.2';
 
-	const POSTTYPE		  = 'tribe_events';
-	const TAXONOMY		  = 'tribe_events_cat';
+	const POSTTYPE		  = 'e_register_now';
+	const TAXONOMY		  = 'e_register_now_cat';
 	
 	/**
 	 * Name of the provider
@@ -69,22 +69,55 @@ class E_Register_Now__Tickets__Main {
 		return self::$instance;
 	}
 	
+	public $pluginName;
 	public $singular_event_label;
 	public $plural_event_label;
+	public $rewriteSlug   = 'e_rn_events';
+	public $category_slug = 'e_rn_category';
+	
+	/**
+	 * Args for the event post type
+	 * @var array
+	 */
+	protected $postTypeArgs = array(
+		'public'          => true,
+		'rewrite'         => array( 'slug' => 'e_rn_events', 'with_front' => false ),
+		'menu_position'   => 1,
+		'supports'        => array(
+			'title',
+			'editor',
+			'excerpt',
+			'author',
+			'thumbnail',
+			'custom-fields',
+			'comments',
+			'revisions',
+		),
+		'map_meta_cap'    => true,
+		'has_archive'     => true,
+	);
+	
+	/**
+	 * Args for venue post type
+	 * @var array
+	 */
+	public $postVenueTypeArgs = array();
+
+	protected $taxonomyLabels;
 	
 	/**
 	 * Allow users to specify their own singular label for Events
 	 * @return string
 	 */
 	public function get_event_label_singular() {
-		return apply_filters( 'e_rn_event_label_singular', esc_html__( 'Event', 'E-Register-Now' ) );
+		return apply_filters( 'e_rn_event_label_singular', esc_html__( 'Event', 'e_rn' ) );
 	}
 	/**
 	 * Allow users to specify their own plural label for Events
 	 * @return string
 	 */
 	public function get_event_label_plural() {
-		return apply_filters( 'e_rn_event_label_plural', esc_html__( 'Events', 'E-Register-Now' ) );
+		return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
 	}
 
 	/**
@@ -92,10 +125,10 @@ class E_Register_Now__Tickets__Main {
 	 */
 	public function __construct() {
 		/* Set up some parent's vars */
-		$this->plugin_name = 'Tickets';
-		$this->plugin_slug = 'tickets';
+		$this->plugin_name = 'E-Register-Now';
+		$this->plugin_slug = 'E-Register-Now';
 		$this->plugin_path = trailingslashit( EVENT_TICKETS_DIR );
-		$this->plugin_dir = trailingslashit( basename( $this->plugin_path ) );
+		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 
 		$dir_prefix = '';
 
@@ -130,19 +163,19 @@ class E_Register_Now__Tickets__Main {
 			 * Fires if Event Tickets cannot load due to compatibility or other problems.
 			 */
 			do_action( 'e_rn_tickets_plugin_failed_to_load' );
-
+			
 			return;
 		}
-
+		
 		$this->init_autoloading();
-
+		
 		// initialize the common libraries
 		$this->common();
-
+		
 		E_Register_Now__Main::instance()->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
-
+		
 		$this->hooks();
-
+		
 		$this->has_initialized = true;
 
 		$this->rsvp();
@@ -168,7 +201,7 @@ class E_Register_Now__Tickets__Main {
 		$plugin_short_path = null;
 
 		foreach ( $active_plugins as $plugin ) {
-			if ( false !== strstr( $plugin, 'the-events-calendar.php' ) ) {
+			if ( false !== strstr( $plugin, 'e_rn.php' ) ) {
 				$plugin_short_path = $plugin;
 				break;
 			}
@@ -281,65 +314,101 @@ class E_Register_Now__Tickets__Main {
 			add_filter( 'e_rn_events_import_options_rows', array( E_Register_Now__Tickets__CSV_Importer__Rows::instance(), 'filter_import_options_rows' ) );
 			add_filter( 'e_rn_event_import_rsvp_column_names', array( E_Register_Now__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
 			add_filter( 'e_rn_events_import_rsvp_importer', array( 'E_Register_Now__Tickets__CSV_Importer__RSVP_Importer', 'instance' ), 10, 2 );
-		}
+	    }
 	}
 	
+	/**
+	 * Register the post types.
+	 */
+	public function registerPostType() {
+		$this->generatePostTypeLabels();
+		register_post_type( self::POSTTYPE, apply_filters( 'e_rn_type_args', $this->postTypeArgs ) );
+
+		// Setup Linked Posts singleton after we've set up the post types that we care about
+		// Tribe__Events__Linked_Posts::instance();
+
+		register_taxonomy(
+			self::TAXONOMY, self::POSTTYPE, array(
+				'hierarchical'          => true,
+				'update_count_callback' => '',
+				'rewrite'               => array(
+					'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
+					'with_front'   => false,
+					'hierarchical' => true,
+				),
+				'public'                => true,
+				'show_ui'               => true,
+				'labels'                => $this->taxonomyLabels
+			)
+		);
+
+		if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
+			add_post_type_support( self::POSTTYPE, 'comments' );
+		}
+
+	}
+	/**
+	 * Generate custom post type lables
+	 */
 	protected function generatePostTypeLabels() {
-			/**
-			 * Provides an opportunity to modify the labels used for the event post type.
-			 *
-			 * @var array
-			 */
-			$this->postTypeArgs['labels'] = apply_filters( 'tribe_events_register_event_post_type_labels', array(
-				'name'               => $this->plural_event_label,
-				'singular_name'      => $this->singular_event_label,
-				'add_new'            => esc_html__( 'Add New', 'the-events-calendar' ),
-				'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'edit_item'          => sprintf( esc_html__( 'Edit %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'new_item'           => sprintf( esc_html__( 'New %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'view_item'          => sprintf( esc_html__( 'View %s', 'the-events-calendar' ), $this->singular_event_label ),
-				'search_items'       => sprintf( esc_html__( 'Search %s', 'the-events-calendar' ), $this->plural_event_label ),
-				'not_found'          => sprintf( esc_html__( 'No %s found', 'the-events-calendar' ), $this->plural_event_label ),
-				'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'the-events-calendar' ), $this->plural_event_label ),
-			));
-			 
-		}
 		/**
-		 * Register the post types.
+		 * Provides an opportunity to modify the labels used for the event post type.
+		 *
+		 * @var array
 		 */
-		public function registerPostType() {
-			$this->generatePostTypeLabels();
-			register_post_type( self::POSTTYPE, apply_filters( 'tribe_events_register_event_type_args', $this->postTypeArgs ) );
+		$this->postTypeArgs['labels'] = apply_filters( 'e_rn_post_type_labels', array(
+			// 'name'               => '11',
+			// 'singular_name'      => '12',
+			// 'add_new'            => '13',
+			// 'add_new_item'       => '14',
+			// 'edit_item'          => '15',
+			// 'new_item'           => '16',
+			// 'view_item'          => '17',
+			// 'search_items'       => '18',
+			// 'not_found'          => '19',
+			// 'not_found_in_trash' => '20',
+			
+			'name'               => $this->pluginName,
+			'singular_name'      => $this->pluginName,
+			'add_new'            => sprintf( esc_html__( 'Add New %s', 'e_rn' ), $this->singular_event_label ),
+			'add_new_item'       => sprintf( esc_html__( 'Add New %s', 'e_rn' ), $this->singular_event_label ),
+			'edit_item'          => sprintf( esc_html__( 'Edit %s', 'e_rn' ), $this->singular_event_label ),
+			'new_item'           => sprintf( esc_html__( 'New %s', 'e_rn' ), $this->singular_event_label ),
+			'view_item'          => sprintf( esc_html__( 'View %s', 'e_rn' ), $this->singular_event_label ),
+			'search_items'       => sprintf( esc_html__( 'Search %s', 'e_rn' ), $this->singular_event_label ),
+			'not_found'          => sprintf( esc_html__( 'No %s found', 'e_rn' ), $this->singular_event_label ),
+			'not_found_in_trash' => sprintf( esc_html__( 'No %s found in Trash', 'e_rn' ), $this->singular_event_label ),
+		) );
 
-			// Setup Linked Posts singleton after we've set up the post types that we care about
-			// Tribe__Events__Linked_Posts::instance();
-
-			register_taxonomy(
-				self::POSTTYPE, self::POSTTYPE, array(
-					'hierarchical'          => true,
-					'update_count_callback' => '',
-					'rewrite'               => array(
-						// 'slug'         => $this->rewriteSlug . '/' . $this->category_slug,
-						'with_front'   => false,
-						'hierarchical' => true,
-					),
-					'public'                => true,
-					'show_ui'               => true,
-					// 'labels'                => $this->taxonomyLabels,
-					'capabilities'          => array(
-						'manage_terms' => 'publish_tribe_events',
-						'edit_terms'   => 'publish_tribe_events',
-						'delete_terms' => 'publish_tribe_events',
-						'assign_terms' => 'edit_tribe_events',
-					),
-				)
-			);
-
-			if ( Tribe__Settings_Manager::get_option( 'showComments', 'no' ) == 'yes' ) {
-				add_post_type_support( self::POSTTYPE, 'comments' );
-			}
-
-		}
+		/**
+		 * Provides an opportunity to modify the labels used for the event category taxonomy.
+		 *
+		 * @var array
+		 */
+		$this->taxonomyLabels = apply_filters( 'e_rn_taxonomy_labels', array(
+			// 'name'          	=> '1',
+			// 'singular_name'     => '2',
+			// 'search_items'      => '3',
+			// 'all_items'         => '4',
+			// 'parent_item'       => '5',
+			// 'parent_item_colon' => '6',
+			// 'edit_item'         => '7',
+			// 'update_item'       => '8',
+			// 'add_new_item'      => '9',
+			// 'new_item_name'     => '0',
+			
+			'name'              => sprintf( esc_html__( '%s Categories', 'e_rn' ), $this->singular_event_label ),
+			'singular_name'     => sprintf( esc_html__( '%s Category', 'e_rn' ), $this->singular_event_label ),
+			'search_items'      => sprintf( esc_html__( 'Search %s Categories', 'e_rn' ), $this->singular_event_label ),
+			'all_items'         => sprintf( esc_html__( 'All %s Categories', 'e_rn' ), $this->singular_event_label ),
+			'parent_item'       => sprintf( esc_html__( 'Parent %s Category', 'e_rn' ), $this->singular_event_label ),
+			'parent_item_colon' => sprintf( esc_html__( 'Parent %s Category:', 'e_rn' ), $this->singular_event_label ),
+			'edit_item'         => sprintf( esc_html__( 'Edit %s Category', 'e_rn' ), $this->singular_event_label ),
+			'update_item'       => sprintf( esc_html__( 'Update %s Category', 'e_rn' ), $this->singular_event_label ),
+			'add_new_item'      => sprintf( esc_html__( 'Add New %s Category', 'e_rn' ), $this->singular_event_label ),
+			'new_item_name'     => sprintf( esc_html__( 'New %s Category Name', 'e_rn' ), $this->singular_event_label ),
+		) );
+	}
 
 	/**
 	 * Used to add our beloved tickets to the JSON-LD markup
@@ -355,7 +424,7 @@ class E_Register_Now__Tickets__Main {
 		/**
 		 * @todo remove this after 4.4
 		 */
-		_deprecated_function( __METHOD__, '4.2', 'E_Register_Now__Tickets__JSON_LD__Order' );
+		_deprecated_function( __METHOD__, '4.2', 'E_teter_Now__Tickets__JSON_LD__Order' );
 
 		return false;
 	}
@@ -396,7 +465,7 @@ class E_Register_Now__Tickets__Main {
 	 */
 	public function add_help_section_featured_content( $help ) {
 		// If The Events Calendar is active dont add
-		if ( $help->is_active( 'the-events-calendar', true ) ) {
+		if ( $help->is_active( 'e_rn', true ) ) {
 			return;
 		}
 
@@ -413,10 +482,10 @@ class E_Register_Now__Tickets__Main {
 	 * @return void
 	 */
 	public function add_help_section_extra_content( $help ) {
-		if ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets-plus' ) ) && $help->is_active( 'the-events-calendar' ) ) {
+		if ( ! $help->is_active( array( 'events-calendar-pro', 'event-tickets-plus' ) ) && $help->is_active( 'e_rn' ) ) {
 			// We just skip because it's treated on TEC
 			return;
-		} elseif ( ! $help->is_active( 'the-events-calendar' ) ) {
+		} elseif ( ! $help->is_active( 'e_rn' ) ) {
 			if ( ! $help->is_active( 'event-tickets-plus' ) ) {
 
 				$link = '<a href="https://wordpress.org/support/plugin/event-tickets/" target="_blank">' . esc_html__( 'open-source forum on WordPress.org', 'event-tickets' ) . '</a>';
@@ -459,13 +528,16 @@ class E_Register_Now__Tickets__Main {
 	 * Hooked to the init action
 	 */
 	public function init() {
+		
+		$this->pluginName = $this->plugin_name  = esc_html__( 'Register In One Click', 'e_rn' );
+		$this->singular_event_label				= $this->get_event_label_singular();
+		$this->plural_event_label				= $this->get_event_label_plural();
+		
 		// Provide continued support for legacy ticketing modules
+		
 		$this->legacy_provider_support = new E_Register_Now__Tickets__Legacy_Provider_Support;
 		
 		$this->settings_tab();
-
-		$this->singular_event_label = $this->get_event_label_singular();
-		$this->plural_event_label   = $this->get_event_label_plural();
 		
 		$this->registerPostType();
 		
