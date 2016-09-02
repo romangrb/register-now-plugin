@@ -44,18 +44,25 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		 * @var string
 		 */
 		public static $parent_page = 'edit.php';
+		
 		/**
 		 * the menu name used for the settings page
 		 * @var string
 		 */
 		public $menuName;
+		
 		/**
-		 * generate the main option page
-		 * includes the view file
-		 *
-		 * @return void
+		 * the current tab being displayed
+		 * @var string
 		 */
+		public $currentTab;
 
+		/**
+		 * true if a major error that prevents saving occurred
+		 * @var bool
+		 */
+		public $major_error;
+		
 		/**
 		 * Class constructor
 		 */
