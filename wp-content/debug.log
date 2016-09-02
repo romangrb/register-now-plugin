@@ -873,3 +873,5 @@
 [01-Sep-2016 22:35:07 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
 [01-Sep-2016 22:53:47 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
 [01-Sep-2016 23:16:22 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
+[02-Sep-2016 00:07:43 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189
+[02-Sep-2016 00:12:20 UTC] PHP Fatal error:  Call to undefined function php_info() in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 183

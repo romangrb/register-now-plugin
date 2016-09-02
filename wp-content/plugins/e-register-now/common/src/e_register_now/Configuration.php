@@ -14,8 +14,11 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		/**
 		 * Slug of the WP admin menu item
 		 */
-		const MENU_SLUG  = 'e-rn-common';
+		const MENU_SLUG  = 'e-rn-config';
+		
 		const ADMIN_SLUG = 'e-rn-common';
+		
+		const ADMIN_PAGE = 'e-rn-config';
 		
 		/**
 		 * Singleton instance
@@ -158,11 +161,11 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 				echo '<h2 id="e-rn-settings-tabs" class="nav-tab-wrapper">';
 				foreach ( $this->tabs as $tab => $name ) {
 					if ( ! is_network_admin() ) {
-						$url = '?post_type=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '&page=' . $this->adminSlug;
+						$url = '?post_type=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '&page=' . $this::ADMIN_PAGE;
 						$url = apply_filters( 'e_rn_settings_url', $url );
 					}
 					if ( is_network_admin() ) {
-						$url = '?post_type=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '&page=' . $this->adminSlug;
+						$url = '?post_type=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '&page=' . $this::ADMIN_PAGE;
 					}
 					$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
 					echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
@@ -177,7 +180,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		 * @return void
 		 */
 		public function validate() {
-
+	
 			do_action( 'e_rn_settings_validate_before_checks' );
 
 			// check that the right POST && variables are set
@@ -249,7 +252,6 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 					$this->save();
 				}
 			}
-
 		}
 		
 		/**
@@ -471,7 +473,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			
 			$wp_admin_bar->add_menu( array(
 				'id'     => 'e-rn-events-configuration',
-				'title'  => esc_html__( 'Configuration', 'e-rn-common' ),
+				'title'  => esc_html__( 'Configuration', $this::ADMIN_PAGE ),
 				'href'   => E_Register_Now__Settings::instance()->get_url( array( 'post_type' => self::MENU_SLUG ) ),
 				'parent' => 'e-rn-events-settings-group',
 			) );
@@ -485,16 +487,6 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			wp_enqueue_style( 'configuration', e_rn_resource_url( 'app-shop.css', false, 'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
 			wp_enqueue_script( 'configuration', e_rn_resource_url( 'app-shop.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
 		}
-
-		/**
-		 * Renders the Shop App page
-		 */
-		public function do_menu_page() {
-			
-			
-			// include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/configuration.php';
-		}
-
 		
 		/**
 		 * Static Singleton Factory Method
