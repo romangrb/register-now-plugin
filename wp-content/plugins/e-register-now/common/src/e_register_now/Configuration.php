@@ -489,7 +489,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			
 			$wp_admin_bar->add_menu( array(
 				'id'     => 'e-rn-events-configuration',
-				'title'  => esc_html__( 'Configuration', $this::ADMIN_PAGE ),
+				'title'  => esc_html__( 'Configuration', $this->pageSlug ),
 				'href'   => E_Register_Now__Settings::instance()->get_url( array( 'post_type' => self::MENU_SLUG ) ),
 				'parent' => 'e-rn-events-settings-group',
 			) );
