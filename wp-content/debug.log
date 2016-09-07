@@ -886,3 +886,5 @@
 [02-Sep-2016 00:38:36 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$currentTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 123
 [02-Sep-2016 00:38:36 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$currentTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 125
 [02-Sep-2016 00:38:36 UTC] PHP Notice:  Undefined property: E_Register_Now__Configuration::$currentTab in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Configuration.php on line 133
+[07-Sep-2016 08:45:15 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'E_Register_Now__Configuration' not found in /home/ubuntu/workspace/wp-includes/plugin.php on line 524
+[07-Sep-2016 09:30:47 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/e-register-now/common/src/e_register_now/Support.php on line 189

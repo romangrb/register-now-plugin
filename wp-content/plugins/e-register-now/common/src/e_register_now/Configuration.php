@@ -38,7 +38,13 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		 * @var string
 		 */
 		public $adminSlug;
-		 
+		
+		/**
+		 * the slug used in the admin page to generate the settings page
+		 * @var string
+		 */
+		public $pageSlug = 'e-rn-config';
+
 		 /**
 		 * Page of the parent menu
 		 * @var string
@@ -168,11 +174,11 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 				echo '<h2 id="e-rn-settings-tabs" class="nav-tab-wrapper">';
 				foreach ( $this->tabs as $tab => $name ) {
 					if ( ! is_network_admin() ) {
-						$url = '?post_type=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '&page=' . $this::ADMIN_PAGE;
+						$url = '?post_type=' . $this->adminSlug . '&page=' . $this->pageSlug . '&tab=' . urlencode( $tab );
 						$url = apply_filters( 'e_rn_settings_url', $url );
 					}
 					if ( is_network_admin() ) {
-						$url = '?post_type=' . $this->adminSlug . '&tab=' . urlencode( $tab ) . '&page=' . $this::ADMIN_PAGE;
+						$url = '?post_type=' . $this->adminSlug . '&page=' . $this->pageSlug . '&tab=' . urlencode( $tab );
 					}
 					$class = ( $tab == $this->currentTab ) ? ' nav-tab-active' : '';
 					echo '<a id="' . esc_attr( $tab ) . '" class="nav-tab' . esc_attr( $class ) . '" href="' . esc_url( $url ) . '">' . esc_html( $name ) . '</a>';
@@ -189,7 +195,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		public function validate() {
 	
 			do_action( 'e_rn_settings_validate_before_checks' );
-
+			
 			// check that the right POST && variables are set
 			if ( isset( $_POST['tribeSaveSettings'] ) && isset( $_POST['current-settings-tab'] ) ) {
 				// check permissions
@@ -240,7 +246,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 							do_action( 'e_rn_settings_validate_field', $field_id, $value, $field );
 							do_action( 'e_rn_settings_validate_field_' . $field_id, $value, $field );
 
-							// validate this sucka
+							// validate this
 							$validate = new E_Register_Now__Validate( $field_id, $field, $value );
 
 							if ( isset( $validate->result->error ) ) {
@@ -254,9 +260,9 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 							}
 						}
 					}
-
 					// run the saving method
 					$this->save();
+										
 				}
 			}
 		}
@@ -353,6 +359,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			add_option( 'e_rn_settings_sent_data', $_POST );
 			add_option( 'e_rn_settings_errors', $this->errors );
 			add_option( 'e_rn_settings_major_error', $this->major_error );
+			var_dump($this->url);
 			wp_redirect( esc_url_raw( add_query_arg( array( 'saved' => true ), $this->url ) ) );
 			exit;
 		}
@@ -373,6 +380,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 						'e_rn_settings_url', add_query_arg(
 							array(
 								'post_type' => $this->adminSlug,
+								'page' => $this->pageSlug,
 								'tab'  => $this->currentTab,
 							), network_admin_url( 'settings.php' )
 						)
@@ -386,6 +394,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 						'e_rn_settings_url', add_query_arg(
 							array(
 								'post_type' => $this->adminSlug,
+								'page' => $this->pageSlug,
 								'tab'  => $this->currentTab,
 							),
 							admin_url( self::$parent_page )
@@ -444,7 +453,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			$errors = (array) apply_filters( 'e_rn_settings_display_errors', $this->errors );
 			$count  = apply_filters( 'e_rn_settings_count_errors', count( $errors ) );
 
-			// are we coming from the saving place?
+			// are we coming from the saving place
 			if ( isset( $_GET['saved'] ) && ! apply_filters( 'e_rn_settings_display_errors_or_not', ( $count > 0 ) ) ) {
 				// output the filtered message
 				$message = esc_html__( 'Settings saved.', 'e-rn-common' );

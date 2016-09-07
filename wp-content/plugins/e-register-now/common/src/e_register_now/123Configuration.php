@@ -271,93 +271,93 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		 */
 		public function save() {
 
-			// some hooks
-			do_action( 'e_rn_settings_save' );
-			do_action( 'e_rn_settings_save_tab_' . $this->currentTab );
+			// // some hooks
+			// do_action( 'e_rn_settings_save' );
+			// do_action( 'e_rn_settings_save_tab_' . $this->currentTab );
 
-			// we'll need this later
-			$parent_options = array();
+			// // we'll need this later
+			// $parent_options = array();
 
-			/**
-			 * loop through each validated option and either
-			 * save it as is or figure out its parent option ID
-			 * (in that case, it's a serialized option array and
-			 * will be saved in the next loop)
-			 */
-			if ( ! empty( $this->validated ) ) {
-				foreach ( $this->validated as $field_id => $validated_field ) {
-					// get the value and filter it
-					$value = $validated_field->value;
-					$value = apply_filters( 'e_rn_settings_save_field_value', $value, $field_id, $validated_field );
+			// /**
+			//  * loop through each validated option and either
+			//  * save it as is or figure out its parent option ID
+			//  * (in that case, it's a serialized option array and
+			//  * will be saved in the next loop)
+			//  */
+			// if ( ! empty( $this->validated ) ) {
+			// 	foreach ( $this->validated as $field_id => $validated_field ) {
+			// 		// get the value and filter it
+			// 		$value = $validated_field->value;
+			// 		$value = apply_filters( 'e_rn_settings_save_field_value', $value, $field_id, $validated_field );
 
-					// figure out the parent option [could be set to false] and filter it
-					if ( is_network_admin() ) {
-						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : E_Register_Now__Main::OPTIONNAMENETWORK;
-					}
-					if ( ! is_network_admin() ) {
-						$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : E_Register_Now__Main::OPTIONNAME;
-					}
+			// 		// figure out the parent option [could be set to false] and filter it
+			// 		if ( is_network_admin() ) {
+			// 			$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : E_Register_Now__Main::OPTIONNAMENETWORK;
+			// 		}
+			// 		if ( ! is_network_admin() ) {
+			// 			$parent_option = ( isset( $validated_field->field['parent_option'] ) ) ? $validated_field->field['parent_option'] : E_Register_Now__Main::OPTIONNAME;
+			// 		}
 
-					$parent_option  = apply_filters( 'e_rn_settings_save_field_parent_option', $parent_option, $field_id );
-					$network_option = isset( $validated_field->field['network_option'] ) ? (bool) $validated_field->field['network_option'] : false;
+			// 		$parent_option  = apply_filters( 'e_rn_settings_save_field_parent_option', $parent_option, $field_id );
+			// 		$network_option = isset( $validated_field->field['network_option'] ) ? (bool) $validated_field->field['network_option'] : false;
 
-					// some hooks
-					do_action( 'e_rn_settings_save_field', $field_id, $value, $validated_field );
-					do_action( 'e_rn_settings_save_field_' . $field_id, $value, $validated_field );
+			// 		// some hooks
+			// 		do_action( 'e_rn_settings_save_field', $field_id, $value, $validated_field );
+			// 		do_action( 'e_rn_settings_save_field_' . $field_id, $value, $validated_field );
 
-					if ( ! $parent_option ) {
-						if ( $network_option || is_network_admin() ) {
-							update_site_option( $field_id, $value );
-						} else {
-							update_option( $field_id, $value );
-						}
-					} else {
-						// set the parent option
-						$parent_options[ $parent_option ][ $field_id ] = $value;
-					}
-				}
-			}
+			// 		if ( ! $parent_option ) {
+			// 			if ( $network_option || is_network_admin() ) {
+			// 				update_site_option( $field_id, $value );
+			// 			} else {
+			// 				update_option( $field_id, $value );
+			// 			}
+			// 		} else {
+			// 			// set the parent option
+			// 			$parent_options[ $parent_option ][ $field_id ] = $value;
+			// 		}
+			// 	}
+			// }
 
-			/**
-			 * loop through parent option arrays
-			 * and save them
-			 * NOTE: in the case of the main option Tribe Options,
-			 * this will save using the E_Register_Now__Settings_Manager::set_options method.
-			 */
-			foreach ( $parent_options as $option_id => $new_options ) {
-				// get the old options
-				if ( $option_id == E_Register_Now__Main::OPTIONNAME ) {
-					$old_options = (array) get_option( $option_id );
-				} else {
-					$old_options = (array) get_site_option( $option_id );
-				}
+			// /**
+			//  * loop through parent option arrays
+			//  * and save them
+			//  * NOTE: in the case of the main option Tribe Options,
+			//  * this will save using the E_Register_Now__Settings_Manager::set_options method.
+			//  */
+			// foreach ( $parent_options as $option_id => $new_options ) {
+			// 	// get the old options
+			// 	if ( $option_id == E_Register_Now__Main::OPTIONNAME ) {
+			// 		$old_options = (array) get_option( $option_id );
+			// 	} else {
+			// 		$old_options = (array) get_site_option( $option_id );
+			// 	}
 
-				// set the options by parsing old + new and filter that
-				$options = apply_filters( 'e_rn_settings_save_option_array', wp_parse_args( $new_options, $old_options ), $option_id );
+			// 	// set the options by parsing old + new and filter that
+			// 	$options = apply_filters( 'e_rn_settings_save_option_array', wp_parse_args( $new_options, $old_options ), $option_id );
 
-				if ( $option_id == E_Register_Now__Main::OPTIONNAME ) {
-					// save using the E_Register_Now__Settings_Manager method
-					E_Register_Now__Settings_Manager::set_options( $options );
-				} elseif ( $option_id == E_Register_Now__Main::OPTIONNAMENETWORK ) {
-					E_Register_Now__Settings_Manager::set_network_options( $options );
-				} else {
-					// save using regular WP method
-					if ( is_network_admin() ) {
-						update_site_option( $option_id, $options );
-					} else {
-						update_option( $option_id, $options );
-					}
-				}
-			}
+			// 	if ( $option_id == E_Register_Now__Main::OPTIONNAME ) {
+			// 		// save using the E_Register_Now__Settings_Manager method
+			// 		E_Register_Now__Settings_Manager::set_options( $options );
+			// 	} elseif ( $option_id == E_Register_Now__Main::OPTIONNAMENETWORK ) {
+			// 		E_Register_Now__Settings_Manager::set_network_options( $options );
+			// 	} else {
+			// 		// save using regular WP method
+			// 		if ( is_network_admin() ) {
+			// 			update_site_option( $option_id, $options );
+			// 		} else {
+			// 			update_option( $option_id, $options );
+			// 		}
+			// 	}
+			// }
 
-			do_action( 'e_rn_settings_after_save' );
-			do_action( 'e_rn_settings_after_save_' . $this->currentTab );
-			remove_action( 'shutdown', array( $this, 'deleteOptions' ) );
-			add_option( 'e_rn_settings_sent_data', $_POST );
-			add_option( 'e_rn_settings_errors', $this->errors );
-			add_option( 'e_rn_settings_major_error', $this->major_error );
-			wp_redirect( esc_url_raw( add_query_arg( array( 'saved' => true ), $this->url ) ) );
-			exit;
+			// do_action( 'e_rn_settings_after_save' );
+			// do_action( 'e_rn_settings_after_save_' . $this->currentTab );
+			// remove_action( 'shutdown', array( $this, 'deleteOptions' ) );
+			// add_option( 'e_rn_settings_sent_data', $_POST );
+			// add_option( 'e_rn_settings_errors', $this->errors );
+			// add_option( 'e_rn_settings_major_error', $this->major_error );
+			// wp_redirect( esc_url_raw( add_query_arg( array( 'saved' => true ), $this->url ) ) );
+			// exit;
 		}
 		
 		public function initTabs() {
