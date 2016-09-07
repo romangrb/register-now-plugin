@@ -18,7 +18,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		
 		const ADMIN_SLUG = 'e-rn-common';
 		
-		const ADMIN_PAGE = 'e-rn-config';
+		const PAGE_SLUG  = 'e-rn-config';
 		
 		/**
 		 * Singleton instance
@@ -43,7 +43,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		 * the slug used in the admin page to generate the settings page
 		 * @var string
 		 */
-		public $pageSlug = 'e-rn-config';
+		public $pageSlug;
 
 		 /**
 		 * Page of the parent menu
@@ -77,6 +77,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			$this->menuName    = apply_filters( 'e_rn_settings_menu_name', esc_html__( 'Events', $this::MENU_SLUG ) );
 			$this->requiredCap = apply_filters( 'e_rn_settings_req_cap', 'manage_options' );
 			$this->adminSlug   = apply_filters( 'e_rn_settings_admin_slug', $this::ADMIN_SLUG );
+			$this->pageSlug    = apply_filters( 'e_rn_settings_page_slug',  $this::PAGE_SLUG );
 			$this->errors      = get_option( 'e_rn_settings_errors', array() );
 			$this->major_error = get_option( 'e_rn_settings_major_error', false );
 			$this->sent_data   = get_option( 'e_rn_settings_sent_data', array() );
@@ -359,7 +360,6 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			add_option( 'e_rn_settings_sent_data', $_POST );
 			add_option( 'e_rn_settings_errors', $this->errors );
 			add_option( 'e_rn_settings_major_error', $this->major_error );
-			var_dump($this->url);
 			wp_redirect( esc_url_raw( add_query_arg( array( 'saved' => true ), $this->url ) ) );
 			exit;
 		}
