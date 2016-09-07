@@ -288,7 +288,7 @@ class E_Register_Now__Settings_Manager {
 		}
 		
 		$parent = E_Register_Now__Settings::$parent_slug;
-		$title  = esc_html__( 'Help', 'e-rn-common' );
+		$title  = esc_html__( 'Help and Support', 'e-rn-common' );
 		$slug   = esc_url(
 			apply_filters( 'e_rn_settings_url',
 				add_query_arg(

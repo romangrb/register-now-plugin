@@ -18,13 +18,13 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 * Slug of the parent menu slug
 		 * @var string
 		 */
-		public static $parent_slug = 'e-rn-common';
+		public static $parent_slug = 'e_rn_common';
 
 		/**
 		 * Page of the parent menu
 		 * @var string
 		 */
-		public static $parent_page = 'admin.php';
+		public static $parent_page = 'edit.php';
 
 		/**
 		 * @var E_Register_Now__Admin__Live_Date_Preview
@@ -147,7 +147,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 * Determines whether or not the full admin pages should be initialized.
 		 *
 		 * When running in parallel with TEC 3.12.4, TEC should be relied on to handle the admin screens
-		 * that version of TEC (and lower) is e-rn-common ignorant. Therefore, e-rn-common has to be
+		 * that version of TEC (and lower) is e_rn_common ignorant. Therefore, e_rn_common has to be
 		 * the smarter, more lenient codebase.
 		 *
 		 * @return boolean
@@ -198,16 +198,17 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 			if ( ! $this->should_setup_pages() ) {
 				return;
 			}
-
+			
 			if ( ! is_multisite() || ( is_multisite() && '0' == E_Register_Now__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
-				if ( post_type_exists( 'e-rn-common' ) ) {
-					self::$parent_page = 'edit.php?post_type=e-rn-common';
-				} else {
-					self::$parent_page = 'admin.php?post_type=e-rn-common';
+				if ( post_type_exists( 'e_rn' ) ) {
+					self::$parent_page = 'edit.php?post_type=e_rn';
 					
+				} else {
+					self::$parent_page = 'admin.php?post_type=e_rn';
+
 					add_menu_page(
-						esc_html__( 'Events', 'e-rn-common' ),
-						esc_html__( 'Register in One Click', 'e-rn-common' ),
+						esc_html__( 'Events', 'e_rn_common' ),
+						esc_html__( 'Register in One Click', 'e_rn_common' ),
 						apply_filters( 'e_rn_common_event_page_capability', 'manage_options' ),
 						self::$parent_slug,
 						null,
@@ -225,8 +226,8 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		public function get_parent_slug() {
 			$slug = self::$parent_page;
 
-			// if we don't have an event post type, then we can just use the e-rn-common slug
-			if ( 'edit.php' === $slug || 'admin.php?post_type=e-rn-common' === $slug ) {
+			// if we don't have an event post type, then we can just use the e_rn_common slug
+			if ( 'edit.php' === $slug || 'admin.php?page=e_rn_common' === $slug ) {
 				$slug = self::$parent_slug;
 			}
 
@@ -240,7 +241,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 */
 		public function get_url( array $args = array() ) {
 			$defaults = array(
-				'post_type' => $this->adminSlug,
+				'page' => $this->adminSlug,
 				'parent' => self::$parent_page,
 			);
 
@@ -266,7 +267,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 			}
 
 			$this->admin_page = add_submenu_page(
-				'settings.php', esc_html__( 'Events Settings', 'e-rn-common' ), esc_html__( 'Events Settings', 'e-rn-common' ), $this->requiredCap, $this->adminSlug, array(
+				'settings.php', esc_html__( 'Events Settings', 'e_rn_common' ), esc_html__( 'Events Settings', 'e_rn_common' ), $this->requiredCap, $this->adminSlug, array(
 					$this,
 					'generatePage',
 				)
