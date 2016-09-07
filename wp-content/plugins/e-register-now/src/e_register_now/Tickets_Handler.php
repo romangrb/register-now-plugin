@@ -607,6 +607,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 	 * @param int $post_id
 	 */
 	public function save_global_stock( $post_id ) {
+		
 		if ( ! ( isset( $_POST[ 'e-rn-tickets-post-settings' ] ) && wp_verify_nonce( $_POST[ 'e-rn-tickets-post-settings' ], 'e-rn-tickets-meta-box' ) ) ) {
 			return;
 		}
