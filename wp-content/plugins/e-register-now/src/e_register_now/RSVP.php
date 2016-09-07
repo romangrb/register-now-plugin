@@ -41,7 +41,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 *
 	 * @var string
 	 */
-	public $ticket_object = 'e_rn_rsvp_tickets';
+	public $ticket_object = 'tribe_events';
 
 	/**
 	 * Meta key that relates Products and Events
@@ -712,14 +712,18 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 
 		if ( isset( $ticket->start_date ) ) {
 			update_post_meta( $ticket->ID, '_ticket_start_date', $ticket->start_date );
+			update_post_meta( $ticket->ID, '_EventStartDate', $ticket->start_date );
 		} else {
 			delete_post_meta( $ticket->ID, '_ticket_start_date' );
+			delete_post_meta( $ticket->ID, '_EventStartDate' );
 		}
 
 		if ( isset( $ticket->end_date ) ) {
 			update_post_meta( $ticket->ID, '_ticket_end_date', $ticket->end_date );
+			update_post_meta( $ticket->ID, '_EventEndDate', $ticket->start_date );
 		} else {
 			delete_post_meta( $ticket->ID, '_ticket_end_date' );
+			delete_post_meta( $ticket->ID, '_EventEndDate' );
 		}
 
 		/**
