@@ -922,3 +922,258 @@
 [07-Sep-2016 16:40:08 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Main.php on line 4171
 [07-Sep-2016 16:40:31 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Main.php on line 4171
 [07-Sep-2016 16:41:00 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Main.php on line 4171
+[07-Sep-2016 16:43:04 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 16:43:09 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 16:43:56 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Main.php on line 4171
+[07-Sep-2016 16:44:14 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Main.php on line 4171
+[07-Sep-2016 16:44:38 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 16:44:51 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Main.php on line 4171
+[07-Sep-2016 16:46:09 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 16:46:22 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 16:46:36 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 16:46:51 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 16:48:01 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:23:50 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:28:30 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:28:34 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:29:38 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:29:41 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:30:39 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:30:47 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:30:49 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:40:00 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:40:14 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:43:26 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:43:36 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:48:59 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:49:01 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:49:05 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:49:15 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:50:15 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:50:17 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:50:18 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:50:19 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:50:20 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:50:21 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:50:21 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:50:31 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:57:02 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:57:04 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:57:05 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:57:40 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:57:45 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 17:57:51 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:00:16 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:00:17 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:00:18 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:00:19 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:00:20 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:00:21 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:14:23 UTC] PHP Notice:  Undefined property: E_Register_Now__Tickets__Tickets_Handler::$save_type in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/meta-box.php on line 160
+[07-Sep-2016 18:21:54 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:32:06 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:32:13 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 18:55:11 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 19:01:00 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 21:04:50 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 21:06:25 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 21:06:29 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 21:25:01 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 21:41:32 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 899
+[07-Sep-2016 21:46:25 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 21:47:19 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 21:47:23 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 21:58:26 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[07-Sep-2016 22:00:46 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 09:44:52 UTC] PHP Notice:  Array to string conversion in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/src/Tribe/Main.php on line 4171
+[08-Sep-2016 09:47:14 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 09:47:57 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 09:48:06 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 09:48:27 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 10:12:52 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:12:56 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:12:57 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:12:58 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:12:58 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:12:58 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:12:58 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:12:59 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:12:59 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:13:00 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:13:01 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:15:59 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:16:00 UTC] PHP Catchable fatal error:  Object of class E_Register_Now__Tickets__Ticket_Object could not be converted to string in /home/ubuntu/workspace/wp-includes/formatting.php on line 1025
+[08-Sep-2016 10:56:41 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 11:17:23 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 704
+[08-Sep-2016 11:19:21 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 11:30:39 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:30:40 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:30:43 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:30:44 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:31:15 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:31:55 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:33:41 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:33:42 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:41:07 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:41:11 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:44:20 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 899
+[08-Sep-2016 11:44:20 UTC] PHP Notice:  Undefined variable: raw_data in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 899
+[08-Sep-2016 11:44:20 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:48:33 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:48:54 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 11:48:56 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:49:24 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:50:28 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:50:32 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 11:50:35 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:50:56 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 11:50:59 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 11:51:02 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:13:28 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:13:31 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:13:33 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:14:22 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:14:26 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:14:28 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:14:37 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:14:41 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:15:00 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:15:06 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 707
+[08-Sep-2016 12:15:09 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:15:49 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:15:50 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:15:53 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:15:58 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:17:16 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:17:18 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:17:22 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:17:53 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:17:55 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:17:57 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:17:59 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:18:03 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:18:09 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 12:18:14 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 12:18:16 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:08:34 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:08:36 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:08:46 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:08:55 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:09:13 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:09:19 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:09:22 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:09:26 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:09:28 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:10:54 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:11:52 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:11:54 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:11:57 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:12:03 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:13:27 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:13:29 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:13:30 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:13:31 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 13:52:33 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:52:35 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 13:52:38 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:52:43 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 13:52:45 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:53:23 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:53:24 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 13:53:52 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 13:53:55 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 14:06:36 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:06:39 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:06:42 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 14:06:49 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 14:06:58 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 705
+[08-Sep-2016 14:16:23 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:18:31 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:18:35 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 706
+[08-Sep-2016 14:22:28 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:22:29 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 706
+[08-Sep-2016 14:25:20 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:25:22 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 703
+[08-Sep-2016 14:25:22 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 706
+[08-Sep-2016 14:25:42 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:25:44 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 703
+[08-Sep-2016 14:25:44 UTC] PHP Notice:  Undefined variable: stock in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/e_register_now/RSVP.php on line 706
+[08-Sep-2016 14:25:47 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:28:26 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:28:28 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:28:54 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:28:58 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:29:03 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:29:43 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:29:45 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:30:16 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:30:18 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:31:20 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:31:24 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:32:29 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:33:08 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:33:14 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:33:18 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:33:20 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:33:31 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:33:32 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:33:35 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:33:36 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:41:00 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:41:07 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:41:10 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:41:15 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:41:17 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:44:35 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:44:40 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:44:44 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:44:47 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:44:54 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:44:55 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:45:18 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:45:19 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:45:24 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:45:26 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:45:32 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:45:33 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:48:33 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:48:34 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:48:36 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:48:37 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:48:39 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:48:40 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:48:41 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:50:46 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:50:47 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:51:14 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:51:15 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:51:32 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:51:36 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:51:45 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:52:12 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:52:17 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:52:36 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:52:40 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:52:45 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:53:22 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:53:23 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:54:17 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:54:46 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:54:51 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:54:53 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:55:55 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:57:42 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:58:05 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:58:10 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:58:55 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:59:00 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 14:59:22 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 14:59:32 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 15:06:44 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 15:06:47 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 15:07:02 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179
+[08-Sep-2016 15:07:55 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 15:08:00 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 15:08:07 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 15:11:58 UTC] PHP Notice:  Undefined variable: s in /home/ubuntu/workspace/wp-content/plugins/e-register-now/src/admin-views/rsvp-metabox-advanced.php on line 8
+[08-Sep-2016 15:12:03 UTC] PHP Fatal error:  Call to a member function check_stock_status() on boolean in /home/ubuntu/workspace/wp-content/plugins/woocommerce/includes/class-wc-post-data.php on line 179

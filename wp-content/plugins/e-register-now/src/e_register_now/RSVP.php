@@ -690,6 +690,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 				'ID'           => $ticket->ID,
 				'post_excerpt' => $ticket->description,
 				'post_title'   => $ticket->name,
+				
 			);
 
 			$ticket->ID = wp_update_post( $args );
@@ -698,13 +699,15 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		if ( ! $ticket->ID ) {
 			return false;
 		}
-
+		
+		// update_post_meta( $ticket->ID, '_stock', (int) $raw_data['ticket_rsvp_stock'] );
 		update_post_meta( $ticket->ID, '_price', $ticket->price );
-
-		if ( trim( $raw_data['ticket_rsvp_stock'] ) !== '' ) {
+		
+		if ( $raw_data['ticket_rsvp_stock'] !== '') {
 			$stock = (int) $raw_data['ticket_rsvp_stock'];
-			update_post_meta( $ticket->ID, '_stock', $stock );
+			// $stock_stat = update_post_meta( $ticket->ID, '_stock', $stock, true );
 			update_post_meta( $ticket->ID, '_manage_stock', 'yes' );
+			update_post_meta( $ticket->ID, '_stock_fx', $stock );
 		} else {
 			delete_post_meta( $ticket->ID, '_stock_status' );
 			update_post_meta( $ticket->ID, '_manage_stock', 'no' );
@@ -720,7 +723,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 
 		if ( isset( $ticket->end_date ) ) {
 			update_post_meta( $ticket->ID, '_ticket_end_date', $ticket->end_date );
-			update_post_meta( $ticket->ID, '_EventEndDate', $ticket->start_date );
+			update_post_meta( $ticket->ID, '_EventEndDate', $ticket->end_date );
 		} else {
 			delete_post_meta( $ticket->ID, '_ticket_end_date' );
 			delete_post_meta( $ticket->ID, '_EventEndDate' );
@@ -893,7 +896,8 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 
 		$return = new E_Register_Now__Tickets__Ticket_Object();
 		$qty    = (int) get_post_meta( $ticket_id, 'total_sales', true );
-
+		
+		// $return->description    = (int) $raw_data['ticket_rsvp_stock'];
 		$return->description    = $product->post_excerpt;
 		$return->ID             = $ticket_id;
 		$return->name           = $product->post_title;

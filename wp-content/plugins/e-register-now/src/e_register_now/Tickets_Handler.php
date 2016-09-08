@@ -538,7 +538,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 		include $this->path . 'src/admin-views/meta-box.php';
 	}
 
-	/**
+	/**o
 	 * Echoes the markup for the tickets list in the tickets metabox
 	 *
 	 * @param array $tickets

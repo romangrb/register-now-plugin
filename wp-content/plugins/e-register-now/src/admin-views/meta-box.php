@@ -153,7 +153,8 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 					</td>
 					<td>
 						<textarea rows="5" cols="40" name="ticket_description" class="ticket_field"
-								  id="ticket_description"></textarea>
+								  id="ticket_description">
+						</textarea>
 					</td>
 				</tr>
 				<tr class="ticket">
