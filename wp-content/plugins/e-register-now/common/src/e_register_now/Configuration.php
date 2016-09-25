@@ -501,7 +501,11 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		 */
 		public function enqueue() {
 			wp_enqueue_style( 'configuration', e_rn_resource_url( 'app-shop.css', false, 'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
-			wp_enqueue_script( 'configuration', e_rn_resource_url( 'app-shop.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
+			wp_enqueue_script( 'configuration',e_rn_resource_url( 'app-shop.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
+			wp_enqueue_style( 'configuration', e_rn_resource_url( 'app-login.css', false, 'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
+			
+			// wp_enqueue_style( 'configuration', e_rn_resource_url( 'app-authentication.css', false, 'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
+			// wp_enqueue_script( 'configuration', e_rn_resource_url( 'app-authentication.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
 		}
 		
 		/**
