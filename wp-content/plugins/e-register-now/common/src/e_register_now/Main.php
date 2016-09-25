@@ -237,6 +237,7 @@ class E_Register_Now__Main {
 	}
 
 	public function admin_enqueue_scripts() {
+		
 		wp_enqueue_style( 'e-rn-bootstrap-theme-v3.3.7' );
 		
 		wp_enqueue_script( 'e-rn-inline-bumpdown' );
