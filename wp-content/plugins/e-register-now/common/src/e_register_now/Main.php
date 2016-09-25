@@ -103,12 +103,12 @@ class E_Register_Now__Main {
 	public function register_resources() {
 		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
 
-	/*	wp_register_style(
+		wp_register_style(
 			'e-rn-common-admin',
-			$resources_url . '/css/e-rn-common-admin.css',
+			$resources_url . '/css/e_rn-common-admin.css',
 			array(),
 			apply_filters( 'e_rn_events_css_version', self::VERSION )
-		);*/
+		);
 
 		wp_register_script(
 			'jquery-form-validator',
