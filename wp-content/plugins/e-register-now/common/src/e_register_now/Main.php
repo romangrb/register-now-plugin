@@ -26,7 +26,7 @@ class E_Register_Now__Main {
 	protected $log;
 
 	public static $e_rn_url = 'http://tri.be/';
-	public static $tec_url = 'http://theeventscalendar.com/';
+	public static $tec_url  = 'http://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
@@ -102,22 +102,30 @@ class E_Register_Now__Main {
 	 */
 	public function register_resources() {
 		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
-
-		wp_register_style(
-			'e-rn-common-admin',
-			$resources_url . '/css/e_rn-common-admin.css',
-			array(),
-			apply_filters( 'e_rn_events_css_version', self::VERSION )
-		);
-
+		
 		wp_register_script(
-			'jquery-form-validator',
+			'e-rn-jquery-form-validator',
 			$resources_url . '/jquery-form-validator/form-validator/jquery.form-validator.min.js',
 			array(
 				'jquery',
 			),
 			apply_filters( 'e_rn_events_css_version', self::VERSION ),
 			true
+		);
+		
+		wp_register_style(
+			'e-rn-bootstrap-theme-v3.3.7',
+			$resources_url . '/bootstrap/dist/css/bootstrap.min.css',
+			array(),
+			apply_filters( 'e_rn_events_css_version', self::VERSION ),
+			false
+		);
+
+		wp_register_style(
+			'e-rn-common-admin',
+			$resources_url . '/css/e_rn-common-admin.css',
+			array(),
+			apply_filters( 'e_rn_events_css_version', self::VERSION )
 		);
 
 		wp_register_script(
@@ -154,7 +162,7 @@ class E_Register_Now__Main {
 	 */
 	public function register_vendor() {
 		$vendor_base = plugins_url( 'vendor', dirname( dirname( __FILE__ ) ) );
-
+		
 		wp_register_style(
 			'e-rn-jquery-ui-theme',
 			$vendor_base . '/jquery/ui.theme.css',
@@ -228,11 +236,14 @@ class E_Register_Now__Main {
 	}
 
 	public function admin_enqueue_scripts() {
+		
+		wp_enqueue_style( 'e-rn-bootstrap-theme-v3.3.7' );
+		
 		wp_enqueue_script( 'e-rn-inline-bumpdown' );
 		wp_enqueue_script( 'e-rn-notice-dismiss' );
 		wp_enqueue_style( 'e-rn-common-admin' );
 		
-		wp_enqueue_script( 'jquery-form-validator' );
+		wp_enqueue_script( 'e-rn-jquery-form-validator' );
 
 		$helper = E_Register_Now__Admin__Helpers::instance();
 		if ( $helper->is_post_type_screen() ) {

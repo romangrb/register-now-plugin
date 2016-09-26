@@ -81,10 +81,10 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		 */
 		public function enqueue() {
 			
+			wp_enqueue_script( 'app-capcha-authentication', e_rn_resource_url('app-capcha-authentication.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
 			wp_enqueue_script( 'app-authentication', e_rn_resource_url('app-authentication.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
-			wp_enqueue_script( 'app-authentication', e_rn_resource_url('app-authentication.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
-			wp_enqueue_style( 'app-authentication', e_rn_resource_url( 'app-authentication.css', false, 'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
-			
+			wp_enqueue_style(  'app-authentication', e_rn_resource_url('app-authentication.css', false,'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
+		
 		}
 
 		/**
