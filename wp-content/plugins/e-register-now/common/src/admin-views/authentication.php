@@ -66,6 +66,9 @@
             <div class="col-sm-4">
             	<button type="button" class="btn btn-md btn-defoult " id="refresh"> refresh </button>
         	</div>
+        	<div class="col-sm-4">
+            	<button type="button" class="btn btn-md btn-defoult " id="test"> test </button>
+        	</div>
         </div> 
         
         <div class="col-sm-4">
