@@ -22,8 +22,6 @@
              {
                 $('#captcha').attr('data-validation-captcha', data[0]+data[1]);
                 $('#for_captcha').text("What is the sum of: " + data[0]+ " \+ " + data[1]);
-                
-                console.log("Data from Server", data);
              },
              
              error:function(jqXHR, textStatus, errorThrown)

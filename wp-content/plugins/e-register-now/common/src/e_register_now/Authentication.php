@@ -29,12 +29,24 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		 */
 		private $admin_page = null;
 
+		public $crnt_mail = "";
 		/**
 		 * Class constructor
 		 */
 		public function __construct() {
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
+			$this->add_init_user_prop();
+		}
+
+		/**
+		 * Adds current user prop to the auth. form
+		 */
+		public function add_init_user_prop() {
+			$current_user = wp_get_current_user();
+			if ( 0 != $current_user->ID ){
+			    $this->crnt_mail = ($current_user->user_email)? $current_user->user_email: "";
+			}
 		}
 
 		/**
@@ -88,11 +100,33 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		}
 
 		/**
+		 * display errors, if any, after saving
+		 *
+		 * @return void
+		 */
+
+		public function displayErrors() {
+
+			
+		}
+
+		/**
+		 * display success message after saving
+		 *
+		 * @return void
+		 */
+		public function displaySuccess() {
+			
+		}
+
+		/**
 		 * Renders the e_rn_Authentication page
 		 */
+		 
 		public function do_menu_page() {
-			
+					
 			include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/authentication.php';
+			
 		}
 
 		/**
