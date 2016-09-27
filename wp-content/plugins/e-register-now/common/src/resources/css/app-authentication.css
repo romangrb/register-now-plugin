@@ -1,24 +1,12 @@
-/*
-	Theme Name: My Theme
-	Theme URI: http://wpcanada.ca/our-themes/malcolm/
-	Description: My is a mobile responsive and HTML5 child theme created for the Genesis Framework
-	Author: WPCanada
-	Author URI: http://wpcanada.ca/
-
-	Version: ver=4.2.4dev
- 
-	Tags: black, blue, white, one-column, two-columns, three-columns, fixed-width, custom-menu, full-width-template, sticky-post, theme-options, threaded-comments, translation-ready
- 
-	Template: genesis
-	Template Version: ver=4.2.4dev
-	
-	License: GPL-2.0+
-	License URI: http://www.opensource.org/licenses/gpl-license.php
-*/
-
-
 /* for margin betwin buttons in vertical view */
 
 .btn {
     margin: 5px auto;
 }
+
+#refresh {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+

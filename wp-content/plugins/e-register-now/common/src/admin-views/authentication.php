@@ -1,18 +1,15 @@
 <div id="e-rn-authorization" class="wrap">
-	<div class="header">
-		<h1><?php esc_html_e( 'Authentication', 'e-rn-common' );?></h1>
-	</div>
+    <h3 class='text-center'><?php esc_html_e( 'Authentication', 'e-rn-common' );?></h3>
 	<div class="site-inner">
-		
 	<!--<iframe align="center" src="https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_auth.php" frameborder="yes" scrolling="yes" name="myIframe" id="myIframe"> </iframe>-->
-		
+	<div class="col-xs-12">
+        <a href="/" class="btn btn-link btn-md col-xs-1 text-left">
+          <span class="glyphicon glyphicon-home"> Home </span>
+        </a>
+    </div>	
+    
     <div class="container">
-        <div class="col-xs-12">
-            <a href="/" class="btn btn-link btn-md col-xs-1 text-left">
-              <span class="glyphicon glyphicon-home"> Home </span>
-            </a>
-        </div>
-        <h2 class='text-center'>Please field this form <br> for authorization</h2>
+        
         <form action="https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_auth.php" method="POST" id="auth_form">
         	
         <div class="form-group row">
@@ -33,44 +30,25 @@
                 <input class="form-control" type="text" data-validation="email" name="body"  id="email" aria-describedby="email_help" placeholder="Enter email">
                 <small id="email_help" class="form-text text-muted">We'll use your registered WordPress email, if you want you can change it.</small>
             </div>
-        </div>    
-        <!--<div class="form-group row">-->
-        <!--    <label for="captcha" class="col-xs-2 col-sm-4 col-form-label">security question</label>-->
-        <!--    <div class="col-xs-6 col-sm-2">-->
-        <!--        <input class="form-control" -->
-        <!--               name="captcha"-->
-        <!--               id="captcha"-->
-        <!--               data-validation="spamcheck"-->
-        <!--               data-validation-captcha="<?//=($_SESSION['captcha'][0]) + ($_SESSION['captcha'][1])?>"-->
-        <!--               placeholder="0"-->
-        <!--        />-->
-        <!--        <small id="captcha" class="form-text text-muted"> -->
-        <!--            What is the sum of <?//=$_SESSION['captcha'][0]?> + <?//=$_SESSION['captcha'][1]?>?-->
-        <!--        </small>-->
-        <!--    </div>-->
-        <!--</div> -->
-        
-        
+        </div>   
         <div class="form-group row">
             <label for="captcha" class="col-xs-2 col-sm-4 col-form-label">security question</label>
-            <div class="col-xs-6 col-sm-2">
+            <div class="col-xs-8 col-sm-4">
                 <input class="form-control" 
                        name="captcha"
                        id="captcha"
                        data-validation="spamcheck"
-                       data-validation-captcha="asd"
+                       data-validation-captcha=""
                        placeholder="0"
                 />
                 <small id="for_captcha" class="form-text text-muted"></small>
             </div>
-            <div class="col-sm-4">
-            	<button type="button" class="btn btn-md btn-defoult " id="refresh"> refresh </button>
+            <div class="col-xs-2 col-sm-2" style="margin:2px 5px;padding:0;width:15px">
+            	<a href="#">
+                    <span style="margin:0;padding:0" class="glyphicon glyphicon-refresh btn-lg" id="refresh"></span>
+                </a>
         	</div>
-        	<div class="col-sm-4">
-            	<button type="button" class="btn btn-md btn-defoult " id="test"> test </button>
-        	</div>
-        </div> 
-        
+        </div>
         <div class="col-sm-4">
             <button type="submit" class="btn btn-md btn-primary col-xs-12" name="get_authorize" value="Authorize"> Authorize </button>
         </div>
