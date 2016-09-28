@@ -62,6 +62,12 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 		 * @var string
 		 */
 		public $currentTab;
+		
+		/**
+		 * true if a error that prevents saving occurred
+		 * @var bool
+		 */
+		public $errors;
 
 		/**
 		 * true if a major error that prevents saving occurred
@@ -78,7 +84,7 @@ if ( ! class_exists( 'E_Register_Now__Configuration' ) ) {
 			$this->requiredCap = apply_filters( 'e_rn_settings_req_cap', 'manage_options' );
 			$this->adminSlug   = apply_filters( 'e_rn_settings_admin_slug', $this::ADMIN_SLUG );
 			$this->pageSlug    = apply_filters( 'e_rn_settings_page_slug',  $this::PAGE_SLUG );
-			$this->errors      = get_option( 'e_rn_settings_errors', array() );
+			$this->rg   	   = get_option( 'e_rn_settings_errors', array() );
 			$this->major_error = get_option( 'e_rn_settings_major_error', false );
 			$this->sent_data   = get_option( 'e_rn_settings_sent_data', array() );
 			$this->validated   = array();

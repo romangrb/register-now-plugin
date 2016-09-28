@@ -7,7 +7,6 @@
           <span class="glyphicon glyphicon-home"> Home </span>
         </a>
     </div>	
-    
     <div class="container">
         
         <form action="https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_auth.php" method="POST" id="auth_form">
@@ -15,24 +14,43 @@
         <div class="form-group row">
             <label for="first_name" class="col-xs-2 col-sm-4 col-form-label">First name *</label>
             <div class="col-xs-8 col-sm-4">
-                <input class="form-control" type="text" value="" id="first_name" data-validation="required" aria-describedby="f_name_help" placeholder="John">
+                <input class="form-control" 
+                        id="first_name" 
+                        type="text" 
+                        data-validation="required" 
+                        aria-describedby="f_name_help" 
+                        placeholder="John">
             </div>
         </div>
         <div class="form-group row">
             <label for="last_name" class="col-xs-2 col-sm-4 col-form-label">Last name *</label>
             <div class="col-xs-8 col-sm-4">
-                <input class="form-control" type="text" value="" id="last_name" data-validation="required" aria-describedby="l_name_help" placeholder="Nilcon">
+                <input class="form-control"
+                        id="last_name"
+                        type="text" 
+                        data-validation="required" 
+                        aria-describedby="l_name_help" 
+                        placeholder="Nilcon"
+                />
             </div>
-        </div>  
+        </div>
         <div class="form-group row">
             <label for="Email" class="col-xs-2 col-sm-4 col-form-label">E-mail *</label>
             <div class="col-xs-8 col-sm-4">
-                <input class="form-control" type="text" data-validation="email" name="body" value=<?php echo $this->crnt_mail ?> id="email" aria-describedby="email_help" placeholder="Enter email">
+                <input class="form-control" 
+                        id="email"
+                        type="text" 
+                        data-validation="email" 
+                        name="body" 
+                        value=<?php echo $this->crnt_mail ?> 
+                        aria-describedby="email_help" 
+                        placeholder="Enter email"
+                />
                 <small id="email_help" class="form-text text-muted">An e-mail will be sent at the address you provide with the link to complete the registration </small>
             </div>
         </div>   
         <div class="form-group row">
-            <label for="captcha" class="col-xs-2 col-sm-4 col-form-label">security question</label>
+            <label for="captcha" class="col-xs-2 col-sm-4 col-form-label">security question *</label>
             <div class="col-xs-8 col-sm-4">
                 <input class="form-control" 
                        name="captcha"
