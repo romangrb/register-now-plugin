@@ -40,8 +40,13 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
+			
+			add_action('wp_ajax_my_action', array( $this, 'my_action_callback' ));
+			
 		}
-
+		
+		
+		
 		/**
 		 * Adds current user prop to the auth. form
 		 */
@@ -51,6 +56,16 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 			    $this->crnt_mail = ($current_user->user_email)? $current_user->user_email: "";
 			}
 		}
+		
+		public function my_action_callback() {
+			$whatever = intval( $_POST['whatever'] );
+		
+			$whatever += 10;
+			echo $whatever;
+		
+			wp_die();
+		}
+
 		
 		public function add_err() {
 			if( !function_exists( 'the_field' ) ) {
@@ -113,6 +128,8 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 			wp_enqueue_script( 'app-authentication-form-validate', e_rn_resource_url('app-authentication-form-validate.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
 			wp_enqueue_style( 'app-authentication-form-style', e_rn_resource_url('app-authentication-form.css', false,'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
 
+			wp_enqueue_script( 'authentication-capcha-form-validate', e_rn_resource_url('authentication-capcha-form-validate.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
+			
 		}
 
 		/**

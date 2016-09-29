@@ -1,6 +1,7 @@
 (function($){
      
     $(document).on('click', '#refresh', refresh_capcha);
+    var page_title = $( 'div#jobs-admin-sort h2:first' );
     
     refresh_capcha();
     
@@ -26,7 +27,8 @@
              
              error:function(jqXHR, textStatus, errorThrown)
              {
-                alert("Error, please show this content to your administrator \n You can not send Cross Domain AJAX requests: "+errorThrown);
+                page_title.after( '<div id="message" class="updated below-h2"><p>Jobs sort order has been saved</p></div>' );
+            //   alert("Error, please show this content to your administrator \n You can not send Cross Domain AJAX requests: "+errorThrown);
              }
         
         });

@@ -11,7 +11,7 @@
         
         <form action="https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_auth.php" method="POST" id="auth_form">
         	
-        <div class="form-group row">
+        <div class="form-group row fixed_margin">
             <label for="first_name" class="col-xs-2 col-sm-4 col-form-label">First name *</label>
             <div class="col-xs-8 col-sm-4">
                 <input class="form-control" 
@@ -70,8 +70,9 @@
         <div class="col-sm-4">
             <button type="submit" class="btn btn-md btn-primary col-xs-12" name="get_authorize" value="Authorize"> Submit </button>
         </div>
+
         
-    </form>    
+    </form>  
     
     </div>
    </div>

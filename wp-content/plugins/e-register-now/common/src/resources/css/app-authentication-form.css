@@ -1,11 +1,4 @@
 /* for margin betwin buttons in vertical view */
-
-.btn {
-    margin: 5px auto;
-}
-
-#refresh {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+.fixed_margin {
+    
 }
