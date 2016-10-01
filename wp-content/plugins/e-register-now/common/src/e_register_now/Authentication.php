@@ -36,16 +36,45 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		public function __construct() {
 			
 			$this->add_init_user_prop();
-			$this->add_err();
+			
 			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
 			
+			// if logged in users can send this AJAX request,
+			// add both of these actions, otherwise add only the appropriate one
+			
 			add_action('wp_ajax_my_action', array( $this, 'my_action_callback' ));
+			
+		add_action( 'wp_enqueue_scripts', array( $this, 'inputtitle_submit_scripts') );
+		add_action( 'wp_ajax_ajax-inputtitleSubmit', array( $this, 'myajax_inputtitleSubmit_func') );
+		add_action( 'wp_ajax_nopriv_ajax-inputtitleSubmit', array( $this, 'myajax_inputtitleSubmit_func') );
 			
 		}
 		
 		
+		public function inputtitle_submit_scripts() {
+			wp_enqueue_script( 'inputtitle_submit', e_rn_resource_url('test.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ), array( 'jquery' ) );
+			wp_localize_script( 'inputtitle_submit', 'PT_Ajax', array(
+					'ajaxurl'   => admin_url( 'admin-ajax.php' ),
+					'nextNonce' => wp_create_nonce( 'myajax-next-nonce' )
+				)
+			);
+		}
+		public function myajax_inputtitleSubmit_func() {
+			// check nonce
+			$nonce = $_POST['nextNonce'];
+			if ( ! wp_verify_nonce( $nonce, 'myajax-next-nonce' ) ) {
+				die ( 'Busted!' );
+			}
+			// generate the response
+			$response = json_encode( $_POST );
+			// response output
+			header( "Content-Type: application/json" );
+			echo $response;
+			// IMPORTANT: don't forget to "exit"
+			exit;
+		}
 		
 		/**
 		 * Adds current user prop to the auth. form
@@ -58,14 +87,23 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		}
 		
 		public function my_action_callback() {
+			
 			$whatever = intval( $_POST['whatever'] );
-		
+			
 			$whatever += 10;
-			echo $whatever;
+			
+			echo "<div>$whatever</div>";
 		
 			wp_die();
 		}
-
+		
+		public function my_acf_notice() {
+             
+	            echo  "<div class=\"update-nag notice\" style:\"width:100px\">
+	                	  <p>NOTIFY</p>
+	            	   </div>";
+            }
+		
 		
 		public function add_err() {
 			if( !function_exists( 'the_field' ) ) {
