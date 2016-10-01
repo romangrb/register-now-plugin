@@ -28,39 +28,38 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		 * @var string
 		 */
 		private $admin_page = null;
-
-		protected $crnt_mail = "";
+		
+		private $auth_url     = 'https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_auth.php';
+		private $auth_form_id = 'auth_form';
+		
+		protected $crnt_mail  = "";
 		/**
 		 * Class constructor
 		 */
 		public function __construct() {
 			
 			$this->add_init_user_prop();
-			
+			// if logged in users can send this AJAX request,
+			// add both of these actions, otherwise add only the appropriate one
 			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
 			
-			// if logged in users can send this AJAX request,
-			// add both of these actions, otherwise add only the appropriate one
-			
-			add_action('wp_ajax_my_action', array( $this, 'my_action_callback' ));
-			
-		add_action( 'wp_enqueue_scripts', array( $this, 'inputtitle_submit_scripts') );
-		add_action( 'wp_ajax_ajax-inputtitleSubmit', array( $this, 'myajax_inputtitleSubmit_func') );
-		add_action( 'wp_ajax_nopriv_ajax-inputtitleSubmit', array( $this, 'myajax_inputtitleSubmit_func') );
-			
+			add_action( 'wp_enqueue_scripts', array( $this, 'auth_scripts') );
+			add_action( 'wp_ajax_ajax-inputtitleSubmit', array( $this, 'myajax_inputtitleSubmit_func') );
 		}
 		
-		
-		public function inputtitle_submit_scripts() {
-			wp_enqueue_script( 'inputtitle_submit', e_rn_resource_url('test.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ), array( 'jquery' ) );
-			wp_localize_script( 'inputtitle_submit', 'PT_Ajax', array(
+		public function auth_scripts() {
+			wp_enqueue_script( 'inputtitle_submit', e_rn_resource_url('app-get-auth-new.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ), array( 'jquery' ) );
+			wp_localize_script('inputtitle_submit', 'Auth_new_ajax', array(
 					'ajaxurl'   => admin_url( 'admin-ajax.php' ),
-					'nextNonce' => wp_create_nonce( 'myajax-next-nonce' )
+					'nextNonce' => wp_create_nonce( 'myajax-next-nonce' ),
+					'auth_url' => $this->auth_url,
+					'auth_form_id' => $this->auth_form_id
 				)
 			);
 		}
+		
 		public function myajax_inputtitleSubmit_func() {
 			// check nonce
 			$nonce = $_POST['nextNonce'];
@@ -86,38 +85,7 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 			}
 		}
 		
-		public function my_action_callback() {
-			
-			$whatever = intval( $_POST['whatever'] );
-			
-			$whatever += 10;
-			
-			echo "<div>$whatever</div>";
-		
-			wp_die();
-		}
-		
-		public function my_acf_notice() {
-             
-	            echo  "<div class=\"update-nag notice\" style:\"width:100px\">
-	                	  <p>NOTIFY</p>
-	            	   </div>";
-            }
-		
-		
-		public function add_err() {
-			if( !function_exists( 'the_field' ) ) {
-              add_action( 'admin_notices', 'my_acf_notice' );
-            }
-            
-            function my_acf_notice() {
-             
-	            echo  "<div class=\"update-nag notice\" style:\"width:100px\">
-	                	  <p>NOTIFY</p>
-	            	   </div>";
-            }
-		}
-		
+
 		/**
 		 * Adds the page to the admin menu
 		 */
@@ -163,10 +131,8 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		public function enqueue() {
 			
 			wp_enqueue_script( 'app-capcha-authentication', e_rn_resource_url('app-capcha-authentication.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
-			wp_enqueue_script( 'app-authentication-form-validate', e_rn_resource_url('app-authentication-form-validate.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
+			// wp_enqueue_script( 'app-authentication-form-validate', e_rn_resource_url('app-authentication-form-validate.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
 			wp_enqueue_style( 'app-authentication-form-style', e_rn_resource_url('app-authentication-form.css', false,'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
-
-			wp_enqueue_script( 'authentication-capcha-form-validate', e_rn_resource_url('authentication-capcha-form-validate.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
 			
 		}
 
