@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Class E_Register_Now__Template_Part_Cache
+ * Class Register_In_One_Click__Template_Part_Cache
  *
  * @uses TribeEventsCache
  */
-class E_Register_Now__Template_Part_Cache {
+class Register_In_One_Click__Template_Part_Cache {
 
 	/**
 	 * @var string
@@ -45,7 +45,7 @@ class E_Register_Now__Template_Part_Cache {
 		$this->key                = $template . '_' . $id;
 		$this->expiration         = $expiration;
 		$this->expiration_trigger = $expiration_trigger;
-		$this->cache              = new E_Register_Now__Cache();
+		$this->cache              = new Register_In_One_Click__Cache();
 
 		$this->add_hooks();
 	}
@@ -56,13 +56,13 @@ class E_Register_Now__Template_Part_Cache {
 	public function add_hooks() {
 
 		// set the cached html in transients after the template part is included
-		add_filter( 'e_rn_get_template_part_content', array( $this, 'set' ), 10, 2 );
+		add_filter( 'rioc_get_template_part_content', array( $this, 'set' ), 10, 2 );
 
 		// get the cached html right before the setup_view runs so it's available for bypassing any view logic
-		add_action( 'e_rn_events_before_view', array( $this, 'get' ), 9, 1 );
+		add_action( 'rioc_events_before_view', array( $this, 'get' ), 9, 1 );
 
 		// when the specified template part is included, show the cached html instead
-		add_filter( 'e_rn_get_template_part_path_' . $this->template, array( $this, 'display' ) );
+		add_filter( 'rioc_get_template_part_path_' . $this->template, array( $this, 'display' ) );
 	}
 
 	/**
@@ -72,7 +72,7 @@ class E_Register_Now__Template_Part_Cache {
 	 * @param $path file path to the month view template part
 	 *
 	 * @return bool
-	 * @uses e_rn_get_template_part_path_[template] hook
+	 * @uses rioc_get_template_part_path_[template] hook
 	 */
 	public function display( $path ) {
 
@@ -93,7 +93,7 @@ class E_Register_Now__Template_Part_Cache {
 	 * @param $template
 	 *
 	 * @return string
-	 * @uses e_rn_get_template_part_content hook
+	 * @uses rioc_get_template_part_content hook
 	 */
 	public function set( $html, $template ) {
 		if ( $template == $this->template ) {
@@ -106,7 +106,7 @@ class E_Register_Now__Template_Part_Cache {
 	/**
 	 * Retrieve the cached html from transients, set class property
 	 *
-	 * @uses e_rn_events_before_view hook
+	 * @uses rioc_events_before_view hook
 	 */
 	public function get() {
 

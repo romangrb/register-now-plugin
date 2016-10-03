@@ -28,9 +28,9 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		},
 		// Output Image preview and populate widget form.
 		render  : function( attachment ) {
-			$( '#e_rn_ticket_header_preview' ).html( ticketHeaderImage.imgHTML( attachment ) );
-			$( '#e_rn_ticket_header_image_id' ).val( attachment.id );
-			$( '#e_rn_ticket_header_remove' ).show();
+			$( '#rioc_ticket_header_preview' ).html( ticketHeaderImage.imgHTML( attachment ) );
+			$( '#rioc_ticket_header_image_id' ).val( attachment.id );
+			$( '#rioc_ticket_header_remove' ).show();
 		},
 		// Render html for the image.
 		imgHTML : function( attachment ) {
@@ -45,7 +45,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 	$( document ).ready( function() {
 		var $event_pickers = $( '#rioc-event-datepickers' ),
-			$e_rn_tickets = $( '#tribetickets' ),
+			$rioc_tickets = $( '#tribetickets' ),
 			$tickets_container = $( '#event_tickets' ),
 			$enable_global_stock = $( "#rioc-tickets-enable-global-stock" ),
 			$global_stock_level = $( "#rioc-tickets-global-stock-level" ),
@@ -53,7 +53,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$body = $( 'html, body' ),
 			startofweek = 0;
 
-		$e_rn_tickets.on( {
+		$rioc_tickets.on( {
 			/**
 			 * Makes a Visual Spining thingy appear on the Tickets metabox.
 			 * Also prevents user Action on the metabox elements.
@@ -166,11 +166,11 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				} );
 
 				// (Re-)set the global stock fields
-				$e_rn_tickets.trigger( 'set-global-stock-fields.tribe' );
+				$rioc_tickets.trigger( 'set-global-stock-fields.tribe' );
 
 				// Also reset each time the global stock mode selector is changed
 				$( '#ticket_global_stock' ).change( function() {
-					$e_rn_tickets.trigger( 'set-global-stock-fields.tribe' );
+					$rioc_tickets.trigger( 'set-global-stock-fields.tribe' );
 				});
 			},
 
@@ -279,7 +279,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		 */
 		function show_hide_global_stock() {
 			global_stock_setting_changed = true;
-			$e_rn_tickets.trigger( 'set-global-stock-fields.tribe' );
+			$rioc_tickets.trigger( 'set-global-stock-fields.tribe' );
 		}
 
 		/**
@@ -288,7 +288,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		function show_hide_advanced_fields() {
 			$( 'tr.ticket_advanced' ).hide();
 			$( 'tr.ticket_advanced_' + currently_selected_provider() + ':not(.sale_price)' ).show();
-			$e_rn_tickets.trigger( 'set-advanced-fields.tribe' );
+			$rioc_tickets.trigger( 'set-advanced-fields.tribe' );
 			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.tribe' );
 		}
 
@@ -327,7 +327,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$( 'h4.ticket_form_title_edit' ).hide();
 			$( 'h4.ticket_form_title_add' ).show();
 			$( this ).hide();
-			$e_rn_tickets
+			$rioc_tickets
 				.trigger( 'clear.tribe' )
 				.trigger( 'set-advanced-fields.tribe' )
 				.trigger( 'focus.tribe' );
@@ -338,7 +338,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 		/* "Cancel" button action */
 		$( '#ticket_form_cancel' ).click( function() {
-			$e_rn_tickets
+			$rioc_tickets
 				.trigger( 'clear.tribe' )
 				.trigger( 'set-advanced-fields.tribe' )
 				.trigger( 'focus.tribe' );
@@ -350,7 +350,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				type = $form.find( '#ticket_provider:checked' ).val(),
 				$rows = $form.find( '.ticket, .ticket_advanced_meta, .ticket_advanced_' + type );
 
-			$e_rn_tickets.trigger( 'save-ticket.tribe', e ).trigger( 'spin.tribe', 'start' );
+			$rioc_tickets.trigger( 'save-ticket.tribe', e ).trigger( 'spin.tribe', 'start' );
 
 			var params = {
 				action  : 'rioc-ticket-add-' + $( 'input[name=ticket_provider]:checked' ).val(),
@@ -363,28 +363,28 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$e_rn_tickets.trigger( 'saved-ticket.tribe', response );
+					$rioc_tickets.trigger( 'saved-ticket.tribe', response );
 
 					if ( response.success ) {
-						$e_rn_tickets.trigger( 'clear.tribe' );
+						$rioc_tickets.trigger( 'clear.tribe' );
 						$( 'td.ticket_list_container' ).empty().html( response.data.html );
 						$( '.ticket_time' ).hide();
 					}
 				},
 				'json'
 			).complete( function() {
-				$e_rn_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
+				$rioc_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
 			} );
 
 		} );
 
 		/* "Delete Ticket" link action */
 
-		$e_rn_tickets.on( 'click', '.ticket_delete', function( e ) {
+		$rioc_tickets.on( 'click', '.ticket_delete', function( e ) {
 
 			e.preventDefault();
 
-			$e_rn_tickets.trigger( 'delete-ticket.tribe', e ).trigger( 'spin.tribe', 'start' );
+			$rioc_tickets.trigger( 'delete-ticket.tribe', e ).trigger( 'spin.tribe', 'start' );
 
 			var params = {
 				action   : 'rioc-ticket-delete-' + $( this ).attr( 'attr-provider' ),
@@ -397,22 +397,22 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$e_rn_tickets.trigger( 'deleted-ticket.tribe', response );
+					$rioc_tickets.trigger( 'deleted-ticket.tribe', response );
 
 					if ( response.success ) {
-						$e_rn_tickets.trigger( 'clear.tribe' );
+						$rioc_tickets.trigger( 'clear.tribe' );
 						$( 'td.ticket_list_container' ).empty().html( response.data );
 					}
 				},
 				'json'
 			).complete( function() {
-				$e_rn_tickets.trigger( 'spin.tribe', 'stop' );
+				$rioc_tickets.trigger( 'spin.tribe', 'stop' );
 			} );
 		} );
 
 		/* "Edit Ticket" link action */
 
-		$e_rn_tickets
+		$rioc_tickets
 			.on( 'click', '.ticket_edit', function( e ) {
 
 				e.preventDefault();
@@ -420,7 +420,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				$( 'h4.ticket_form_title_edit' ).show();
 				$( 'h4.ticket_form_title_add' ).hide();
 
-				$e_rn_tickets.trigger( 'spin.tribe', 'start' );
+				$rioc_tickets.trigger( 'spin.tribe', 'start' );
 
 				var params = {
 					action   : 'rioc-ticket-edit-' + $( this ).attr( 'attr-provider' ),
@@ -433,7 +433,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					ajaxurl,
 					params,
 					function( response ) {
-						$e_rn_tickets
+						$rioc_tickets
 							.trigger( 'clear.tribe' )
 							.trigger( 'set-advanced-fields.tribe' )
 							.trigger( 'edit-ticket.tribe', response );
@@ -537,7 +537,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( 'input[name=ticket_provider]:radio' ).change();
 
 						// set the prices after the advanced fields have been added to the form
-						var $ticket_price = $e_rn_tickets.find( '#ticket_price' );
+						var $ticket_price = $rioc_tickets.find( '#ticket_price' );
 						$ticket_price.val( regularPrice );
 
 						if ( 'undefined' !== typeof response.data.disallow_update_price_message ) {
@@ -556,7 +556,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 							$ticket_price.siblings( '.no-update-message' ).hide();
 						}
 
-						var $sale_field = $e_rn_tickets.find( '#ticket_sale_price' );
+						var $sale_field = $rioc_tickets.find( '#ticket_sale_price' );
 
 						if ( onSale ) {
 							$sale_field
@@ -571,31 +571,31 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 							$( '#ticket_purchase_limit' ).val( response.data.purchase_limit );
 						}
 
-						$e_rn_tickets.find( '.bumpdown-trigger' ).bumpdown();
-						$e_rn_tickets.find( '.bumpdown' ).hide();
+						$rioc_tickets.find( '.bumpdown-trigger' ).bumpdown();
+						$rioc_tickets.find( '.bumpdown' ).hide();
 
 						$( 'a#ticket_form_toggle' ).hide();
 						$( '#ticket_form' ).show();
 
-						$e_rn_tickets
+						$rioc_tickets
 							.trigger( 'set-advanced-fields.tribe' )
 							.trigger( 'edit-ticket.tribe' );
 
 					},
 					'json'
 				).complete( function() {
-					$e_rn_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
+					$rioc_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
 				} );
 
 			} )
-			.on( 'click', '#e_rn_ticket_header_image', function( e ) {
+			.on( 'click', '#rioc_ticket_header_image', function( e ) {
 				e.preventDefault();
 				ticketHeaderImage.uploader( '', '' );
 			} );
 
 
-		var $remove = $( '#e_rn_ticket_header_remove' );
-		var $preview = $( '#e_rn_ticket_header_preview' );
+		var $remove = $( '#rioc_ticket_header_remove' );
+		var $preview = $( '#rioc_ticket_header_preview' );
 
 		if ( $preview.find( 'img' ).length ) {
 			$remove.show();
@@ -630,25 +630,25 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 			// We can't trigger a confirm() dialog from within this action but returning
 			// a string should achieve effectively the same result
-			return e_rn_global_stock_admin_ui.nav_away_msg;
+			return rioc_global_stock_admin_ui.nav_away_msg;
 
 		} );
 
-		$('body').on( 'click', '#e_rn_ticket_header_remove', function( e ) {
+		$('body').on( 'click', '#rioc_ticket_header_remove', function( e ) {
 
 			e.preventDefault();
 			$preview.html( '' );
 			$remove.hide();
-			$( '#e_rn_ticket_header_image_id' ).val( '' );
+			$( '#rioc_ticket_header_image_id' ).val( '' );
 
 		} );
 
-		if ( $( '#e_rn_ticket_header_preview img' ).length ) {
+		if ( $( '#rioc_ticket_header_preview img' ).length ) {
 
-			var $tiximg = $( '#e_rn_ticket_header_preview img' );
+			var $tiximg = $( '#rioc_ticket_header_preview img' );
 			$tiximg.removeAttr( 'width' ).removeAttr( 'height' );
 
-			if ( $e_rn_tickets.width() < $tiximg.width() ) {
+			if ( $rioc_tickets.width() < $tiximg.width() ) {
 				$tiximg.css( 'width', '95%' );
 			}
 		}

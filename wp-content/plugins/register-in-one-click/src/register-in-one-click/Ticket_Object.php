@@ -1,9 +1,9 @@
 <?php
-if ( ! class_exists( 'E_Register_Now__Tickets__Ticket_Object' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Tickets__Ticket_Object' ) ) {
 	/**
 	 *    Generic object to hold information about a single ticket
 	 */
-	class E_Register_Now__Tickets__Ticket_Object {
+	class Register_In_One_Click__Tickets__Ticket_Object {
 		/**
 		 * This value - an empty string - should be used to populate the stock
 		 * property in situations where no limit has been placed on stock
@@ -72,7 +72,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Ticket_Object' ) ) {
 		public $provider_class;
 
 		/**
-		 * @var E_Register_Now__Tickets__Tickets
+		 * @var Register_In_One_Click__Tickets__Tickets
 		 */
 		protected $provider;
 
@@ -90,7 +90,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Ticket_Object' ) ) {
 		 *
 		 * @var string
 		 */
-		protected $global_stock_mode = E_Register_Now__Tickets__Global_Stock::OWN_STOCK_MODE;
+		protected $global_stock_mode = Register_In_One_Click__Tickets__Global_Stock::OWN_STOCK_MODE;
 
 		/**
 		 * The maximum permitted number of sales for this ticket when global stock
@@ -216,7 +216,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Ticket_Object' ) ) {
 				 * @var $date End date for the tickets (defaults to tomorrow ... which means registrations will not end)
 				 * @var $post_id Post id for the post that tickets are attached to
 				 */
-				$end_date = apply_filters( 'e_rn_tickets_default_end_date', date( 'Y-m-d G:i', strtotime( '+1 day' ) ), $post_id );
+				$end_date = apply_filters( 'rioc_tickets_default_end_date', date( 'Y-m-d G:i', strtotime( '+1 day' ) ), $post_id );
 				$end_date = strtotime( $end_date );
 			}
 
@@ -351,7 +351,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Ticket_Object' ) ) {
 			$remaining = $this->original_stock() - $this->qty_sold() - $this->qty_pending();
 
 			// Adjust if using global stock with a sales cap
-			if ( E_Register_Now__Tickets__Global_Stock::CAPPED_STOCK_MODE === $this->global_stock_mode() ) {
+			if ( Register_In_One_Click__Tickets__Global_Stock::CAPPED_STOCK_MODE === $this->global_stock_mode() ) {
 				$remaining = min( $remaining, $this->global_stock_cap() );
 			}
 
@@ -402,7 +402,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Ticket_Object' ) ) {
 		/**
 		 * Sets or gets the current global stock mode in effect for the ticket.
 		 *
-		 * Typically this is one of the constants provided by E_Register_Now__Tickets__Global_Stock:
+		 * Typically this is one of the constants provided by Register_In_One_Click__Tickets__Global_Stock:
 		 *
 		 *     GLOBAL_STOCK_MODE if it should draw on the global stock
 		 *     CAPPED_STOCK_MODE as above but with a limit on the total number of allowed sales
@@ -551,7 +551,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Ticket_Object' ) ) {
 		/**
 		 * Returns an instance of the provider class.
 		 *
-		 * @return E_Register_Now__Tickets__Tickets|null
+		 * @return Register_In_One_Click__Tickets__Tickets|null
 		 */
 		public function get_provider() {
 			if ( empty( $this->provider ) ) {

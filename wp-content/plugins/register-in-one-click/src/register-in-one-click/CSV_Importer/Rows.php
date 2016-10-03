@@ -2,11 +2,11 @@
 
 
 /**
- * Class E_Register_Now__Tickets__CSV_Importer__Rows
+ * Class Register_In_One_Click__Tickets__CSV_Importer__Rows
  *
  * Modifies the CSV Importer import option rows.
  */
-class E_Register_Now__Tickets__CSV_Importer__Rows {
+class Register_In_One_Click__Tickets__CSV_Importer__Rows {
 
 	/**
 	 * @var self
@@ -16,7 +16,7 @@ class E_Register_Now__Tickets__CSV_Importer__Rows {
 	/**
 	 * The class singleton constructor.
 	 *
-	 * @return E_Register_Now__Tickets__CSV_Importer__Rows
+	 * @return Register_In_One_Click__Tickets__CSV_Importer__Rows
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {

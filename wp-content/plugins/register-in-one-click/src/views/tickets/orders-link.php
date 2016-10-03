@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$view = E_Register_Now__Tickets__Tickets_View::instance();
+$view = Register_In_One_Click__Tickets__Tickets_View::instance();
 $event_id = get_the_ID();
 $event = get_post( $event_id );
 $post_type = get_post_type_object( $event->post_type );
 
 $user_id = get_current_user_id();
 
-$is_event_page = class_exists( 'E_Register_Now__Events__Main' ) && E_Register_Now__Events__Main::POSTTYPE === $event->post_type ? true : false;
+$is_event_page = class_exists( 'Register_In_One_Click__Events__Main' ) && Register_In_One_Click__Events__Main::POSTTYPE === $event->post_type ? true : false;
 
 $events_label_singular = $post_type->labels->singular_name;
 $counters = array();

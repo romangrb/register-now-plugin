@@ -3,10 +3,10 @@ $this->attendees_table->prepare_items();
 
 $event_id = $this->attendees_table->event->ID;
 $event = $this->attendees_table->event;
-$tickets = E_Register_Now__Tickets__Tickets::get_event_tickets( $event_id );
+$tickets = Register_In_One_Click__Tickets__Tickets::get_event_tickets( $event_id );
 $post_type_object = get_post_type_object( $event->post_type );
 
-$checkedin = E_Register_Now__Tickets__Tickets::get_event_checkedin_attendees_count( $event_id );
+$checkedin = Register_In_One_Click__Tickets__Tickets::get_event_checkedin_attendees_count( $event_id );
 $total_sold = 0;
 $total_pending = 0;
 $total_deleted = 0;
@@ -18,20 +18,20 @@ foreach ( $tickets as $ticket ) {
 }
 
 $total_completed = $total_sold - $total_pending;
-$total_attendees = E_Register_Now__Tickets__Tickets::get_event_attendees_count( $event_id );
-$total_deleted   = E_Register_Now__Tickets__Attendance::instance( $event_id )->get_deleted_attendees_count();
+$total_attendees = Register_In_One_Click__Tickets__Tickets::get_event_attendees_count( $event_id );
+$total_deleted   = Register_In_One_Click__Tickets__Attendance::instance( $event_id )->get_deleted_attendees_count();
 ?>
 
 <div class="wrap rioc-attendees-page">
 	<h1><?php esc_html_e( 'Attendees', 'event-tickets' ); ?></h1>
 	<div id="rioc-attendees-summary" class="welcome-panel">
 		<div class="welcome-panel-content">
-			<h3><?php echo '<a href="' . get_edit_post_link( $event_id ) . '" title="' . esc_attr__( 'Edit Event', 'event-tickets' ) . '">' . wp_kses( apply_filters( 'e_rn_events_tickets_attendees_event_title', $event->post_title, $event->ID ), array() ) . '</a>'; ?></h3>
+			<h3><?php echo '<a href="' . get_edit_post_link( $event_id ) . '" title="' . esc_attr__( 'Edit Event', 'event-tickets' ) . '">' . wp_kses( apply_filters( 'rioc_events_tickets_attendees_event_title', $event->post_title, $event->ID ), array() ) . '</a>'; ?></h3>
 			<p class="about-description"><?php echo '<a href="' . get_permalink( $event_id ) . '" title="' . esc_attr__( 'See Event Page', 'event-tickets' ) . '">' . get_permalink( $event_id ) . '</a>'; ?></p>
 			<div class="welcome-panel-column-container">
 				<div class="welcome-panel-column welcome-panel-first">
 					<h4><?php esc_html_e( 'Event Details', 'event-tickets' ); ?></h4>
-					<?php do_action( 'e_rn_events_tickets_attendees_event_details_top', $event_id ); ?>
+					<?php do_action( 'rioc_events_tickets_attendees_event_details_top', $event_id ); ?>
 
 					<ul>
 						<?php
@@ -40,7 +40,7 @@ $total_deleted   = E_Register_Now__Tickets__Attendance::instance( $event_id )->g
 						 *
 						 * @var $event_id
 						 */
-						do_action( 'e_rn_tickets_attendees_event_details_list_top', $event_id );
+						do_action( 'rioc_tickets_attendees_event_details_list_top', $event_id );
 						?>
 						<li>
 							<strong><?php esc_html_e( 'Post Type:', 'event-tickets' ); ?></strong>
@@ -52,27 +52,27 @@ $total_deleted   = E_Register_Now__Tickets__Attendance::instance( $event_id )->g
 						 *
 						 * @var $event_id
 						 */
-						do_action( 'e_rn_tickets_attendees_event_details_list_bottom', $event_id );
+						do_action( 'rioc_tickets_attendees_event_details_list_bottom', $event_id );
 						?>
 					</ul>
-					<?php do_action( 'e_rn_events_tickets_attendees_event_details_bottom', $event_id ); ?>
+					<?php do_action( 'rioc_events_tickets_attendees_event_details_bottom', $event_id ); ?>
 				</div>
 				<div class="welcome-panel-column welcome-panel-middle">
 					<h4><?php esc_html_e( 'Sales by Ticket', 'event-tickets' ); ?></h4>
-					<?php do_action( 'e_rn_events_tickets_attendees_ticket_sales_top', $event_id ); ?>
+					<?php do_action( 'rioc_events_tickets_attendees_ticket_sales_top', $event_id ); ?>
 
 					<ul>
 					<?php foreach ( $tickets as $ticket ) { ?>
 						<li>
 							<a href="<?php echo get_edit_post_link( $ticket->ID ); ?>" title="<?php esc_html_e( 'Edit Ticket', 'event-tickets' ); ?>"><strong><?php echo esc_html( $ticket->name ) ?>: </strong></a>
-							<?php echo e_rn_tickets_get_ticket_stock_message( $ticket ); ?>
+							<?php echo rioc_tickets_get_ticket_stock_message( $ticket ); ?>
 						</li>
 					<?php } ?>
 					</ul>
-					<?php do_action( 'e_rn_events_tickets_attendees_ticket_sales_bottom', $event_id );  ?>
+					<?php do_action( 'rioc_events_tickets_attendees_ticket_sales_bottom', $event_id );  ?>
 				</div>
 				<div class="welcome-panel-column welcome-panel-last alternate">
-					<?php do_action( 'e_rn_events_tickets_attendees_totals_top', $event_id ); ?>
+					<?php do_action( 'rioc_events_tickets_attendees_totals_top', $event_id ); ?>
 					<ul>
 						<li>
 							<strong><?php esc_html_e( 'Total Sold:', 'event-tickets' ) ?></strong>
@@ -102,12 +102,12 @@ $total_deleted   = E_Register_Now__Tickets__Attendance::instance( $event_id )->g
 							</li>
 						<?php endif; ?>
 					</ul>
-					<?php do_action( 'e_rn_events_tickets_attendees_totals_bottom', $event_id ); ?>
+					<?php do_action( 'rioc_events_tickets_attendees_totals_bottom', $event_id ); ?>
 				</div>
 			</div>
 		</div>
 	</div>
-	<?php do_action( 'e_rn_events_tickets_attendees_event_summary_table_after', $event_id ); ?>
+	<?php do_action( 'rioc_events_tickets_attendees_event_summary_table_after', $event_id ); ?>
 
 	<form id="topics-filter" method="post">
 		<input type="hidden" name="<?php echo esc_attr( is_admin() ? 'page' : 'tribe[page]' ); ?>" value="<?php echo esc_attr( isset( $_GET['page'] ) ? $_GET['page'] : '' ); ?>" />

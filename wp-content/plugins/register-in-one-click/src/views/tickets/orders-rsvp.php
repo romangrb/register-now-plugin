@@ -12,7 +12,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-$view      = E_Register_Now__Tickets__Tickets_View::instance();
+$view      = Register_In_One_Click__Tickets__Tickets_View::instance();
 $post_id   = get_the_ID();
 $post      = get_post( $post_id );
 $post_type = get_post_type_object( $post->post_type );

@@ -1,4 +1,4 @@
-var e_rn_tickets_rsvp = {
+var rioc_tickets_rsvp = {
 	num_attendees: 0,
 	event: {}
 };
@@ -68,4 +68,4 @@ var e_rn_tickets_rsvp = {
 	$( function() {
 		my.init();
 	} );
-})( jQuery, e_rn_tickets_rsvp );
+})( jQuery, rioc_tickets_rsvp );

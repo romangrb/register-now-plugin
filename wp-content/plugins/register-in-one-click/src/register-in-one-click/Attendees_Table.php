@@ -6,11 +6,11 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
 
 
 /**
- * Class E_Register_Now__Tickets__Attendees_Table
+ * Class Register_In_One_Click__Tickets__Attendees_Table
  *
  * See documentation for WP_List_Table
  */
-class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
+class Register_In_One_Click__Tickets__Attendees_Table extends WP_List_Table {
 
 	// Store a possible Event
 	public $event = false;
@@ -33,7 +33,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 		if ( ! empty( $_GET['event_id'] ) ) {
 			$this->event = get_post( $_GET['event_id'] );
 		}
-		parent::__construct( apply_filters( 'e_rn_events_tickets_attendees_table_args', $args ) );
+		parent::__construct( apply_filters( 'rioc_events_tickets_attendees_table_args', $args ) );
 	}
 
 
@@ -97,7 +97,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 	public function column_default( $item, $column ) {
 		$value = empty( $item[ $column ] ) ? '' : $item[ $column ];
 
-		return apply_filters( 'e_rn_events_tickets_attendees_table_column', $value, $item, $column );
+		return apply_filters( 'rioc_events_tickets_attendees_table_column', $value, $item, $column );
 	}
 
 	/**
@@ -125,7 +125,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 		 * @param string $unique_id A unique string identifier for the ticket.
 		 * @param array  $item      The item entry.
 		 */
-		return apply_filters( 'e_rn_events_tickets_attendees_table_attendee_id_column', $unique_id, $item );
+		return apply_filters( 'rioc_events_tickets_attendees_table_attendee_id_column', $unique_id, $item );
 	}
 
 	/**
@@ -174,7 +174,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 
 		// If the warning flag is set, add the appropriate icon
 		if ( $warning ) {
-			$icon = sprintf( "<span class='warning'><img src='%s'/></span> ", esc_url( E_Register_Now__Tickets__Main::instance()->plugin_url . 'src/resources/images/warning.png' ) );
+			$icon = sprintf( "<span class='warning'><img src='%s'/></span> ", esc_url( Register_In_One_Click__Tickets__Main::instance()->plugin_url . 'src/resources/images/warning.png' ) );
 		}
 
 		// Look for an order_status_label, fall back on the actual order_status string @todo remove fallback in 3.4.3
@@ -319,7 +319,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 		 */
 		add_thickbox();
 
-		$email_link = E_Register_Now__Settings::instance()->get_url( array(
+		$email_link = Register_In_One_Click__Settings::instance()->get_url( array(
 			'page' => 'tickets-attendees',
 			'action' => 'email',
 			'event_id' => $this->event->ID,
@@ -342,7 +342,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 			$nav['right']['filter_box'] = sprintf( '%s: <input type="text" name="filter_attendee" id="filter_attendee" value="">', esc_html__( 'Filter by purchaser name, ticket #, order # or security code', 'event-tickets' ) );
 		}
 
-		$nav = apply_filters( 'e_rn_events_tickets_attendees_table_nav', $nav, $which );
+		$nav = apply_filters( 'rioc_events_tickets_attendees_table_nav', $nav, $which );
 
 		?>
 		<div class="alignleft actions"><?php echo implode( $nav['left'] ); ?></div>
@@ -363,7 +363,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 			'delete_attendee' => esc_attr__( 'Delete', 'event-tickets' ),
 		);
 
-		return (array) apply_filters( 'e_rn_events_tickets_attendees_table_bulk_actions', $actions );
+		return (array) apply_filters( 'rioc_events_tickets_attendees_table_bulk_actions', $actions );
 	}
 
 	/**
@@ -381,7 +381,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 				$this->bulk_delete();
 				break;
 			default:
-				do_action( 'e_rn_events_tickets_attendees_table_process_bulk_action', $this->current_action() );
+				do_action( 'rioc_events_tickets_attendees_table_process_bulk_action', $this->current_action() );
 				break;
 		}
 	}
@@ -459,7 +459,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 		}
 
 		$addon = call_user_func( array( $parts[1], 'get_instance' ) );
-		if ( ! is_subclass_of( $addon, 'E_Register_Now__Tickets__Tickets' ) ) {
+		if ( ! is_subclass_of( $addon, 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			return $failed;
 		}
 
@@ -475,7 +475,7 @@ class E_Register_Now__Tickets__Attendees_Table extends WP_List_Table {
 
 		$event_id = isset( $_GET['event_id'] ) ? $_GET['event_id'] : 0;
 
-		$items = E_Register_Now__Tickets__Tickets::get_event_attendees( $event_id );
+		$items = Register_In_One_Click__Tickets__Tickets::get_event_attendees( $event_id );
 
 
 		$this->items = $items;

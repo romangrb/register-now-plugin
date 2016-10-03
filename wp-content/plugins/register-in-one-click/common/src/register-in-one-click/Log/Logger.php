@@ -2,7 +2,7 @@
 /**
  * Specifies the minimal interface required of all logging implementations.
  */
-interface E_Register_Now__Log__Logger {
+interface Register_In_One_Click__Log__Logger {
 	/**
 	 * Indicates if the logger will work in the current environment.
 	 *
@@ -25,7 +25,7 @@ interface E_Register_Now__Log__Logger {
 	 * @param string $type
 	 * @param string $src
 	 */
-	public function log( $entry, $type = E_Register_Now__Log::DEBUG, $src = '' );
+	public function log( $entry, $type = Register_In_One_Click__Log::DEBUG, $src = '' );
 
 	/**
 	 * Retrieve up to $limit most recent log entries in reverse chronological
@@ -36,7 +36,7 @@ interface E_Register_Now__Log__Logger {
 	 * obtained via the list_availalbe_logs() method is passed in order to query
 	 * a specific archived log.
 	 *
-	 * @see E_Register_Now__Log__Logger::list_available_logs()
+	 * @see Register_In_One_Click__Log__Logger::list_available_logs()
 	 *
 	 * @param int   $limit
 	 * @param array $args

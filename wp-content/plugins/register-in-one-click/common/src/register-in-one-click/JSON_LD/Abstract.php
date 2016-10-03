@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  *
  * Always extend this when doing a new JSON-LD object
  */
-abstract class E_Register_Now__JSON_LD__Abstract {
+abstract class Register_In_One_Click__JSON_LD__Abstract {
 
 	/**
 	 * Holder of the Instances
@@ -22,7 +22,7 @@ abstract class E_Register_Now__JSON_LD__Abstract {
 	/**
 	 * The class singleton constructor.
 	 *
-	 * @return E_Register_Now__JSON_LD__Abstract
+	 * @return Register_In_One_Click__JSON_LD__Abstract
 	 */
 	public static function instance( $name = null ) {
 		if ( empty( self::$instances[ $name ] ) ) {
@@ -45,7 +45,7 @@ abstract class E_Register_Now__JSON_LD__Abstract {
 	 */
 	public function get_data( $post = null, $args = array() ) {
 		if ( ! $post instanceof WP_Post ) {
-			$post = E_Register_Now__Main::post_id_helper( $post );
+			$post = Register_In_One_Click__Main::post_id_helper( $post );
 		}
 		$post = get_post( $post );
 
@@ -62,7 +62,7 @@ abstract class E_Register_Now__JSON_LD__Abstract {
 		$data->{'@type'}    = $this->type;
 
 		$data->name         = esc_js( get_the_title( $post ) );
-		$data->description  = esc_js( e_rn_events_get_the_excerpt( $post ) );
+		$data->description  = esc_js( rioc_events_get_the_excerpt( $post ) );
 
 		if ( has_post_thumbnail( $post ) ) {
 			$data->image = wp_get_attachment_url( get_post_thumbnail_id( $post ) );
@@ -88,26 +88,26 @@ abstract class E_Register_Now__JSON_LD__Abstract {
 			/**
 			 * Allows the event data to be modifed by themes and other plugins.
 			 *
-			 * @example e_rn_json_ld_thing_object
-			 * @example e_rn_json_ld_event_object
+			 * @example rioc_json_ld_thing_object
+			 * @example rioc_json_ld_event_object
 			 *
 			 * @param object $data objects representing the Google Markup for each event.
 			 * @param array $args the arguments used to get data
 			 * @param WP_Post $post the arguments used to get data
 			 */
-			$data[ $post_id ] = apply_filters( "e_rn_json_ld_{$type}_object", $_data, $args, get_post( $post_id ) );
+			$data[ $post_id ] = apply_filters( "rioc_json_ld_{$type}_object", $_data, $args, get_post( $post_id ) );
 		}
 
 		/**
 		 * Allows the event data to be modifed by themes and other plugins.
 		 *
-		 * @example e_rn_json_ld_thing_data
-		 * @example e_rn_json_ld_event_data
+		 * @example rioc_json_ld_thing_data
+		 * @example rioc_json_ld_event_data
 		 *
 		 * @param array $data objects representing the Google Markup for each event.
 		 * @param array $args the arguments used to get data
 		 */
-		$data = apply_filters( "e_rn_json_ld_{$type}_data", $data, $args );
+		$data = apply_filters( "rioc_json_ld_{$type}_data", $data, $args );
 
 		// Strip the post ID indexing before returning
 		$data = array_values( $data );
@@ -130,13 +130,13 @@ abstract class E_Register_Now__JSON_LD__Abstract {
 		 * @todo Remove on 4.4
 		 * @param string The HTML for the JSON LD markup
 		 */
-		$html = apply_filters( 'e_rn_google_data_markup_json', $html );
+		$html = apply_filters( 'rioc_google_data_markup_json', $html );
 
 		/**
 		 * Allows users to filter the end markup of JSON-LD
 		 * @param string The HTML for the JSON LD markup
 		 */
-		$html = apply_filters( 'e_rn_json_ld_markup', $html );
+		$html = apply_filters( 'rioc_json_ld_markup', $html );
 
 		echo $html;
 	}

@@ -8,17 +8,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Class with a few helpers for the Administration Pages
  */
-class E_Register_Now__Admin__Helpers {
+class Register_In_One_Click__Admin__Helpers {
 	/**
 	 * Static Singleton Holder
-	 * @var E_Register_Now__Admin__Helpers|null
+	 * @var Register_In_One_Click__Admin__Helpers|null
 	 */
 	protected static $instance;
 
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return E_Register_Now__Admin__Helpers
+	 * @return Register_In_One_Click__Admin__Helpers
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
@@ -44,7 +44,7 @@ class E_Register_Now__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( E_Register_Now__Main::instance()->doing_ajax() ) {
+		if ( Register_In_One_Click__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 
@@ -53,7 +53,7 @@ class E_Register_Now__Admin__Helpers {
 			return false;
 		}
 
-		$defaults = apply_filters( 'e_rn_is_post_type_screen_post_types', E_Register_Now__Main::get_post_types() );
+		$defaults = apply_filters( 'rioc_is_post_type_screen_post_types', Register_In_One_Click__Main::get_post_types() );
 
 		// Match any Post Type from Tribe
 		if ( is_null( $post_type ) && in_array( $current_screen->post_type, $defaults ) ) {
@@ -89,7 +89,7 @@ class E_Register_Now__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( E_Register_Now__Main::instance()->doing_ajax() ) {
+		if ( Register_In_One_Click__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 
@@ -104,7 +104,7 @@ class E_Register_Now__Admin__Helpers {
 		}
 
 		// Match any post type page in the supported post types
-		$defaults = apply_filters( 'e_rn_is_post_type_screen_post_types', E_Register_Now__Main::get_post_types() );
+		$defaults = apply_filters( 'rioc_is_post_type_screen_post_types', Register_In_One_Click__Main::get_post_types() );
 
 		if ( in_array( $current_screen->post_type, $defaults ) ) {
 			return true;
@@ -139,7 +139,7 @@ class E_Register_Now__Admin__Helpers {
 		}
 
 		// Doing AJAX? bail.
-		if ( E_Register_Now__Main::instance()->doing_ajax() ) {
+		if ( Register_In_One_Click__Main::instance()->doing_ajax() ) {
 			return false;
 		}
 

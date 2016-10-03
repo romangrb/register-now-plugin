@@ -8,14 +8,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'E_Register_Now__Main' ) ) {
+if ( class_exists( 'Register_In_One_Click__Main' ) ) {
 	return;
 }
 
-class E_Register_Now__Main {
-	const EVENTSERROROPT      = '_e_rn_events_errors';
-	const OPTIONNAME          = 'e_rn_events_calendar_options';
-	const OPTIONNAMENETWORK   = 'e_rn_events_calendar_network_options';
+class Register_In_One_Click__Main {
+	const EVENTSERROROPT      = '_rioc_events_errors';
+	const OPTIONNAME          = 'rioc_events_calendar_options';
+	const OPTIONNAMENETWORK   = 'rioc_events_calendar_network_options';
 
 	const VERSION           = '4.2.4dev';
 	const FEED_URL          = 'https://theeventscalendar.com/feed/';
@@ -25,7 +25,7 @@ class E_Register_Now__Main {
 	protected $doing_ajax = false;
 	protected $log;
 
-	public static $e_rn_url = 'http://tri.be/';
+	public static $rioc_url = 'http://tri.be/';
 	public static $tec_url  = 'http://theeventscalendar.com/';
 
 	public $plugin_dir;
@@ -66,12 +66,12 @@ class E_Register_Now__Main {
 	 * Setup the autoloader for common files
 	 */
 	protected function init_autoloading() {
-		if ( ! class_exists( 'E_Register_Now__Autoloader' ) ) {
+		if ( ! class_exists( 'Register_In_One_Click__Autoloader' ) ) {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
 
-		$prefixes = array( 'E_Register_Now__' => dirname( __FILE__ ) );
-		$autoloader = E_Register_Now__Autoloader::instance();
+		$prefixes = array( 'Register_In_One_Click__' => dirname( __FILE__ ) );
+		$autoloader = Register_In_One_Click__Autoloader::instance();
 		$autoloader->register_prefixes( $prefixes );
 		$autoloader->register_autoloader();
 	}
@@ -87,14 +87,14 @@ class E_Register_Now__Main {
 	 * initializes all required libraries
 	 */
 	public function init_libraries() {
-		E_Register_Now__Debug::instance();
-		E_Register_Now__Settings_Manager::instance();
+		Register_In_One_Click__Debug::instance();
+		Register_In_One_Click__Settings_Manager::instance();
 
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 
-		// Starting the log manager needs to wait until after the e_rn_*_option() functions have loaded
-		$this->log = new E_Register_Now__Log();
+		// Starting the log manager needs to wait until after the rioc_*_option() functions have loaded
+		$this->log = new Register_In_One_Click__Log();
 	}
 
 	/**
@@ -109,7 +109,7 @@ class E_Register_Now__Main {
 			array(
 				'jquery',
 			),
-			apply_filters( 'e_rn_events_css_version', self::VERSION ),
+			apply_filters( 'rioc_events_css_version', self::VERSION ),
 			true
 		);
 		
@@ -117,15 +117,15 @@ class E_Register_Now__Main {
 			'rioc-bootstrap-theme-v3.3.7',
 			$resources_url . '/bootstrap/dist/css/bootstrap.min.css',
 			array(),
-			apply_filters( 'e_rn_events_css_version', self::VERSION ),
+			apply_filters( 'rioc_events_css_version', self::VERSION ),
 			false
 		);
 
 		wp_register_style(
 			'rioc-common-admin',
-			$resources_url . '/css/e_rn-common-admin.css',
+			$resources_url . '/css/rioc-common-admin.css',
 			array(),
-			apply_filters( 'e_rn_events_css_version', self::VERSION )
+			apply_filters( 'rioc_events_css_version', self::VERSION )
 		);
 
 		wp_register_script(
@@ -134,7 +134,7 @@ class E_Register_Now__Main {
 			array(
 				'jquery',
 			),
-			apply_filters( 'e_rn_events_css_version', self::VERSION ),
+			apply_filters( 'rioc_events_css_version', self::VERSION ),
 			true
 		);
 
@@ -144,7 +144,7 @@ class E_Register_Now__Main {
 			array(
 				'ba-dotimeout',
 			),
-			apply_filters( 'e_rn_events_css_version', self::VERSION ),
+			apply_filters( 'rioc_events_css_version', self::VERSION ),
 			true
 		);
 
@@ -152,7 +152,7 @@ class E_Register_Now__Main {
 			'rioc-notice-dismiss',
 			$resources_url . '/js/notice-dismiss.js',
 			array( 'jquery' ),
-			apply_filters( 'e_rn_events_css_version', self::VERSION ),
+			apply_filters( 'rioc_events_css_version', self::VERSION ),
 			true
 		);
 	}
@@ -167,14 +167,14 @@ class E_Register_Now__Main {
 			'rioc-jquery-ui-theme',
 			$vendor_base . '/jquery/ui.theme.css',
 			array(),
-			apply_filters( 'e_rn_events_css_version', self::VERSION )
+			apply_filters( 'rioc_events_css_version', self::VERSION )
 		);
 
 		wp_register_style(
 			'rioc-jquery-ui-datepicker',
 			$vendor_base . '/jquery/ui.datepicker.css',
 			array( 'rioc-jquery-ui-theme' ),
-			apply_filters( 'e_rn_events_css_version', self::VERSION )
+			apply_filters( 'rioc_events_css_version', self::VERSION )
 		);
 
 	}
@@ -183,9 +183,9 @@ class E_Register_Now__Main {
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
-		add_action( 'plugins_loaded', array( 'E_Register_Now__Authentication', 'instance' ) );
-		add_action( 'plugins_loaded', array( 'E_Register_Now__Configuration', 'instance' ) );
-		add_action( 'plugins_loaded', array( 'E_Register_Now__App_Shop', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Authentication', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Configuration', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'Register_In_One_Click__App_Shop', 'instance' ) );
 		
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
@@ -224,7 +224,7 @@ class E_Register_Now__Main {
 		 * @param string      $locale Which Language we will load
 		 * @param string|bool $dir    If there was a custom directory passed on the method call
 		 */
-		$mofile = apply_filters( 'e_rn_load_text_domain', $mofile, $domain, $locale, $dir );
+		$mofile = apply_filters( 'rioc_load_text_domain', $mofile, $domain, $locale, $dir );
 
 		$loaded = load_plugin_textdomain( $domain, false, $mofile );
 
@@ -245,14 +245,14 @@ class E_Register_Now__Main {
 		
 		wp_enqueue_script( 'rioc-jquery-form-validator' );
 
-		$helper = E_Register_Now__Admin__Helpers::instance();
+		$helper = Register_In_One_Click__Admin__Helpers::instance();
 		if ( $helper->is_post_type_screen() ) {
 			wp_enqueue_style( 'rioc-jquery-ui-datepicker' );
 		}
 	}
 
 	/**
-	 * @return E_Register_Now__Log
+	 * @return Register_In_One_Click__Log
 	 */
 	public function log() {
 		return $this->log;
@@ -263,7 +263,7 @@ class E_Register_Now__Main {
 	 */
 	public static function get_post_types() {
 		// we default the post type array to empty in rioc-common. Plugins like TEC add to it
-		return apply_filters( 'e_rn_post_types', array() );
+		return apply_filters( 'rioc_post_types', array() );
 	}
 
 	/**
@@ -350,7 +350,7 @@ class E_Register_Now__Main {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return E_Register_Now__Main
+	 * @return Register_In_One_Click__Main
 	 */
 	public static function instance() {
 		static $instance;

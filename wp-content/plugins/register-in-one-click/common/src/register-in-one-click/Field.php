@@ -5,13 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Field' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Field' ) ) {
 	/**
 	 * helper class that creates fields for use in Settings, MetaBoxes, Users, anywhere.
 	 * Instantiate it whenever you need a field
 	 *
 	 */
-	class E_Register_Now__Field {
+	class Register_In_One_Click__Field {
 
 		/**
 		 * the field's id
@@ -97,7 +97,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 				'license_key',
 			);
 
-			$this->valid_field_types = apply_filters( 'e_rn_valid_field_types', $this->valid_field_types );
+			$this->valid_field_types = apply_filters( 'rioc_valid_field_types', $this->valid_field_types );
 
 			// parse args with defaults and extract them
 			$args = wp_parse_args( $field, $this->defaults );
@@ -166,11 +166,11 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 			$clear_after      = (bool) $args['clear_after'];
 
 			// set the ID
-			$this->id = apply_filters( 'e_rn_field_id', $id );
+			$this->id = apply_filters( 'rioc_field_id', $id );
 
 			// set each instance variable and filter
 			foreach ( $this->defaults as $key => $value ) {
-				$this->{$key} = apply_filters( 'e_rn_field_' . $key, $$key, $this->id );
+				$this->{$key} = apply_filters( 'rioc_field_' . $key, $$key, $this->id );
 			}
 
 			// epicness
@@ -200,13 +200,13 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 					$field = call_user_func( array( $this, $this->type ) );
 
 					// filter the output
-					$field = apply_filters( 'e_rn_field_output_' . $this->type, $field, $this->id, $this );
-					echo apply_filters( 'e_rn_field_output_' . $this->type . '_' . $this->id, $field, $this->id, $this );
+					$field = apply_filters( 'rioc_field_output_' . $this->type, $field, $this->id, $this );
+					echo apply_filters( 'rioc_field_output_' . $this->type . '_' . $this->id, $field, $this->id, $this );
 
 				} else {
 
 					// fail, log the error
-					E_Register_Now__Main::debug( esc_html__( 'Invalid field type specified', 'rioc-common' ), $this->type, 'notice' );
+					Register_In_One_Click__Main::debug( esc_html__( 'Invalid field type specified', 'rioc-common' ), $this->type, 'notice' );
 
 				}
 			}
@@ -225,7 +225,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 			$return .= ( $this->class ) ? ' ' . $this->class . '"' : '"';
 			$return .= '>';
 
-			return apply_filters( 'e_rn_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
+			return apply_filters( 'rioc_field_start', $return, $this->id, $this->type, $this->error, $this->class, $this );
 		}
 
 		/**
@@ -237,7 +237,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 			$return = '</fieldset>';
 			$return .= ( $this->clear_after ) ? '<div class="clear"></div>' : '';
 
-			return apply_filters( 'e_rn_field_end', $return, $this->id, $this );
+			return apply_filters( 'rioc_field_end', $return, $this->id, $this );
 		}
 
 		/**
@@ -251,7 +251,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 				$return = '<legend class="rioc-field-label">' . $this->label . '</legend>';
 			}
 
-			return apply_filters( 'e_rn_field_label', $return, $this->label, $this );
+			return apply_filters( 'rioc_field_label', $return, $this->label, $this );
 		}
 
 		/**
@@ -262,7 +262,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 		public function doFieldDivStart() {
 			$return = '<div class="rioc-field-wrap">';
 
-			return apply_filters( 'e_rn_field_div_start', $return, $this );
+			return apply_filters( 'rioc_field_div_start', $return, $this );
 		}
 
 		/**
@@ -274,7 +274,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 			$return = $this->doToolTip();
 			$return .= '</div>';
 
-			return apply_filters( 'e_rn_field_div_end', $return, $this );
+			return apply_filters( 'rioc_field_div_end', $return, $this );
 		}
 
 		/**
@@ -288,7 +288,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 				$return = '<p class="tooltip description">' . $this->tooltip . '</p>';
 			}
 
-			return apply_filters( 'e_rn_field_tooltip', $return, $this->tooltip, $this );
+			return apply_filters( 'rioc_field_tooltip', $return, $this->tooltip, $this );
 		}
 
 		/**
@@ -302,7 +302,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 				$return = '<label class="screen-reader-text">' . $this->tooltip . '</label>';
 			}
 
-			return apply_filters( 'e_rn_field_screen_reader_label', $return, $this->tooltip, $this );
+			return apply_filters( 'rioc_field_screen_reader_label', $return, $this->tooltip, $this );
 		}
 
 		/**
@@ -316,7 +316,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 				$return = ' value="' . $this->value . '"';
 			}
 
-			return apply_filters( 'e_rn_field_value', $return, $this->value, $this );
+			return apply_filters( 'rioc_field_value', $return, $this->value, $this );
 		}
 
 		/**
@@ -336,7 +336,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 				}
 			}
 
-			return apply_filters( 'e_rn_field_name', $return, $this->name, $this );
+			return apply_filters( 'rioc_field_name', $return, $this->name, $this );
 		}
 
 		/**
@@ -352,7 +352,7 @@ if ( ! class_exists( 'E_Register_Now__Field' ) ) {
 				}
 			}
 
-			return apply_filters( 'e_rn_field_attributes', $return, $this->name, $this );
+			return apply_filters( 'rioc_field_attributes', $return, $this->name, $this );
 		}
 
 		/**

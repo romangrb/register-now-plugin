@@ -2,7 +2,7 @@
 /**
  * Facilitiates live date previews in the Events > Settings > Display admin screen.
  */
-class E_Register_Now__Admin__Live_Date_Preview {
+class Register_In_One_Click__Admin__Live_Date_Preview {
 	protected $target_fields = array(
 		'dateWithYearFormat',
 		'dateWithoutYearFormat',
@@ -15,7 +15,7 @@ class E_Register_Now__Admin__Live_Date_Preview {
 	 * the user is actually on that tab).
 	 */
 	public function __construct() {
-		add_action( 'e_rn_settings_after_do_tabs', array( $this, 'listen' ) );
+		add_action( 'rioc_settings_after_do_tabs', array( $this, 'listen' ) );
 	}
 
 	/**
@@ -23,7 +23,7 @@ class E_Register_Now__Admin__Live_Date_Preview {
 	 */
 	public function listen() {
 		// We are only interested in the "Display" tab
-		if ( 'display' !== E_Register_Now__Settings::instance()->currentTab ) {
+		if ( 'display' !== Register_In_One_Click__Settings::instance()->currentTab ) {
 			return;
 		}
 
@@ -32,9 +32,9 @@ class E_Register_Now__Admin__Live_Date_Preview {
 		 *
 		 * @var array $target_fields
 		 */
-		$this->target_fields = (array) apply_filters( 'e_rn_settings_date_preview_fields', $this->target_fields );
+		$this->target_fields = (array) apply_filters( 'rioc_settings_date_preview_fields', $this->target_fields );
 
-		add_filter( 'e_rn_field_div_end', array( $this, 'setup_date_previews' ), 10, 2 );
+		add_filter( 'rioc_field_div_end', array( $this, 'setup_date_previews' ), 10, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'live_refresh_script' ) );
 	}
 
@@ -52,7 +52,7 @@ class E_Register_Now__Admin__Live_Date_Preview {
 	 * Enquues a script to handle live refresh of the date previews.
 	 */
 	public function live_refresh_script() {
-		$url = E_Register_Now__Template_Factory::getMinFile( e_rn_resource_url( 'admin-date-preview.js', false, 'common' ), true );
+		$url = Register_In_One_Click__Template_Factory::getMinFile( rioc_resource_url( 'admin-date-preview.js', false, 'common' ), true );
 		wp_enqueue_script( 'rioc-date-live-refresh', $url, array( 'jquery' ), false, true );
 	}
 }

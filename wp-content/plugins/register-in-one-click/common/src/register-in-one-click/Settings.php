@@ -5,14 +5,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Settings' ) ) {
 	/**
 	 * helper class that allows registration of settings
 	 * this is a static class & uses the singleton design method
-	 * instantiation takes place in E_Register_Now__Main
+	 * instantiation takes place in Register_In_One_Click__Main
 	 *
 	 */
-	class E_Register_Now__Settings {
+	class Register_In_One_Click__Settings {
 
 		/**
 		 * Slug of the parent menu slug
@@ -27,7 +27,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		public static $parent_page = 'admin.php';
 
 		/**
-		 * @var E_Register_Now__Admin__Live_Date_Preview
+		 * @var Register_In_One_Click__Admin__Live_Date_Preview
 		 */
 		public $live_date_preview;
 
@@ -114,14 +114,14 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 
 		/**
 		 * Static Singleton Holder
-		 * @var E_Register_Now__Settings|null
+		 * @var Register_In_One_Click__Settings|null
 		 */
 		private static $instance;
 
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @return E_Register_Now__Settings
+		 * @return Register_In_One_Click__Settings
 		 */
 		public static function instance() {
 			if ( empty( self::$instance ) ) {
@@ -154,11 +154,11 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 */
 		public function should_setup_pages() {
 			
-			if ( ! class_exists( 'E_Register_Now__Events__Main' )) {
+			if ( ! class_exists( 'Register_In_One_Click__Events__Main' )) {
 				return true;
 			}
 
-			if ( version_compare( E_Register_Now__Events__Main::VERSION, '4.0beta', '>=' ) ) {
+			if ( version_compare( Register_In_One_Click__Events__Main::VERSION, '4.0beta', '>=' ) ) {
 				return true;
 			}
 
@@ -199,7 +199,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 				return;
 			}
 
-			if ( ! is_multisite() || ( is_multisite() && '0' == E_Register_Now__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
+			if ( ! is_multisite() || ( is_multisite() && '0' == Register_In_One_Click__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
 				if ( post_type_exists( 'rioc-common' ) ) {
 					self::$parent_page = 'edit.php?post_type=rioc-common';
 				} else {
@@ -208,7 +208,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 					add_menu_page(
 						esc_html__( 'Events', 'rioc-common' ),
 						esc_html__( 'Register in One Click', 'rioc-common' ),
-						apply_filters( 'e_rn_common_event_page_capability', 'manage_options' ),
+						apply_filters( 'rioc_common_event_page_capability', 'manage_options' ),
 						self::$parent_slug,
 						null,
 						'dashicons-calendar',
@@ -252,7 +252,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 			// keep the resulting URL args clean
 			unset( $args['parent'] );
 
-			return apply_filters( 'e_rn_settings_url', add_query_arg( $args, $url ), $args, $url );
+			return apply_filters( 'rioc_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
 		
 		/**

@@ -6,7 +6,7 @@
  * 
  * Logs nothing, reads nothing.
  */
-class E_Register_Now__Log__Null_Logger implements E_Register_Now__Log__Logger{
+class Register_In_One_Click__Log__Null_Logger implements Register_In_One_Click__Log__Logger{
 
 	/**
 	 * Indicates if the logger will work in the current environment.
@@ -34,7 +34,7 @@ class E_Register_Now__Log__Null_Logger implements E_Register_Now__Log__Logger{
 	 * @param string $type
 	 * @param string $src
 	 */
-	public function log( $entry, $type = E_Register_Now__Log::DEBUG, $src = '' ) {
+	public function log( $entry, $type = Register_In_One_Click__Log::DEBUG, $src = '' ) {
 		// no-op
 	}
 
@@ -47,7 +47,7 @@ class E_Register_Now__Log__Null_Logger implements E_Register_Now__Log__Logger{
 	 * obtained via the list_availalbe_logs() method is passed in order to query
 	 * a specific archived log.
 	 *
-	 * @see E_Register_Now__Log__Logger::list_available_logs()
+	 * @see Register_In_One_Click__Log__Logger::list_available_logs()
 	 *
 	 * @param int   $limit
 	 * @param array $args

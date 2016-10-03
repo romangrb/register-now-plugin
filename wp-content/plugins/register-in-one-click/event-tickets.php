@@ -36,4 +36,4 @@ define( 'EVENT_TICKETS_DIR', dirname( __FILE__ ) );
 // the main plugin class
 require_once EVENT_TICKETS_DIR . '/src/register-in-one-click/Main.php';
 
-E_Register_Now__Tickets__Main::instance();
+Register_In_One_Click__Tickets__Main::instance();

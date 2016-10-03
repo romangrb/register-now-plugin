@@ -5,11 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 	/**
 	 * Class that handles the integration with our Shop App API
 	 */
-	class E_Register_Now__Authentication {
+	class Register_In_One_Click__Authentication {
 
 		/**
 		 * Slug of the WP admin menu item
@@ -19,7 +19,7 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		/**
 		 * Singleton instance
 		 *
-		 * @var null or E_Register_Now__Authentication
+		 * @var null or Register_In_One_Click__Authentication
 		 */
 		private static $instance = null;
 		/**
@@ -50,7 +50,7 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		}
 		
 		public function auth_scripts() {
-			wp_enqueue_script( 'inputtitle_submit', e_rn_resource_url('app-get-auth-new.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ), array( 'jquery' ) );
+			wp_enqueue_script( 'inputtitle_submit', rioc_resource_url('app-get-auth-new.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			wp_localize_script('inputtitle_submit', 'Auth_new_ajax', array(
 					'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 					'nextNonce' => wp_create_nonce( 'myajax-next-nonce' ),
@@ -90,15 +90,15 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		 * Adds the page to the admin menu
 		 */
 		public function add_menu_page() {
-			if ( ! E_Register_Now__Settings::instance()->should_setup_pages() ) {
+			if ( ! Register_In_One_Click__Settings::instance()->should_setup_pages() ) {
 				return;
 			}
 
 			$page_title = esc_html__( 'Authentication', 'rioc-common' );
 			$menu_title = esc_html__( 'Initialize Plugin', 'rioc-common' );
-			$capability = apply_filters( 'e_rn_events_addon_page_capability', 'install_plugins' );
+			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
 
-			$where = E_Register_Now__Settings::instance()->get_parent_slug();
+			$where = Register_In_One_Click__Settings::instance()->get_parent_slug();
 
 			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
 
@@ -110,7 +110,7 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		 */
 		public function add_toolbar_item() {
 
-			$capability = apply_filters( 'e_rn_events_addon_page_capability', 'install_plugins' );
+			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
 
 			// prevent users who cannot install plugins from seeing addons link
 			if ( current_user_can( $capability ) ) {
@@ -119,7 +119,7 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'rioc-authentication',
 					'title'  => esc_html__( 'Initialize Plugin', 'rioc-common' ),
-					'href'   => E_Register_Now__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
+					'href'   => Register_In_One_Click__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
 					'parent' => 'rioc-events-settings-group',
 				) );
 			}
@@ -130,9 +130,9 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		 */
 		public function enqueue() {
 			
-			wp_enqueue_script( 'app-capcha-authentication', e_rn_resource_url('app-capcha-authentication.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
-			// wp_enqueue_script( 'app-authentication-form-validate', e_rn_resource_url('app-authentication-form-validate.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
-			wp_enqueue_style( 'app-authentication-form-style', e_rn_resource_url('app-authentication-form.css', false,'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
+			wp_enqueue_script( 'app-capcha-authentication', rioc_resource_url('app-capcha-authentication.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
+			// wp_enqueue_script( 'app-authentication-form-validate', rioc_resource_url('app-authentication-form-validate.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
+			wp_enqueue_style( 'app-authentication-form-style', rioc_resource_url('app-authentication-form.css', false,'common' ), array(), apply_filters( 'rioc_events_css_version', Register_In_One_Click__Main::VERSION ) );
 			
 		}
 
@@ -157,19 +157,19 @@ if ( ! class_exists( 'E_Register_Now__Authentication' ) ) {
 		}
 
 		/**
-		 * Renders the e_rn_Authentication page
+		 * Renders the rioc_Authentication page
 		 */
 		 
 		public function do_menu_page() {
 					
-			include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/authentication.php';
+			include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/authentication.php';
 			
 		}
 
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @return E_Register_Now__Authentication
+		 * @return Register_In_One_Click__Authentication
 		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) ) {

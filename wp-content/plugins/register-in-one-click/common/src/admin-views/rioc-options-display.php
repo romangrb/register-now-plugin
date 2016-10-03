@@ -8,11 +8,11 @@ $displayTab = array(
 	/**
 	 * Filter the fields available on the display settings tab
 	 *
-	 * @param array $fields a nested associative array of fields & field info passed to E_Register_Now__Field
-	 * @see E_Register_Now__Field
+	 * @param array $fields a nested associative array of fields & field info passed to Register_In_One_Click__Field
+	 * @see Register_In_One_Click__Field
 	 */
 		apply_filters(
-		'e_rn_display_settings_tab_fields', array(
+		'rioc_display_settings_tab_fields', array(
 			'rioc-form-content-start'           => array(
 				'type' => 'html',
 				'html' => '<div class="rioc-settings-form-wrap">',

@@ -11,7 +11,7 @@ $is_there_any_product         = false;
 $is_there_any_product_to_sell = false;
 
 ob_start();
-$messages = E_Register_Now__Tickets__RSVP::get_instance()->get_messages();
+$messages = Register_In_One_Click__Tickets__RSVP::get_instance()->get_messages();
 $messages_class = $messages ? 'rioc-rsvp-message-display' : '';
 $now = current_time( 'timestamp' );
 ?>
@@ -37,7 +37,7 @@ $now = current_time( 'timestamp' );
 		<?php
 		foreach ( $tickets as $ticket ) {
 			// if the ticket isn't an RSVP ticket, then let's skip it
-			if ( 'E_Register_Now__Tickets__RSVP' !== $ticket->provider_class ) {
+			if ( 'Register_In_One_Click__Tickets__RSVP' !== $ticket->provider_class ) {
 				continue;
 			}
 
@@ -84,9 +84,9 @@ $now = current_time( 'timestamp' );
 				 * Allows injection of HTML after an RSVP ticket table row
 				 *
 				 * @var Event ID
-				 * @var E_Register_Now__Tickets__Ticket_Object
+				 * @var Register_In_One_Click__Tickets__Ticket_Object
 				 */
-				do_action( 'event_tickets_rsvp_after_ticket_row', e_rn_events_get_ticket_event( $ticket->id ), $ticket );
+				do_action( 'event_tickets_rsvp_after_ticket_row', rioc_events_get_ticket_event( $ticket->id ), $ticket );
 
 			}
 		}//end foreach
@@ -100,7 +100,7 @@ $now = current_time( 'timestamp' );
 					/**
 					 * Allows injection of HTML before RSVP ticket confirmation fields
 					 *
-					 * @var array of E_Register_Now__Tickets__Ticket_Object
+					 * @var array of Register_In_One_Click__Tickets__Ticket_Object
 					 */
 					do_action( 'event_tickets_rsvp_before_confirmation_fields', $tickets );
 					?>
@@ -127,11 +127,11 @@ $now = current_time( 'timestamp' );
 								<label for="rioc-tickets-order_status"><?php esc_html_e( 'RSVP', 'event-tickets' ); ?>:</label>
 							</td>
 							<td colspan="3">
-								<?php E_Register_Now__Tickets__Tickets_View::instance()->render_rsvp_selector( 'attendee[order_status]', '' ); ?>
+								<?php Register_In_One_Click__Tickets__Tickets_View::instance()->render_rsvp_selector( 'attendee[order_status]', '' ); ?>
 							</td>
 						</tr>
 
-						<?php if ( class_exists( 'E_Register_Now__Tickets_Plus__Attendees_List' ) && ! E_Register_Now__Tickets_Plus__Attendees_List::is_hidden_on( get_the_ID() ) ) : ?>
+						<?php if ( class_exists( 'Register_In_One_Click__Tickets_Plus__Attendees_List' ) && ! Register_In_One_Click__Tickets_Plus__Attendees_List::is_hidden_on( get_the_ID() ) ) : ?>
 							<tr class="rioc-tickets-attendees-list-optout">
 								<td colspan="4">
 									<input type="checkbox" name="attendee[optout]" id="rioc-tickets-attendees-list-optout">
@@ -145,7 +145,7 @@ $now = current_time( 'timestamp' );
 			<tr>
 				<td colspan="4" class="add-to-cart">
 					<?php if ( $must_login ): ?>
-						<?php $login_url = E_Register_Now__Tickets__Tickets::get_login_url() ?>
+						<?php $login_url = Register_In_One_Click__Tickets__Tickets::get_login_url() ?>
 						<a href="<?php echo $login_url; ?>"><?php esc_html_e( 'Login to RSVP', 'event-tickets' );?></a>
 					<?php else: ?>
 						<button type="submit" name="tickets_process" value="1" class="button alt"><?php esc_html_e( 'Confirm RSVP', 'event-tickets' );?></button>

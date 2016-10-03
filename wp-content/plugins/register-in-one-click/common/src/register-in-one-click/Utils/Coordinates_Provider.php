@@ -2,11 +2,11 @@
 
 
 /**
- * Class E_Register_Now__Utils__Coordinates_Provider
+ * Class Register_In_One_Click__Utils__Coordinates_Provider
  *
  * Provided latitude and longitude coordinates for a location.
  */
-class E_Register_Now__Utils__Coordinates_Provider {
+class Register_In_One_Click__Utils__Coordinates_Provider {
 
 	/**
 	 * @var string
@@ -21,7 +21,7 @@ class E_Register_Now__Utils__Coordinates_Provider {
 	/**
 	 * @var string
 	 */
-	public static $transient_name = 'e_rn_resolved_address_coordinates';
+	public static $transient_name = 'rioc_resolved_address_coordinates';
 
 	/**
 	 * @var bool
@@ -34,14 +34,14 @@ class E_Register_Now__Utils__Coordinates_Provider {
 	private $http;
 
 	/**
-	 * @var E_Register_Now__Utils__Coordinates_Provider
+	 * @var Register_In_One_Click__Utils__Coordinates_Provider
 	 */
 	protected static $instance;
 
 	/**
 	 * The class singleton constructor.
 	 *
-	 * @return E_Register_Now__Utils__Coordinates_Provider
+	 * @return Register_In_One_Click__Utils__Coordinates_Provider
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
@@ -52,7 +52,7 @@ class E_Register_Now__Utils__Coordinates_Provider {
 	}
 
 	/**
-	 * E_Register_Now__Utils__Coordinates_Provider constructor.
+	 * Register_In_One_Click__Utils__Coordinates_Provider constructor.
 	 *
 	 * @param WP_Http|null $http
 	 */

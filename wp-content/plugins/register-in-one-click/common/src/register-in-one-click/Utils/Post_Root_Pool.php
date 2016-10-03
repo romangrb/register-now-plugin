@@ -1,12 +1,12 @@
 <?php
 
 
-class E_Register_Now__Utils__Post_Root_Pool {
+class Register_In_One_Click__Utils__Post_Root_Pool {
 
 	/**
 	 * @var string
 	 */
-	protected $pool_transient_name = 'e_rn_ticket_prefix_pool';
+	protected $pool_transient_name = 'rioc_ticket_prefix_pool';
 
 	/**
 	 * @var array|bool

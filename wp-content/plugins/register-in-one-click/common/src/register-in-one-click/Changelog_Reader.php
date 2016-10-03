@@ -1,6 +1,6 @@
 <?php
 
-class E_Register_Now__Changelog_Reader {
+class Register_In_One_Click__Changelog_Reader {
 	protected $version_count = 3;
 	protected $readme_file = '';
 
@@ -10,7 +10,7 @@ class E_Register_Now__Changelog_Reader {
 	}
 
 	protected function default_readme_file() {
-		return dirname( E_Register_Now__Main::instance()->plugin_path ) . '/readme.txt';
+		return dirname( Register_In_One_Click__Main::instance()->plugin_path ) . '/readme.txt';
 	}
 
 	public function get_changelog() {

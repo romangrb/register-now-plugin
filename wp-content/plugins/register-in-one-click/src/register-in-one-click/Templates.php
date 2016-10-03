@@ -1,6 +1,6 @@
 <?php
 
-class E_Register_Now__Tickets__Templates extends E_Register_Now__Templates {
+class Register_In_One_Click__Tickets__Templates extends Register_In_One_Click__Templates {
 	/**
 	 * Loads theme files in appropriate hierarchy: 1) child theme,
 	 * 2) parent template, 3) plugin resources. will look in the events/
@@ -50,7 +50,7 @@ class E_Register_Now__Tickets__Templates extends E_Register_Now__Templates {
 		 *
 		 * @var array
 		 */
-		$template_base_paths = apply_filters( 'e_rn_tickets_template_paths', ( array ) E_Register_Now__Tickets__Main::instance()->plugin_path );
+		$template_base_paths = apply_filters( 'rioc_tickets_template_paths', ( array ) Register_In_One_Click__Tickets__Main::instance()->plugin_path );
 
 		// backwards compatibility if $plugin_path arg is used
 		if ( $plugin_path && ! in_array( $plugin_path, $template_base_paths ) ) {
@@ -102,7 +102,7 @@ class E_Register_Now__Tickets__Templates extends E_Register_Now__Templates {
 				 * @var string File path
 				 * @var string Template filename
 				 */
-				$file = apply_filters( 'e_rn_tickets_template', $file, $template );
+				$file = apply_filters( 'rioc_tickets_template', $file, $template );
 
 				// return the first one found
 				if ( file_exists( $file ) ) {
@@ -118,6 +118,6 @@ class E_Register_Now__Tickets__Templates extends E_Register_Now__Templates {
 		 *
 		 * @var string File path
 		 */
-		return apply_filters( 'e_rn_tickets_template_' . $template, $file );
+		return apply_filters( 'rioc_tickets_template_' . $template, $file );
 	}
 }

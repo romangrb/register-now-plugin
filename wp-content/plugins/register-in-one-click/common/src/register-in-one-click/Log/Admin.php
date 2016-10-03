@@ -1,7 +1,7 @@
 <?php
-class E_Register_Now__Log__Admin {
+class Register_In_One_Click__Log__Admin {
 	public function __construct() {
-		add_action( 'wp_ajax_e_rn_logging_controls', array( $this, 'listen' ) );
+		add_action( 'wp_ajax_rioc_logging_controls', array( $this, 'listen' ) );
 		add_action( 'init', array( $this, 'serve_log_downloads' ) );
 		add_action( 'init', array( $this, 'register_script' ) );
 	}
@@ -22,7 +22,7 @@ class E_Register_Now__Log__Admin {
 		$this->setup_script();
 
 		ob_start();
-		include trailingslashit( E_Register_Now__Main::instance()->plugin_path ) . 'src/admin-views/event-log.php';
+		include trailingslashit( Register_In_One_Click__Main::instance()->plugin_path ) . 'src/admin-views/event-log.php';
 		return ob_get_clean();
 	}
 
@@ -50,7 +50,7 @@ class E_Register_Now__Log__Admin {
 		 *
 		 * This will not happen unless a nonce check has already passed.
 		 */
-		do_action( 'e_rn_common_update_log_settings' );
+		do_action( 'rioc_common_update_log_settings' );
 
 		$this->update_logging_level( $fields['log-level'] );
 		$this->update_logging_engine( $fields['log-engine'] );
@@ -58,7 +58,7 @@ class E_Register_Now__Log__Admin {
 		/**
 		 * Fires immediately after log settings have been committed.
 		 */
-		do_action( 'e_rn_common_updated_log_settings' );
+		do_action( 'rioc_common_updated_log_settings' );
 
 		$data = array(
 			'logs' => $this->get_available_logs(),
@@ -103,9 +103,9 @@ class E_Register_Now__Log__Admin {
 	public function register_script() {
 		wp_register_script(
 			'rioc-common-logging-controls',
-			e_rn_resource_url( 'admin-log-controls.js', false, 'common' ),
+			rioc_resource_url( 'admin-log-controls.js', false, 'common' ),
 			array( 'jquery' ),
-			E_Register_Now__Main::VERSION,
+			Register_In_One_Click__Main::VERSION,
 			true
 		);
 	}
@@ -115,7 +115,7 @@ class E_Register_Now__Log__Admin {
 	 */
 	protected function setup_script() {
 		wp_enqueue_script( 'rioc-common-logging-controls' );
-		wp_localize_script( 'rioc-common-logging-controls', 'e_rn_logger_data', array(
+		wp_localize_script( 'rioc-common-logging-controls', 'rioc_logger_data', array(
 			'check' => wp_create_nonce( 'logging-controls' )
 		) );
 	}
@@ -151,7 +151,7 @@ class E_Register_Now__Log__Admin {
 
 		foreach ( $available_engines as $class_name => $engine ) {
 			/**
-			 * @var E_Register_Now__Log__Logger $engine
+			 * @var Register_In_One_Click__Log__Logger $engine
 			 */
 			$engine_list[ $class_name ] = $engine->get_name();
 		}
@@ -232,7 +232,7 @@ class E_Register_Now__Log__Admin {
 		 *
 		 * @param string $log_name
 		 */
-		$log_name = apply_filters( 'e_rn_common_log_download_filename', $log_name );
+		$log_name = apply_filters( 'rioc_common_log_download_filename', $log_name );
 
 		header( 'Content-Disposition: attachment; filename="rioc-log-' . $log_name . '"' );
 		$output = fopen( 'php://output', 'w' );
@@ -248,19 +248,19 @@ class E_Register_Now__Log__Admin {
 	/**
 	 * Returns a reference to the main log management object.
 	 *
-	 * @return E_Register_Now__Log
+	 * @return Register_In_One_Click__Log
 	 */
 	protected function log_manager() {
-		return E_Register_Now__Main::instance()->log();
+		return Register_In_One_Click__Main::instance()->log();
 	}
 
 	/**
 	 * Returns the currently enabled logging object or null if it is not
 	 * available.
 	 *
-	 * @return E_Register_Now__Log__Logger|null
+	 * @return Register_In_One_Click__Log__Logger|null
 	 */
 	protected function current_logger() {
-		return E_Register_Now__Main::instance()->log()->get_current_logger();
+		return Register_In_One_Click__Main::instance()->log()->get_current_logger();
 	}
 }

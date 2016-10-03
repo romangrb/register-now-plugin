@@ -8,7 +8,7 @@
  *  - save_post
  *
  */
-class E_Register_Now__Cache {
+class Register_In_One_Click__Cache {
 	const NO_EXPIRATION  = 0;
 	const NON_PERSISTENT = - 1;
 
@@ -109,7 +109,7 @@ class E_Register_Now__Cache {
 	 * @return int
 	 */
 	public function get_last_occurrence( $action ) {
-		return (int) get_option( 'e_rn_last_' . $action, time() );
+		return (int) get_option( 'rioc_last_' . $action, time() );
 	}
 
 	/**
@@ -120,7 +120,7 @@ class E_Register_Now__Cache {
 		if ( empty( $timestamp ) ) {
 			$timestamp = time();
 		}
-		update_option( 'e_rn_last_' . $action, (int) $timestamp );
+		update_option( 'rioc_last_' . $action, (int) $timestamp );
 	}
 }
 

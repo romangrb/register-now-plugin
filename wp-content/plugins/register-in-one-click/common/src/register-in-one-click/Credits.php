@@ -3,7 +3,7 @@
 /**
  * Handles output of The Events Calendar credits
  */
-class E_Register_Now__Credits {
+class Register_In_One_Click__Credits {
 
 	public static function init() {
 		self::instance()->hook();
@@ -13,7 +13,7 @@ class E_Register_Now__Credits {
 	 * Hook the functionality of this class into the world
 	 */
 	public function hook() {
-		add_filter( 'e_rn_events_after_html', array( $this, 'html_comment_credit' ) );
+		add_filter( 'rioc_events_after_html', array( $this, 'html_comment_credit' ) );
 		add_filter( 'admin_footer_text', array( $this, 'rating_nudge' ), 1, 2 );
 	}
 
@@ -24,12 +24,12 @@ class E_Register_Now__Credits {
 	 **/
 	public function html_comment_credit( $after_html ) {
 
-		if ( ! class_exists( 'E_Register_Now__Events__Main' ) ) {
+		if ( ! class_exists( 'Register_In_One_Click__Events__Main' ) ) {
 			return $after_html;
 		}
 
 		$html_credit = "\n<!--\n" . esc_html__( 'This calendar is powered by %1$s.', 'rioc-common' ) . "\nhttp://m.tri.be/18wn\n-->\n";
-		$after_html .= apply_filters( 'e_rn_html_credit', $html_credit );
+		$after_html .= apply_filters( 'rioc_html_credit', $html_credit );
 		return $after_html;
 	}
 
@@ -41,14 +41,14 @@ class E_Register_Now__Credits {
 	 * @return string
 	 */
 	public function rating_nudge( $footer_text ) {
-		$admin_helpers = E_Register_Now__Admin__Helpers::instance();
+		$admin_helpers = Register_In_One_Click__Admin__Helpers::instance();
 
-		add_filter( 'e_rn_tickets_post_types', array( $this, 'tmp_return_e_rn_events' ), 99 );
+		add_filter( 'rioc_tickets_post_types', array( $this, 'tmp_return_rioc_events' ), 99 );
 
 		// only display custom text on Tribe Admin Pages
 		if ( $admin_helpers->is_screen() || $admin_helpers->is_post_type_screen() ) {
 
-			if ( class_exists( 'E_Register_Now__Events__Main' ) ) {
+			if ( class_exists( 'Register_In_One_Click__Events__Main' ) ) {
 				$review_url = 'https://wordpress.org/support/view/plugin-reviews/the-events-calendar?filter=5';
 
 				$footer_text = sprintf(
@@ -69,7 +69,7 @@ class E_Register_Now__Credits {
 			}
 		}
 
-		remove_filter( 'e_rn_tickets_post_types', array( $this, 'tmp_return_e_rn_events' ), 99 );
+		remove_filter( 'rioc_tickets_post_types', array( $this, 'tmp_return_rioc_events' ), 99 );
 
 		return $footer_text;
 	}
@@ -79,8 +79,8 @@ class E_Register_Now__Credits {
 	 *
 	 * This will limit the request for ratings to only those post type pages
 	 */
-	public function tmp_return_e_rn_events( $unused_post_types ) {
-		return array( 'e_rn_events' );
+	public function tmp_return_rioc_events( $unused_post_types ) {
+		return array( 'rioc_events' );
 	}
 
 	/**

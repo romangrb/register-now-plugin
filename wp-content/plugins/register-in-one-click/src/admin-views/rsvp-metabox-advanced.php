@@ -10,10 +10,10 @@
 </tr>
 
 <?php
-if ( class_exists( 'E_Register_Now__Events__Pro__Main' ) ) {
+if ( class_exists( 'Register_In_One_Click__Events__Pro__Main' ) ) {
 	?>
 	<tr class="<?php $this->tr_class(); ?>">
-		<td colspan="2" class="e_rn_sectionheader updated">
+		<td colspan="2" class="rioc_sectionheader updated">
 			<p>
 				<?php esc_html_e( 'Selling tickets for recurring events', 'event-tickets' ); ?>
 				<span id="selling-tickets-info" class="target dashicons dashicons-editor-help bumpdown-trigger"></span>

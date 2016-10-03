@@ -5,8 +5,8 @@
  * By default, this logger uses the system temporary directory for logging
  * purposes and performs daily log rotation.
  */
-class E_Register_Now__Log__File_Logger implements E_Register_Now__Log__Logger {
-	protected $module_id = 'e_rn_tmp_file_logger';
+class Register_In_One_Click__Log__File_Logger implements Register_In_One_Click__Log__Logger {
+	protected $module_id = 'rioc_tmp_file_logger';
 	protected $log_dir   = '';
 	protected $log_file  = '';
 	protected $context   = 'a';
@@ -27,7 +27,7 @@ class E_Register_Now__Log__File_Logger implements E_Register_Now__Log__Logger {
 		 *
 		 * @var string $log_dir
 		 */
-		$this->log_dir = apply_filters( 'e_rn_file_logger_directory', sys_get_temp_dir() );
+		$this->log_dir = apply_filters( 'rioc_file_logger_directory', sys_get_temp_dir() );
 	}
 
 	/**
@@ -93,7 +93,7 @@ class E_Register_Now__Log__File_Logger implements E_Register_Now__Log__Logger {
 		 * @var string $filename
 		 * @var string $date
 		 */
-		return apply_filters( 'e_rn_file_logger_filename', $filename, $date );
+		return apply_filters( 'rioc_file_logger_filename', $filename, $date );
 	}
 
 	protected function get_log_file_basename() {
@@ -104,7 +104,7 @@ class E_Register_Now__Log__File_Logger implements E_Register_Now__Log__Logger {
 		 *
 		 * @var string $log_file_base_name
 		 */
-		return apply_filters( 'e_rn_file_logger_file_prefix', $this->module_id . '_' );
+		return apply_filters( 'rioc_file_logger_file_prefix', $this->module_id . '_' );
 	}
 
 	/**
@@ -132,7 +132,7 @@ class E_Register_Now__Log__File_Logger implements E_Register_Now__Log__Logger {
 	 * @param string $type
 	 * @param string $src
 	 */
-	public function log( $entry, $type = E_Register_Now__Log::DEBUG, $src = '' ) {
+	public function log( $entry, $type = Register_In_One_Click__Log::DEBUG, $src = '' ) {
 		// Ensure we're in 'append' mode before we try to write
 		if ( 'a' !== $this->context ) {
 			$this->set_context( 'a' );
@@ -147,7 +147,7 @@ class E_Register_Now__Log__File_Logger implements E_Register_Now__Log__Logger {
 	 *
 	 * Supports passing a 'log' argument to recover
 	 *
-	 * @see E_Register_Now__Log__Logger::list_available_logs()
+	 * @see Register_In_One_Click__Log__Logger::list_available_logs()
 	 *
 	 * @param int   $limit
 	 * @param array $args
@@ -254,7 +254,7 @@ class E_Register_Now__Log__File_Logger implements E_Register_Now__Log__Logger {
 		 *
 		 * @param string $cutoff 'Y-m-d' format date string
 		 */
-		$cutoff = apply_filters( 'e_rn_file_logger_cutoff', $cutoff );
+		$cutoff = apply_filters( 'rioc_file_logger_cutoff', $cutoff );
 
 		foreach ( $this->list_available_logs() as $available_log ) {
 			if ( $available_log <= $cutoff ) {

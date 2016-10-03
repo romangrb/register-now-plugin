@@ -2,11 +2,11 @@
 
 
 /**
- * Class E_Register_Now__Exception
+ * Class Register_In_One_Click__Exception
  *
  * Handles exceptions to log when not in debug mode.
  */
-class E_Register_Now__Exception extends Exception {
+class Register_In_One_Click__Exception extends Exception {
 
 	/**
 	 * @var Exception
@@ -14,7 +14,7 @@ class E_Register_Now__Exception extends Exception {
 	private $original_exception;
 
 	/**
-	 * E_Register_Now__Exception constructor.
+	 * Register_In_One_Click__Exception constructor.
 	 *
 	 * @param Exception $original_exception
 	 */
@@ -48,7 +48,7 @@ class E_Register_Now__Exception extends Exception {
 			// @todo: let's add a decent exception code to log type map here
 		);
 
-		return isset( $map[ $code ] ) ? $map[ $code ] : E_Register_Now__Log::ERROR;
+		return isset( $map[ $code ] ) ? $map[ $code ] : Register_In_One_Click__Log::ERROR;
 	}
 
 	/**
@@ -56,7 +56,7 @@ class E_Register_Now__Exception extends Exception {
 	 *
 	 * Provided as a manual override over the default `WP_DEBUG` dependent behaviour.
 	 *
-	 * @see E_Register_Now__Exception::handle()
+	 * @see Register_In_One_Click__Exception::handle()
 	 *
 	 * @throws Exception
 	 */
@@ -69,16 +69,16 @@ class E_Register_Now__Exception extends Exception {
 	 *
 	 * Provided as a manual override over the default `WP_DEBUG` dependent behaviour.
 	 *
-	 * @see E_Register_Now__Exception::handle()
+	 * @see Register_In_One_Click__Exception::handle()
 	 *
 	 * @return bool  `true` if the message was logged, `false` otherwise.
 	 */
 	private function log_original_exception_message() {
-		if ( ! class_exists( 'E_Register_Now__Log' ) ) {
+		if ( ! class_exists( 'Register_In_One_Click__Log' ) ) {
 			return false;
 		}
 
-		$logger   = new E_Register_Now__Log();
+		$logger   = new Register_In_One_Click__Log();
 		$message  = $this->original_exception->getMessage();
 		$log_type = $this->get_log_type_for_exception_code( $this->original_exception->getCode() );
 		$src      = $this->original_exception->getFile() . ':' . $this->original_exception->getLine();

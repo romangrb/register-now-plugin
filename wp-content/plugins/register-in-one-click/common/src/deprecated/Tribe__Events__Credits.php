@@ -1,4 +1,4 @@
 <?php
-_deprecated_file( __FILE__, '4.0', 'E_Register_Now__Credits.php' );
+_deprecated_file( __FILE__, '4.0', 'Register_In_One_Click__Credits.php' );
 
-class E_Register_Now__Events__Credits extends E_Register_Now__Credits {}
+class Register_In_One_Click__Events__Credits extends Register_In_One_Click__Credits {}

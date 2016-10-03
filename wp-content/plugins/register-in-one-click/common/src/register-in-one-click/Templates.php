@@ -8,14 +8,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'E_Register_Now__Templates' ) ) {
+if ( class_exists( 'Register_In_One_Click__Templates' ) ) {
 	return;
 }
 
 /**
  * Handle views and template files.
  */
-class E_Register_Now__Templates {
+class Register_In_One_Click__Templates {
 	/**
 	 * Check to see if this is operating in the main loop
 	 *

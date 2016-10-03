@@ -4,7 +4,7 @@
  * @var string|float  $price
  * @var string|float  $regular_price
  *
- * @see E_Register_Now__Tickets__Legacy_Provider_Support
+ * @see Register_In_One_Click__Tickets__Legacy_Provider_Support
  */
 
 $field_id = esc_attr( $legacy_identifier );

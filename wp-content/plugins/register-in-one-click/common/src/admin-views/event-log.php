@@ -14,14 +14,14 @@
 	 * Fires within the #rioc-log-controls div, before any of the default
 	 * controls are generated.
 	 */
-	do_action( 'e_rn_common_log_controls_top' );
+	do_action( 'rioc_common_log_controls_top' );
 	?>
 
 	<div>
 		<label for="log-levels"><?php esc_html_e( 'Logging level', 'rioc-common' ) ?></label>
 		<select name="log-level" id="log-level">
 			<?php foreach ( $log_levels as $code => $name ): ?>
-				<option name="<?php echo esc_attr( $code ) ?>" <?php selected( $code, e_rn_get_option( 'logging_level') ); ?>>
+				<option name="<?php echo esc_attr( $code ) ?>" <?php selected( $code, rioc_get_option( 'logging_level') ); ?>>
 					<?php echo esc_html( $name ) ?>
 				</option>
 			<?php endforeach; ?>
@@ -32,14 +32,14 @@
 	/**
 	 * Fires within the #rioc-log-controls div, after the #log-level control.
 	 */
-	do_action( 'e_rn_common_log_controls_after_log_level' );
+	do_action( 'rioc_common_log_controls_after_log_level' );
 	?>
 
 	<div>
 		<label for="log-engine"><?php esc_html_e( 'Method', 'rioc-common' ) ?></label>
 		<select name="log-engine" id="log-engine">
 			<?php foreach ( $log_engines as $code => $name ): ?>
-				<option name="<?php echo esc_attr( $code ) ?>" <?php selected( $code, e_rn_get_option( 'logging_engine') ); ?>>
+				<option name="<?php echo esc_attr( $code ) ?>" <?php selected( $code, rioc_get_option( 'logging_engine') ); ?>>
 					<?php echo esc_html( $name ) ?>
 				</option>
 			<?php endforeach; ?>
@@ -50,7 +50,7 @@
 	/**
 	 * Fires within the #rioc-log-controls div, after the #log-engine control.
 	 */
-	do_action( 'e_rn_common_log_controls_after_log_engine' );
+	do_action( 'rioc_common_log_controls_after_log_engine' );
 	?>
 
 	<div>
@@ -66,7 +66,7 @@
 	/**
 	 * Fires within the #rioc-log-controls div, after the #log-selector control.
 	 */
-	do_action( 'e_rn_common_log_controls_after_log_selector' );
+	do_action( 'rioc_common_log_controls_after_log_selector' );
 	?>
 
 	<div class="working hidden">
@@ -78,7 +78,7 @@
 	 * Fires within the #rioc-log-controls div, after all of the default
 	 * controls have been generated.
 	 */
-	do_action( 'e_rn_common_log_controls_bottom' );
+	do_action( 'rioc_common_log_controls_bottom' );
 	?>
 
 </div>

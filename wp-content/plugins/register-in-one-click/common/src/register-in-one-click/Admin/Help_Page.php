@@ -11,17 +11,17 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @since  4.0
  *
  */
-class E_Register_Now__Admin__Help_Page {
+class Register_In_One_Click__Admin__Help_Page {
 	/**
 	 * Static Singleton Holder
-	 * @var E_Register_Now__Admin__Help_Page|null
+	 * @var Register_In_One_Click__Admin__Help_Page|null
 	 */
 	protected static $instance;
 
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return E_Register_Now__Admin__Help_Page
+	 * @return Register_In_One_Click__Admin__Help_Page
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {
@@ -54,8 +54,8 @@ class E_Register_Now__Admin__Help_Page {
 			'version' => null,
 		);
 
-		if ( class_exists( 'E_Register_Now__Events__Main' ) ) {
-			$plugins['the-events-calendar']['version'] = E_Register_Now__Events__Main::VERSION;
+		if ( class_exists( 'Register_In_One_Click__Events__Main' ) ) {
+			$plugins['the-events-calendar']['version'] = Register_In_One_Click__Events__Main::VERSION;
 			$plugins['the-events-calendar']['is_active'] = true;
 		}
 
@@ -70,8 +70,8 @@ class E_Register_Now__Admin__Help_Page {
 			'version' => null,
 		);
 
-		if ( class_exists( 'E_Register_Now__Tickets__Main' ) ) {
-			$plugins['event-tickets']['version'] = E_Register_Now__Tickets__Main::VERSION;
+		if ( class_exists( 'Register_In_One_Click__Tickets__Main' ) ) {
+			$plugins['event-tickets']['version'] = Register_In_One_Click__Tickets__Main::VERSION;
 			$plugins['event-tickets']['is_active'] = true;
 		}
 
@@ -91,7 +91,7 @@ class E_Register_Now__Admin__Help_Page {
 			$plugins['advanced-post-manager']['is_active'] = true;
 		}
 
-		$plugins = (array) apply_filters( 'e_rn_help_plugins', $plugins );
+		$plugins = (array) apply_filters( 'rioc_help_plugins', $plugins );
 
 		// Only active ones?
 		if ( true === $is_active ) {
@@ -183,7 +183,7 @@ class E_Register_Now__Admin__Help_Page {
 			'title' => esc_html__( 'Events Calendar PRO', 'rioc-common' ),
 			'link'  => 'http://m.tri.be/dr',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'E_Register_Now__Events__Pro__Main' ),
+			'is_active' => class_exists( 'Register_In_One_Click__Events__Pro__Main' ),
 			'is_important' => true,
 		);
 
@@ -192,7 +192,7 @@ class E_Register_Now__Admin__Help_Page {
 			'title' => esc_html__( 'Eventbrite Tickets', 'rioc-common' ),
 			'link'  => 'http://m.tri.be/ds',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'E_Register_Now__Events__Tickets__Eventbrite__Main' ),
+			'is_active' => class_exists( 'Register_In_One_Click__Events__Tickets__Eventbrite__Main' ),
 		);
 
 		$addons['community-events'] = array(
@@ -200,7 +200,7 @@ class E_Register_Now__Admin__Help_Page {
 			'title' => esc_html__( 'Community Events', 'rioc-common' ),
 			'link'  => 'http://m.tri.be/dt',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'E_Register_Now__Events__Community__Main' ),
+			'is_active' => class_exists( 'Register_In_One_Click__Events__Community__Main' ),
 		);
 
 		$addons['facebook-events'] = array(
@@ -208,7 +208,7 @@ class E_Register_Now__Admin__Help_Page {
 			'title' => esc_html__( 'Facebook Events', 'rioc-common' ),
 			'link'  => 'http://m.tri.be/du',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'E_Register_Now__Events__Facebook__Importer' ),
+			'is_active' => class_exists( 'Register_In_One_Click__Events__Facebook__Importer' ),
 		);
 
 		$addons['events-filter-bar'] = array(
@@ -216,7 +216,7 @@ class E_Register_Now__Admin__Help_Page {
 			'title' => esc_html__( 'Events Filter Bar', 'rioc-common' ),
 			'link'  => 'http://m.tri.be/hu',
 			'plugin' => array( 'the-events-calendar' ),
-			'is_active' => class_exists( 'E_Register_Now__Events__Filterbar__View' ),
+			'is_active' => class_exists( 'Register_In_One_Click__Events__Filterbar__View' ),
 		);
 
 		$addons['event-tickets-plus'] = array(
@@ -224,7 +224,7 @@ class E_Register_Now__Admin__Help_Page {
 			'title' => esc_html__( 'Event Tickets Plus', 'rioc-common' ),
 			'link'  => 'http://m.tri.be/18wa',
 			'plugin' => array( 'event-tickets' ),
-			'is_active' => class_exists( 'E_Register_Now__Tickets_Plus__Main' ),
+			'is_active' => class_exists( 'Register_In_One_Click__Tickets_Plus__Main' ),
 			'is_important' => true,
 		);
 
@@ -233,7 +233,7 @@ class E_Register_Now__Admin__Help_Page {
 			'title' => esc_html__( 'Community Tickets', 'rioc-common' ),
 			'link'  => 'http://m.tri.be/18m2',
 			'plugin' => array( 'event-tickets' ),
-			'is_active' => class_exists( 'E_Register_Now__Events__Community__Tickets__Main' ),
+			'is_active' => class_exists( 'Register_In_One_Click__Events__Community__Tickets__Main' ),
 		);
 
 		/**
@@ -241,7 +241,7 @@ class E_Register_Now__Admin__Help_Page {
 		 *
 		 * @param array $addons
 		 */
-		$addons = (array) apply_filters( 'e_rn_help_addons', $addons );
+		$addons = (array) apply_filters( 'rioc_help_addons', $addons );
 
 		// Should I filter something
 		if ( is_null( $plugin ) && is_null( $is_active ) && is_null( $is_important ) ) {
@@ -310,7 +310,7 @@ class E_Register_Now__Admin__Help_Page {
 		);
 
 		if ( true === $relative ) {
-			$link = trailingslashit( E_Register_Now__Main::$tec_url . $link );
+			$link = trailingslashit( Register_In_One_Click__Main::$tec_url . $link );
 		}
 
 		return esc_url( add_query_arg( $query_args, $link ) );
@@ -324,7 +324,7 @@ class E_Register_Now__Admin__Help_Page {
 	 * @return array Feed Title and Link
 	 */
 	public function get_feed_items() {
-		$news_rss = fetch_feed( E_Register_Now__Main::FEED_URL );
+		$news_rss = fetch_feed( Register_In_One_Click__Main::FEED_URL );
 		$news_feed = array();
 
 		if ( ! is_wp_error( $news_rss ) ) {
@@ -333,7 +333,7 @@ class E_Register_Now__Admin__Help_Page {
 			 *
 			 * @param int $max_items default 5
 			 */
-			$maxitems  = $news_rss->get_item_quantity( apply_filters( 'e_rn_help_rss_max_items', 5 ) );
+			$maxitems  = $news_rss->get_item_quantity( apply_filters( 'rioc_help_rss_max_items', 5 ) );
 			$rss_items = $news_rss->get_items( 0, $maxitems );
 			if ( count( $maxitems ) > 0 ) {
 				foreach ( $rss_items as $item ) {
@@ -368,8 +368,8 @@ class E_Register_Now__Admin__Help_Page {
 		 * Filter the amount of time (seconds) we will keep api data to avoid too many external calls
 		 * @var int
 		 */
-		$timeout = apply_filters( 'e_rn_help_api_data_timeout', 3 * HOUR_IN_SECONDS );
-		$transient = 'e_rn_help_api_data-' . $plugin->name;
+		$timeout = apply_filters( 'rioc_help_api_data_timeout', 3 * HOUR_IN_SECONDS );
+		$transient = 'rioc_help_api_data-' . $plugin->name;
 		$data = get_transient( $transient );
 
 		if ( false === $data ) {
@@ -407,7 +407,7 @@ class E_Register_Now__Admin__Help_Page {
 		 * @var array
 		 * @var object The plugin object, check `$this->get_plugins()` for more info
 		 */
-		return (object) apply_filters( 'e_rn_help_api_data', $data, $plugin );
+		return (object) apply_filters( 'rioc_help_api_data', $data, $plugin );
 	}
 
 	/**
@@ -534,7 +534,7 @@ class E_Register_Now__Admin__Help_Page {
 		// Everytime you call this we will add this up
 		self::$section_count++;
 
-		$possible_types = (array) apply_filters( 'e_rn_help_available_section_types', array( 'default', 'box' ) );
+		$possible_types = (array) apply_filters( 'rioc_help_available_section_types', array( 'default', 'box' ) );
 
 		// Set a Default type
 		if ( empty( $type ) || ! in_array( $type, $possible_types ) ) {
@@ -663,17 +663,17 @@ class E_Register_Now__Admin__Help_Page {
 		/**
 		 * Allow third-party sections here
 		 *
-		 * @var E_Register_Now__Admin__Help_Page
+		 * @var Register_In_One_Click__Admin__Help_Page
 		 */
-		do_action( 'e_rn_help_pre_get_sections', $this );
+		do_action( 'rioc_help_pre_get_sections', $this );
 
 		/**
 		 * Allow developers to filter all the sections at once
-		 * NOTE: You should be using `e_rn_help_add_sections` to add new sections or content
+		 * NOTE: You should be using `rioc_help_add_sections` to add new sections or content
 		 *
 		 * @var array
 		 */
-		$sections = apply_filters( 'e_rn_help_sections', $this->sections );
+		$sections = apply_filters( 'rioc_help_sections', $this->sections );
 
 		if ( ! is_array( $sections ) || empty( $sections ) ) {
 			return false;
@@ -702,7 +702,7 @@ class E_Register_Now__Admin__Help_Page {
 			 *
 			 * @var object
 			 */
-			$section = apply_filters( 'e_rn_help_section_' . $section->id, $section, $this );
+			$section = apply_filters( 'rioc_help_section_' . $section->id, $section, $this );
 
 			// Sort by Priority
 			uasort( $section->content, array( $this, 'by_priority' ) );
@@ -723,7 +723,7 @@ class E_Register_Now__Admin__Help_Page {
 		 * @var array $html
 		 * @var array $sections
 		 */
-		$html = apply_filters( 'e_rn_help_sections_html', $html, $sections );
+		$html = apply_filters( 'rioc_help_sections_html', $html, $sections );
 
 		if ( true === $print ) {
 			echo implode( "\n", $html );

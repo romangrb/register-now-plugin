@@ -1,8 +1,8 @@
 <?php
 
-class E_Register_Now__Settings_Manager {
+class Register_In_One_Click__Settings_Manager {
 	protected static $network_options;
-	public static $e_rn_events_mu_defaults;
+	public static $rioc_events_mu_defaults;
 
 	/**
 	 * constructor
@@ -12,11 +12,11 @@ class E_Register_Now__Settings_Manager {
 
 		// Load multisite defaults
 		if ( is_multisite() ) {
-			$e_rn_events_mu_defaults = array();
+			$rioc_events_mu_defaults = array();
 			if ( file_exists( WP_CONTENT_DIR . '/rioc-events-mu-defaults.php' ) ) {
 				require_once WP_CONTENT_DIR . '/rioc-events-mu-defaults.php';
 			}
-			self::$e_rn_events_mu_defaults = apply_filters( 'e_rn_events_mu_defaults', $e_rn_events_mu_defaults );
+			self::$rioc_events_mu_defaults = apply_filters( 'rioc_events_mu_defaults', $rioc_events_mu_defaults );
 		}
 	}
 
@@ -27,11 +27,11 @@ class E_Register_Now__Settings_Manager {
 
 		add_action( 'admin_menu', array( $this, 'add_help_admin_menu_item' ), 50 );
 		
-		add_action( 'e_rn_settings_do_tabs', array( $this, 'do_setting_tabs' ) );
-		add_action( 'e_rn_settings_do_tabs', array( $this, 'do_network_settings_tab' ), 400 );
-		add_action( 'e_rn_settings_content_tab_help', array( $this, 'do_help_tab' ) );
+		add_action( 'rioc_settings_do_tabs', array( $this, 'do_setting_tabs' ) );
+		add_action( 'rioc_settings_do_tabs', array( $this, 'do_network_settings_tab' ), 400 );
+		add_action( 'rioc_settings_content_tab_help', array( $this, 'do_help_tab' ) );
 		
-		add_action( 'e_rn_settings_validate_tab_network', array( $this, 'save_all_tabs_hidden' ) );
+		add_action( 'rioc_settings_validate_tab_network', array( $this, 'save_all_tabs_hidden' ) );
 	}
 
 	/**
@@ -40,7 +40,7 @@ class E_Register_Now__Settings_Manager {
 	 * @return void
 	 */
 	public function init_options() {
-		E_Register_Now__Settings::instance();
+		Register_In_One_Click__Settings::instance();
 	}
 
 	/**
@@ -49,17 +49,17 @@ class E_Register_Now__Settings_Manager {
 	 * @return void
 	 */
 	public function do_setting_tabs() {
-		include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/rioc-options-general.php';
-		include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/rioc-options-display.php';
+		include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-options-general.php';
+		include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-options-display.php';
 
 		$showNetworkTabs = $this->get_network_option( 'showSettingsTabs', false );
 
-		new E_Register_Now__Settings_Tab( 'general', esc_html__( 'General', 'rioc-common' ), $generalTab );
-		new E_Register_Now__Settings_Tab( 'display', esc_html__( 'Display', 'rioc-common' ), $displayTab );
+		new Register_In_One_Click__Settings_Tab( 'general', esc_html__( 'General', 'rioc-common' ), $generalTab );
+		new Register_In_One_Click__Settings_Tab( 'display', esc_html__( 'Display', 'rioc-common' ), $displayTab );
 
 		$this->do_licenses_tab();
 
-		new E_Register_Now__Settings_Tab(
+		new Register_In_One_Click__Settings_Tab(
 			'help',
 			esc_html__( 'Help', 'rioc-common' ),
 			array(
@@ -75,10 +75,10 @@ class E_Register_Now__Settings_Manager {
 	 * @return array of options
 	 */
 	public static function get_options() {
-		$options = get_option( E_Register_Now__Main::OPTIONNAME, array() );
-		if ( has_filter( 'e_rn_get_options' ) ) {
-			_deprecated_function( 'e_rn_get_options', '3.10', 'option_' . E_Register_Now__Main::OPTIONNAME );
-			$options = apply_filters( 'e_rn_get_options', $options );
+		$options = get_option( Register_In_One_Click__Main::OPTIONNAME, array() );
+		if ( has_filter( 'rioc_get_options' ) ) {
+			_deprecated_function( 'rioc_get_options', '3.10', 'option_' . Register_In_One_Click__Main::OPTIONNAME );
+			$options = apply_filters( 'rioc_get_options', $options );
 		}
 		return $options;
 	}
@@ -100,11 +100,11 @@ class E_Register_Now__Settings_Manager {
 		$option = $default;
 		if ( isset( $options[ $option_name ] ) ) {
 			$option = $options[ $option_name ];
-		} elseif ( is_multisite() && isset( self::$e_rn_events_mu_defaults ) && is_array( self::$e_rn_events_mu_defaults ) && in_array( $option_name, array_keys( self::$e_rn_events_mu_defaults ) ) ) {
-			$option = self::$e_rn_events_mu_defaults[ $option_name ];
+		} elseif ( is_multisite() && isset( self::$rioc_events_mu_defaults ) && is_array( self::$rioc_events_mu_defaults ) && in_array( $option_name, array_keys( self::$rioc_events_mu_defaults ) ) ) {
+			$option = self::$rioc_events_mu_defaults[ $option_name ];
 		}
 
-		return apply_filters( 'e_rn_get_single_option', $option, $default, $option_name );
+		return apply_filters( 'rioc_get_single_option', $option, $default, $option_name );
 	}
 
 	/**
@@ -122,7 +122,7 @@ class E_Register_Now__Settings_Manager {
 		if ( $apply_filters == true ) {
 			$options = apply_filters( 'rioc-events-save-options', $options );
 		}
-		update_option( E_Register_Now__Main::OPTIONNAME, $options );
+		update_option( Register_In_One_Click__Main::OPTIONNAME, $options );
 	}
 
 	/**
@@ -148,8 +148,8 @@ class E_Register_Now__Settings_Manager {
 	 */
 	public static function get_network_options() {
 		if ( ! isset( self::$network_options ) ) {
-			$options               = get_site_option( E_Register_Now__Main::OPTIONNAMENETWORK, array() );
-			self::$network_options = apply_filters( 'e_rn_get_network_options', $options );
+			$options               = get_site_option( Register_In_One_Click__Main::OPTIONNAMENETWORK, array() );
+			self::$network_options = apply_filters( 'rioc_get_network_options', $options );
 		}
 
 		return self::$network_options;
@@ -178,7 +178,7 @@ class E_Register_Now__Settings_Manager {
 			$option = $default;
 		}
 
-		return apply_filters( 'e_rn_get_single_network_option', $option, $default );
+		return apply_filters( 'rioc_get_single_network_option', $option, $default );
 	}
 
 	/**
@@ -198,8 +198,8 @@ class E_Register_Now__Settings_Manager {
 		}
 
 		// @TODO use getNetworkOptions + force
-		if ( update_site_option( E_Register_Now__Main::OPTIONNAMENETWORK, $options ) ) {
-			self::$network_options = apply_filters( 'e_rn_get_network_options', $options );
+		if ( update_site_option( Register_In_One_Click__Main::OPTIONNAMENETWORK, $options ) ) {
+			self::$network_options = apply_filters( 'rioc_get_network_options', $options );
 		} else {
 			self::$network_options = self::get_network_options();
 		}
@@ -211,10 +211,10 @@ class E_Register_Now__Settings_Manager {
 	 * @return void
 	 */
 	public static function add_network_options_page() {
-		$e_rn_settings = E_Register_Now__Settings::instance();
+		$rioc_settings = Register_In_One_Click__Settings::instance();
 		add_submenu_page(
-			'settings.php', $e_rn_settings->menuName, $e_rn_settings->menuName, 'manage_network_options', 'rioc-common', array(
-				$e_rn_settings,
+			'settings.php', $rioc_settings->menuName, $rioc_settings->menuName, 'manage_network_options', 'rioc-common', array(
+				$rioc_settings,
 				'generatePage',
 			)
 		);
@@ -226,9 +226,9 @@ class E_Register_Now__Settings_Manager {
 	 * @return void
 	 */
 	public static function do_network_settings_tab() {
-		include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/rioc-options-network.php';
+		include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-options-network.php';
 
-		new E_Register_Now__Settings_Tab( 'network', esc_html__( 'Network', 'rioc-common' ), $networkTab );
+		new Register_In_One_Click__Settings_Tab( 'network', esc_html__( 'Network', 'rioc-common' ), $networkTab );
 	}
 
 	/**
@@ -246,23 +246,23 @@ class E_Register_Now__Settings_Manager {
 		 *
 		 * @var bool
 		 */
-		if ( ! apply_filters( 'e_rn_events_show_licenses_tab', $show_tab ) ) {
+		if ( ! apply_filters( 'rioc_events_show_licenses_tab', $show_tab ) ) {
 			return;
 		}
 
 		/**
 		 * @var $licenses_tab
 		 */
-		include E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/rioc-options-licenses.php';
+		include Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-options-licenses.php';
 
 		/**
 		 * Allows the fields displayed in the licenses tab to be modified.
 		 *
 		 * @var array
 		 */
-		$license_fields = apply_filters( 'e_rn_license_fields', $licenses_tab );
+		$license_fields = apply_filters( 'rioc_license_fields', $licenses_tab );
 
-		new E_Register_Now__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'rioc-common' ), array(
+		new Register_In_One_Click__Settings_Tab( 'licenses', esc_html__( 'Licenses', 'rioc-common' ), array(
 			'priority'      => '40',
 			'fields'        => $license_fields,
 			'network_admin' => is_network_admin() ? true : false,
@@ -273,7 +273,7 @@ class E_Register_Now__Settings_Manager {
 	 * Create the help tab
 	 */
 	public function do_help_tab() {
-		include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/rioc-options-help.php';
+		include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-options-help.php';
 	}
 	
 	/**
@@ -287,16 +287,16 @@ class E_Register_Now__Settings_Manager {
 			return;
 		}
 		
-		$parent = E_Register_Now__Settings::$parent_slug;
+		$parent = Register_In_One_Click__Settings::$parent_slug;
 		$title  = esc_html__( 'Help and Support', 'rioc-common' );
 		$slug   = esc_url(
-			apply_filters( 'e_rn_settings_url',
+			apply_filters( 'rioc_settings_url',
 				add_query_arg(
 					array(
 						'page'      => 'rioc-common',
 						'tab'       => 'help',
 					),
-					E_Register_Now__Settings::$parent_page
+					Register_In_One_Click__Settings::$parent_page
 				)
 			)
 		);
@@ -310,7 +310,7 @@ class E_Register_Now__Settings_Manager {
 	 * @return bool
 	 */
 	protected function have_addons() {
-		$addons = apply_filters( 'e_rn_licensable_addons', array() );
+		$addons = apply_filters( 'rioc_licensable_addons', array() );
 		return ! empty( $addons );
 	}
 
@@ -320,9 +320,9 @@ class E_Register_Now__Settings_Manager {
 	 * @return void
 	 */
 	public function save_all_tabs_hidden() {
-		$all_tabs_keys = array_keys( apply_filters( 'e_rn_settings_all_tabs', array() ) );
+		$all_tabs_keys = array_keys( apply_filters( 'rioc_settings_all_tabs', array() ) );
 
-		$network_options = (array) get_site_option( E_Register_Now__Main::OPTIONNAMENETWORK );
+		$network_options = (array) get_site_option( Register_In_One_Click__Main::OPTIONNAMENETWORK );
 
 		if ( isset( $_POST['hideSettingsTabs'] ) && $_POST['hideSettingsTabs'] == $all_tabs_keys ) {
 			$network_options['allSettingsTabsHidden'] = '1';
@@ -336,7 +336,7 @@ class E_Register_Now__Settings_Manager {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return E_Register_Now__Settings_Manager
+	 * @return Register_In_One_Click__Settings_Manager
 	 */
 	public static function instance() {
 		static $instance;

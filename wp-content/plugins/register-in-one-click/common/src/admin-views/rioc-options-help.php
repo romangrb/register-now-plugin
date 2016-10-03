@@ -1,6 +1,6 @@
 <?php
 // Fetch the Help page Instance
-$help = E_Register_Now__Admin__Help_Page::instance();
+$help = Register_In_One_Click__Admin__Help_Page::instance();
 
 // Fetch plugins
 $plugins = $help->get_plugins( null, false );
@@ -35,7 +35,7 @@ $help->add_section( 'system-info', __( 'System Information', 'rioc-common' ), 30
 $help->add_section_content( 'system-info', __( 'The details of your calendar plugin and settings is often needed for you or our staff to help troubleshoot an issue. We may ask you to share this information if you ask for support. If you post in one of our premium forums, please copy and paste this information into the System Information field and it will help us help you faster!', 'rioc-common' ), 0 );
 
 $help->add_section( 'template-changes', __( 'Recent Template Changes', 'rioc-common' ), 40 );
-$help->add_section_content( 'template-changes', E_Register_Now__Support__Template_Checker_Report::generate() );
+$help->add_section_content( 'template-changes', Register_In_One_Click__Support__Template_Checker_Report::generate() );
 ?>
 
 <div id="rioc-help-general">
@@ -48,7 +48,7 @@ $help->add_section_content( 'template-changes', E_Register_Now__Support__Templat
 	/**
 	 * Fires at the top of the sidebar on Settings > Help tab
 	 */
-	do_action( 'e_rn_help_sidebar_before' );
+	do_action( 'rioc_help_sidebar_before' );
 
 	foreach ( $plugins as $key => $plugin ) {
 		$help->print_plugin_box( $key );
@@ -68,6 +68,6 @@ $help->add_section_content( 'template-changes', E_Register_Now__Support__Templat
 	/**
 	 * Fires at the bottom of the sidebar on the Settings > Help tab
 	 */
-	do_action( 'e_rn_help_sidebar_after' ); ?>
+	do_action( 'rioc_help_sidebar_after' ); ?>
 
 </div>

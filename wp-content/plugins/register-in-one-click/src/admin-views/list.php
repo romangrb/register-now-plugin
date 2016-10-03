@@ -20,11 +20,11 @@
 		}
 	}
 
-	$modules = E_Register_Now__Tickets__Tickets::modules();
+	$modules = Register_In_One_Click__Tickets__Tickets::modules();
 
 	foreach ( $tickets as $ticket ) {
 		/**
-		 * @var E_Register_Now__Tickets__Ticket_Object $ticket
+		 * @var Register_In_One_Click__Tickets__Ticket_Object $ticket
 		 */
 		$controls     = array();
 		$provider     = $ticket->provider_class;
@@ -39,7 +39,7 @@
 		 * @param int    $ticket_id
 		 * @param string $ticket_provider
 		 */
-		if ( apply_filters( 'e_rn_tickets_current_user_can_delete_ticket', true, $ticket->ID, $ticket->provider_class ) ) {
+		if ( apply_filters( 'rioc_tickets_current_user_can_delete_ticket', true, $ticket->ID, $ticket->provider_class ) ) {
 			$controls[] = sprintf( '<span><a href="#" attr-provider="%1$s" attr-ticket-id="%2$s" id="ticket_delete_%2$s" class="ticket_delete">' . esc_html__( 'Delete', 'event-tickets' ) . '</a></span>', $ticket->provider_class, $ticket->ID );
 		}
 
@@ -61,9 +61,9 @@
 		if ( ( $ticket->provider_class !== $provider ) || $count == 0 ) :
 			?>
 			<td colspan="4" class="titlewrap">
-				<h4 class="e_rn_sectionheader">
+				<h4 class="rioc_sectionheader">
 					<?php
-					echo esc_html( apply_filters( 'e_rn_events_tickets_module_name', $modules[ $ticket->provider_class ], $ticket->provider_class ) );
+					echo esc_html( apply_filters( 'rioc_events_tickets_module_name', $modules[ $ticket->provider_class ], $ticket->provider_class ) );
 					echo $provider_obj->get_event_reports_link( $post_id );
 					?>
 					<small>&nbsp;|&nbsp;</small>
@@ -71,7 +71,7 @@
 					$attendees_url = add_query_arg(
 						array(
 							'post_type' => $post_type,
-							'page' => E_Register_Now__Tickets__Tickets_Handler::$attendees_slug,
+							'page' => Register_In_One_Click__Tickets__Tickets_Handler::$attendees_slug,
 							'event_id' => $post_id,
 						),
 						admin_url( 'edit.php' )
@@ -79,7 +79,7 @@
 
 					echo sprintf(
 						"<small><a title='" . esc_attr__( 'See who purchased tickets to this event', 'event-tickets' ) . "' href='%s'>%s</a></small>",
-						esc_url( apply_filters( 'e_rn_events_tickets_attendees_url', $attendees_url, $post_id ) ),
+						esc_url( apply_filters( 'rioc_events_tickets_attendees_url', $attendees_url, $post_id ) ),
 						esc_html__( 'Attendees', 'event-tickets' )
 					);
 					?>
@@ -111,7 +111,7 @@
 			</td>
 
 			<td nowrap="nowrap">
-				<?php echo e_rn_tickets_get_ticket_stock_message( $ticket ); ?>
+				<?php echo rioc_tickets_get_ticket_stock_message( $ticket ); ?>
 			</td>
 		</tr>
 		<?php

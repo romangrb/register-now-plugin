@@ -8,15 +8,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Support' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Support' ) ) {
 
-	class E_Register_Now__Support {
+	class Register_In_One_Click__Support {
 
 		public static $support;
 		public $rewrite_rules_purged = false;
 
 		/**
-		 * @var E_Register_Now__Support__Obfuscator
+		 * @var Register_In_One_Click__Support__Obfuscator
 		 */
 		protected $obfuscator;
 
@@ -41,16 +41,16 @@ if ( ! class_exists( 'E_Register_Now__Support' ) ) {
 		);
 
 		private function __construct() {
-			$this->must_escape = (array) apply_filters( 'e_rn_help_must_escape_fields', $this->must_escape );
-			add_action( 'e_rn_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
+			$this->must_escape = (array) apply_filters( 'rioc_help_must_escape_fields', $this->must_escape );
+			add_action( 'rioc_help_pre_get_sections', array( $this, 'append_system_info' ), 10 );
 			add_action( 'delete_option_rewrite_rules', array( $this, 'log_rewrite_rule_purge' ) );
 		}
 
 		/**
 		 * Display help tab info in events settings
-		 * @param E_Register_Now__Admin__Help_Page $help The Help Page Instance
+		 * @param Register_In_One_Click__Admin__Help_Page $help The Help Page Instance
 		 */
-		public function append_system_info( E_Register_Now__Admin__Help_Page $help ) {
+		public function append_system_info( Register_In_One_Click__Admin__Help_Page $help ) {
 			$help->add_section_content( 'system-info', $this->formattedSupportStats(), 10 );
 		}
 
@@ -133,7 +133,7 @@ if ( ! class_exists( 'E_Register_Now__Support' ) ) {
 				'mu plugins'         => $mu_plugins,
 				'theme'              => wp_get_theme()->get( 'Name' ),
 				'multisite'          => is_multisite(),
-				'settings'           => E_Register_Now__Settings_Manager::get_options(),
+				'settings'           => Register_In_One_Click__Settings_Manager::get_options(),
 				'WordPress timezone' => get_option( 'timezone_string', esc_html__( 'Unknown or not set', 'rioc-common' ) ),
 				'server timezone'    => date_default_timezone_get(),
 				'common library dir' => $GLOBALS['rioc-common-info']['dir'],
@@ -221,9 +221,9 @@ if ( ! class_exists( 'E_Register_Now__Support' ) ) {
 		/**
 		 * Sets the obfuscator to be used.
 		 *
-		 * @param E_Register_Now__Support__Obfuscator $obfuscator
+		 * @param Register_In_One_Click__Support__Obfuscator $obfuscator
 		 */
-		public function set_obfuscator( E_Register_Now__Support__Obfuscator $obfuscator ) {
+		public function set_obfuscator( Register_In_One_Click__Support__Obfuscator $obfuscator ) {
 			$this->obfuscator = $obfuscator;
 		}
 
@@ -238,7 +238,7 @@ if ( ! class_exists( 'E_Register_Now__Support' ) ) {
 		public static function getInstance() {
 			if ( null == self::$instance ) {
 				$instance       = new self;
-				$instance->set_obfuscator( new E_Register_Now__Support__Obfuscator( $instance->must_obfuscate_prefixes ) );
+				$instance->set_obfuscator( new Register_In_One_Click__Support__Obfuscator( $instance->must_obfuscate_prefixes ) );
 				self::$instance = $instance;
 			}
 

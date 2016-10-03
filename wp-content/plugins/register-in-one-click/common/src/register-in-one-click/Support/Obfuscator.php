@@ -1,7 +1,7 @@
 <?php
 
 
-class E_Register_Now__Support__Obfuscator {
+class Register_In_One_Click__Support__Obfuscator {
 
 	/**
 	 * @var array
@@ -9,7 +9,7 @@ class E_Register_Now__Support__Obfuscator {
 	protected $prefixes = array();
 
 	/**
-	 * E_Register_Now__Support__Obfuscator constructor.
+	 * Register_In_One_Click__Support__Obfuscator constructor.
 	 *
 	 * @param array $prefixes
 	 */

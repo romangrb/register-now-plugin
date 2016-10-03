@@ -5,20 +5,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Settings' ) ) {
 	/**
 	 * helper class that allows registration of settings
 	 * this is a static class & uses the singleton design method
-	 * instantiation takes place in E_Register_Now__Main
+	 * instantiation takes place in Register_In_One_Click__Main
 	 *
 	 */
-	class E_Register_Now__Settings {
+	class Register_In_One_Click__Settings {
 
 		/**
 		 * Slug of the parent menu slug
 		 * @var string
 		 */
-		public static $parent_slug = 'e_rn_common';
+		public static $parent_slug = 'rioc_common';
 
 		/**
 		 * Page of the parent menu
@@ -27,7 +27,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		public static $parent_page = 'edit.php';
 
 		/**
-		 * @var E_Register_Now__Admin__Live_Date_Preview
+		 * @var Register_In_One_Click__Admin__Live_Date_Preview
 		 */
 		public $live_date_preview;
 
@@ -114,14 +114,14 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 
 		/**
 		 * Static Singleton Holder
-		 * @var E_Register_Now__Settings|null
+		 * @var Register_In_One_Click__Settings|null
 		 */
 		private static $instance;
 
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @return E_Register_Now__Settings
+		 * @return Register_In_One_Click__Settings
 		 */
 		public static function instance() {
 			if ( empty( self::$instance ) ) {
@@ -147,18 +147,18 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		 * Determines whether or not the full admin pages should be initialized.
 		 *
 		 * When running in parallel with TEC 3.12.4, TEC should be relied on to handle the admin screens
-		 * that version of TEC (and lower) is e_rn_common ignorant. Therefore, e_rn_common has to be
+		 * that version of TEC (and lower) is rioc_common ignorant. Therefore, rioc_common has to be
 		 * the smarter, more lenient codebase.
 		 *
 		 * @return boolean
 		 */
 		public function should_setup_pages() {
 			
-			if ( ! class_exists( 'E_Register_Now__Events__Main' )) {
+			if ( ! class_exists( 'Register_In_One_Click__Events__Main' )) {
 				return true;
 			}
 
-			if ( version_compare( E_Register_Now__Events__Main::VERSION, '4.0beta', '>=' ) ) {
+			if ( version_compare( Register_In_One_Click__Events__Main::VERSION, '4.0beta', '>=' ) ) {
 				return true;
 			}
 
@@ -199,17 +199,17 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 				return;
 			}
 			
-			if ( ! is_multisite() || ( is_multisite() && '0' == E_Register_Now__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
-				if ( post_type_exists( 'e_rn' ) ) {
-					self::$parent_page = 'edit.php?post_type=e_rn';
+			if ( ! is_multisite() || ( is_multisite() && '0' == Register_In_One_Click__Settings_Manager::get_network_option( 'allSettingsTabsHidden', '0' ) ) ) {
+				if ( post_type_exists( 'rioc' ) ) {
+					self::$parent_page = 'edit.php?post_type=rioc';
 					
 				} else {
-					self::$parent_page = 'admin.php?post_type=e_rn';
+					self::$parent_page = 'admin.php?post_type=rioc';
 
 					add_menu_page(
-						esc_html__( 'Events', 'e_rn_common' ),
-						esc_html__( 'Register in One Click', 'e_rn_common' ),
-						apply_filters( 'e_rn_common_event_page_capability', 'manage_options' ),
+						esc_html__( 'Events', 'rioc_common' ),
+						esc_html__( 'Register in One Click', 'rioc_common' ),
+						apply_filters( 'rioc_common_event_page_capability', 'manage_options' ),
 						self::$parent_slug,
 						null,
 						'dashicons-calendar',
@@ -226,8 +226,8 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 		public function get_parent_slug() {
 			$slug = self::$parent_page;
 
-			// if we don't have an event post type, then we can just use the e_rn_common slug
-			if ( 'edit.php' === $slug || 'admin.php?page=e_rn_common' === $slug ) {
+			// if we don't have an event post type, then we can just use the rioc_common slug
+			if ( 'edit.php' === $slug || 'admin.php?page=rioc_common' === $slug ) {
 				$slug = self::$parent_slug;
 			}
 
@@ -253,7 +253,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 			// keep the resulting URL args clean
 			unset( $args['parent'] );
 
-			return apply_filters( 'e_rn_settings_url', add_query_arg( $args, $url ), $args, $url );
+			return apply_filters( 'rioc_settings_url', add_query_arg( $args, $url ), $args, $url );
 		}
 		
 		/**
@@ -267,7 +267,7 @@ if ( ! class_exists( 'E_Register_Now__Settings' ) ) {
 			}
 
 			$this->admin_page = add_submenu_page(
-				'settings.php', esc_html__( 'Events Settings', 'e_rn_common' ), esc_html__( 'Events Settings', 'e_rn_common' ), $this->requiredCap, $this->adminSlug, array(
+				'settings.php', esc_html__( 'Events Settings', 'rioc_common' ), esc_html__( 'Events Settings', 'rioc_common' ), $this->requiredCap, $this->adminSlug, array(
 					$this,
 					'generatePage',
 				)

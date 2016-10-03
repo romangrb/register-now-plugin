@@ -4,7 +4,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-class E_Register_Now__Tickets__Tickets_View {
+class Register_In_One_Click__Tickets__Tickets_View {
 
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
@@ -43,16 +43,16 @@ class E_Register_Now__Tickets__Tickets_View {
 		add_action( 'parse_request', array( $myself, 'maybe_regenerate_rewrite_rules' ) );
 
 		// Only Applies this to TEC users
-		if ( class_exists( 'E_Register_Now__Events__Rewrite' ) ) {
-			add_action( 'e_rn_events_pre_rewrite', array( $myself, 'add_permalink' ) );
-			add_filter( 'e_rn_events_rewrite_base_slugs', array( $myself, 'add_rewrite_base_slug' ) );
+		if ( class_exists( 'Register_In_One_Click__Events__Rewrite' ) ) {
+			add_action( 'rioc_events_pre_rewrite', array( $myself, 'add_permalink' ) );
+			add_filter( 'rioc_events_rewrite_base_slugs', array( $myself, 'add_rewrite_base_slug' ) );
 		}
 
 		// Intercept Template file for Tickets
-		add_filter( 'e_rn_events_template', array( $myself, 'intercept_template' ), 20, 2 );
+		add_filter( 'rioc_events_template', array( $myself, 'intercept_template' ), 20, 2 );
 
 		// We will inject on the Priority 4, to be happen before RSVP
-		add_action( 'e_rn_events_single_event_after_the_meta', array( $myself, 'inject_link_template' ), 4 );
+		add_action( 'rioc_events_single_event_after_the_meta', array( $myself, 'inject_link_template' ), 4 );
 		add_filter( 'the_content', array( $myself, 'inject_link_template_the_content' ), 9 );
 
 		return $myself;
@@ -184,7 +184,7 @@ class E_Register_Now__Tickets__Tickets_View {
 		do_action( 'event_tickets_after_attendees_update', $post_id );
 
 		// After Editing the Values we Update the Transient
-		E_Register_Now__Post_Transient::instance()->delete( $post_id, E_Register_Now__Tickets__Tickets::ATTENDEES_CACHE );
+		Register_In_One_Click__Post_Transient::instance()->delete( $post_id, Register_In_One_Click__Tickets__Tickets::ATTENDEES_CACHE );
 
 		// If it's not events CPT
 		if ( $is_correct_page ) {
@@ -192,7 +192,7 @@ class E_Register_Now__Tickets__Tickets_View {
 		} else {
 			$url = get_permalink( $post_id ) . '/tickets';
 		}
-		$url = add_query_arg( 'e_rn_updated', 1, $url );
+		$url = add_query_arg( 'rioc_updated', 1, $url );
 		wp_safe_redirect( esc_url_raw( $url ) );
 		exit;
 	}
@@ -209,10 +209,10 @@ class E_Register_Now__Tickets__Tickets_View {
 		/**
 		 * @todo Remove this after we implement the Rewrites in Common
 		 */
-		$is_event_query = ! empty( $GLOBALS['wp_query']->e_rn_is_event_query );
+		$is_event_query = ! empty( $GLOBALS['wp_query']->rioc_is_event_query );
 
 		// When it's not Events Query and we have TEC active we dont care
-		if ( class_exists( 'E_Register_Now__Events__Main' ) && ! $is_event_query ) {
+		if ( class_exists( 'Register_In_One_Click__Events__Main' ) && ! $is_event_query ) {
 			return;
 		}
 
@@ -258,16 +258,16 @@ class E_Register_Now__Tickets__Tickets_View {
 	/**
 	 * Adds the Permalink for the tickets end point
 	 *
-	 * @param E_Register_Now__Events__Rewrite $rewrite
+	 * @param Register_In_One_Click__Events__Rewrite $rewrite
 	 */
-	public function add_permalink( E_Register_Now__Events__Rewrite $rewrite ) {
+	public function add_permalink( Register_In_One_Click__Events__Rewrite $rewrite ) {
 
 		// Adds the 'tickets' endpoint for single event pages.
 		$rewrite->single(
 			array( '{{ tickets }}' ),
 			array(
-				E_Register_Now__Events__Main::POSTTYPE => '%1',
-				'post_type' => E_Register_Now__Events__Main::POSTTYPE,
+				Register_In_One_Click__Events__Main::POSTTYPE => '%1',
+				'post_type' => Register_In_One_Click__Events__Main::POSTTYPE,
 				'eventDisplay' => 'tickets',
 			)
 		);
@@ -276,9 +276,9 @@ class E_Register_Now__Tickets__Tickets_View {
 		$rewrite->single(
 			array( '(\d{4}-\d{2}-\d{2})', '{{ tickets }}' ),
 			array(
-				E_Register_Now__Events__Main::POSTTYPE => '%1',
+				Register_In_One_Click__Events__Main::POSTTYPE => '%1',
 				'eventDate' => '%2',
-				'post_type' => E_Register_Now__Events__Main::POSTTYPE,
+				'post_type' => Register_In_One_Click__Events__Main::POSTTYPE,
 				'eventDisplay' => 'tickets',
 			)
 		);
@@ -302,7 +302,7 @@ class E_Register_Now__Tickets__Tickets_View {
 		}
 
 		ob_start();
-		include E_Register_Now__Tickets__Templates::get_template_hierarchy( 'tickets/orders.php' );
+		include Register_In_One_Click__Tickets__Templates::get_template_hierarchy( 'tickets/orders.php' );
 		$content = ob_get_clean();
 
 		return $content;
@@ -321,7 +321,7 @@ class E_Register_Now__Tickets__Tickets_View {
 		/**
 		 * @todo Remove this after we implement the Rewrites in Common
 		 */
-		$is_event_query = ! empty( $wp_query->e_rn_is_event_query );
+		$is_event_query = ! empty( $wp_query->rioc_is_event_query );
 
 		// When it's not our query we don't care
 		if ( ! $is_event_query ) {
@@ -345,13 +345,13 @@ class E_Register_Now__Tickets__Tickets_View {
 		}
 
 		// Fetch the Correct File using the Tickets Hiearchy
-		$file = E_Register_Now__Tickets__Templates::get_template_hierarchy( 'tickets/orders.php' );
+		$file = Register_In_One_Click__Tickets__Templates::get_template_hierarchy( 'tickets/orders.php' );
 
 		return $file;
 	}
 
 	/**
-	 * Injects the Link to The front-end Tickets page normally at `e_rn_events_single_event_after_the_meta`
+	 * Injects the Link to The front-end Tickets page normally at `rioc_events_single_event_after_the_meta`
 	 *
 	 * @return void
 	 */
@@ -363,7 +363,7 @@ class E_Register_Now__Tickets__Tickets_View {
 			return;
 		}
 
-		$file = E_Register_Now__Tickets__Templates::get_template_hierarchy( 'tickets/orders-link.php' );
+		$file = Register_In_One_Click__Tickets__Templates::get_template_hierarchy( 'tickets/orders-link.php' );
 
 		include $file;
 	}
@@ -384,10 +384,10 @@ class E_Register_Now__Tickets__Tickets_View {
 		/**
 		 * @todo Remove this after we implement the Rewrites in Common
 		 */
-		$is_event_query = ! empty( $GLOBALS['wp_query']->e_rn_is_event_query );
+		$is_event_query = ! empty( $GLOBALS['wp_query']->rioc_is_event_query );
 
 		// When it's not our query we don't care
-		if ( ( class_exists( 'E_Register_Now__Events__Main' ) && $is_event_query ) || ! $in_the_loop ) {
+		if ( ( class_exists( 'Register_In_One_Click__Events__Main' ) && $is_event_query ) || ! $in_the_loop ) {
 			return $content;
 		}
 
@@ -402,7 +402,7 @@ class E_Register_Now__Tickets__Tickets_View {
 		}
 
 		ob_start();
-		include E_Register_Now__Tickets__Templates::get_template_hierarchy( 'tickets/orders-link.php' );
+		include Register_In_One_Click__Tickets__Templates::get_template_hierarchy( 'tickets/orders-link.php' );
 		$content .= ob_get_clean();
 
 		return $content;
@@ -418,7 +418,7 @@ class E_Register_Now__Tickets__Tickets_View {
 	 * @return array                    List of Attendees grouped by order id
 	 */
 	public function get_event_attendees_by_order( $event_id, $user_id = null, $include_rsvp = false ) {
-		$attendees = E_Register_Now__Tickets__Tickets::get_event_attendees( $event_id );
+		$attendees = Register_In_One_Click__Tickets__Tickets::get_event_attendees( $event_id );
 		$orders = array();
 
 		foreach ( $attendees as $key => $attendee ) {
@@ -449,7 +449,7 @@ class E_Register_Now__Tickets__Tickets_View {
 	 * @return array                   Array with the RSVP attendees
 	 */
 	public function get_event_rsvp_attendees( $event_id, $user_id = null ) {
-		$all_attendees = E_Register_Now__Tickets__Tickets::get_event_attendees( $event_id );
+		$all_attendees = Register_In_One_Click__Tickets__Tickets::get_event_attendees( $event_id );
 		$attendees = array();
 
 		foreach ( $all_attendees as $key => $attendee ) {

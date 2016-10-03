@@ -1,4 +1,4 @@
 <?php
-_deprecated_file( __FILE__, '4.0', 'E_Register_Now__Settings.php' );
+_deprecated_file( __FILE__, '4.0', 'Register_In_One_Click__Settings.php' );
 
-class E_Register_Now__Events__Settings extends E_Register_Now__Settings {}
+class Register_In_One_Click__Events__Settings extends Register_In_One_Click__Settings {}

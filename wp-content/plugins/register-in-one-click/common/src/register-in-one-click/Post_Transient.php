@@ -7,7 +7,7 @@
  *
  * @since   4.1
  */
-class E_Register_Now__Post_Transient {
+class Register_In_One_Click__Post_Transient {
 
 		/**
 		 * Get (and instantiate, if necessary) the instance of the class
@@ -55,10 +55,10 @@ class E_Register_Now__Post_Transient {
 			 * @param int    $post_id   Post ID
 			 * @param string $transient The Post Meta Key
 			 */
-			do_action( 'e_rn_delete_post_meta_transient_' . $transient, $post_id, $transient );
+			do_action( 'rioc_delete_post_meta_transient_' . $transient, $post_id, $transient );
 
 			if ( $_wp_using_ext_object_cache ) {
-				$result = wp_cache_delete( "e_rn_{$transient}-{$post_id}", "e_rn_post_meta_transient-{$post_id}" );
+				$result = wp_cache_delete( "rioc_{$transient}-{$post_id}", "rioc_post_meta_transient-{$post_id}" );
 			} else {
 				$meta_timeout = '_transient_timeout_' . $transient;
 				$meta = '_transient_' . $transient;
@@ -77,7 +77,7 @@ class E_Register_Now__Post_Transient {
 				 * @param int    $post_id   Post ID
 				 * @param string $transient The Post Meta Key
 				 */
-				do_action( 'e_rn_deleted_post_meta_transient', $transient, $post_id, $transient );
+				do_action( 'rioc_deleted_post_meta_transient', $transient, $post_id, $transient );
 			}
 
 			return $result;
@@ -102,7 +102,7 @@ class E_Register_Now__Post_Transient {
 				$post_id = $post->ID;
 			}
 
-			if ( has_filter( 'e_rn_pre_post_meta_transient_' . $transient ) ) {
+			if ( has_filter( 'rioc_pre_post_meta_transient_' . $transient ) ) {
 				/**
 				 * Attach an action before getting the new Transient
 				 *
@@ -111,14 +111,14 @@ class E_Register_Now__Post_Transient {
 				 * @param int    $post_id   Post ID
 				 * @param string $transient The Post Meta Key
 				 */
-				$pre = apply_filters( 'e_rn_pre_post_meta_transient_' . $transient, $post_id, $transient );
+				$pre = apply_filters( 'rioc_pre_post_meta_transient_' . $transient, $post_id, $transient );
 				if ( false !== $pre ) {
 					return $pre;
 				}
 			}
 
 			if ( $_wp_using_ext_object_cache ) {
-				$value = wp_cache_get( "e_rn_{$transient}-{$post_id}", "e_rn_post_meta_transient-{$post_id}" );
+				$value = wp_cache_get( "rioc_{$transient}-{$post_id}", "rioc_post_meta_transient-{$post_id}" );
 			} else {
 				$meta_timeout = '_transient_timeout_' . $transient;
 				$meta = '_transient_' . $transient;
@@ -140,8 +140,8 @@ class E_Register_Now__Post_Transient {
 			 * @param string $transient The Post Meta Key
 			 */
 			return
-				has_filter( 'e_rn_post_meta_transient_' . $transient )
-				? apply_filters( 'e_rn_post_meta_transient_' . $transient, $value, $post_id )
+				has_filter( 'rioc_post_meta_transient_' . $transient )
+				? apply_filters( 'rioc_post_meta_transient_' . $transient, $value, $post_id )
 				: $value;
 		}
 
@@ -176,12 +176,12 @@ class E_Register_Now__Post_Transient {
 			 * @param int    $post_id   Post ID
 			 * @param string $transient The Post Meta Key
 			 */
-			if ( has_filter( 'e_rn_pre_set_post_meta_transient_' . $transient ) ) {
-				$value = apply_filters( 'e_rn_pre_set_post_meta_transient_' . $transient, $value, $post_id, $transient );
+			if ( has_filter( 'rioc_pre_set_post_meta_transient_' . $transient ) ) {
+				$value = apply_filters( 'rioc_pre_set_post_meta_transient_' . $transient, $value, $post_id, $transient );
 			}
 
 			if ( $_wp_using_ext_object_cache ) {
-				$result = wp_cache_set( "e_rn_{$transient}-{$post_id}", $value, "e_rn_post_meta_transient-{$post_id}", $expiration );
+				$result = wp_cache_set( "rioc_{$transient}-{$post_id}", $value, "rioc_post_meta_transient-{$post_id}", $expiration );
 			} else {
 				$meta_timeout = '_transient_timeout_' . $transient;
 				$meta = '_transient_' . $transient;
@@ -200,7 +200,7 @@ class E_Register_Now__Post_Transient {
 				 * @param int    $post_id   Post ID
 				 * @param string $transient The Post Meta Key
 				 */
-				do_action( 'e_rn_set_post_meta_transient_' . $transient, $post_id, $transient );
+				do_action( 'rioc_set_post_meta_transient_' . $transient, $post_id, $transient );
 			}
 
 			return $result;

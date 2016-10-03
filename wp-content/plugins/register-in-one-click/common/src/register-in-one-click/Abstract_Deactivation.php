@@ -1,6 +1,6 @@
 <?php
 
-abstract class E_Register_Now__Abstract_Deactivation {
+abstract class Register_In_One_Click__Abstract_Deactivation {
 	protected $network = false;
 
 	public function __construct( $network ) {

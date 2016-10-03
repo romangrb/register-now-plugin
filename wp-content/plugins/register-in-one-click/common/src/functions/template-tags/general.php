@@ -8,11 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Main' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Main' ) ) {
 	return;
 }
 
-if ( ! function_exists( 'e_rn_get_option' ) ) {
+if ( ! function_exists( 'rioc_get_option' ) ) {
 	/**
 	 * Get Options
 	 *
@@ -25,12 +25,12 @@ if ( ! function_exists( 'e_rn_get_option' ) ) {
 	 * @return mixed Value of the option if found.
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
-	function e_rn_get_option( $optionName, $default = '' ) {
-		return apply_filters( 'e_rn_get_option', E_Register_Now__Settings_Manager::get_option( $optionName, $default ), $optionName, $default );
+	function rioc_get_option( $optionName, $default = '' ) {
+		return apply_filters( 'rioc_get_option', Register_In_One_Click__Settings_Manager::get_option( $optionName, $default ), $optionName, $default );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_update_option' ) ) {
+if ( ! function_exists( 'rioc_update_option' ) ) {
 	/**
 	 * Update Option
 	 *
@@ -42,12 +42,12 @@ if ( ! function_exists( 'e_rn_update_option' ) ) {
 	 *
 	 * @return void
 	 */
-	function e_rn_update_option( $optionName, $value ) {
-		E_Register_Now__Settings_Manager::set_option( $optionName, $value );
+	function rioc_update_option( $optionName, $value ) {
+		Register_In_One_Click__Settings_Manager::set_option( $optionName, $value );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_network_option' ) ) {
+if ( ! function_exists( 'rioc_get_network_option' ) ) {
 	/**
 	 * Get Network Options
 	 *
@@ -60,12 +60,12 @@ if ( ! function_exists( 'e_rn_get_network_option' ) ) {
 	 * @return mixed Value of the option if found.
 	 * @todo Abstract this function out of template tags or otherwise secure it from other namespace conflicts.
 	 */
-	function e_rn_get_network_option( $optionName, $default = '' ) {
-		return E_Register_Now__Settings_Manager::get_network_option( $optionName, $default );
+	function rioc_get_network_option( $optionName, $default = '' ) {
+		return Register_In_One_Click__Settings_Manager::get_network_option( $optionName, $default );
 	}
 }
 
-if ( ! function_exists( 'e_rn_resource_url' ) ) {
+if ( ! function_exists( 'rioc_resource_url' ) ) {
 	/**
 	 * Returns or echoes a url to a file in the Events Calendar plugin resources directory
 	 *
@@ -76,7 +76,7 @@ if ( ! function_exists( 'e_rn_resource_url' ) ) {
 	 *
 	 * @return string
 	 **/
-	function e_rn_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
+	function rioc_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
 		$extension = pathinfo( $resource, PATHINFO_EXTENSION );
 
 		if ( 'src' !== $root_dir ) {
@@ -111,12 +111,12 @@ if ( ! function_exists( 'e_rn_resource_url' ) ) {
 		 * @param $url
 		 * @param $resource
 		 */
-		$url = apply_filters( 'e_rn_resource_url', $url . $path, $resource );
+		$url = apply_filters( 'rioc_resource_url', $url . $path, $resource );
 
 		/**
-		 * Deprected the e_rn_events_resource_url filter in 4.0 in favor of e_rn_resource_url. Remove in 5.0
+		 * Deprected the rioc_events_resource_url filter in 4.0 in favor of rioc_resource_url. Remove in 5.0
 		 */
-		$url = apply_filters( 'e_rn_events_resource_url', $url, $resource );
+		$url = apply_filters( 'rioc_events_resource_url', $url, $resource );
 
 		if ( $echo ) {
 			echo $url;
@@ -126,7 +126,7 @@ if ( ! function_exists( 'e_rn_resource_url' ) ) {
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_multi_line_remove_empty_lines' ) ) {
+if ( ! function_exists( 'rioc_multi_line_remove_empty_lines' ) ) {
 	/**
 	 * helper function to remove empty lines from multi-line strings
 	 *
@@ -137,12 +137,12 @@ if ( ! function_exists( 'e_rn_multi_line_remove_empty_lines' ) ) {
 	 *
 	 * @return string the same string without empty lines
 	 */
-	function e_rn_multi_line_remove_empty_lines( $multi_line_string ) {
+	function rioc_multi_line_remove_empty_lines( $multi_line_string ) {
 		return preg_replace( "/^\n+|^[\t\s]*\n+/m", '', $multi_line_string );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_date_format' ) ) {
+if ( ! function_exists( 'rioc_get_date_format' ) ) {
 	/**
 	 * Get the date format specified in the tribe options
 	 *
@@ -151,18 +151,18 @@ if ( ! function_exists( 'e_rn_get_date_format' ) ) {
 	 *
 	 * @return mixed
 	 */
-	function e_rn_get_date_format( $with_year = false ) {
+	function rioc_get_date_format( $with_year = false ) {
 		if ( $with_year ) {
-			$format = e_rn_get_date_option( 'dateWithYearFormat', get_option( 'date_format' ) );
+			$format = rioc_get_date_option( 'dateWithYearFormat', get_option( 'date_format' ) );
 		} else {
-			$format = e_rn_get_date_option( 'dateWithoutYearFormat', 'F j' );
+			$format = rioc_get_date_option( 'dateWithoutYearFormat', 'F j' );
 		}
 
-		return apply_filters( 'e_rn_date_format', $format );
+		return apply_filters( 'rioc_date_format', $format );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_datetime_format' ) ) {
+if ( ! function_exists( 'rioc_get_datetime_format' ) ) {
 	/**
 	 * Get the Datetime Format
 	 *
@@ -172,19 +172,19 @@ if ( ! function_exists( 'e_rn_get_datetime_format' ) ) {
 	 *
 	 * @return mixed|void
 	 */
-	function e_rn_get_datetime_format( $with_year = false ) {
-		$separator = (array) str_split( e_rn_get_option( 'dateTimeSeparator', ' @ ' ) );
+	function rioc_get_datetime_format( $with_year = false ) {
+		$separator = (array) str_split( rioc_get_option( 'dateTimeSeparator', ' @ ' ) );
 
-		$format = e_rn_get_date_format( $with_year );
+		$format = rioc_get_date_format( $with_year );
 		$format .= ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
 		$format .= get_option( 'time_format' );
 
-		return apply_filters( 'e_rn_datetime_format', $format );
+		return apply_filters( 'rioc_datetime_format', $format );
 
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_time_format' ) ) {
+if ( ! function_exists( 'rioc_get_time_format' ) ) {
 	/**
 	 * Get the time format
 	 *
@@ -192,13 +192,13 @@ if ( ! function_exists( 'e_rn_get_time_format' ) ) {
 	 *
 	 * @return mixed|void
 	 */
-	function e_rn_get_time_format( ) {
+	function rioc_get_time_format( ) {
 		$format = get_option( 'time_format' );
-		return apply_filters( 'e_rn_time_format', $format );
+		return apply_filters( 'rioc_time_format', $format );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_days_between' ) ) {
+if ( ! function_exists( 'rioc_get_days_between' ) ) {
 	/**
 	 * Accepts two dates and returns the number of days between them
 	 *
@@ -209,13 +209,13 @@ if ( ! function_exists( 'e_rn_get_days_between' ) ) {
 	 * @param string|bool $day_cutoff
 	 *
 	 * @return int
-	 * @see E_Register_Now__Date_Utils::date_diff()
+	 * @see Register_In_One_Click__Date_Utils::date_diff()
 	 **/
-	function e_rn_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
+	function rioc_get_days_between( $start_date, $end_date, $day_cutoff = '00:00' ) {
 		if ( $day_cutoff === false ) {
 			$day_cutoff = '00:00';
 		} elseif ( $day_cutoff === true ) {
-			$day_cutoff = e_rn_get_option( 'multiDayCutoff', '00:00' );
+			$day_cutoff = rioc_get_option( 'multiDayCutoff', '00:00' );
 		}
 
 		$start_date = new DateTime( $start_date );
@@ -227,15 +227,15 @@ if ( ! function_exists( 'e_rn_get_days_between' ) ) {
 			$end_date->modify( '-1 day' );
 		}
 
-		return E_Register_Now__Date_Utils::date_diff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
+		return Register_In_One_Click__Date_Utils::date_diff( $start_date->format( 'Y-m-d ' . $day_cutoff ), $end_date->format( 'Y-m-d ' . $day_cutoff ) );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_prepare_for_json' ) ) {
+if ( ! function_exists( 'rioc_prepare_for_json' ) ) {
 	/**
 	 * Function to prepare content for use as a value in a json encoded string destined for storage on a html data attribute.
 	 * Hence the double quote fun, especially in case they pass html encoded &quot; along. Any of those getting through to the data att will break jquery's parseJSON method.
-	 * Themers can use this function to prepare data they may want to send to e_rn_events_template_data() in the templates, and we use it in that function ourselves.
+	 * Themers can use this function to prepare data they may want to send to rioc_events_template_data() in the templates, and we use it in that function ourselves.
 	 *
 	 * @category Events
 	 *
@@ -243,7 +243,7 @@ if ( ! function_exists( 'e_rn_prepare_for_json' ) ) {
 	 *
 	 * @return string
 	 */
-	function e_rn_prepare_for_json( $string ) {
+	function rioc_prepare_for_json( $string ) {
 
 		$value = trim( htmlspecialchars( $string, ENT_QUOTES, 'UTF-8' ) );
 		$value = str_replace( '&quot;', '"', $value );
@@ -252,10 +252,10 @@ if ( ! function_exists( 'e_rn_prepare_for_json' ) ) {
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_prepare_for_json_deep' ) ) {
+if ( ! function_exists( 'rioc_prepare_for_json_deep' ) ) {
 	/**
 	 * Recursively iterate through an nested structure, calling
-	 * e_rn_prepare_for_json() on all scalar values
+	 * rioc_prepare_for_json() on all scalar values
 	 *
 	 * @category Events
 	 *
@@ -263,22 +263,22 @@ if ( ! function_exists( 'e_rn_prepare_for_json_deep' ) ) {
 	 *
 	 * @return mixed The clean data
 	 */
-	function e_rn_prepare_for_json_deep( $value ) {
+	function rioc_prepare_for_json_deep( $value ) {
 		if ( is_array( $value ) ) {
-			$value = array_map( 'e_rn_prepare_for_json_deep', $value );
+			$value = array_map( 'rioc_prepare_for_json_deep', $value );
 		} elseif ( is_object( $value ) ) {
 			$vars = get_object_vars( $value );
 			foreach ( $vars as $key => $data ) {
-				$value->{$key} = e_rn_prepare_for_json_deep( $data );
+				$value->{$key} = rioc_prepare_for_json_deep( $data );
 			}
 		} elseif ( is_string( $value ) ) {
-			$value = e_rn_prepare_for_json( $value );
+			$value = rioc_prepare_for_json( $value );
 		}
 		return $value;
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_the_notices' ) ) {
+if ( ! function_exists( 'rioc_the_notices' ) ) {
 	/**
 	 * Generates html for any notices that have been queued on the current view
 	 *
@@ -287,22 +287,22 @@ if ( ! function_exists( 'e_rn_the_notices' ) ) {
 	 * @param bool $echo Whether or not to echo the notices html
 	 *
 	 * @return void | string
-	 * @see E_Register_Now__Notices::get()
+	 * @see Register_In_One_Click__Notices::get()
 	 **/
-	function e_rn_the_notices( $echo = true ) {
-		$notices = E_Register_Now__Notices::get();
+	function rioc_the_notices( $echo = true ) {
+		$notices = Register_In_One_Click__Notices::get();
 
 		$html        = ! empty( $notices ) ? '<div class="rioc-events-notices"><ul><li>' . implode( '</li><li>', $notices ) . '</li></ul></div>' : '';
 
 		/**
-		 * Deprecated the e_rn_events_the_notices filter in 4.0 in favor of e_rn_the_notices. Remove in 5.0
+		 * Deprecated the rioc_events_the_notices filter in 4.0 in favor of rioc_the_notices. Remove in 5.0
 		 */
-		$the_notices = apply_filters( 'e_rn_events_the_notices', $html, $notices );
+		$the_notices = apply_filters( 'rioc_events_the_notices', $html, $notices );
 
 		/**
 		 * filters the notices HTML
 		 */
-		$the_notices = apply_filters( 'e_rn_the_notices', $html, $notices );
+		$the_notices = apply_filters( 'rioc_the_notices', $html, $notices );
 		if ( $echo ) {
 			echo $the_notices;
 		} else {
@@ -311,26 +311,26 @@ if ( ! function_exists( 'e_rn_the_notices' ) ) {
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_is_bot' ) ) {
+if ( ! function_exists( 'rioc_is_bot' ) ) {
 	/**
-	 * e_rn_is_bot checks if the visitor is a bot and returns status
+	 * rioc_is_bot checks if the visitor is a bot and returns status
 	 *
 	 * @category Events
 	 *
 	 * @return bool
 	 */
-	function e_rn_is_bot() {
+	function rioc_is_bot() {
 		// get the current user agent
 		$user_agent = strtolower( $_SERVER['HTTP_USER_AGENT'] );
 
 		// check if the user agent is empty since most browsers identify themselves, so possibly a bot
 		if ( empty( $user_agent ) ) {
-			return apply_filters( 'e_rn_is_bot_status', true, $user_agent, null );
+			return apply_filters( 'rioc_is_bot_status', true, $user_agent, null );
 		}
 
 		// declare known bot user agents (lowercase)
 		$user_agent_bots = (array) apply_filters(
-			'e_rn_is_bot_list', array(
+			'rioc_is_bot_list', array(
 				'bot',
 				'slurp',
 				'spider',
@@ -341,16 +341,16 @@ if ( ! function_exists( 'e_rn_is_bot' ) ) {
 
 		foreach ( $user_agent_bots as $bot ) {
 			if ( stripos( $user_agent, $bot ) !== false ) {
-				return apply_filters( 'e_rn_is_bot_status', true, $user_agent, $bot );
+				return apply_filters( 'rioc_is_bot_status', true, $user_agent, $bot );
 			}
 		}
 
 		// we think this is probably a real human
-		return apply_filters( 'e_rn_is_bot_status', false, $user_agent, null );
+		return apply_filters( 'rioc_is_bot_status', false, $user_agent, null );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_count_hierarchical_keys' ) ) {
+if ( ! function_exists( 'rioc_count_hierarchical_keys' ) ) {
 	/**
 	 * Count keys in a hierarchical array
 	 *
@@ -358,13 +358,13 @@ if ( ! function_exists( 'e_rn_count_hierarchical_keys' ) ) {
 	 * @param $key
 	 * @todo - remove, only used in the meta walker
 	 */
-	function e_rn_count_hierarchical_keys( $value, $key ) {
-		global $e_rn_count_hierarchical_increment;
-		$e_rn_count_hierarchical_increment++;
+	function rioc_count_hierarchical_keys( $value, $key ) {
+		global $rioc_count_hierarchical_increment;
+		$rioc_count_hierarchical_increment++;
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_count_hierarchical' ) ) {
+if ( ! function_exists( 'rioc_count_hierarchical' ) ) {
 	/**
 	 * Count items in a hierarchical array
 	 *
@@ -373,16 +373,16 @@ if ( ! function_exists( 'e_rn_count_hierarchical' ) ) {
 	 * @return int
 	 * @todo - remove, only used in the meta walker
 	 */
-	function e_rn_count_hierarchical( array $walk ) {
-		global $e_rn_count_hierarchical_increment;
-		$e_rn_count_hierarchical_increment = 0;
-		array_walk_recursive( $walk, 'e_rn_count_hierarchical_keys' );
+	function rioc_count_hierarchical( array $walk ) {
+		global $rioc_count_hierarchical_increment;
+		$rioc_count_hierarchical_increment = 0;
+		array_walk_recursive( $walk, 'rioc_count_hierarchical_keys' );
 
-		return $e_rn_count_hierarchical_increment;
+		return $rioc_count_hierarchical_increment;
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_mobile_breakpoint' ) ) {
+if ( ! function_exists( 'rioc_get_mobile_breakpoint' ) ) {
 	/**
 	 * Mobile breakpoint
 	 *
@@ -394,12 +394,12 @@ if ( ! function_exists( 'e_rn_get_mobile_breakpoint' ) ) {
 	 *
 	 * @return int
 	 */
-	function e_rn_get_mobile_breakpoint( $default = 768 ) {
-		return apply_filters( 'e_rn_events_mobile_breakpoint', $default );
+	function rioc_get_mobile_breakpoint( $default = 768 ) {
+		return apply_filters( 'rioc_events_mobile_breakpoint', $default );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_format_currency' ) ) {
+if ( ! function_exists( 'rioc_format_currency' ) ) {
 	/**
 	 * Receives a float and formats it with a currency symbol
 	 *
@@ -411,22 +411,22 @@ if ( ! function_exists( 'e_rn_format_currency' ) ) {
 	 *
 	 * @return string
 	 */
-	function e_rn_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
+	function rioc_format_currency( $cost, $post_id = null, $currency_symbol = null, $reverse_position = null ) {
 
-		$post_id = E_Register_Now__Main::post_id_helper( $post_id );
+		$post_id = Register_In_One_Click__Main::post_id_helper( $post_id );
 
-		$currency_symbol = apply_filters( 'e_rn_currency_symbol', $currency_symbol, $post_id );
+		$currency_symbol = apply_filters( 'rioc_currency_symbol', $currency_symbol, $post_id );
 
 		// if no currency symbol was passed, or we're not looking at a particular event,
 		// let's get the default currency symbol
 		if ( ! $post_id || ! $currency_symbol ) {
-			$currency_symbol = e_rn_get_option( 'defaultCurrencySymbol', '$' );
+			$currency_symbol = rioc_get_option( 'defaultCurrencySymbol', '$' );
 		}
 
-		$reverse_position = apply_filters( 'e_rn_reverse_currency_position', $reverse_position, $post_id );
+		$reverse_position = apply_filters( 'rioc_reverse_currency_position', $reverse_position, $post_id );
 
 		if ( ! $reverse_position || ! $post_id ) {
-			$reverse_position = e_rn_get_option( 'reverseCurrencyPosition', false );
+			$reverse_position = rioc_get_option( 'reverseCurrencyPosition', false );
 		}
 
 		$cost = $reverse_position ? $cost . $currency_symbol : $currency_symbol . $cost;
@@ -436,7 +436,7 @@ if ( ! function_exists( 'e_rn_format_currency' ) ) {
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_date_option' ) ) {
+if ( ! function_exists( 'rioc_get_date_option' ) ) {
 	/**
 	 * Get a date option.
 	 *
@@ -448,9 +448,9 @@ if ( ! function_exists( 'e_rn_get_date_option' ) ) {
 	 *
 	 * @return mixed Value of the option if found
 	 */
-	function e_rn_get_date_option( $optionName, $default = '' ) {
-		$value = e_rn_get_option( $optionName, $default );
+	function rioc_get_date_option( $optionName, $default = '' ) {
+		$value = rioc_get_option( $optionName, $default );
 
-		return E_Register_Now__Date_Utils::unescape_date_format($value);
+		return Register_In_One_Click__Date_Utils::unescape_date_format($value);
 	}
 }

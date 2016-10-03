@@ -7,7 +7,7 @@
  *     Tickets Pro provider (child of TribeTickets)
  *     available.
  */
-class E_Register_Now__Tickets__Metabox {
+class Register_In_One_Click__Tickets__Metabox {
 
 	/**
 	 * Registers the tickets metabox if there's at least
@@ -17,12 +17,12 @@ class E_Register_Now__Tickets__Metabox {
 	 * @param $post_type
 	 */
 	public static function maybe_add_meta_box( $post_type ) {
-		$modules = apply_filters( 'e_rn_events_tickets_modules', null );
+		$modules = apply_filters( 'rioc_events_tickets_modules', null );
 		if ( empty( $modules ) ) {
 			return;
 		}
 
-		if ( ! in_array( $post_type, E_Register_Now__Tickets__Main::instance()->post_types() ) ) {
+		if ( ! in_array( $post_type, Register_In_One_Click__Tickets__Main::instance()->post_types() ) ) {
 			return;
 		}
 
@@ -30,7 +30,7 @@ class E_Register_Now__Tickets__Metabox {
 			'tribetickets',
 			esc_html__( 'Tickets', 'E-Register-Now' ),
 			array(
-				'E_Register_Now__Tickets__Metabox',
+				'Register_In_One_Click__Tickets__Metabox',
 				'do_modules_metaboxes',
 			),
 			$post_type,
@@ -48,12 +48,12 @@ class E_Register_Now__Tickets__Metabox {
 	 */
 	public static function do_modules_metaboxes( $post_id ) {
 
-		$modules = apply_filters( 'e_rn_events_tickets_modules', null );
+		$modules = apply_filters( 'rioc_events_tickets_modules', null );
 		if ( empty( $modules ) ) {
 			return;
 		}
 
-		E_Register_Now__Tickets__Tickets_Handler::instance()->do_meta_box( $post_id );
+		Register_In_One_Click__Tickets__Tickets_Handler::instance()->do_meta_box( $post_id );
 	}
 
 	/**
@@ -65,17 +65,17 @@ class E_Register_Now__Tickets__Metabox {
 	public static function add_admin_scripts( $hook ) {
 		global $post;
 
-		$modules = apply_filters( 'e_rn_events_tickets_modules', null );
+		$modules = apply_filters( 'rioc_events_tickets_modules', null );
 
 		/* Only load the resources in the event edit screen, and if there's a provider available */
-		if ( ( $hook != 'post-new.php' && $hook != 'post.php' ) || ! in_array( $post->post_type, E_Register_Now__Tickets__Main::instance()->post_types() ) || empty( $modules ) ) {
+		if ( ( $hook != 'post-new.php' && $hook != 'post.php' ) || ! in_array( $post->post_type, Register_In_One_Click__Tickets__Main::instance()->post_types() ) || empty( $modules ) ) {
 			return;
 		}
 
 		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
 
-		wp_enqueue_style( 'event-tickets', $resources_url .'/css/tickets.css', array(), E_Register_Now__Tickets__Main::instance()->css_version() );
-		wp_enqueue_script( 'event-tickets', $resources_url .'/js/tickets.js', array( 'jquery-ui-datepicker' ), E_Register_Now__Tickets__Main::instance()->js_version(), true );
+		wp_enqueue_style( 'event-tickets', $resources_url .'/css/tickets.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version() );
+		wp_enqueue_script( 'event-tickets', $resources_url .'/js/tickets.js', array( 'jquery-ui-datepicker' ), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
 
 		$upload_header_data = array(
 			'title'  => esc_html__( 'Ticket header image', 'event-tickets' ),
@@ -83,7 +83,7 @@ class E_Register_Now__Tickets__Metabox {
 		);
 
 		wp_localize_script( 'event-tickets', 'HeaderImageData', $upload_header_data );
-		wp_localize_script( 'event-tickets', 'e_rn_global_stock_admin_ui', array(
+		wp_localize_script( 'event-tickets', 'rioc_global_stock_admin_ui', array(
 			'nav_away_msg' => __( 'It looks like you have modified your global stock settings but have not saved or updated the post.', 'event-tickets' ),
 		) );
 

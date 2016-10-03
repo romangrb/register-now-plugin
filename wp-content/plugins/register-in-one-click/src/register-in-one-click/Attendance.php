@@ -2,12 +2,12 @@
 /**
  * Utilities for tracking ticket provider-agnostic attendance data.
  */
-class E_Register_Now__Tickets__Attendance {
+class Register_In_One_Click__Tickets__Attendance {
 	/**
 	 * Meta key used to track the number of attendees that have been deleted
 	 * for each event.
 	 */
-	const DELETED_ATTENDEES_COUNT = '_e_rn_deleted_attendees_count';
+	const DELETED_ATTENDEES_COUNT = '_rioc_deleted_attendees_count';
 
 	/**
 	 * Container for our instances (one per event/post).
@@ -23,11 +23,11 @@ class E_Register_Now__Tickets__Attendance {
 
 
 	/**
-	 * Returns a E_Register_Now__Tickets__Attendance object for the specified post ID.
+	 * Returns a Register_In_One_Click__Tickets__Attendance object for the specified post ID.
 	 *
 	 * @param int $post_id
 	 *
-	 * @return E_Register_Now__Tickets__Attendance
+	 * @return Register_In_One_Click__Tickets__Attendance
 	 */
 	public static function instance( $post_id ) {
 		if ( ! isset( self::$instances[ $post_id ] ) ) {

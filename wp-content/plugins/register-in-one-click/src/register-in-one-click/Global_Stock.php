@@ -1,14 +1,14 @@
 <?php
-class E_Register_Now__Tickets__Global_Stock {
+class Register_In_One_Click__Tickets__Global_Stock {
 	/**
 	 * Post meta key used to store the global stock flag.
 	 */
-	const GLOBAL_STOCK_ENABLED = '_e_rn_ticket_use_global_stock';
+	const GLOBAL_STOCK_ENABLED = '_rioc_ticket_use_global_stock';
 
 	/**
 	 * Post meta key used to store the actual global stock level.
 	 */
-	const GLOBAL_STOCK_LEVEL = '_e_rn_ticket_global_stock_level';
+	const GLOBAL_STOCK_LEVEL = '_rioc_ticket_global_stock_level';
 
 	/**
 	 * Flag used to indicate that a ticket will use the global stock.
@@ -89,7 +89,7 @@ class E_Register_Now__Tickets__Global_Stock {
 		 * @param int $post_id
 		 * @param int $quantity
 		 */
-		do_action( 'e_rn_tickets_global_stock_level_changed', $this->post_id, $quantity );
+		do_action( 'rioc_tickets_global_stock_level_changed', $this->post_id, $quantity );
 	}
 
 	/**
@@ -109,9 +109,9 @@ class E_Register_Now__Tickets__Global_Stock {
 	public function tickets_sold() {
 		$sales = 0;
 
-		foreach ( E_Register_Now__Tickets__Tickets::get_all_event_tickets( $this->post_id ) as $ticket ) {
+		foreach ( Register_In_One_Click__Tickets__Tickets::get_all_event_tickets( $this->post_id ) as $ticket ) {
 			/**
-			 * @var E_Register_Now__Tickets__Ticket_Object $ticket
+			 * @var Register_In_One_Click__Tickets__Ticket_Object $ticket
 			 */
 			switch ( $ticket->global_stock_mode() ) {
 				case self::CAPPED_STOCK_MODE:

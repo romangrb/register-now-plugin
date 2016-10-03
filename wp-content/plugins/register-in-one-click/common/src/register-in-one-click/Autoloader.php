@@ -1,8 +1,8 @@
 <?php
 
-	if ( ! class_exists( 'E_Register_Now__Autoloader' ) ) {
+	if ( ! class_exists( 'Register_In_One_Click__Autoloader' ) ) {
 		/**
-		 * Class E_Register_Now__Autoloader
+		 * Class Register_In_One_Click__Autoloader
 		 *
 		 * Allows for autoloading of Tribe plugins classes.
 		 *
@@ -12,15 +12,15 @@
 		 *      $this_dir = dirname(__FILE__);
 		 *
 		 *      // gets hold of the singleton instance of the class
-		 *      $autoloader = E_Register_Now__Autoloader::instance();
+		 *      $autoloader = Register_In_One_Click__Autoloader::instance();
 		 *
 		 *      // register one by one or use `register_prefixes` method
-		 *      $autoloader->register_prefix( 'E_Register_Now__Admin__', $this_dir . '/src/e_register_now/admin' );
-		 *      $autoloader->register_prefix( 'E_Register_Now__Admin__', $this_dir . '/src/e_register_now/another-dir' );
-		 *      $autoloader->register_prefix( 'E_Register_Now__Utils__', $this_dir . '/src/e_register_now/another-dir' );
+		 *      $autoloader->register_prefix( 'Register_In_One_Click__Admin__', $this_dir . '/src/e_register_now/admin' );
+		 *      $autoloader->register_prefix( 'Register_In_One_Click__Admin__', $this_dir . '/src/e_register_now/another-dir' );
+		 *      $autoloader->register_prefix( 'Register_In_One_Click__Utils__', $this_dir . '/src/e_register_now/another-dir' );
 		 *
 		 *      // register a direct class to path
-		 *      $autoloader->register_class( 'E_Register_Now__Some_Class', $this_dir . '/some/path/to/Some_Class.php' );
+		 *      $autoloader->register_class( 'Register_In_One_Click__Some_Class', $this_dir . '/some/path/to/Some_Class.php' );
 		 *
 		 *      // register a fallback dir to be searched for the class before giving up
 		 *      $autoloader->add_fallback_dir( $this_dir . '/all-the-classes' );
@@ -32,20 +32,20 @@
 		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/src/e_register_now/admin/Some_Class.php'
 		 *      // and
 		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/src/e_register_now/another-dir/Some_Class.php'
-		 *      $i = new E_Register_Now__Admin__Some_Class();
+		 *      $i = new Register_In_One_Click__Admin__Some_Class();
 		 *
 		 *      // class will be searched in the path
 		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/utils/some-dir/Some_Util.php'
-		 *      $i = new E_Register_Now__Utils__Some_Util();
+		 *      $i = new Register_In_One_Click__Utils__Some_Util();
 		 *
 		 *      // class will be searched in the path
 		 *      // `/var/www/site/wp-content/plugins/the-events-calendar/deprecated/e_register_now_DeprecatedClass.php'
 		 *      $i = new Tribe_DeprecatedClass();
 		 */
-		class E_Register_Now__Autoloader {
+		class Register_In_One_Click__Autoloader {
 
 			/**
-			 * @var E_Register_Now__Autoloader
+			 * @var Register_In_One_Click__Autoloader
 			 */
 			protected static $instance;
 
@@ -80,10 +80,10 @@
 			/**
 			 * Returns the singleton instance of the class.
 			 *
-			 * @return E_Register_Now__Autoloader
+			 * @return Register_In_One_Click__Autoloader
 			 */
 			public static function instance() {
-				if ( ! self::$instance instanceof E_Register_Now__Autoloader ) {
+				if ( ! self::$instance instanceof Register_In_One_Click__Autoloader ) {
 					self::$instance = new self();
 				}
 
@@ -106,7 +106,7 @@
 			/**
 			 * Associates a class prefix to an absolute path.
 			 *
-			 * @param string $prefix   A class prefix, e.g. `E_Register_Now__Admin__`
+			 * @param string $prefix   A class prefix, e.g. `Register_In_One_Click__Admin__`
 			 * @param string $root_dir The absolute path to the dir containing
 			 *                         the prefixed classes.
 			 */

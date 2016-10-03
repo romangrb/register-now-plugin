@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 
-if ( ! function_exists( 'e_rn_events_has_tickets' ) ) {
+if ( ! function_exists( 'rioc_events_has_tickets' ) ) {
 	/**
 	 * Determines if any tickets exist for the current event (a specific event
 	 * may be specified, though, by passing the post ID or post object).
@@ -20,38 +20,38 @@ if ( ! function_exists( 'e_rn_events_has_tickets' ) ) {
 	 *
 	 * @return bool
 	 */
-	function e_rn_events_has_tickets( $event = null ) {
-		if ( null === ( $event = e_rn_events_get_event( $event ) ) ) {
+	function rioc_events_has_tickets( $event = null ) {
+		if ( null === ( $event = rioc_events_get_event( $event ) ) ) {
 			return false;
 		}
 
-		$tickets = E_Register_Now__Tickets__Tickets::get_all_event_tickets( $event->ID );
+		$tickets = Register_In_One_Click__Tickets__Tickets::get_all_event_tickets( $event->ID );
 		return ! empty( $tickets );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_events_has_soldout' ) ) {
+if ( ! function_exists( 'rioc_events_has_soldout' ) ) {
 	/**
 	 * Determines if the event has sold out of tickets.
 	 *
 	 * Note that this will also return true if the event has no tickets
-	 * whatsoever, and so it may be best to test with e_rn_events_has_tickets()
+	 * whatsoever, and so it may be best to test with rioc_events_has_tickets()
 	 * before using this to avoid ambiguity.
 	 *
 	 * @param null $event
 	 *
 	 * @return bool
 	 */
-	function e_rn_events_has_soldout( $event = null ) {
-		$has_tickets = e_rn_events_has_tickets( $event );
-		$no_stock = e_rn_events_count_available_tickets( $event ) < 1;
-		$unlimited_inventory_items = e_rn_events_has_unlimited_stock_tickets( $event );
+	function rioc_events_has_soldout( $event = null ) {
+		$has_tickets = rioc_events_has_tickets( $event );
+		$no_stock = rioc_events_count_available_tickets( $event ) < 1;
+		$unlimited_inventory_items = rioc_events_has_unlimited_stock_tickets( $event );
 
 		return ( $has_tickets && $no_stock && ! $unlimited_inventory_items );
 	}
 }
 
-if ( ! function_exists( 'e_rn_events_partially_soldout' ) ) {
+if ( ! function_exists( 'rioc_events_partially_soldout' ) ) {
 	/**
 	 * Indicates if one or more of the tickets available for this event (but not
 	 * all) have sold out.
@@ -63,15 +63,15 @@ if ( ! function_exists( 'e_rn_events_partially_soldout' ) ) {
 	 *
 	 * @return bool
 	 */
-	function e_rn_events_partially_soldout( $event = null ) {
-		if ( null === ( $event = e_rn_events_get_event( $event ) ) ) {
+	function rioc_events_partially_soldout( $event = null ) {
+		if ( null === ( $event = rioc_events_get_event( $event ) ) ) {
 			return false;
 		}
 
 		$stock_is_available = false;
 		$some_have_soldout = false;
 
-		foreach ( E_Register_Now__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+		foreach ( Register_In_One_Click__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
 			if ( ! $stock_is_available && 0 < $ticket->stock() ) {
 				$stock_is_available = true;
 			}
@@ -85,7 +85,7 @@ if ( ! function_exists( 'e_rn_events_partially_soldout' ) ) {
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_events_count_available_tickets' ) ) {
+if ( ! function_exists( 'rioc_events_count_available_tickets' ) ) {
 	/**
 	 * Counts the total number of tickets still available for sale for a
 	 * specific event.
@@ -94,14 +94,14 @@ if ( ! function_exists( 'e_rn_events_count_available_tickets' ) ) {
 	 *
 	 * @return int
 	 */
-	function e_rn_events_count_available_tickets( $event = null ) {
+	function rioc_events_count_available_tickets( $event = null ) {
 		$count = 0;
 
-		if ( null === ( $event = e_rn_events_get_event( $event ) ) ) {
+		if ( null === ( $event = rioc_events_get_event( $event ) ) ) {
 			return 0;
 		}
 
-		foreach ( E_Register_Now__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+		foreach ( Register_In_One_Click__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
 			$count += $ticket->stock();
 		}
 
@@ -109,7 +109,7 @@ if ( ! function_exists( 'e_rn_events_count_available_tickets' ) ) {
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_events_has_unlimited_stock_tickets' ) ) {
+if ( ! function_exists( 'rioc_events_has_unlimited_stock_tickets' ) ) {
 	/**
 	 * Returns true if the event contains one or more tickets which are not
 	 * subject to any inventory limitations.
@@ -118,20 +118,20 @@ if ( ! function_exists( 'e_rn_events_has_unlimited_stock_tickets' ) ) {
 	 *
 	 * @return bool
 	 */
-	function e_rn_events_has_unlimited_stock_tickets( $event = null ) {
-		if ( null === ( $event = e_rn_events_get_event( $event ) ) ) {
+	function rioc_events_has_unlimited_stock_tickets( $event = null ) {
+		if ( null === ( $event = rioc_events_get_event( $event ) ) ) {
 			return 0;
 		}
 
-		foreach ( E_Register_Now__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
-			if ( E_Register_Now__Tickets__Ticket_Object::UNLIMITED_STOCK === $ticket->stock() ) return true;
+		foreach ( Register_In_One_Click__Tickets__Tickets::get_all_event_tickets( $event->ID ) as $ticket ) {
+			if ( Register_In_One_Click__Tickets__Ticket_Object::UNLIMITED_STOCK === $ticket->stock() ) return true;
 		}
 
 		return false;
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_events_product_is_ticket' ) ) {
+if ( ! function_exists( 'rioc_events_product_is_ticket' ) ) {
 	/**
 	 * Determines if the product object (or product ID) represents a ticket for
 	 * an event.
@@ -140,13 +140,13 @@ if ( ! function_exists( 'e_rn_events_product_is_ticket' ) ) {
 	 *
 	 * @return bool
 	 */
-	function e_rn_events_product_is_ticket( $product ) {
-		$matching_event = e_rn_events_get_ticket_event( $product );
+	function rioc_events_product_is_ticket( $product ) {
+		$matching_event = rioc_events_get_ticket_event( $product );
 		return ( false !== $matching_event );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_events_get_ticket_event' ) ) {
+if ( ! function_exists( 'rioc_events_get_ticket_event' ) ) {
 	/**
 	 * Accepts the post object or ID for a product and, if it represents an event
 	 * ticket, returns the corresponding event object.
@@ -157,20 +157,20 @@ if ( ! function_exists( 'e_rn_events_get_ticket_event' ) ) {
 	 *
 	 * @return bool|WP_Post
 	 */
-	function e_rn_events_get_ticket_event( $possible_ticket ) {
-		return E_Register_Now__Tickets__Tickets::find_matching_event( $possible_ticket );
+	function rioc_events_get_ticket_event( $possible_ticket ) {
+		return Register_In_One_Click__Tickets__Tickets::find_matching_event( $possible_ticket );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_events_ticket_is_on_sale' ) ) {
+if ( ! function_exists( 'rioc_events_ticket_is_on_sale' ) ) {
 	/**
 	 * Checks if the ticket is on sale (in relation to it's start/end sale dates).
 	 *
-	 * @param E_Register_Now__Tickets__Ticket_Object $ticket
+	 * @param Register_In_One_Click__Tickets__Ticket_Object $ticket
 	 *
 	 * @return bool
 	 */
-	function e_rn_events_ticket_is_on_sale( E_Register_Now__Tickets__Ticket_Object $ticket ) {
+	function rioc_events_ticket_is_on_sale( Register_In_One_Click__Tickets__Ticket_Object $ticket ) {
 		// No dates set? Then it's on sale!
 		if ( empty( $ticket->start_date ) && empty( $ticket->end_date ) ) {
 			return true;
@@ -190,24 +190,24 @@ if ( ! function_exists( 'e_rn_events_ticket_is_on_sale' ) ) {
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_tickets_get_ticket_stock_message' ) ) {
+if ( ! function_exists( 'rioc_tickets_get_ticket_stock_message' ) ) {
 	/**
 	 * Gets the "tickets sold" message for a given ticket
 	 *
-	 * @param E_Register_Now__Tickets__Ticket_Object $ticket Ticket to analyze
+	 * @param Register_In_One_Click__Tickets__Ticket_Object $ticket Ticket to analyze
 	 *
 	 * @return string
 	 */
-	function e_rn_tickets_get_ticket_stock_message( E_Register_Now__Tickets__Ticket_Object $ticket ) {
+	function rioc_tickets_get_ticket_stock_message( Register_In_One_Click__Tickets__Ticket_Object $ticket ) {
 		$stock        = $ticket->stock();
 		$sold         = $ticket->qty_sold();
 		$cancelled    = $ticket->qty_cancelled();
 		$pending      = $ticket->qty_pending();
-		$event        = E_Register_Now__Tickets__Tickets::find_matching_event( $ticket );
-		$global_stock = new E_Register_Now__Tickets__Global_Stock( $event->ID );
+		$event        = Register_In_One_Click__Tickets__Tickets::find_matching_event( $ticket );
+		$global_stock = new Register_In_One_Click__Tickets__Global_Stock( $event->ID );
 
-		$is_global = E_Register_Now__Tickets__Global_Stock::GLOBAL_STOCK_MODE === $ticket->global_stock_mode();
-		$is_capped = E_Register_Now__Tickets__Global_Stock::CAPPED_STOCK_MODE === $ticket->global_stock_mode();
+		$is_global = Register_In_One_Click__Tickets__Global_Stock::GLOBAL_STOCK_MODE === $ticket->global_stock_mode();
+		$is_capped = Register_In_One_Click__Tickets__Global_Stock::CAPPED_STOCK_MODE === $ticket->global_stock_mode();
 		$stock_cap = $ticket->global_stock_cap();
 
 		// If ticket sales are capped, do not suggest that more than the cap amount are available
@@ -257,11 +257,11 @@ if ( ! function_exists( 'e_rn_tickets_get_ticket_stock_message' ) ) {
  *
  * @return string
  **/
-function e_rn_tickets_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
+function rioc_tickets_resource_url( $resource, $echo = false, $root_dir = 'src' ) {
 	$extension = pathinfo( $resource, PATHINFO_EXTENSION );
 
 	if ( 'src' !== $root_dir ) {
-		return e_rn_resource_url( $resource, $echo, $root_dir );
+		return rioc_resource_url( $resource, $echo, $root_dir );
 	}
 
 	$resources_path = $root_dir . '/resources/';
@@ -282,7 +282,7 @@ function e_rn_tickets_resource_url( $resource, $echo = false, $root_dir = 'src' 
 
 	$path = $resource_path . $resource;
 
-	$url  = plugins_url( E_Register_Now__Tickets__Main::instance()->plugin_dir . $path );
+	$url  = plugins_url( Register_In_One_Click__Tickets__Main::instance()->plugin_dir . $path );
 
 	/**
 	 * Filter the ticket resource URL
@@ -290,7 +290,7 @@ function e_rn_tickets_resource_url( $resource, $echo = false, $root_dir = 'src' 
 	 * @var $url Resource URL
 	 * @var $resource The filename of the resource
 	 */
-	$url = apply_filters( 'e_rn_tickets_resource_url', $url, $resource );
+	$url = apply_filters( 'rioc_tickets_resource_url', $url, $resource );
 
 	if ( $echo ) {
 		echo esc_url( $url );
@@ -309,11 +309,11 @@ function e_rn_tickets_resource_url( $resource, $echo = false, $root_dir = 'src' 
  * @param array       $data (optional) array of vars to inject into the template part
  * @param boolean     $echo (optional) Allows the user to print or return the template
  *
- * @uses E_Register_Now__Tickets__Templates::get_template_hierarchy
+ * @uses Register_In_One_Click__Tickets__Templates::get_template_hierarchy
  *
  * @return string|void It will depend if it's echoing or not
  **/
-function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null, $echo = true ) {
+function rioc_tickets_get_template_part( $slug, $name = null, array $data = null, $echo = true ) {
 
 	/**
 	 * Fires an Action before echoing the Template
@@ -322,7 +322,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 	 * @param string $name     Template name
 	 * @param array  $data     The Data that will be used on this template
 	 */
-	do_action( 'e_rn_tickets_pre_get_template_part', $slug, $name, $data );
+	do_action( 'rioc_tickets_pre_get_template_part', $slug, $name, $data );
 
 	// Setup possible parts
 	$templates = array();
@@ -339,7 +339,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 	 * @param string $name     Template name
 	 * @param array  $data     The Data that will be used on this template
 	 */
-	$templates = apply_filters( 'e_rn_tickets_get_template_part_templates', $templates, $slug, $name, $data );
+	$templates = apply_filters( 'rioc_tickets_get_template_part_templates', $templates, $slug, $name, $data );
 
 	// Make any provided variables available in the template's symbol table
 	if ( is_array( $data ) ) {
@@ -348,7 +348,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 
 	// loop through templates, return first one found.
 	foreach ( $templates as $template ) {
-		$file = E_Register_Now__Tickets__Templates::get_template_hierarchy( $template, array( 'disable_view_check' => true ) );
+		$file = Register_In_One_Click__Tickets__Templates::get_template_hierarchy( $template, array( 'disable_view_check' => true ) );
 
 		/**
 		 * Allow users to filter which template will be included
@@ -359,7 +359,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 		 * @param string $name     Template name
 		 * @param array  $data     The Data that will be used on this template
 		 */
-		$file = apply_filters( 'e_rn_tickets_get_template_part_path', $file, $template, $slug, $name, $data );
+		$file = apply_filters( 'rioc_tickets_get_template_part_path', $file, $template, $slug, $name, $data );
 
 		/**
 		 * A more Specific Filter that will include the template name
@@ -369,7 +369,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 		 * @param string $name     Template name
 		 * @param array  $data     The Data that will be used on this template
 		 */
-		$file = apply_filters( "e_rn_tickets_get_template_part_path_{$template}", $file, $slug, $name, $data );
+		$file = apply_filters( "rioc_tickets_get_template_part_path_{$template}", $file, $slug, $name, $data );
 
 		if ( ! file_exists( $file ) ) {
 			continue;
@@ -385,7 +385,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 		 * @param string $name     Template name
 		 * @param array  $data     The Data that will be used on this template
 		 */
-		do_action( 'e_rn_tickets_before_get_template_part', $template, $file, $slug, $name, $data );
+		do_action( 'rioc_tickets_before_get_template_part', $template, $file, $slug, $name, $data );
 		include( $file );
 
 		/**
@@ -396,7 +396,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 		 * @param string $name     Template name
 		 * @param array  $data     The Data that will be used on this template
 		 */
-		do_action( 'e_rn_tickets_after_get_template_part', $template, $file, $slug, $name, $data );
+		do_action( 'rioc_tickets_after_get_template_part', $template, $file, $slug, $name, $data );
 		$html = ob_get_clean();
 
 		/**
@@ -408,7 +408,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 		 * @param string $name     Template name
 		 * @param array  $data     The Data that will be used on this template
 		 */
-		$html = apply_filters( 'e_rn_tickets_get_template_part_content', $html, $template, $file, $slug, $name, $data );
+		$html = apply_filters( 'rioc_tickets_get_template_part_content', $html, $template, $file, $slug, $name, $data );
 
 		if ( $echo ) {
 			echo $html;
@@ -424,7 +424,7 @@ function e_rn_tickets_get_template_part( $slug, $name = null, array $data = null
 	 * @param string $name     Template name
 	 * @param array  $data     The Data that will be used on this template
 	 */
-	do_action( 'e_rn_tickets_post_get_template_part', $slug, $name, $data );
+	do_action( 'rioc_tickets_post_get_template_part', $slug, $name, $data );
 
 	if ( ! $echo ) {
 		// Return should come at the end

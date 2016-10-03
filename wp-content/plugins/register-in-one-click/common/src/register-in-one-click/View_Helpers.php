@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
-	class E_Register_Now__View_Helpers {
+if ( ! class_exists( 'Register_In_One_Click__View_Helpers' ) ) {
+	class Register_In_One_Click__View_Helpers {
 
 		/**
 		 * Get the countries being used and available for the plugin.
@@ -21,12 +21,12 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 		 */
 		public static function constructCountries( $postId = '', $useDefault = true ) {
 
-			if ( e_rn_get_option( 'tribeEventsCountries' ) != '' ) {
+			if ( rioc_get_option( 'tribeEventsCountries' ) != '' ) {
 				$countries = array(
 					'' => esc_html__( 'Select a Country:', 'rioc-common' ),
 				);
 
-				$country_rows = explode( "\n", e_rn_get_option( 'tribeEventsCountries' ) );
+				$country_rows = explode( "\n", rioc_get_option( 'tribeEventsCountries' ) );
 				foreach ( $country_rows as $crow ) {
 					$country = explode( ',', $crow );
 					if ( isset( $country[0] ) && isset( $country[1] ) ) {
@@ -290,7 +290,7 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 				if ( $countryValue ) {
 					$defaultCountry = array( array_search( $countryValue, $countries ), $countryValue );
 				} else {
-					$defaultCountry = e_rn_get_default_value( 'country' );
+					$defaultCountry = rioc_get_default_value( 'country' );
 				}
 				if ( $defaultCountry && $defaultCountry[0] != '' ) {
 					$selectCountry = array_shift( $countries );
@@ -399,7 +399,7 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 				}
 			}
 
-			$hour = apply_filters( 'e_rn_get_hour_options', $hour, $date, $isStart );
+			$hour = apply_filters( 'rioc_get_hour_options', $hour, $date, $isStart );
 
 			foreach ( $hours as $hourText ) {
 				if ( $hour == $hourText ) {
@@ -430,7 +430,7 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 				$minute = date( 'i', strtotime( $date ) );
 			}
 
-			$minute = apply_filters( 'e_rn_get_minute_options', $minute, $date, $isStart );
+			$minute = apply_filters( 'rioc_get_minute_options', $minute, $date, $isStart );
 			$minutes = self::minutes( $minute );
 
 			foreach ( $minutes as $minuteText ) {
@@ -481,7 +481,7 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 		 */
 		public static function is_24hr_format( $format = null ) {
 			// Use the provided format or else use the value of the current time_format setting
-			$format = ( null === $format ) ? get_option( 'time_format', E_Register_Now__Date_Utils::TIMEFORMAT ) : $format;
+			$format = ( null === $format ) ? get_option( 'time_format', Register_In_One_Click__Date_Utils::TIMEFORMAT ) : $format;
 
 			// Count instances of the H and G symbols
 			$h_symbols = substr_count( $format, 'H' );
@@ -520,7 +520,7 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 			 *
 			 * @param int Increment amount (defaults to 5)
 			 */
-			$default_increment = apply_filters( 'e_rn_minutes_increment', 5 );
+			$default_increment = apply_filters( 'rioc_minutes_increment', 5 );
 
 			// Unless an exact minute has been specified we can minimize the amount of looping we do
 			$increment = ( 0 === $exact_minute ) ? $default_increment : 1;
@@ -549,7 +549,7 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 		 * @return string a set of HTML options with all meridians
 		 */
 		public static function getMeridianOptions( $date = '', $isStart = false ) {
-			if ( strstr( get_option( 'time_format', E_Register_Now__Date_Utils::TIMEFORMAT ), 'A' ) ) {
+			if ( strstr( get_option( 'time_format', Register_In_One_Click__Date_Utils::TIMEFORMAT ), 'A' ) ) {
 				$a         = 'A';
 				$meridians = array( 'AM', 'PM' );
 			} else {
@@ -562,7 +562,7 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 				$meridian = date( $a, strtotime( $date ) );
 			}
 
-			$meridian = apply_filters( 'e_rn_get_meridian_options', $meridian, $date, $isStart );
+			$meridian = apply_filters( 'rioc_get_meridian_options', $meridian, $date, $isStart );
 
 			$return = '';
 			foreach ( $meridians as $m ) {
@@ -584,8 +584,8 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 		 */
 		private static function years() {
 			$current_year  = (int) date_i18n( 'Y' );
-			$years_back    = (int) apply_filters( 'e_rn_years_to_go_back', 5, $current_year );
-			$years_forward = (int) apply_filters( 'e_rn_years_to_go_forward', 5, $current_year );
+			$years_back    = (int) apply_filters( 'rioc_years_to_go_back', 5, $current_year );
+			$years_forward = (int) apply_filters( 'rioc_years_to_go_forward', 5, $current_year );
 			$years         = array();
 			for ( $i = $years_back; $i > 0; $i -- ) {
 				$year    = $current_year - $i;
@@ -597,7 +597,7 @@ if ( ! class_exists( 'E_Register_Now__View_Helpers' ) ) {
 				$years[] = $year;
 			}
 
-			return (array) apply_filters( 'e_rn_years_array', $years );
+			return (array) apply_filters( 'rioc_years_array', $years );
 		}
 
 		/**

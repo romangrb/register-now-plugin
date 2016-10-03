@@ -2,9 +2,9 @@
 
 
 /**
- * Class E_Register_Now__Tickets__CSV_Importer__RSVP_Importer
+ * Class Register_In_One_Click__Tickets__CSV_Importer__RSVP_Importer
  */
-class E_Register_Now__Tickets__CSV_Importer__RSVP_Importer extends E_Register_Now__Events__Importer__File_Importer {
+class Register_In_One_Click__Tickets__CSV_Importer__RSVP_Importer extends Register_In_One_Click__Events__Importer__File_Importer {
 
 	/**
 	 * @var array
@@ -22,7 +22,7 @@ class E_Register_Now__Tickets__CSV_Importer__RSVP_Importer extends E_Register_No
 	protected static $ticket_name_cache = array();
 
 	/**
-	 * @var E_Register_Now__Tickets__RSVP
+	 * @var Register_In_One_Click__Tickets__RSVP
 	 */
 	protected $rsvp_tickets;
 
@@ -34,12 +34,12 @@ class E_Register_Now__Tickets__CSV_Importer__RSVP_Importer extends E_Register_No
 	/**
 	 * The class constructor proxy method.
 	 *
-	 * @param E_Register_Now__Events__Importer__File_Importer|null $instance The default instance that would be used for the type.
-	 * @param E_Register_Now__Events__Importer__File_Reader        $file_reader
+	 * @param Register_In_One_Click__Events__Importer__File_Importer|null $instance The default instance that would be used for the type.
+	 * @param Register_In_One_Click__Events__Importer__File_Reader        $file_reader
 	 *
-	 * @return E_Register_Now__Tickets__CSV_Importer__RSVP_Importer
+	 * @return Register_In_One_Click__Tickets__CSV_Importer__RSVP_Importer
 	 */
-	public static function instance( $instance, E_Register_Now__Events__Importer__File_Reader $file_reader ) {
+	public static function instance( $instance, Register_In_One_Click__Events__Importer__File_Reader $file_reader ) {
 		return new self( $file_reader );
 	}
 
@@ -52,17 +52,17 @@ class E_Register_Now__Tickets__CSV_Importer__RSVP_Importer extends E_Register_No
 	}
 
 	/**
-	 * E_Register_Now__Tickets__CSV_Importer__RSVP_Importer constructor.
+	 * Register_In_One_Click__Tickets__CSV_Importer__RSVP_Importer constructor.
 	 *
-	 * @param E_Register_Now__Events__Importer__File_Reader                  $file_reader
-	 * @param E_Register_Now__Events__Importer__Featured_Image_Uploader|null $featured_image_uploader
-	 * @param E_Register_Now__Tickets__RSVP|null                             $rsvp_tickets
+	 * @param Register_In_One_Click__Events__Importer__File_Reader                  $file_reader
+	 * @param Register_In_One_Click__Events__Importer__Featured_Image_Uploader|null $featured_image_uploader
+	 * @param Register_In_One_Click__Tickets__RSVP|null                             $rsvp_tickets
 	 */
 	public function __construct(
-		E_Register_Now__Events__Importer__File_Reader $file_reader, E_Register_Now__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null, E_Register_Now__Tickets__RSVP $rsvp_tickets = null
+		Register_In_One_Click__Events__Importer__File_Reader $file_reader, Register_In_One_Click__Events__Importer__Featured_Image_Uploader $featured_image_uploader = null, Register_In_One_Click__Tickets__RSVP $rsvp_tickets = null
 	) {
 		parent::__construct( $file_reader, $featured_image_uploader );
-		$this->rsvp_tickets = ! empty( $rsvp_tickets ) ? $rsvp_tickets : E_Register_Now__Tickets__RSVP::get_instance();
+		$this->rsvp_tickets = ! empty( $rsvp_tickets ) ? $rsvp_tickets : Register_In_One_Click__Tickets__RSVP::get_instance();
 	}
 
 	/**
@@ -142,10 +142,10 @@ class E_Register_Now__Tickets__CSV_Importer__RSVP_Importer extends E_Register_No
 		}
 
 		// by title
-		$event = get_page_by_title( $event_name, OBJECT, E_Register_Now__Events__Main::POSTTYPE );
+		$event = get_page_by_title( $event_name, OBJECT, Register_In_One_Click__Events__Main::POSTTYPE );
 		if ( empty( $event ) ) {
 			// by slug
-			$event = get_page_by_path( $event_name, OBJECT, E_Register_Now__Events__Main::POSTTYPE );
+			$event = get_page_by_path( $event_name, OBJECT, Register_In_One_Click__Events__Main::POSTTYPE );
 		}
 		if ( empty( $event ) ) {
 			// by ID
@@ -214,8 +214,8 @@ class E_Register_Now__Tickets__CSV_Importer__RSVP_Importer extends E_Register_No
 			return false;
 		}
 
-		if ( function_exists( 'e_rn_is_recurring_event' ) ) {
-			$is_recurring = e_rn_is_recurring_event( $event->ID );
+		if ( function_exists( 'rioc_is_recurring_event' ) ) {
+			$is_recurring = rioc_is_recurring_event( $event->ID );
 
 			if ( $is_recurring ) {
 				$this->row_message = sprintf( esc_html__( 'Recurring event tickets are not supported, event %d.', 'event-tickets' ), $event->post_title );

@@ -216,7 +216,7 @@
 			}
 		}
 
-		<?php do_action( 'e_rn_tickets_ticket_email_styles' );?>
+		<?php do_action( 'rioc_tickets_ticket_email_styles' );?>
 
 	</style>
 </head>
@@ -224,7 +224,7 @@
 	<div style="margin:0; padding:0; width:100% !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:14px; line-height:145%; text-align:left;">
 		<center>
 			<?php
-			do_action( 'e_rn_tickets_ticket_email_top' );
+			do_action( 'rioc_tickets_ticket_email_top' );
 
 			$count = 0;
 			$break = '';
@@ -236,7 +236,7 @@
 				}
 
 				$event      = get_post( $ticket['event_id'] );
-				$header_id  = E_Register_Now__Tickets__Tickets_Handler::instance()->get_header_image_id( $ticket['event_id'] );
+				$header_id  = Register_In_One_Click__Tickets__Tickets_Handler::instance()->get_header_image_id( $ticket['event_id'] );
 				$header_img = false;
 				if ( ! empty( $header_id ) ) {
 					$header_img = wp_get_attachment_image_src( $header_id, 'full' );
@@ -245,13 +245,13 @@
 				$venue_label = '';
 				$venue_name = null;
 
-				if ( function_exists( 'e_rn_get_venue_id' ) ) {
-					$venue_id = e_rn_get_venue_id( $event->ID );
+				if ( function_exists( 'rioc_get_venue_id' ) ) {
+					$venue_id = rioc_get_venue_id( $event->ID );
 					if ( ! empty( $venue_id ) ) {
 						$venue = get_post( $venue_id );
 					}
 
-					$venue_label = e_rn_get_venue_label_singular();
+					$venue_label = rioc_get_venue_label_singular();
 
 					$venue_name = $venue_phone = $venue_address = $venue_city = $venue_web = '';
 					if ( ! empty( $venue ) ) {
@@ -273,12 +273,12 @@
 				 */
 				$include_start_date = apply_filters( 'event_tickets_email_include_start_date', false, $event->ID );
 
-				if ( $include_start_date && function_exists( 'e_rn_get_start_date' ) ) {
-					$start_date = e_rn_get_start_date( $event, true );
+				if ( $include_start_date && function_exists( 'rioc_get_start_date' ) ) {
+					$start_date = rioc_get_start_date( $event, true );
 				}
 
-				if ( function_exists( 'e_rn_get_organizer_ids' ) ) {
-					$organizers = e_rn_get_organizer_ids( $event->ID );
+				if ( function_exists( 'rioc_get_organizer_ids' ) ) {
+					$organizers = rioc_get_organizer_ids( $event->ID );
 				}
 
 				?>
@@ -387,10 +387,10 @@
 													if ( ! empty( $organizers ) ) {
 														?>
 														<td class="ticket-organizer" valign="top" align="left" width="140" style="padding: 0 !important; width:140px; margin:0 !important;">
-															<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php echo e_rn_get_organizer_label( count( $organizers ) < 2 ); ?></h6>
+															<h6 style="color:#909090 !important; margin:0 0 4px 0; font-family: 'Helvetica Neue', Helvetica, sans-serif; text-transform:uppercase; font-size:13px; font-weight:700 !important;"><?php echo rioc_get_organizer_label( count( $organizers ) < 2 ); ?></h6>
 															<?php foreach ( $organizers as $organizer_id ) { ?>
 																<span
-																	style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px; display:block; padding-bottom:5px;"><?php echo e_rn_get_organizer( $organizer_id ); ?></span>
+																	style="color:#0a0a0e !important; font-family: 'Helvetica Neue', Helvetica, sans-serif; font-size:15px; display:block; padding-bottom:5px;"><?php echo rioc_get_organizer( $organizer_id ); ?></span>
 															<?php } ?>
 														</td>
 														<?php
@@ -411,7 +411,7 @@
 									</td>
 								</tr>
 							</table>
-							<?php do_action( 'e_rn_tickets_ticket_email_ticket_bottom', $ticket ); ?>
+							<?php do_action( 'rioc_tickets_ticket_email_ticket_bottom', $ticket ); ?>
 							<table class="whiteSpace" border="0" cellpadding="0" cellspacing="0" width="100%">
 								<tr>
 									<td valign="top" align="left" width="100%" height="100" style="height:100px; background:#ffffff; padding: 0 !important; margin:0 !important;">
@@ -425,7 +425,7 @@
 				<?php
 			}//end foreach
 
-			do_action( 'e_rn_tickets_ticket_email_bottom' );
+			do_action( 'rioc_tickets_ticket_email_bottom' );
 			?>
 		</center>
 	</div>

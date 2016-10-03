@@ -1,6 +1,6 @@
 <?php
 
-class E_Register_Now__Notices {
+class Register_In_One_Click__Notices {
 	/**
 	 * Notices to be displayed in the admin
 	 * @var array
@@ -61,7 +61,7 @@ class E_Register_Now__Notices {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return E_Register_Now__Notices
+	 * @return Register_In_One_Click__Notices
 	 */
 	public static function instance() {
 		static $instance;

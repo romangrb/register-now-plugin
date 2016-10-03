@@ -4,7 +4,7 @@
  * possible revision, for each plugin that registers itself and its template
  * filepaths.
  */
-class E_Register_Now__Support__Template_Checker_Report {
+class Register_In_One_Click__Support__Template_Checker_Report {
 	const VERSION_INDEX         = 0;
 	const INCLUDED_VIEWS_INDEX  = 1;
 	const THEME_OVERRIDES_INDEX = 2;
@@ -53,7 +53,7 @@ class E_Register_Now__Support__Template_Checker_Report {
 		 *
 		 * @var array $registered_template_systems
 		 */
-		return apply_filters( 'e_rn_support_registered_template_systems', array() );
+		return apply_filters( 'rioc_support_registered_template_systems', array() );
 	}
 
 	/**
@@ -65,7 +65,7 @@ class E_Register_Now__Support__Template_Checker_Report {
 	protected static function generate_for( $plugin_name, array $template_system ) {
 		$report = '<dt>' . esc_html( $plugin_name ) . '</dt>';
 
-		$scanner = new E_Register_Now__Support__Template_Checker(
+		$scanner = new Register_In_One_Click__Support__Template_Checker(
 			$template_system[ self::VERSION_INDEX ],
 			$template_system[ self::INCLUDED_VIEWS_INDEX ],
 			$template_system[ self::THEME_OVERRIDES_INDEX ]

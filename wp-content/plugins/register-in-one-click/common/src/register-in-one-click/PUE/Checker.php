@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__PUE__Checker' ) ) {
 	/**
 	 * A custom plugin update checker.
 	 *
@@ -26,7 +26,7 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 	 * @version  1.7
 	 * @access   public
 	 */
-	class E_Register_Now__PUE__Checker {
+	class Register_In_One_Click__PUE__Checker {
 
 		private $pue_update_url = ''; //The URL of the plugin's metadata file.
 		private $plugin_file = ''; //Plugin filename relative to the plugins directory.
@@ -80,10 +80,10 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 				add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'check_for_updates' ) );
 			}
 
-			add_filter( 'e_rn_licensable_addons', array( $this, 'build_addon_list' ) );
-			add_action( 'e_rn_license_fields', array( $this, 'do_license_key_fields' ) );
-			add_action( 'e_rn_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
-			add_action( 'e_rn_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
+			add_filter( 'rioc_licensable_addons', array( $this, 'build_addon_list' ) );
+			add_action( 'rioc_license_fields', array( $this, 'do_license_key_fields' ) );
+			add_action( 'rioc_settings_after_content_tab_licenses', array( $this, 'do_license_key_javascript' ) );
+			add_action( 'rioc_settings_success_message', array( $this, 'do_license_key_success_message' ), 10, 2 );
 
 			// Key validation
 			add_action( 'wp_ajax_pue-validate-key_' . $this->get_slug(), array( $this, 'ajax_validate_key' ) );
@@ -557,7 +557,7 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 				$queryArgs['active_sites']      = 1;
 			}
 
-			$queryArgs = apply_filters( 'e_rn_puc_request_info_query_args-' . $this->get_slug(), $queryArgs );
+			$queryArgs = apply_filters( 'rioc_puc_request_info_query_args-' . $this->get_slug(), $queryArgs );
 
 			//Various options for the wp_remote_get() call. Plugins can filter these, too.
 			$options = array(
@@ -566,7 +566,7 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 					'Accept' => 'application/json',
 				),
 			);
-			$options = apply_filters( 'e_rn_puc_request_info_options-' . $this->get_slug(), $options );
+			$options = apply_filters( 'rioc_puc_request_info_options-' . $this->get_slug(), $options );
 
 			$url = $this->get_pue_update_url();
 			if ( ! empty( $queryArgs ) ) {
@@ -588,9 +588,9 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 			//Try to parse the response
 			$pluginInfo = null;
 			if ( ! is_wp_error( $result ) && isset( $result['response']['code'] ) && ( $result['response']['code'] == 200 ) && ! empty( $result['body'] ) ) {
-				$pluginInfo = E_Register_Now__PUE__Plugin_Info::from_json( $result['body'] );
+				$pluginInfo = Register_In_One_Click__PUE__Plugin_Info::from_json( $result['body'] );
 			}
-			$pluginInfo = apply_filters( 'e_rn_puc_request_info_result-' . $this->get_slug(), $pluginInfo, $result );
+			$pluginInfo = apply_filters( 'rioc_puc_request_info_result-' . $this->get_slug(), $pluginInfo, $result );
 
 			$plugin_info_cache[ $key ] = $pluginInfo;
 
@@ -614,9 +614,9 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 		/**
 		 * Retrieve the latest update (if any) from the configured API endpoint.
 		 *
-		 * @uses E_Register_Now__PUE__Checker::request_info()
+		 * @uses Register_In_One_Click__PUE__Checker::request_info()
 		 *
-		 * @return E_Register_Now__PUE__Utility An instance of E_Register_Now__PUE__Utility, or NULL when no updates are available.
+		 * @return Register_In_One_Click__PUE__Utility An instance of Register_In_One_Click__PUE__Utility, or NULL when no updates are available.
 		 */
 		public function request_update() {
 			//For the sake of simplicity, this function just calls request_info()
@@ -647,7 +647,7 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 			// Add plugin dirname/file (this will be expected by WordPress when it builds the plugin list table)
 			$pluginInfo->plugin = $this->get_plugin_file();
 
-			return E_Register_Now__PUE__Utility::from_plugin_info( $pluginInfo );
+			return Register_In_One_Click__PUE__Utility::from_plugin_info( $pluginInfo );
 		}
 
 
@@ -805,7 +805,7 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 		 *
 		 */
 		public function add_query_arg_filter( $callback ) {
-			add_filter( 'e_rn_puc_request_info_query_args-' . $this->get_slug(), $callback );
+			add_filter( 'rioc_puc_request_info_query_args-' . $this->get_slug(), $callback );
 		}
 
 		/**
@@ -821,18 +821,18 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 		 *
 		 */
 		public function add_http_request_arg_filter( $callback ) {
-			add_filter( 'e_rn_puc_request_info_options-' . $this->get_slug(), $callback );
+			add_filter( 'rioc_puc_request_info_options-' . $this->get_slug(), $callback );
 		}
 
 		/**
 		 * Register a callback for filtering the plugin info retrieved from the external API.
 		 *
 		 * The callback function should take two arguments. If the plugin info was retrieved
-		 * successfully, the first argument passed will be an instance of E_Register_Now__PUE__Plugin_Info. Otherwise,
+		 * successfully, the first argument passed will be an instance of Register_In_One_Click__PUE__Plugin_Info. Otherwise,
 		 * it will be NULL. The second argument will be the corresponding return value of
 		 * wp_remote_get (see WP docs for details).
 		 *
-		 * The callback function should return a new or modified instance of E_Register_Now__PUE__Plugin_Info or NULL.
+		 * The callback function should return a new or modified instance of Register_In_One_Click__PUE__Plugin_Info or NULL.
 		 *
 		 * @uses add_filter() This method is a convenience wrapper for add_filter().
 		 *
@@ -840,7 +840,7 @@ if ( ! class_exists( 'E_Register_Now__PUE__Checker' ) ) {
 		 *
 		 */
 		public function add_result_filter( $callback ) {
-			add_filter( 'e_rn_puc_request_info_result-' . $this->get_slug(), $callback, 10, 2 );
+			add_filter( 'rioc_puc_request_info_result-' . $this->get_slug(), $callback, 10, 2 );
 		}
 
 		/**

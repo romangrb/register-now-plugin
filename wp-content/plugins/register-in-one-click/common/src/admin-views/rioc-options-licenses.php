@@ -4,7 +4,7 @@ $link = add_query_arg(
 		'utm_campaign' => 'in-app',
 		'utm_medium'   => 'plugin-tec',
 		'utm_source'   => 'notice',
-	), E_Register_Now__Main::$tec_url . 'license-keys/'
+	), Register_In_One_Click__Main::$tec_url . 'license-keys/'
 );
 
 $link = esc_url( $link );
@@ -49,11 +49,11 @@ $licenses_tab = array(
 		'type' => 'html',
 		'html' => sprintf(
 			$html,
-			E_Register_Now__Main::$tec_url,
+			Register_In_One_Click__Main::$tec_url,
 			$link,
-			E_Register_Now__Main::$tec_url . 'license-keys/',
+			Register_In_One_Click__Main::$tec_url . 'license-keys/',
 			$link,
-			E_Register_Now__Main::$tec_url . 'license-keys/',
+			Register_In_One_Click__Main::$tec_url . 'license-keys/',
 			admin_url( '/update-core.php' )
 		),
 	),

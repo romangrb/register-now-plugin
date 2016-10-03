@@ -6,7 +6,7 @@
  * @todo consider removing this class once we are satisfied that enough users
  *       have transitioned away from legacy ticketing solutions
  */
-class E_Register_Now__Tickets__Legacy_Provider_Support {
+class Register_In_One_Click__Tickets__Legacy_Provider_Support {
 	protected $active_legacy_modules = array();
 
 
@@ -25,8 +25,8 @@ class E_Register_Now__Tickets__Legacy_Provider_Support {
 			return;
 		}
 
-		add_action( 'e_rn_events_tickets_metabox_advanced', array( $this, 'add_fields' ), 5 );
-		add_filter( 'e_rn_events_tickets_ajax_ticket_edit', array( $this, 'add_fields_ajax' ) );
+		add_action( 'rioc_events_tickets_metabox_advanced', array( $this, 'add_fields' ), 5 );
+		add_filter( 'rioc_events_tickets_ajax_ticket_edit', array( $this, 'add_fields_ajax' ) );
 	}
 
 	/**
@@ -37,13 +37,13 @@ class E_Register_Now__Tickets__Legacy_Provider_Support {
 	 */
 	protected function find_active_legacy_modules() {
 		$legacy_classes = array(
-			'E_Register_Now__Events__Tickets__Woo__Main',
-			'E_Register_Now__Events__Tickets__EDD__Main',
-			'E_Register_Now__Events__Tickets__Shopp__Main',
-			'E_Register_Now__Events__Tickets__Wpec__Main',
+			'Register_In_One_Click__Events__Tickets__Woo__Main',
+			'Register_In_One_Click__Events__Tickets__EDD__Main',
+			'Register_In_One_Click__Events__Tickets__Shopp__Main',
+			'Register_In_One_Click__Events__Tickets__Wpec__Main',
 		);
 
-		$active_ticket_modules = E_Register_Now__Tickets__Tickets::modules();
+		$active_ticket_modules = Register_In_One_Click__Tickets__Tickets::modules();
 
 		$this->active_legacy_modules = array_intersect(
 			array_keys( $active_ticket_modules ),
@@ -56,7 +56,7 @@ class E_Register_Now__Tickets__Legacy_Provider_Support {
 	 * this method takes over that responsibility.
 	 */
 	public function add_fields( $price = null, $regular_price = null ) {
-		$metabox_template = E_Register_Now__Tickets__Main::instance()->plugin_path . 'src/admin-views/legacy-ticket-fields.php';
+		$metabox_template = Register_In_One_Click__Tickets__Main::instance()->plugin_path . 'src/admin-views/legacy-ticket-fields.php';
 
 		foreach ( $this->active_legacy_modules as $legacy_identifier ) {
 			include $metabox_template;

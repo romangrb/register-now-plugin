@@ -1,25 +1,25 @@
 <?php
-if ( class_exists( 'E_Register_Now__Log' ) ) {
+if ( class_exists( 'Register_In_One_Click__Log' ) ) {
 	return;
 }
 
 /**
  * Provides access to and management of core logging facilities.
  */
-class E_Register_Now__Log {
+class Register_In_One_Click__Log {
 	const DISABLE = 'disable';
 	const DEBUG   = 'debug';
 	const WARNING = 'warning';
 	const ERROR   = 'error';
-	const CLEANUP = 'e_rn_common_log_cleanup';
+	const CLEANUP = 'rioc_common_log_cleanup';
 
 	/**
-	 * @var E_Register_Now__Log__Admin
+	 * @var Register_In_One_Click__Log__Admin
 	 */
 	protected $admin;
 
 	/**
-	 * @var E_Register_Now__Log__Logger
+	 * @var Register_In_One_Click__Log__Logger
 	 */
 	protected $current_logger;
 
@@ -54,7 +54,7 @@ class E_Register_Now__Log {
 
 	public function __construct() {
 		if ( is_admin() ) {
-			$this->admin = new E_Register_Now__Log__Admin();
+			$this->admin = new Register_In_One_Click__Log__Admin();
 		}
 
 		$this->current_level = $this->get_level();
@@ -62,7 +62,7 @@ class E_Register_Now__Log {
 	}
 
 	/**
-	 * @return E_Register_Now__Log__Admin
+	 * @return Register_In_One_Click__Log__Admin
 	 */
 	public function admin() {
 		return $this->admin;
@@ -94,7 +94,7 @@ class E_Register_Now__Log {
 	public function do_cleanup() {
 		foreach ( $this->get_logging_engines() as $engine ) {
 			/**
-			 * @var E_Register_Now__Log__Logger $engine
+			 * @var Register_In_One_Click__Log__Logger $engine
 			 */
 			$engine->cleanup();
 		}
@@ -150,7 +150,7 @@ class E_Register_Now__Log {
 	public function get_logging_engines() {
 		$available_engines = array();
 		$bundled_engines   = array(
-			'E_Register_Now__Log__File_Logger',
+			'Register_In_One_Click__Log__File_Logger',
 		);
 
 		foreach ( $bundled_engines as $engine_class ) {
@@ -170,18 +170,18 @@ class E_Register_Now__Log {
 		 *
 		 * @var array $available_engines
 		 */
-		return apply_filters( 'e_rn_common_logging_engines', $available_engines );
+		return apply_filters( 'rioc_common_logging_engines', $available_engines );
 	}
 
 	/**
 	 * Returns the currently active logger or null if none is set/none are
 	 * available.
 	 *
-	 * @return E_Register_Now__Log__Logger|null
+	 * @return Register_In_One_Click__Log__Logger|null
 	 */
 	public function get_current_logger() {
 		if ( ! $this->current_logger ) {
-			$engine = e_rn_get_option( 'logging_class', null );
+			$engine = rioc_get_option( 'logging_class', null );
 			$available = $this->get_logging_engines();
 
 			if ( empty( $engine ) || ! isset( $available[ $engine ] ) ) {
@@ -210,7 +210,7 @@ class E_Register_Now__Log {
 			throw new Exception( sprintf( __( 'Cannot set %s as the current logging engine', 'rioc-common' ), $engine ) );
 		}
 
-		e_rn_update_option( 'logging_class', $engine );
+		rioc_update_option( 'logging_class', $engine );
 		$this->current_logger = $available_engines[ $engine ];
 	}
 
@@ -220,13 +220,13 @@ class E_Register_Now__Log {
 	 *
 	 * @param $class_name
 	 *
-	 * @return E_Register_Now__Log__Logger|null
+	 * @return Register_In_One_Click__Log__Logger|null
 	 */
 	public function get_engine( $class_name ) {
 		if ( ! isset( $this->loggers[ $class_name ] ) ) {
 			$object = new $class_name;
 
-			if ( is_a( $object, 'E_Register_Now__Log__Logger' ) ) {
+			if ( is_a( $object, 'Register_In_One_Click__Log__Logger' ) ) {
 				$this->loggers[ $class_name ] = new $class_name();
 			}
 		}
@@ -251,7 +251,7 @@ class E_Register_Now__Log {
 			$level = self::DISABLE;
 		}
 
-		e_rn_update_option( 'logging_level', $level );
+		rioc_update_option( 'logging_level', $level );
 		$this->current_level = $level;
 	}
 
@@ -261,7 +261,7 @@ class E_Register_Now__Log {
 	 * @return string
 	 */
 	public function get_level() {
-		$current_level = e_rn_get_option( 'logging_level', null );
+		$current_level = rioc_get_option( 'logging_level', null );
 		$available_levels = wp_list_pluck( $this->get_logging_levels(), 0 );
 
 		if ( ! in_array( $current_level, $available_levels ) ) {
@@ -292,7 +292,7 @@ class E_Register_Now__Log {
 			/**
 			 * Provides an opportunity to add or remove logging levels. This is expected
 			 * to be organized as an array of arrays: the ordering of each inner array
-			 * is critical, see E_Register_Now__Log::get_logging_levels() docs.
+			 * is critical, see Register_In_One_Click__Log::get_logging_levels() docs.
 			 *
 			 * General form:
 			 *
@@ -305,7 +305,7 @@ class E_Register_Now__Log {
 			 *
 			 * @param array $logging_levels
 			 */
-			$this->levels = (array) apply_filters( 'e_rn_common_logging_levels', array(
+			$this->levels = (array) apply_filters( 'rioc_common_logging_levels', array(
 				array( self::DISABLE, __( 'Disabled', 'rioc-common' ) ),
 				array( self::ERROR,   __( 'Only errors', 'rioc-common' ) ),
 				array( self::WARNING, __( 'Warnings and errors', 'rioc-common' ) ),

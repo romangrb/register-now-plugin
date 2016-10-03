@@ -1,7 +1,7 @@
 <?php
-	_deprecated_file( __FILE__, '3.10', 'E_Register_Now__Tickets__Metabox' );
+	_deprecated_file( __FILE__, '3.10', 'Register_In_One_Click__Tickets__Metabox' );
 
 
-	class TribeEventsTicketsMetabox extends E_Register_Now__Tickets__Metabox {
+	class TribeEventsTicketsMetabox extends Register_In_One_Click__Tickets__Metabox {
 
 	}

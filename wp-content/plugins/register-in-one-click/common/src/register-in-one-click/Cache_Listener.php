@@ -2,7 +2,7 @@
 	/**
 	 * Listen for events and update their timestamps
 	 */
-	class E_Register_Now__Cache_Listener {
+	class Register_In_One_Click__Cache_Listener {
 
 		private static $instance = null;
 		private $cache    = null;
@@ -13,7 +13,7 @@
 		 * @return void
 		 */
 		public function __construct() {
-			$this->cache = new E_Register_Now__Cache();
+			$this->cache = new Register_In_One_Click__Cache();
 		}
 
 		/**
@@ -42,7 +42,7 @@
 		 * @param WP_Post $post    The current post object being saved.
 		 */
 		public function save_post( $post_id, $post ) {
-			if ( in_array( $post->post_type, E_Register_Now__Main::get_post_types() ) ) {
+			if ( in_array( $post->post_type, Register_In_One_Click__Main::get_post_types() ) ) {
 				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}
@@ -54,7 +54,7 @@
 		 * @see 'updated_option'
 		 */
 		public function update_last_save_post( $option ) {
-			if ( $option != 'e_rn_last_save_post' ) {
+			if ( $option != 'rioc_last_save_post' ) {
 				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}
@@ -72,7 +72,7 @@
 		/**
 		 * Instance method of the cache listener.
 		 *
-		 * @return E_Register_Now__Cache_Listener
+		 * @return Register_In_One_Click__Cache_Listener
 		 */
 		public static function instance() {
 			if ( empty( self::$instance ) ) {
@@ -85,7 +85,7 @@
 		/**
 		 * Create a cache listener.
 		 *
-		 * @return E_Register_Now__Cache_Listener
+		 * @return Register_In_One_Click__Cache_Listener
 		 */
 		private static function create_listener() {
 			$listener = new self();

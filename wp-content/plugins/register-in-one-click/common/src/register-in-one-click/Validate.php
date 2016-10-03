@@ -5,13 +5,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Validate' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Validate' ) ) {
 	/**
 	 * helper class that validates fields for use in Settings, MetaBoxes, Users, anywhere.
 	 * Instantiate whenever you want to validate a field
 	 *
 	 */
-	class E_Register_Now__Validate {
+	class Register_In_One_Click__Validate {
 
 		/**
 		 * the field object to validate
@@ -145,7 +145,7 @@ if ( ! class_exists( 'E_Register_Now__Validate' ) ) {
 		public function alpha_numeric_multi_line() {
 			if ( preg_match( '/^[a-zA-Z0-9\s]+$/', $this->value ) ) {
 				$this->result->valid = true;
-				$this->value         = e_rn_multi_line_remove_empty_lines( $this->value );
+				$this->value         = rioc_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers and letters only', 'rioc-common' ), $this->label );
@@ -161,7 +161,7 @@ if ( ! class_exists( 'E_Register_Now__Validate' ) ) {
 		public function alpha_numeric_multi_line_with_dots_and_dashes() {
 			if ( preg_match( '/^[a-zA-Z0-9\s.-]+$/', $this->value ) ) {
 				$this->result->valid = true;
-				$this->value         = e_rn_multi_line_remove_empty_lines( $this->value );
+				$this->value         = rioc_multi_line_remove_empty_lines( $this->value );
 			} else {
 				$this->result->valid = false;
 				$this->result->error = sprintf( esc_html__( '%s must contain numbers, letters and dots only', 'rioc-common' ), $this->label );

@@ -261,7 +261,7 @@ Our Premium Plugins:
 
 = [4.1.1] 2016-03-30 =
 
-* Tweak - Add filters for generated attendee and order data; e_rn_tickets_attendee_data and e_rn_tickets_order_data, respectively
+* Tweak - Add filters for generated attendee and order data; rioc_tickets_attendee_data and rioc_tickets_order_data, respectively
 * Tweak - Relocated the generation of tickets to the template_redirect action because init was too early for proper permalink fetching
 * Fix - Resolved issue where purchasing tickets was impossible if ticket stock was set to unlimited (thanks to James for reporting this one)
 * Fix - Fixed issue where the customer name and customer email address had been removed from the attendee export CSV (nice find here by Joe in our forums)

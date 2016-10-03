@@ -1,29 +1,29 @@
 <?php
 
-class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
+class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Tickets__Tickets {
 	/**
 	 * Name of the CPT that holds Attendees (tickets holders).
 	 *
 	 * @var string
 	 */
-	const ATTENDEE_OBJECT   = 'e_rn_rsvp_attendees';
+	const ATTENDEE_OBJECT   = 'rioc_rsvp_attendees';
 
 	/**
 	 * Meta key that relates Attendees and Events.
 	 *
 	 * @var string
 	 */
-	const ATTENDEE_EVENT_KEY = '_e_rn_rsvp_event';
+	const ATTENDEE_EVENT_KEY = '_rioc_rsvp_event';
 
 	/**
 	 * Meta key that relates Attendees and Products.
 	 *
 	 * @var string
 	 */
-	const ATTENDEE_PRODUCT_KEY = '_e_rn_rsvp_product';
+	const ATTENDEE_PRODUCT_KEY = '_rioc_rsvp_product';
 
 	/**
-	 * Currently unused for this provider, but defined per the E_Register_Now__Tickets__Tickets spec.
+	 * Currently unused for this provider, but defined per the Register_In_One_Click__Tickets__Tickets spec.
 	 *
 	 * @var string
 	 */
@@ -34,7 +34,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 *
 	 * @var boolean
 	 */
-	const ATTENDEE_TICKET_SENT = '_e_rn_rsvp_attendee_ticket_sent';
+	const ATTENDEE_TICKET_SENT = '_rioc_rsvp_attendee_ticket_sent';
 
 	/**
 	 *Name of the CPT that holds Tickets
@@ -47,59 +47,59 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 * Meta key that relates Products and Events
 	 * @var string
 	 */
-	public $event_key = '_e_rn_rsvp_for_event';
+	public $event_key = '_rioc_rsvp_for_event';
 
 	/**
 	 * Meta key that stores if an attendee has checked in to an event
 	 * @var string
 	 */
-	public $checkin_key = '_e_rn_rsvp_checkedin';
+	public $checkin_key = '_rioc_rsvp_checkedin';
 
 	/**
 	 * Meta key that ties attendees together by order
 	 * @var string
 	 */
-	public $order_key = '_e_rn_rsvp_order';
+	public $order_key = '_rioc_rsvp_order';
 
 	/**
 	 * Meta key that holds the security code that's printed in the tickets
 	 * @var string
 	 */
-	public $security_code = '_e_rn_rsvp_security_code';
+	public $security_code = '_rioc_rsvp_security_code';
 
 	/**
 	 * Meta key that if this attendee wants to show on the attendee list
 	 *
 	 * @var string
 	 */
-	const ATTENDEE_OPTOUT_KEY = '_e_rn_rsvp_attendee_optout';
+	const ATTENDEE_OPTOUT_KEY = '_rioc_rsvp_attendee_optout';
 
 	/**
 	 * Meta key that if this attendee rsvp status
 	 *
 	 * @var string
 	 */
-	const ATTENDEE_RSVP_KEY = '_e_rn_rsvp_status';
+	const ATTENDEE_RSVP_KEY = '_rioc_rsvp_status';
 
 	/**
 	 * Meta key that holds the full name of the tickets RSVP "buyer"
 	 *
 	 * @var string
 	 */
-	public $full_name = '_e_rn_rsvp_full_name';
+	public $full_name = '_rioc_rsvp_full_name';
 
 	/**
 	 * Meta key that holds the email of the tickets RSVP "buyer"
 	 *
 	 * @var string
 	 */
-	public $email = '_e_rn_rsvp_email';
+	public $email = '_rioc_rsvp_email';
 
 	/**
 	 * Meta key that holds the name of a ticket to be used in reports if the Product is deleted
 	 * @var string
 	 */
-	public $deleted_product = '_e_rn_deleted_product_name';
+	public $deleted_product = '_rioc_deleted_product_name';
 
 	/**
 	 * Messages for submission
@@ -128,7 +128,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 * Get (and instantiate, if necessary) the instance of the class
 	 *
 	 * @static
-	 * @return E_Register_Now__Tickets__RSVP
+	 * @return Register_In_One_Click__Tickets__RSVP
 	 */
 	public static function get_instance() {
 		if ( ! self::$instance ) {
@@ -142,7 +142,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 * Class constructor
 	 */
 	public function __construct() {
-		$main = E_Register_Now__Tickets__Main::instance();
+		$main = Register_In_One_Click__Tickets__Main::instance();
 
 		/* Set up some parent's vars */
 		$this->pluginName = 'RSVP';
@@ -190,34 +190,34 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 * registers resources
 	 */
 	public function register_resources() {
-		$main = E_Register_Now__Tickets__Main::instance();
+		$main = Register_In_One_Click__Tickets__Main::instance();
 
 		$stylesheet_url = $main->plugin_url . 'src/resources/css/rsvp.css';
-		$stylesheet_url = E_Register_Now__Template_Factory::getMinFile( $stylesheet_url, true );
+		$stylesheet_url = Register_In_One_Click__Template_Factory::getMinFile( $stylesheet_url, true );
 
 		// apply filters
-		$stylesheet_url = apply_filters( 'e_rn_tickets_rsvp_stylesheet_url', $stylesheet_url );
+		$stylesheet_url = apply_filters( 'rioc_tickets_rsvp_stylesheet_url', $stylesheet_url );
 
 		wp_register_style(
 			'event-tickets-rsvp',
 			$stylesheet_url,
 			array(),
-			apply_filters( 'e_rn_tickets_rsvp_css_version', E_Register_Now__Tickets__Main::VERSION )
+			apply_filters( 'rioc_tickets_rsvp_css_version', Register_In_One_Click__Tickets__Main::VERSION )
 		);
 
 		$js_url = $main->plugin_url . 'src/resources/js/rsvp.js';
-		$js_url = E_Register_Now__Template_Factory::getMinFile( $js_url, true );
-		$js_url = apply_filters( 'e_rn_tickets_rsvp_js_url', $js_url );
+		$js_url = Register_In_One_Click__Template_Factory::getMinFile( $js_url, true );
+		$js_url = apply_filters( 'rioc_tickets_rsvp_js_url', $js_url );
 
 		wp_register_script(
 			'event-tickets-rsvp',
 			$js_url,
 			array( 'jquery', 'jquery-ui-datepicker' ),
-			apply_filters( 'e_rn_tickets_rsvp_js_version', E_Register_Now__Tickets__Main::VERSION ),
+			apply_filters( 'rioc_tickets_rsvp_js_version', Register_In_One_Click__Tickets__Main::VERSION ),
 			true
 		);
 
-		wp_localize_script( 'event-tickets-rsvp', 'e_rn_tickets_rsvp_strings', array(
+		wp_localize_script( 'event-tickets-rsvp', 'rioc_tickets_rsvp_strings', array(
 			'attendee' => _x( 'Attendee %1$s', 'Attendee number', 'event-tickets' ),
 		) );
 	}
@@ -230,7 +230,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 * @return void
 	 */
 	public function enqueue_resources() {
-		$post_types = E_Register_Now__Tickets__Main::instance()->post_types();
+		$post_types = Register_In_One_Click__Tickets__Main::instance()->post_types();
 
 		if ( ! is_singular( $post_types ) ) {
 			return;
@@ -240,7 +240,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		wp_enqueue_script( 'event-tickets-rsvp' );
 
 		// Check for override stylesheet
-		$user_stylesheet_url = E_Register_Now__Templates::locate_stylesheet( 'rioc-events/tickets/rsvp.css' );
+		$user_stylesheet_url = Register_In_One_Click__Templates::locate_stylesheet( 'rioc-events/tickets/rsvp.css' );
 
 		// If override stylesheet exists, then enqueue it
 		if ( $user_stylesheet_url ) {
@@ -293,7 +293,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	public function update_attendee_data( $data, $order_id, $event_id ) {
 		$user_id = get_current_user_id();
 
-		$rsvp_orders = E_Register_Now__Tickets__Tickets_View::instance()->get_event_rsvp_attendees( $event_id, $user_id );
+		$rsvp_orders = Register_In_One_Click__Tickets__Tickets_View::instance()->get_event_rsvp_attendees( $event_id, $user_id );
 		$rsvp_order_ids = wp_list_pluck( $rsvp_orders, 'order_id' );
 
 		// This makes sure we don't save attendees for orders that are not from this current user and event
@@ -313,7 +313,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		}
 
 		// Dont try to Save if it's restricted
-		if ( ! isset( $attendee['product_id'] ) || E_Register_Now__Tickets__Tickets_View::instance()->is_rsvp_restricted( $event_id, $attendee['product_id'] ) ) {
+		if ( ! isset( $attendee['product_id'] ) || Register_In_One_Click__Tickets__Tickets_View::instance()->is_rsvp_restricted( $event_id, $attendee['product_id'] ) ) {
 			return;
 		}
 
@@ -322,7 +322,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		$attendee_full_name = empty( $data['full_name'] ) ? null : sanitize_text_field( $data['full_name'] );
 		$attendee_optout = empty( $data['optout'] ) ? false : (bool) $data['optout'];
 
-		if ( empty( $data['order_status'] ) || ! E_Register_Now__Tickets__Tickets_View::instance()->is_valid_rsvp_option( $data['order_status'] ) ) {
+		if ( empty( $data['order_status'] ) || ! Register_In_One_Click__Tickets__Tickets_View::instance()->is_valid_rsvp_option( $data['order_status'] ) ) {
 			$attendee_order_status = null;
 		} else {
 			$attendee_order_status = $data['order_status'];
@@ -389,7 +389,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		$attendee_full_name = empty( $_POST['attendee']['full_name'] ) ? null : sanitize_text_field( $_POST['attendee']['full_name'] );
 		$attendee_optout = empty( $_POST['attendee']['optout'] ) ? false : (bool) $_POST['attendee']['optout'];
 
-		if ( empty( $_POST['attendee']['order_status'] ) || ! E_Register_Now__Tickets__Tickets_View::instance()->is_valid_rsvp_option( $_POST['attendee']['order_status'] ) ) {
+		if ( empty( $_POST['attendee']['order_status'] ) || ! Register_In_One_Click__Tickets__Tickets_View::instance()->is_valid_rsvp_option( $_POST['attendee']['order_status'] ) ) {
 			$attendee_order_status = 'yes';
 		} else {
 			$attendee_order_status = $_POST['attendee']['order_status'];
@@ -491,7 +491,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 
 
 			// After Adding the Values we Update the Transient
-			E_Register_Now__Post_Transient::instance()->delete( $event_id, E_Register_Now__Tickets__Tickets::ATTENDEES_CACHE );
+			Register_In_One_Click__Post_Transient::instance()->delete( $event_id, Register_In_One_Click__Tickets__Tickets::ATTENDEES_CACHE );
 		}
 
 		/**
@@ -552,7 +552,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		 * @param int   $order_id
 		 *
 		 */
-		$to_send = (array) apply_filters( 'e_rn_tickets_rsvp_tickets_to_send', $to_send, $all_attendees, $order_id );
+		$to_send = (array) apply_filters( 'rioc_tickets_rsvp_tickets_to_send', $to_send, $all_attendees, $order_id );
 
 		if ( empty( $to_send ) ) {
 			return;
@@ -565,11 +565,11 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			return;
 		}
 
-		$content     = apply_filters( 'e_rn_rsvp_email_content', $this->generate_tickets_email_content( $to_send ) );
-		$headers     = apply_filters( 'e_rn_rsvp_email_headers', array( 'Content-type: text/html' ) );
-		$attachments = apply_filters( 'e_rn_rsvp_email_attachments', array() );
-		$to          = apply_filters( 'e_rn_rsvp_email_recipient', $to );
-		$subject     = apply_filters( 'e_rn_rsvp_email_subject',
+		$content     = apply_filters( 'rioc_rsvp_email_content', $this->generate_tickets_email_content( $to_send ) );
+		$headers     = apply_filters( 'rioc_rsvp_email_headers', array( 'Content-type: text/html' ) );
+		$attachments = apply_filters( 'rioc_rsvp_email_attachments', array() );
+		$to          = apply_filters( 'rioc_rsvp_email_recipient', $to );
+		$subject     = apply_filters( 'rioc_rsvp_email_subject',
 			sprintf( __( 'Your tickets from %s', 'event-tickets' ), stripslashes_deep( html_entity_decode( get_bloginfo( 'name' ), ENT_QUOTES ) ) ) );
 
 		wp_mail( $to, $subject, $content, $headers, $attachments );
@@ -596,16 +596,16 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			return;
 		}
 
-		$headers     = apply_filters( 'e_rn_rsvp_email_headers', array( 'Content-type: text/html' ) );
-		$attachments = apply_filters( 'e_rn_rsvp_email_attachments', array() );
-		$to          = apply_filters( 'e_rn_rsvp_email_recipient', $to );
-		$subject     = apply_filters( 'e_rn_rsvp_email_subject',
+		$headers     = apply_filters( 'rioc_rsvp_email_headers', array( 'Content-type: text/html' ) );
+		$attachments = apply_filters( 'rioc_rsvp_email_attachments', array() );
+		$to          = apply_filters( 'rioc_rsvp_email_recipient', $to );
+		$subject     = apply_filters( 'rioc_rsvp_email_subject',
 			sprintf( __( 'You confirmed you will not be attending %s', 'event-tickets' ), get_the_title( $event_id ) )
 		);
 
 		$template_data = array( 'event_id' => $event_id, 'order_id' => $order_id, 'attendees' => $attendees );
-		$content = apply_filters( 'e_rn_rsvp_email_content',
-			e_rn_tickets_get_template_part( 'tickets/email-non-attendance', null, $template_data, false )
+		$content = apply_filters( 'rioc_rsvp_email_content',
+			rioc_tickets_get_template_part( 'tickets/email-non-attendance', null, $template_data, false )
 		);
 
 		wp_mail( $to, $subject, $content, $headers, $attachments );
@@ -659,7 +659,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 * Saves a given ticket (WooCommerce product)
 	 *
 	 * @param int                                   $event_id
-	 * @param E_Register_Now__Tickets__Ticket_Object $ticket
+	 * @param Register_In_One_Click__Tickets__Ticket_Object $ticket
 	 * @param array                                 $raw_data
 	 *
 	 * @return int The updated/created ticket post ID
@@ -733,7 +733,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		 * Generic action fired after saving a ticket (by type)
 		 *
 		 * @var int Post ID of post the ticket is tied to
-		 * @var E_Register_Now__Tickets__Ticket_Object Ticket that was just saved
+		 * @var Register_In_One_Click__Tickets__Ticket_Object Ticket that was just saved
 		 * @var array Ticket data
 		 * @var string Commerce engine class
 		 */
@@ -743,7 +743,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		 * Generic action fired after saving a ticket
 		 *
 		 * @var int Post ID of post the ticket is tied to
-		 * @var E_Register_Now__Tickets__Ticket_Object Ticket that was just saved
+		 * @var Register_In_One_Click__Tickets__Ticket_Object Ticket that was just saved
 		 * @var array Ticket data
 		 * @var string Commerce engine class
 		 */
@@ -788,7 +788,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			return false;
 		}
 
-		E_Register_Now__Tickets__Attendance::instance( $event_id )->increment_deleted_attendees_count();
+		Register_In_One_Click__Tickets__Attendance::instance( $event_id )->increment_deleted_attendees_count();
 		do_action( 'tickets_rsvp_ticket_deleted', $ticket_id, $event_id, $product_id );
 
 		return true;
@@ -875,7 +875,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 * @return bool
 	 */
 	protected function login_required() {
-		$requirements = (array) e_rn_get_option( 'ticket-authentication-requirements', array() );
+		$requirements = (array) rioc_get_option( 'ticket-authentication-requirements', array() );
 		return in_array( 'event-tickets_rsvp', $requirements );
 	}
 
@@ -885,7 +885,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 * @param $event_id
 	 * @param $ticket_id
 	 *
-	 * @return null|E_Register_Now__Tickets__Ticket_Object
+	 * @return null|Register_In_One_Click__Tickets__Ticket_Object
 	 */
 	public function get_ticket( $event_id, $ticket_id ) {
 		$product = get_post( $ticket_id );
@@ -894,7 +894,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			return null;
 		}
 
-		$return = new E_Register_Now__Tickets__Ticket_Object();
+		$return = new Register_In_One_Click__Tickets__Ticket_Object();
 		$qty    = (int) get_post_meta( $ticket_id, 'total_sales', true );
 		
 		// $return->description    = (int) $raw_data['ticket_rsvp_stock'];
@@ -938,7 +938,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			return false;
 		}
 
-		if ( in_array( get_post_type( $event_id ), E_Register_Now__Tickets__Main::instance()->post_types() ) ) {
+		if ( in_array( get_post_type( $event_id ), Register_In_One_Click__Tickets__Main::instance()->post_types() ) ) {
 			return get_post( $event_id );
 		}
 
@@ -987,7 +987,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			$product_id   = get_post_meta( $attendee->ID, self::ATTENDEE_PRODUCT_KEY, true );
 			$optout       = (bool) get_post_meta( $attendee->ID, self::ATTENDEE_OPTOUT_KEY, true );
 			$status       = get_post_meta( $attendee->ID, self::ATTENDEE_RSVP_KEY, true );
-			$status_label = E_Register_Now__Tickets__Tickets_View::instance()->get_rsvp_options( $status );
+			$status_label = Register_In_One_Click__Tickets__Tickets_View::instance()->get_rsvp_options( $status );
 			$user_id      = get_post_meta( $attendee->ID, self::ATTENDEE_USER_ID, true );
 			$ticket_sent  = (bool) get_post_meta( $attendee->ID, self::ATTENDEE_TICKET_SENT, true );
 
@@ -1023,7 +1023,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			 * @var int Event ID
 			 *
 			 */
-			$attendee_data = apply_filters( 'e_rn_tickets_attendee_data', $attendee_data, 'rsvp', $attendee, $event_id );
+			$attendee_data = apply_filters( 'rioc_tickets_attendee_data', $attendee_data, 'rsvp', $attendee, $event_id );
 
 			$attendees[] = $attendee_data;
 		}
@@ -1054,7 +1054,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			'purchaser_email' => $email,
 			'provider'        => __CLASS__,
 			'provider_slug'   => 'rsvp',
-			'purchase_time'   => get_post_time( E_Register_Now__Date_Utils::DBDATETIMEFORMAT, false, $order_id ),
+			'purchase_time'   => get_post_time( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, false, $order_id ),
 		);
 
 		/**
@@ -1065,7 +1065,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		 * @var int Order ID
 		 *
 		 */
-		$data = apply_filters( 'e_rn_tickets_order_data', $data, 'rsvp', $order_id );
+		$data = apply_filters( 'rioc_tickets_order_data', $data, 'rsvp', $order_id );
 
 		return $data;
 	}
@@ -1078,7 +1078,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 */
 	public function purge_attendees_transient( $attendee_id ) {
 		$event_id = get_post_meta( $attendee_id, self::ATTENDEE_EVENT_KEY, true );
-		E_Register_Now__Post_Transient::instance()->delete( $event_id, E_Register_Now__Tickets__Tickets::ATTENDEES_CACHE );
+		Register_In_One_Click__Post_Transient::instance()->delete( $event_id, Register_In_One_Click__Tickets__Tickets::ATTENDEES_CACHE );
 	}
 
 	/**
@@ -1102,7 +1102,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		update_post_meta( $attendee_id, $this->checkin_key, 1 );
 
 		if ( func_num_args() > 1 && $qr = func_get_arg( 1 ) ) {
-			update_post_meta( $attendee_id, '_e_rn_qr_status', 1 );
+			update_post_meta( $attendee_id, '_rioc_qr_status', 1 );
 		}
 
 		/**
@@ -1125,7 +1125,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	 */
 	public function uncheckin( $attendee_id ) {
 		delete_post_meta( $attendee_id, $this->checkin_key );
-		delete_post_meta( $attendee_id, '_e_rn_qr_status' );
+		delete_post_meta( $attendee_id, '_rioc_qr_status' );
 		do_action( 'rsvp_uncheckin', $attendee_id );
 
 		return true;
@@ -1195,7 +1195,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 			}
 		}
 
-		include E_Register_Now__Tickets__Main::instance()->plugin_path . 'src/admin-views/rsvp-metabox-advanced.php';
+		include Register_In_One_Click__Tickets__Main::instance()->plugin_path . 'src/admin-views/rsvp-metabox-advanced.php';
 	}
 
 	public function get_messages() {
@@ -1203,7 +1203,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 	}
 
 	public function add_message( $message, $type = 'update' ) {
-		$message = apply_filters( 'e_rn_rsvp_submission_message', $message, $type );
+		$message = apply_filters( 'rioc_rsvp_submission_message', $message, $type );
 		self::$messages[] = (object) array( 'message' => $message, 'type' => $type );
 	}
 
@@ -1222,9 +1222,9 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		}
 
 		$args = array(
-			'post_type' => 'e_rn_events',
-			'page' => E_Register_Now__Tickets__Tickets_Handler::$attendees_slug,
-			'event_id' => get_post_meta( $post_id, '_e_rn_rsvp_event', true ),
+			'post_type' => 'rioc_events',
+			'page' => Register_In_One_Click__Tickets__Tickets_Handler::$attendees_slug,
+			'event_id' => get_post_meta( $post_id, '_rioc_rsvp_event', true ),
 		);
 
 		$url = add_query_arg( $args, admin_url( 'edit.php' ) );
@@ -1257,7 +1257,7 @@ class E_Register_Now__Tickets__RSVP extends E_Register_Now__Tickets__Tickets {
 		$attendees_report_url = add_query_arg(
 			array(
 				'post_type' => $event->post_type,
-				'page' => E_Register_Now__Tickets__Tickets_Handler::$attendees_slug,
+				'page' => Register_In_One_Click__Tickets__Tickets_Handler::$attendees_slug,
 				'event_id' => $event->ID,
 			),
 			admin_url( 'edit.php' )

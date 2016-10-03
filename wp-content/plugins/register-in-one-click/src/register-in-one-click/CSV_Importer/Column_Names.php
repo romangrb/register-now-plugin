@@ -1,7 +1,7 @@
 <?php
 
 
-class E_Register_Now__Tickets__CSV_Importer__Column_Names {
+class Register_In_One_Click__Tickets__CSV_Importer__Column_Names {
 
 	/**
 	 * @var self
@@ -11,7 +11,7 @@ class E_Register_Now__Tickets__CSV_Importer__Column_Names {
 	/**
 	 * The class singleton constructor.
 	 *
-	 * @return E_Register_Now__Tickets__CSV_Importer__Column_Names
+	 * @return Register_In_One_Click__Tickets__CSV_Importer__Column_Names
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {

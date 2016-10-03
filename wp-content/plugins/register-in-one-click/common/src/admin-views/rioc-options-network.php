@@ -1,11 +1,11 @@
 <?php
-$allTabs = apply_filters( 'e_rn_settings_all_tabs', array() );
+$allTabs = apply_filters( 'rioc_settings_all_tabs', array() );
 
 $networkTab = array(
 	'priority'      => 10,
 	'network_admin' => true,
 	'fields'        => apply_filters(
-		'e_rn_network_settings_tab_fields', array(
+		'rioc_network_settings_tab_fields', array(
 			'info-start'           => array(
 				'type' => 'html',
 				'html' => '<div id="rioc--info">',

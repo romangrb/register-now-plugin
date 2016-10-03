@@ -1,16 +1,16 @@
 <?php
 
-class E_Register_Now__Asset__Factory {
+class Register_In_One_Click__Asset__Factory {
 	/**
 	 * @param string $name
 	 *
-	 * @return E_Register_Now__Asset__Abstract_Asset|false Either a new instance of the asset class or false.
+	 * @return Register_In_One_Click__Asset__Abstract_Asset|false Either a new instance of the asset class or false.
 	 */
 	public function make_for_name( $name ) {
 		// `jquery-resize` to `Jquery_Resize`
 		$class_name = $this->get_asset_class_name( $name );
 
-		// `Jquery_Resize` to `E_Register_Now__Asset__Jquery_Resize`
+		// `Jquery_Resize` to `Register_In_One_Click__Asset__Jquery_Resize`
 		$full_class_name = $this->get_asset_full_class_name( $class_name );
 
 		return class_exists( $full_class_name ) ? new $full_class_name() : false;
@@ -29,7 +29,7 @@ class E_Register_Now__Asset__Factory {
 	 * @return string
 	 */
 	private function get_asset_full_class_name( $class_name ) {
-		// `Jquery_Resize` to `E_Register_Now__Asset__Jquery_Resize`
+		// `Jquery_Resize` to `Register_In_One_Click__Asset__Jquery_Resize`
 		$full_class_name = $this->get_asset_class_name_prefix() . $class_name;
 
 		return $full_class_name;
@@ -39,11 +39,11 @@ class E_Register_Now__Asset__Factory {
 	 * @return string
 	 */
 	protected function get_asset_class_name_prefix() {
-		return 'E_Register_Now__Asset__';
+		return 'Register_In_One_Click__Asset__';
 	}
 
 	/**
-	 * @return E_Register_Now__Asset__Factory
+	 * @return Register_In_One_Click__Asset__Factory
 	 */
 	public static function instance() {
 		static $instance;

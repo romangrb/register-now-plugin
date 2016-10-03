@@ -15,7 +15,7 @@
  *
  *     [rioc-user-event-confirmations limit="16"]
  */
-class E_Register_Now__Tickets__Shortcodes__User_Event_Confirmation_List {
+class Register_In_One_Click__Tickets__Shortcodes__User_Event_Confirmation_List {
 	protected $params = array();
 
 	/**
@@ -31,7 +31,7 @@ class E_Register_Now__Tickets__Shortcodes__User_Event_Confirmation_List {
 		 *
 		 * @param string $shortcode_name
 		 */
-		$shortcode_name = apply_filters( 'e_rn_tickets_shortcodes_attendee_list_name', $shortcode_name );
+		$shortcode_name = apply_filters( 'rioc_tickets_shortcodes_attendee_list_name', $shortcode_name );
 
 		add_shortcode( $shortcode_name, array( $this, 'generate' ) );
 	}
@@ -49,7 +49,7 @@ class E_Register_Now__Tickets__Shortcodes__User_Event_Confirmation_List {
 		ob_start();
 
 		if ( ! is_user_logged_in() ) {
-			include E_Register_Now__Tickets__Templates::get_template_hierarchy( 'shortcodes/my-attendance-list-logged-out' );
+			include Register_In_One_Click__Tickets__Templates::get_template_hierarchy( 'shortcodes/my-attendance-list-logged-out' );
 		} else {
 			$this->generate_attendance_list();
 		}
@@ -75,7 +75,7 @@ class E_Register_Now__Tickets__Shortcodes__User_Event_Confirmation_List {
 	 */
 	protected function generate_attendance_list() {
 		$event_ids = $this->get_upcoming_attendances();
-		include E_Register_Now__Tickets__Templates::get_template_hierarchy( 'shortcodes/my-attendance-list' );
+		include Register_In_One_Click__Tickets__Templates::get_template_hierarchy( 'shortcodes/my-attendance-list' );
 	}
 
 	/**
@@ -109,7 +109,7 @@ class E_Register_Now__Tickets__Shortcodes__User_Event_Confirmation_List {
 
 			WHERE (
 				-- Match the user
-				match_user.meta_key = '_e_rn_tickets_attendee_user_id'
+				match_user.meta_key = '_rioc_tickets_attendee_user_id'
 				AND match_user.meta_value = %d
 			) AND (
 				-- Restrict to upcoming events
@@ -138,7 +138,7 @@ class E_Register_Now__Tickets__Shortcodes__User_Event_Confirmation_List {
 	protected function get_event_keys() {
 		$event_keys = array();
 
-		foreach ( E_Register_Now__Tickets__Tickets::modules() as $module_class => $module_instance ) {
+		foreach ( Register_In_One_Click__Tickets__Tickets::modules() as $module_class => $module_instance ) {
 			/**
 			 * The usage of plain `$module_class::ATTENDEE_EVENT_KEY` will throw a `T_PAAMAYIM_NEKUDOTAYIM`
 			 * when using PHP 5.2, which is a fatal.

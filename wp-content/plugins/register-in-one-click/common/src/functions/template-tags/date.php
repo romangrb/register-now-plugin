@@ -10,11 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Main' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Main' ) ) {
 	return;
 }
 
-if ( ! function_exists( 'e_rn_format_date' ) ) {
+if ( ! function_exists( 'rioc_format_date' ) ) {
 	/**
 	 * Formatted Date
 	 *
@@ -28,9 +28,9 @@ if ( ! function_exists( 'e_rn_format_date' ) ) {
 	 *
 	 * @return string
 	 */
-	function e_rn_format_date( $date, $display_time = true, $date_format = '' ) {
+	function rioc_format_date( $date, $display_time = true, $date_format = '' ) {
 
-		if ( ! E_Register_Now__Date_Utils::is_timestamp( $date ) ) {
+		if ( ! Register_In_One_Click__Date_Utils::is_timestamp( $date ) ) {
 			$date = strtotime( $date );
 		}
 
@@ -44,24 +44,24 @@ if ( ! function_exists( 'e_rn_format_date' ) ) {
 			$with_year = $date_year == $cur_year ? false : true;
 
 			if ( $display_time ) {
-				$format = e_rn_get_datetime_format( $with_year );
+				$format = rioc_get_datetime_format( $with_year );
 			} else {
-				$format = e_rn_get_date_format( $with_year );
+				$format = rioc_get_date_format( $with_year );
 			}
 		}
 
 		$date = date_i18n( $format, $date );
 
 		/**
-		 * Deprecated e_rn_event_formatted_date in 4.0 in favor of e_rn_formatted_date. Remove in 5.0
+		 * Deprecated rioc_event_formatted_date in 4.0 in favor of rioc_formatted_date. Remove in 5.0
 		 */
-		$date = apply_filters( 'e_rn_event_formatted_date', $date, $display_time, $date_format );
+		$date = apply_filters( 'rioc_event_formatted_date', $date, $display_time, $date_format );
 
-		return apply_filters( 'e_rn_formatted_date', $date, $display_time, $date_format );
+		return apply_filters( 'rioc_formatted_date', $date, $display_time, $date_format );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_beginning_of_day' ) ) {
+if ( ! function_exists( 'rioc_beginning_of_day' ) ) {
 	/**
 	 * Returns formatted date for the official beginning of the day according to the Multi-day cutoff time option
 	 *
@@ -72,8 +72,8 @@ if ( ! function_exists( 'e_rn_beginning_of_day' ) ) {
 	 *
 	 * @return string
 	 */
-	function e_rn_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
-		$multiday_cutoff = explode( ':', e_rn_get_option( 'multiDayCutoff', '00:00' ) );
+	function rioc_beginning_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
+		$multiday_cutoff = explode( ':', rioc_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
 		if ( is_null( $date ) || empty( $date ) ) {
@@ -83,20 +83,20 @@ if ( ! function_exists( 'e_rn_beginning_of_day' ) ) {
 		}
 
 		/**
-		 * Deprecated filter e_rn_event_beginning_of_day in 4.0 in favor of e_rn_beginning_of_day. Remove in 5.0
+		 * Deprecated filter rioc_event_beginning_of_day in 4.0 in favor of rioc_beginning_of_day. Remove in 5.0
 		 */
-		$date = apply_filters( 'e_rn_event_beginning_of_day', $date );
+		$date = apply_filters( 'rioc_event_beginning_of_day', $date );
 
 		/**
 		 * Filters the beginning of day date
 		 *
 		 * @param string $date
 		 */
-		return apply_filters( 'e_rn_beginning_of_day', $date );
+		return apply_filters( 'rioc_beginning_of_day', $date );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_end_of_day' ) ) {
+if ( ! function_exists( 'rioc_end_of_day' ) ) {
 	/**
 	 * Returns formatted date for the official end of the day according to the Multi-day cutoff time option
 	 *
@@ -107,8 +107,8 @@ if ( ! function_exists( 'e_rn_end_of_day' ) ) {
 	 *
 	 * @return string
 	 */
-	function e_rn_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
-		$multiday_cutoff = explode( ':', e_rn_get_option( 'multiDayCutoff', '00:00' ) );
+	function rioc_end_of_day( $date = null, $format = 'Y-m-d H:i:s' ) {
+		$multiday_cutoff = explode( ':', rioc_get_option( 'multiDayCutoff', '00:00' ) );
 		$hours_to_add    = $multiday_cutoff[0];
 		$minutes_to_add  = $multiday_cutoff[1];
 		if ( is_null( $date ) || empty( $date ) ) {
@@ -118,42 +118,42 @@ if ( ! function_exists( 'e_rn_end_of_day' ) ) {
 		}
 
 		/**
-		 * Deprecated filter e_rn_event_end_of_day in 4.0 in favor of e_rn_end_of_day. Remove in 5.0
+		 * Deprecated filter rioc_event_end_of_day in 4.0 in favor of rioc_end_of_day. Remove in 5.0
 		 */
-		$date = apply_filters( 'e_rn_event_end_of_day', $date );
+		$date = apply_filters( 'rioc_event_end_of_day', $date );
 
 		/**
 		 * Filters the end of day date
 		 *
 		 * @param string $date
 		 */
-		return apply_filters( 'e_rn_end_of_day', $date );
+		return apply_filters( 'rioc_end_of_day', $date );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_datetime_separator' ) ) {
+if ( ! function_exists( 'rioc_get_datetime_separator' ) ) {
 	/**
 	 * Get the datetime saparator from the database option with escaped characters or not ;)
 	 *
 	 * @param string $default Default Separator if it's blank on the Database
 	 * @param bool   $esc     If it's going to be used on a `date` function or method it needs to be escaped
 	 *
-	 * @filter e_rn_datetime_separator
+	 * @filter rioc_datetime_separator
 	 *
 	 * @return string
 	 */
-	function e_rn_get_datetime_separator( $default = ' @ ', $esc = false ) {
-		$separator = (string) e_rn_get_option( 'dateTimeSeparator', $default );
+	function rioc_get_datetime_separator( $default = ' @ ', $esc = false ) {
+		$separator = (string) rioc_get_option( 'dateTimeSeparator', $default );
 		if ( $esc ) {
 			$separator = (array) str_split( $separator );
 			$separator = ( ! empty( $separator ) ? '\\' : '' ) . implode( '\\', $separator );
 		}
 
-		return apply_filters( 'e_rn_datetime_separator', $separator );
+		return apply_filters( 'rioc_datetime_separator', $separator );
 	}
 }//end if
 
-if ( ! function_exists( 'e_rn_get_start_time' ) ) {
+if ( ! function_exists( 'rioc_get_start_time' ) ) {
 	/**
 	 * Start Time
 	 *
@@ -167,7 +167,7 @@ if ( ! function_exists( 'e_rn_get_start_time' ) ) {
 	 *
 	 * @return string|null Time
 	 */
-	function e_rn_get_start_time( $event = null, $date_format = '', $timezone = null ) {
+	function rioc_get_start_time( $event = null, $date_format = '', $timezone = null ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -181,24 +181,24 @@ if ( ! function_exists( 'e_rn_get_start_time' ) ) {
 			return;
 		}
 
-		if ( E_Register_Now__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( Register_In_One_Click__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			return;
 		}
 
 		// @todo move timezones to Common
-		if ( class_exists( 'E_Register_Now__Events__Timezones' ) ) {
-			$start_date = E_Register_Now__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
+		if ( class_exists( 'Register_In_One_Click__Events__Timezones' ) ) {
+			$start_date = Register_In_One_Click__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 		}
 
 		if ( '' == $date_format ) {
-			$date_format = e_rn_get_time_format();
+			$date_format = rioc_get_time_format();
 		}
 
-		return e_rn_format_date( $start_date, false, $date_format );
+		return rioc_format_date( $start_date, false, $date_format );
 	}
 }
 
-if ( ! function_exists( 'e_rn_get_end_time' ) ) {
+if ( ! function_exists( 'rioc_get_end_time' ) ) {
 	/**
 	 * End Time
 	 *
@@ -212,7 +212,7 @@ if ( ! function_exists( 'e_rn_get_end_time' ) ) {
 	 *
 	 * @return string|null Time
 	 */
-	function e_rn_get_end_time( $event = null, $date_format = '', $timezone = null ) {
+	function rioc_get_end_time( $event = null, $date_format = '', $timezone = null ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -226,24 +226,24 @@ if ( ! function_exists( 'e_rn_get_end_time' ) ) {
 			return;
 		}
 
-		if ( E_Register_Now__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( Register_In_One_Click__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			return;
 		}
 
 		// @todo move timezones to Common
-		if ( class_exists( 'E_Register_Now__Events__Timezones' ) ) {
-			$end_date = E_Register_Now__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
+		if ( class_exists( 'Register_In_One_Click__Events__Timezones' ) ) {
+			$end_date = Register_In_One_Click__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 		}
 
 		if ( '' == $date_format ) {
-			$date_format = e_rn_get_time_format();
+			$date_format = rioc_get_time_format();
 		}
 
-		return e_rn_format_date( $end_date, false, $date_format );
+		return rioc_format_date( $end_date, false, $date_format );
 	}
 }
 
-if ( ! function_exists( 'e_rn_get_start_date' ) ) {
+if ( ! function_exists( 'rioc_get_start_date' ) ) {
 	/**
 	 * Start Date
 	 *
@@ -258,7 +258,7 @@ if ( ! function_exists( 'e_rn_get_start_date' ) ) {
 	 *
 	 * @return string|null Date
 	 */
-	function e_rn_get_start_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
+	function rioc_get_start_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -272,22 +272,22 @@ if ( ! function_exists( 'e_rn_get_start_date' ) ) {
 			return '';
 		}
 
-		if ( E_Register_Now__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( Register_In_One_Click__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			$display_time = false;
 		}
 
 		// @todo move timezones to Common
-		if ( class_exists( 'E_Register_Now__Events__Timezones' ) ) {
-			$start_date = E_Register_Now__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
+		if ( class_exists( 'Register_In_One_Click__Events__Timezones' ) ) {
+			$start_date = Register_In_One_Click__Events__Timezones::event_start_timestamp( $event->ID, $timezone );
 		} else {
 			return null;
 		}
 
-		return e_rn_format_date( $start_date, $display_time, $date_format );
+		return rioc_format_date( $start_date, $display_time, $date_format );
 	}
 }
 
-if ( ! function_exists( 'e_rn_get_end_date' ) ) {
+if ( ! function_exists( 'rioc_get_end_date' ) ) {
 	/**
 	 * End Date
 	 *
@@ -302,7 +302,7 @@ if ( ! function_exists( 'e_rn_get_end_date' ) ) {
 	 *
 	 * @return string|null Date
 	 */
-	function e_rn_get_end_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
+	function rioc_get_end_date( $event = null, $display_time = true, $date_format = '', $timezone = null ) {
 		if ( is_null( $event ) ) {
 			global $post;
 			$event = $post;
@@ -316,22 +316,22 @@ if ( ! function_exists( 'e_rn_get_end_date' ) ) {
 			return '';
 		}
 
-		if ( E_Register_Now__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
+		if ( Register_In_One_Click__Date_Utils::is_all_day( get_post_meta( $event->ID, '_EventAllDay', true ) ) ) {
 			$display_time = false;
 		}
 
 		// @todo move timezones to Common
-		if ( class_exists( 'E_Register_Now__Events__Timezones' ) ) {
-			$end_date = E_Register_Now__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
+		if ( class_exists( 'Register_In_One_Click__Events__Timezones' ) ) {
+			$end_date = Register_In_One_Click__Events__Timezones::event_end_timestamp( $event->ID, $timezone );
 		} else {
 			return null;
 		}
 
-		return e_rn_format_date( $end_date, $display_time, $date_format );
+		return rioc_format_date( $end_date, $display_time, $date_format );
 	}
 }
 
-if ( ! function_exists( 'e_rn_normalize_manual_utc_offset' ) ) {
+if ( ! function_exists( 'rioc_normalize_manual_utc_offset' ) ) {
 	/**
 	 * Normalizes a manual UTC offset string.
 	 *
@@ -340,7 +340,7 @@ if ( ! function_exists( 'e_rn_normalize_manual_utc_offset' ) ) {
 	 * @return string The normalized manual UTC offset.
 	 *                e.g. 'UTC+3', 'UTC-4.5', 'UTC+2.75'
 	 */
-	function e_rn_normalize_manual_utc_offset( $utc_offset ) {
+	function rioc_normalize_manual_utc_offset( $utc_offset ) {
 		$matches = array();
 		if ( preg_match( '/^UTC\\s*((\\+|-)(\\d{1,2}))((:|.|,)(\\d{1,2})+)*/ui', $utc_offset, $matches ) ) {
 			if ( ! empty( $matches[6] ) ) {

@@ -1,9 +1,9 @@
 <?php
-class E_Register_Now__Tickets__Tickets_Handler {
+class Register_In_One_Click__Tickets__Tickets_Handler {
 	/**
 	 * Singleton instance of this class
 	 *
-	 * @var E_Register_Now__Tickets__Tickets_Handler
+	 * @var Register_In_One_Click__Tickets__Tickets_Handler
 	 * @static
 	 */
 	protected static $instance;
@@ -18,7 +18,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 	 * Post Meta key for the ticket header
 	 * @var string
 	 */
-	protected $image_header_field = '_e_rn_ticket_header';
+	protected $image_header_field = '_rioc_ticket_header';
 
 	/**
 	 * Slug of the admin page for attendees
@@ -34,7 +34,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 
 	/**
 	 * WP_Post_List children for Attendees
-	 * @var E_Register_Now__Tickets__Attendees_Table
+	 * @var Register_In_One_Click__Tickets__Attendees_Table
 	 */
 	private $attendees_table;
 
@@ -42,7 +42,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 	 *    Class constructor.
 	 */
 	public function __construct() {
-		$main = E_Register_Now__Tickets__Main::instance();
+		$main = Register_In_One_Click__Tickets__Main::instance();
 
 		foreach ( $main->post_types() as $post_type ) {
 			add_action( 'save_post_' . $post_type, array( $this, 'save_image_header' ) );
@@ -65,9 +65,9 @@ class E_Register_Now__Tickets__Tickets_Handler {
 	 */
 	public function attendees_row_action( $actions ) {
 		global $post;
-		$tickets = E_Register_Now__Tickets__Tickets::get_event_tickets( $post->ID );
+		$tickets = Register_In_One_Click__Tickets__Tickets::get_event_tickets( $post->ID );
 
-		if ( in_array( $post->post_type, E_Register_Now__Tickets__Main::instance()->post_types() ) && ! empty( $tickets ) ) {
+		if ( in_array( $post->post_type, Register_In_One_Click__Tickets__Main::instance()->post_types() ) && ! empty( $tickets ) ) {
 			$url = add_query_arg( array(
 				'post_type' => $post->post_type,
 				'page'      => self::$attendees_slug,
@@ -122,9 +122,9 @@ class E_Register_Now__Tickets__Tickets_Handler {
 
 		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
 
-		wp_enqueue_style( self::$attendees_slug, $resources_url . '/css/tickets-attendees.css', array(), E_Register_Now__Tickets__Main::instance()->css_version() );
-		wp_enqueue_style( self::$attendees_slug . '-print', $resources_url . '/css/tickets-attendees-print.css', array(), E_Register_Now__Tickets__Main::instance()->css_version(), 'print' );
-		wp_enqueue_script( self::$attendees_slug, $resources_url . '/js/tickets-attendees.js', array( 'jquery' ), E_Register_Now__Tickets__Main::instance()->js_version() );
+		wp_enqueue_style( self::$attendees_slug, $resources_url . '/css/tickets-attendees.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version() );
+		wp_enqueue_style( self::$attendees_slug . '-print', $resources_url . '/css/tickets-attendees-print.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version(), 'print' );
+		wp_enqueue_script( self::$attendees_slug, $resources_url . '/js/tickets-attendees.js', array( 'jquery' ), Register_In_One_Click__Tickets__Main::instance()->js_version() );
 
 		$mail_data = array(
 			'nonce'           => wp_create_nonce( 'email-attendee-list' ),
@@ -208,7 +208,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 			// We need nothing else here
 			exit;
 		} else {
-			$this->attendees_table = new E_Register_Now__Tickets__Attendees_Table();
+			$this->attendees_table = new Register_In_One_Click__Tickets__Attendees_Table();
 
 			$this->maybe_generate_attendees_csv();
 
@@ -260,17 +260,17 @@ class E_Register_Now__Tickets__Tickets_Handler {
 		 *
 		 * @param int $event_id
 		 */
-		do_action( 'e_rn_events_tickets_generate_filtered_attendees_list', $event_id );
+		do_action( 'rioc_events_tickets_generate_filtered_attendees_list', $event_id );
 
 		if ( empty( $this->attendees_page ) ) {
-			$this->attendees_page = 'e_rn_events_page_tickets-attendees';
+			$this->attendees_page = 'rioc_events_page_tickets-attendees';
 		}
 
 		//Add in Columns or get_column_headers() returns nothing
 		$filter_name = "manage_{$this->attendees_page}_columns";
 		add_filter( $filter_name, array( $this->attendees_table, 'get_columns' ), 15 );
 
-		$items = E_Register_Now__Tickets__Tickets::get_event_attendees( $event_id );
+		$items = Register_In_One_Click__Tickets__Tickets::get_event_attendees( $event_id );
 
 		//Add Handler for Community Tickets to Prevent Notices in Exports
 		if ( ! is_admin() ) {
@@ -300,7 +300,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 		 * @var array Items to be exported
 		 * @var int   Event ID
 		 */
-		$export_columns = apply_filters( 'e_rn_events_tickets_attendees_csv_export_columns', $export_columns, $items, $event_id );
+		$export_columns = apply_filters( 'rioc_events_tickets_attendees_csv_export_columns', $export_columns, $items, $event_id );
 
 		// Add the export column headers as the first row
 		$rows = array(
@@ -354,7 +354,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 			return;
 		}
 
-		$items = apply_filters( 'e_rn_events_tickets_attendees_csv_items', $this->generate_filtered_attendees_list( $_GET['event_id'] ) );;
+		$items = apply_filters( 'rioc_events_tickets_attendees_csv_items', $this->generate_filtered_attendees_list( $_GET['event_id'] ) );;
 		$event = get_post( $_GET['event_id'] );
 
 		if ( ! empty( $items ) ) {
@@ -452,14 +452,14 @@ class E_Register_Now__Tickets__Tickets_Handler {
 			$email = $user->data->user_email;
 		}
 
-		$this->attendees_table = new E_Register_Now__Tickets__Attendees_Table();
+		$this->attendees_table = new Register_In_One_Click__Tickets__Attendees_Table();
 
 		$items = $this->generate_filtered_attendees_list( $_GET['event_id'] );
 
 		$event = get_post( $_GET['event_id'] );
 
 		ob_start();
-		$attendee_tpl = E_Register_Now__Tickets__Templates::get_template_hierarchy( 'tickets/attendees-email.php', array( 'disable_view_check' => true ) );
+		$attendee_tpl = Register_In_One_Click__Tickets__Templates::get_template_hierarchy( 'tickets/attendees-email.php', array( 'disable_view_check' => true ) );
 		include $attendee_tpl;
 		$content = ob_get_clean();
 
@@ -524,16 +524,16 @@ class E_Register_Now__Tickets__Tickets_Handler {
 	 */
 	public function do_meta_box( $post ) {
 
-		$startMinuteOptions   = E_Register_Now__View_Helpers::getMinuteOptions( null );
-		$endMinuteOptions     = E_Register_Now__View_Helpers::getMinuteOptions( null );
-		$startHourOptions     = E_Register_Now__View_Helpers::getHourOptions( null, true );
-		$endHourOptions       = E_Register_Now__View_Helpers::getHourOptions( null, false );
-		$startMeridianOptions = E_Register_Now__View_Helpers::getMeridianOptions( null, true );
-		$endMeridianOptions   = E_Register_Now__View_Helpers::getMeridianOptions( null );
+		$startMinuteOptions   = Register_In_One_Click__View_Helpers::getMinuteOptions( null );
+		$endMinuteOptions     = Register_In_One_Click__View_Helpers::getMinuteOptions( null );
+		$startHourOptions     = Register_In_One_Click__View_Helpers::getHourOptions( null, true );
+		$endHourOptions       = Register_In_One_Click__View_Helpers::getHourOptions( null, false );
+		$startMeridianOptions = Register_In_One_Click__View_Helpers::getMeridianOptions( null, true );
+		$endMeridianOptions   = Register_In_One_Click__View_Helpers::getMeridianOptions( null );
 
-		$show_global_stock = E_Register_Now__Tickets__Tickets::global_stock_available();
-		$tickets = E_Register_Now__Tickets__Tickets::get_event_tickets( $post->ID );
-		$global_stock = new E_Register_Now__Tickets__Global_Stock( $post->ID );
+		$show_global_stock = Register_In_One_Click__Tickets__Tickets::global_stock_available();
+		$tickets = Register_In_One_Click__Tickets__Tickets::get_event_tickets( $post->ID );
+		$global_stock = new Register_In_One_Click__Tickets__Global_Stock( $post->ID );
 
 		include $this->path . 'src/admin-views/meta-box.php';
 	}
@@ -592,10 +592,10 @@ class E_Register_Now__Tickets__Tickets_Handler {
 			return;
 		}
 
-		if ( empty( $_POST['e_rn_ticket_header_image_id'] ) ) {
+		if ( empty( $_POST['rioc_ticket_header_image_id'] ) ) {
 			delete_post_meta( $post_id, $this->image_header_field );
 		} else {
-			update_post_meta( $post_id, $this->image_header_field, $_POST['e_rn_ticket_header_image_id'] );
+			update_post_meta( $post_id, $this->image_header_field, $_POST['rioc_ticket_header_image_id'] );
 		}
 
 		return;
@@ -620,7 +620,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 		$enable = ! empty( $_POST[ 'rioc-tickets-enable-global-stock' ] );
 		$stock  = (int) @$_POST[ 'rioc-tickets-global-stock' ];
 
-		$post_global_stock = new E_Register_Now__Tickets__Global_Stock( $post_id );
+		$post_global_stock = new Register_In_One_Click__Tickets__Global_Stock( $post_id );
 		$post_global_stock->enable( $enable );
 		$post_global_stock->set_stock_level( $stock );
 	}
@@ -628,7 +628,7 @@ class E_Register_Now__Tickets__Tickets_Handler {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return E_Register_Now__Tickets__Tickets_Handler
+	 * @return Register_In_One_Click__Tickets__Tickets_Handler
 	 */
 	public static function instance() {
 		if ( ! isset( self::$instance ) ) {

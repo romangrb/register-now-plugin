@@ -7,7 +7,7 @@
  * the one belonging to the current stable accessible via WP SVN - at least by
  * default).
  */
-class E_Register_Now__Admin__Notice__Plugin_Upgrade_Notice {
+class Register_In_One_Click__Admin__Notice__Plugin_Upgrade_Notice {
 	/**
 	 * Currently installed version of the plugin
 	 *
@@ -85,7 +85,7 @@ class E_Register_Now__Admin__Notice__Plugin_Upgrade_Notice {
 	 * @return string
 	 */
 	protected function cache_key() {
-		return 'e_rn_plugin_upgrade_notice-' . hash( 'crc32b', $this->plugin_path . $this->current_version );
+		return 'rioc_plugin_upgrade_notice-' . hash( 'crc32b', $this->plugin_path . $this->current_version );
 	}
 
 	/**
@@ -103,7 +103,7 @@ class E_Register_Now__Admin__Notice__Plugin_Upgrade_Notice {
 		 *
 		 * @var int $cache_expiration
 		 */
-		return (int) apply_filters( 'e_rn_plugin_upgrade_notice_expiration', DAY_IN_SECONDS, $this->plugin_path );
+		return (int) apply_filters( 'rioc_plugin_upgrade_notice_expiration', DAY_IN_SECONDS, $this->plugin_path );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class E_Register_Now__Admin__Notice__Plugin_Upgrade_Notice {
 		 * @var string $url
 		 * @var string $plugin_path
 		 */
-		$readme_url = apply_filters( 'e_rn_plugin_upgrade_readme_url',
+		$readme_url = apply_filters( 'rioc_plugin_upgrade_readme_url',
 			$this->form_wp_svn_readme_url(),
 			$this->plugin_path
 		);
@@ -143,7 +143,7 @@ class E_Register_Now__Admin__Notice__Plugin_Upgrade_Notice {
 		 * @var string $upgrade_notice
 		 * @var string $plugin_path
 		 */
-		return apply_filters( 'e_rn_plugin_upgrade_notice',
+		return apply_filters( 'rioc_plugin_upgrade_notice',
 			$this->upgrade_notice,
 			$this->plugin_path
 		);

@@ -1,6 +1,6 @@
 <?php
 
-if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 	/**
 	 * Abstract class with the API definition and common functionality
 	 * for Tribe Tickets Pro. Providers for this functionality need to
@@ -21,7 +21,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 	 *
 	 *     ATTENDEE_OBJECT
 	 */
-	abstract class E_Register_Now__Tickets__Tickets {
+	abstract class Register_In_One_Click__Tickets__Tickets {
 
 		/**
 		 * Flag used to track if the registration form link has been displayed or not.
@@ -31,7 +31,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 		private static $have_displayed_reg_link = false;
 
 		/**
-		 * All E_Register_Now__Tickets__Tickets api consumers. It's static, so it's shared across all child.
+		 * All Register_In_One_Click__Tickets__Tickets api consumers. It's static, so it's shared across all child.
 		 *
 		 * @var array
 		 */
@@ -100,9 +100,9 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 		/**
 		 * Constant with the Transient Key for Attendees Cache
 		 */
-		const ATTENDEES_CACHE = 'e_rn_attendees';
+		const ATTENDEES_CACHE = 'rioc_attendees';
 
-		const ATTENDEE_USER_ID = '_e_rn_tickets_attendee_user_id';
+		const ATTENDEE_USER_ID = '_rioc_tickets_attendee_user_id';
 
 		/**
 		 * Returns link to the report interface for sales for an event or
@@ -296,7 +296,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 		public function __construct() {
 
 			// Start the singleton with the generic functionality to all providers.
-			E_Register_Now__Tickets__Tickets_Handler::instance();
+			Register_In_One_Click__Tickets__Tickets_Handler::instance();
 
 			// As this is an abstract class, we want to know which child instantiated it
 			$this->className = get_class( $this );
@@ -304,11 +304,11 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			$this->parentPath = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 			$this->parentUrl  = trailingslashit( plugins_url( '', $this->parentPath ) );
 
-			// Register all E_Register_Now__Tickets__Tickets api consumers
+			// Register all Register_In_One_Click__Tickets__Tickets api consumers
 			self::$active_modules[ $this->className ] = $this->pluginName;
 
-			add_filter( 'e_rn_events_tickets_modules', array( $this, 'modules' ) );
-			add_action( 'e_rn_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
+			add_filter( 'rioc_events_tickets_modules', array( $this, 'modules' ) );
+			add_action( 'rioc_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
 
 			// Admin AJAX actions for each provider
 			add_action( 'wp_ajax_rioc-ticket-add-' . $this->className, array( $this, 'ajax_handler_ticket_add' ) );
@@ -318,11 +318,11 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			add_action( 'wp_ajax_rioc-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 
 			// Front end
-			add_action( 'e_rn_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
+			add_action( 'rioc_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
 			add_filter( 'the_content', array( $this, 'front_end_tickets_form_in_content' ) );
 
 			// Ensure ticket prices and event costs are linked
-			add_filter( 'e_rn_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
+			add_filter( 'rioc_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
 		}
 
 
@@ -374,7 +374,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			if ( $return ) {
 				// Let's create a tickets list markup to return
 				$tickets = $this->get_event_tickets( $post_id );
-				$return  = E_Register_Now__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
+				$return  = Register_In_One_Click__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
 
 				$return = $this->notice( esc_html__( 'Your ticket has been saved.', 'event-tickets' ) ) . $return;
 
@@ -383,7 +383,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 				 *
 				 * @param $post_id
 				 */
-				do_action( 'e_rn_tickets_ticket_added', $post_id );
+				do_action( 'rioc_tickets_ticket_added', $post_id );
 			}
 
 			$return = array( 'html' => $return );
@@ -407,13 +407,13 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 		 * @return boolean
 		 */
 		final public function ticket_add( $post_id, $data ) {
-			$ticket = new E_Register_Now__Tickets__Ticket_Object();
+			$ticket = new Register_In_One_Click__Tickets__Ticket_Object();
 
 			$ticket->ID          = isset( $data['ticket_id'] ) ? absint( $data['ticket_id'] ) : null;
 			$ticket->name        = isset( $data['ticket_name'] ) ? esc_html( $data['ticket_name'] ) : null;
 			$ticket->description = isset( $data['ticket_description'] ) ? esc_html( $data['ticket_description'] ) : null;
 			$ticket->price       = ! empty( $data['ticket_price'] ) ? trim( $data['ticket_price'] ) : 0;
-			$ticket->purchase_limit = isset( $data['ticket_purchase_limit'] ) ? absint( $data['ticket_purchase_limit' ] ) : apply_filters( 'e_rn_tickets_default_purchase_limit', 0, $ticket->ID );
+			$ticket->purchase_limit = isset( $data['ticket_purchase_limit'] ) ? absint( $data['ticket_purchase_limit' ] ) : apply_filters( 'rioc_tickets_default_purchase_limit', 0, $ticket->ID );
 
 			if ( ! empty( $ticket->price ) ) {
 				// remove non-money characters
@@ -422,12 +422,12 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 
 			if ( ! empty( $data['ticket_start_date'] ) ) {
 				$meridian           = ! empty( $data['ticket_start_meridian'] ) ? ' ' . $data['ticket_start_meridian'] : '';
-				$ticket->start_date = date( E_Register_Now__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . ' ' . $data['ticket_start_hour'] . ':' . $data['ticket_start_minute'] . ':00' . $meridian ) );
+				$ticket->start_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . ' ' . $data['ticket_start_hour'] . ':' . $data['ticket_start_minute'] . ':00' . $meridian ) );
 			}
 
 			if ( ! empty( $data['ticket_end_date'] ) ) {
 				$meridian         = ! empty( $data['ticket_end_meridian'] ) ? ' ' . $data['ticket_end_meridian'] : '';
-				$ticket->end_date = date( E_Register_Now__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . ' ' . $data['ticket_end_hour'] . ':' . $data['ticket_end_minute'] . ':00' . $meridian ) );
+				$ticket->end_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . ' ' . $data['ticket_end_hour'] . ':' . $data['ticket_end_minute'] . ':00' . $meridian ) );
 			}
 
 			$ticket->provider_class = $this->className;
@@ -439,7 +439,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			 * @var $ticket Ticket object
 			 * @var $data Submitted post data
 			 */
-			do_action( 'e_rn_tickets_ticket_add', $post_id, $ticket, $data );
+			do_action( 'rioc_tickets_ticket_add', $post_id, $ticket, $data );
 
 			// Pass the control to the child object
 			return $this->save_ticket( $post_id, $ticket, $data );
@@ -538,7 +538,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			if ( $return ) {
 				// Let's create a tickets list markup to return
 				$tickets = $this->get_event_tickets( $post_id );
-				$return  = E_Register_Now__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
+				$return  = Register_In_One_Click__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
 
 				$return = $this->notice( esc_html__( 'Your ticket has been deleted.', 'event-tickets' ) ) . $return;
 
@@ -547,7 +547,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 				 *
 				 * @param $post_id
 				 */
-				do_action( 'e_rn_tickets_ticket_deleted', $post_id );
+				do_action( 'rioc_tickets_ticket_deleted', $post_id );
 			}
 
 			$this->ajax_ok( $return );
@@ -583,7 +583,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			 * @var boolean
 			 * @var WP_Post
 			 */
-			$can_update_price = apply_filters( 'e_rn_tickets_can_update_ticket_price', true, $ticket );
+			$can_update_price = apply_filters( 'rioc_tickets_can_update_ticket_price', true, $ticket );
 
 			$return['can_update_price'] = $can_update_price;
 
@@ -594,7 +594,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 				 * @var string
 				 * @var WP_Post
 				 */
-				$return['disallow_update_price_message'] = apply_filters( 'e_rn_tickets_disallow_update_ticket_price_message', esc_html__( 'Editing the ticket price is currently disallowed.', 'event-tickets' ), $ticket );
+				$return['disallow_update_price_message'] = apply_filters( 'rioc_tickets_disallow_update_ticket_price_message', esc_html__( 'Editing the ticket price is currently disallowed.', 'event-tickets' ), $ticket );
 			}
 
 			// Prevent HTML elements from been escaped
@@ -610,7 +610,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			 * @var $post_id Post ID
 			 * @var $ticket_id Ticket ID
 			 */
-			do_action( 'e_rn_events_tickets_metabox_advanced', $post_id, $ticket_id );
+			do_action( 'rioc_events_tickets_metabox_advanced', $post_id, $ticket_id );
 			$extra = ob_get_contents();
 			ob_end_clean();
 
@@ -621,9 +621,9 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			 * the edit-ticket form.
 			 *
 			 * @var array $return data returned to the client
-			 * @var E_Register_Now__Events__Tickets $ticket_object
+			 * @var Register_In_One_Click__Events__Tickets $ticket_object
 			 */
-			$return = (array) apply_filters( 'e_rn_events_tickets_ajax_ticket_edit', $return, $this );
+			$return = (array) apply_filters( 'rioc_events_tickets_ajax_ticket_edit', $return, $this );
 
 			$this->ajax_ok( $return );
 		}
@@ -657,7 +657,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 		public static function get_event_attendees( $event_id ) {
 			$attendees = array();
 			if ( ! is_admin() ) {
-				$post_transient = E_Register_Now__Post_Transient::instance();
+				$post_transient = Register_In_One_Click__Post_Transient::instance();
 
 				$attendees = $post_transient->get( $event_id, self::ATTENDEES_CACHE );
 				if ( ! $attendees ) {
@@ -675,7 +675,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			}
 
 			if ( ! is_admin() ) {
-				$expire = apply_filters( 'e_rn_tickets_attendees_expire', HOUR_IN_SECONDS );
+				$expire = apply_filters( 'rioc_tickets_attendees_expire', HOUR_IN_SECONDS );
 				$post_transient->set( $event_id, self::ATTENDEES_CACHE, $attendees, $expire );
 			}
 
@@ -743,7 +743,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 		final public static function get_event_checkedin_attendees_count( $event_id ) {
 			$checkedin = self::get_event_attendees( $event_id );
 
-			return array_reduce( $checkedin, array( 'E_Register_Now__Tickets__Tickets', '_checkedin_attendees_array_filter' ), 0 );
+			return array_reduce( $checkedin, array( 'Register_In_One_Click__Tickets__Tickets', '_checkedin_attendees_array_filter' ), 0 );
 		}
 
 		/**
@@ -818,7 +818,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			// Default to using own stock unless the user explicitly specifies otherwise (important
 			// to avoid assuming global stock mode if global stock is enabled/disabled accidentally etc)
 			if ( empty( $current_option ) ) {
-				$current_option = E_Register_Now__Tickets__Global_Stock::OWN_STOCK_MODE;
+				$current_option = Register_In_One_Click__Tickets__Global_Stock::OWN_STOCK_MODE;
 			}
 
 			foreach ( $this->global_stock_mode_options() as $identifier => $name ) {
@@ -841,9 +841,9 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 		 */
 		protected function global_stock_mode_options() {
 			return array(
-				E_Register_Now__Tickets__Global_Stock::GLOBAL_STOCK_MODE => __( 'Use global stock', 'event-tickets' ),
-				E_Register_Now__Tickets__Global_Stock::CAPPED_STOCK_MODE => __( 'Use global stock but cap sales', 'event-tickets' ),
-				E_Register_Now__Tickets__Global_Stock::OWN_STOCK_MODE    => __( 'Independent (do not use global stock)', 'event-tickets' ),
+				Register_In_One_Click__Tickets__Global_Stock::GLOBAL_STOCK_MODE => __( 'Use global stock', 'event-tickets' ),
+				Register_In_One_Click__Tickets__Global_Stock::CAPPED_STOCK_MODE => __( 'Use global stock but cap sales', 'event-tickets' ),
+				Register_In_One_Click__Tickets__Global_Stock::OWN_STOCK_MODE    => __( 'Independent (do not use global stock)', 'event-tickets' ),
 			);
 		}
 
@@ -857,10 +857,10 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			// Add the frontend ticket form script as needed (we do this lazily since right now
 			// it's only required for certain combinations of event/ticket
 			if ( ! self::$frontend_script_enqueued ) {
-				$url = E_Register_Now__Tickets__Main::instance()->plugin_url . 'src/resources/js/frontend-ticket-form.js';
-				$url = E_Register_Now__Template_Factory::getMinFile( $url, true );
+				$url = Register_In_One_Click__Tickets__Main::instance()->plugin_url . 'src/resources/js/frontend-ticket-form.js';
+				$url = Register_In_One_Click__Template_Factory::getMinFile( $url, true );
 
-				wp_enqueue_script( 'e_rn_tickets_frontend_tickets', $url, array( 'jquery' ), E_Register_Now__Tickets__Main::VERSION, true );
+				wp_enqueue_script( 'rioc_tickets_frontend_tickets', $url, array( 'jquery' ), Register_In_One_Click__Tickets__Main::VERSION, true );
 				add_action( 'wp_footer', array( __CLASS__, 'enqueue_frontend_stock_data' ), 1 );
 			}
 
@@ -878,10 +878,10 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 
 			foreach ( self::$frontend_ticket_data as $ticket ) {
 				/**
-				 * @var E_Register_Now__Tickets__Ticket_Object $ticket
+				 * @var Register_In_One_Click__Tickets__Ticket_Object $ticket
 				 */
 				$event_id = $ticket->get_event()->ID;
-				$global_stock = new E_Register_Now__Tickets__Global_Stock( $event_id );
+				$global_stock = new Register_In_One_Click__Tickets__Global_Stock( $event_id );
 				$stock_mode = $ticket->global_stock_mode();
 
 				$data[ 'tickets' ][ $ticket->ID ] = array(
@@ -889,12 +889,12 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 					'mode' => $stock_mode,
 				);
 
-				if ( E_Register_Now__Tickets__Global_Stock::CAPPED_STOCK_MODE === $stock_mode ) {
+				if ( Register_In_One_Click__Tickets__Global_Stock::CAPPED_STOCK_MODE === $stock_mode ) {
 					$data[ 'tickets' ][ $ticket->ID ][ 'cap' ] = $ticket->global_stock_cap();
 				}
 
 				if (
-					E_Register_Now__Tickets__Global_Stock::OWN_STOCK_MODE === $stock_mode
+					Register_In_One_Click__Tickets__Global_Stock::OWN_STOCK_MODE === $stock_mode
 					&& $ticket->managing_stock()
 				) {
 					$data[ 'tickets' ][ $ticket->ID ][ 'stock' ] = $ticket->stock();
@@ -905,7 +905,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 				);
 			}
 
-			wp_localize_script( 'e_rn_tickets_frontend_tickets', 'e_rn_tickets_stock_data', $data );
+			wp_localize_script( 'rioc_tickets_frontend_tickets', 'rioc_tickets_stock_data', $data );
 		}
 
 		/**
@@ -993,7 +993,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			$file = $this->getTemplateHierarchy( 'tickets/email.php' );
 
 			if ( ! file_exists( $file ) ) {
-				$file = E_Register_Now__Tickets__Main::instance()->plugin_path . 'src/views/tickets/email.php';
+				$file = Register_In_One_Click__Tickets__Main::instance()->plugin_path . 'src/views/tickets/email.php';
 			}
 
 			include $file;
@@ -1020,7 +1020,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 				$file = $this->pluginPath . 'src/views/' . $template;
 			}
 
-			return apply_filters( 'e_rn_events_tickets_template_' . $template, $file );
+			return apply_filters( 'rioc_events_tickets_template_' . $template, $file );
 		}
 
 		/**
@@ -1059,7 +1059,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 		 * "edit_bananas" or whatever is appropriate.
 		 *
 		 * @internal for internal plugin use only (in spite of having public visibility)
-		 * @see E_Register_Now__Tickets__Tickets_Handler::user_can()
+		 * @see Register_In_One_Click__Tickets__Tickets_Handler::user_can()
 		 *
 		 * @param  string $generic_cap
 		 * @param  int    $attendee_id
@@ -1072,7 +1072,7 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 				return false;
 			}
 
-			return E_Register_Now__Tickets__Tickets_Handler::instance()->user_can( $generic_cap, $event_id );
+			return Register_In_One_Click__Tickets__Tickets_Handler::instance()->user_can( $generic_cap, $event_id );
 		}
 
 		/**
@@ -1145,10 +1145,10 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 
 			if ( empty( $attendee_order_key ) ) {
 				switch( $this->className ) {
-					case 'E_Register_Now__Events__Tickets__Woo__Main':   return '_e_rn_wooticket_order';   break;
-					case 'E_Register_Now__Events__Tickets__EDD__Main':   return '_e_rn_eddticket_order';   break;
-					case 'E_Register_Now__Events__Tickets__Shopp__Main': return '_e_rn_shoppticket_order'; break;
-					case 'E_Register_Now__Events__Tickets__Wpec__Main':  return '_e_rn_wpecticket_order';  break;
+					case 'Register_In_One_Click__Events__Tickets__Woo__Main':   return '_rioc_wooticket_order';   break;
+					case 'Register_In_One_Click__Events__Tickets__EDD__Main':   return '_rioc_eddticket_order';   break;
+					case 'Register_In_One_Click__Events__Tickets__Shopp__Main': return '_rioc_shoppticket_order'; break;
+					case 'Register_In_One_Click__Events__Tickets__Wpec__Main':  return '_rioc_wpecticket_order';  break;
 				}
 			}
 
@@ -1170,10 +1170,10 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 
 			if ( empty( $attendee_order_key ) ) {
 				switch( $this->className ) {
-					case 'E_Register_Now__Events__Tickets__Woo__Main':   return 'e_rn_wooticket';   break;
-					case 'E_Register_Now__Events__Tickets__EDD__Main':   return 'e_rn_eddticket';   break;
-					case 'E_Register_Now__Events__Tickets__Shopp__Main': return 'e_rn_shoppticket'; break;
-					case 'E_Register_Now__Events__Tickets__Wpec__Main':  return 'e_rn_wpecticket';  break;
+					case 'Register_In_One_Click__Events__Tickets__Woo__Main':   return 'rioc_wooticket';   break;
+					case 'Register_In_One_Click__Events__Tickets__EDD__Main':   return 'rioc_eddticket';   break;
+					case 'Register_In_One_Click__Events__Tickets__Shopp__Main': return 'rioc_shoppticket'; break;
+					case 'Register_In_One_Click__Events__Tickets__Wpec__Main':  return 'rioc_wpecticket';  break;
 				}
 			}
 
@@ -1197,10 +1197,10 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 
 			if ( empty( $attendee_event_key ) ) {
 				switch( $this->className ) {
-					case 'E_Register_Now__Events__Tickets__Woo__Main':   return '_e_rn_wooticket_event';   break;
-					case 'E_Register_Now__Events__Tickets__EDD__Main':   return '_e_rn_eddticket_event';   break;
-					case 'E_Register_Now__Events__Tickets__Shopp__Main': return '_e_rn_shoppticket_event'; break;
-					case 'E_Register_Now__Events__Tickets__Wpec__Main':  return '_e_rn_wpecticket_event';  break;
+					case 'Register_In_One_Click__Events__Tickets__Woo__Main':   return '_rioc_wooticket_event';   break;
+					case 'Register_In_One_Click__Events__Tickets__EDD__Main':   return '_rioc_eddticket_event';   break;
+					case 'Register_In_One_Click__Events__Tickets__Shopp__Main': return '_rioc_shoppticket_event'; break;
+					case 'Register_In_One_Click__Events__Tickets__Wpec__Main':  return '_rioc_wpecticket_event';  break;
 				}
 			}
 
@@ -1334,12 +1334,12 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			}
 
 			// if this isn't a supported post type, bail
-			if ( ! in_array( $post->post_type, E_Register_Now__Tickets__Main::instance()->post_types() ) ) {
+			if ( ! in_array( $post->post_type, Register_In_One_Click__Tickets__Main::instance()->post_types() ) ) {
 				return $content;
 			}
 
-			// if this is a e_rn_events post, let's bail because those post types are handled with a different hook
-			if ( 'e_rn_events' === $post->post_type ) {
+			// if this is a rioc_events post, let's bail because those post types are handled with a different hook
+			if ( 'rioc_events' === $post->post_type ) {
 				return $content;
 			}
 
@@ -1391,15 +1391,15 @@ if ( ! class_exists( 'E_Register_Now__Tickets__Tickets' ) ) {
 			 *
 			 * @param string $login_url
 			 */
-			return apply_filters( 'e_rn_tickets_ticket_login_url', $login_url );
+			return apply_filters( 'rioc_tickets_ticket_login_url', $login_url );
 		}
 
 		/**
 		 * @param $operation_did_complete
 		 */
 		private function maybe_update_attendees_cache( $operation_did_complete ) {
-			if ( $operation_did_complete && ! empty( $_POST['event_ID'] ) && e_rn_is_event( $_POST['event_ID'] ) ) {
-				$post_transient = E_Register_Now__Post_Transient::instance();
+			if ( $operation_did_complete && ! empty( $_POST['event_ID'] ) && rioc_is_event( $_POST['event_ID'] ) ) {
+				$post_transient = Register_In_One_Click__Post_Transient::instance();
 				$post_transient->delete( $_POST['event_ID'], self::ATTENDEES_CACHE );
 			}
 		}

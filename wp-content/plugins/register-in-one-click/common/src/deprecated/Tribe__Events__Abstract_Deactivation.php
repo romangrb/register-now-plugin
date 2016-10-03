@@ -1,4 +1,4 @@
 <?php
-_deprecated_file( __FILE__, '4.0', 'E_Register_Now__Abstract_Deactivation.php' );
+_deprecated_file( __FILE__, '4.0', 'Register_In_One_Click__Abstract_Deactivation.php' );
 
-abstract class E_Register_Now__Events__Abstract_Deactivation extends E_Register_Now__Abstract_Deactivation {}
+abstract class Register_In_One_Click__Events__Abstract_Deactivation extends Register_In_One_Click__Abstract_Deactivation {}

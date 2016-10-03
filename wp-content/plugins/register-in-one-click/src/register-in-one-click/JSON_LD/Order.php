@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * A JSON-LD class to hook and change how Orders work on Events
  * @todo rework this class to make it standalone from The Events Calendar
  */
-class E_Register_Now__Tickets__JSON_LD__Order {
+class Register_In_One_Click__Tickets__JSON_LD__Order {
 
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
@@ -31,7 +31,7 @@ class E_Register_Now__Tickets__JSON_LD__Order {
 	/**
 	 * Value indicating low stock availability for a specific ticket.
 	 *
-	 * This can be overridden with the e_rn_tickets_json_ld_low_inventory_level filter.
+	 * This can be overridden with the rioc_tickets_json_ld_low_inventory_level filter.
 	 *
 	 * @var int
 	 */
@@ -43,7 +43,7 @@ class E_Register_Now__Tickets__JSON_LD__Order {
 	public static function hook() {
 		$myself = self::instance();
 
-		add_filter( 'e_rn_json_ld_event_object', array( $myself, 'add_ticket_data' ), 10, 3 );
+		add_filter( 'rioc_json_ld_event_object', array( $myself, 'add_ticket_data' ), 10, 3 );
 	}
 
 	/**
@@ -58,13 +58,13 @@ class E_Register_Now__Tickets__JSON_LD__Order {
 		 * @deprecated
 		 * @var int
 		 */
-		$this->low_stock = apply_filters( 'e_rn_events_tickets_google_low_inventory_level', $this->low_stock );
+		$this->low_stock = apply_filters( 'rioc_events_tickets_google_low_inventory_level', $this->low_stock );
 
 		/**
 		 * Allow users to change the Low inventory mark
 		 * @var int
 		 */
-		$this->low_stock = apply_filters( 'e_rn_tickets_json_ld_low_inventory_level', $this->low_stock );
+		$this->low_stock = apply_filters( 'rioc_tickets_json_ld_low_inventory_level', $this->low_stock );
 	}
 
 	/**
@@ -77,11 +77,11 @@ class E_Register_Now__Tickets__JSON_LD__Order {
 	 * @return array
 	 */
 	public function add_ticket_data( $data, $args, $post ) {
-		if ( ! e_rn_events_has_tickets( $post->ID ) ) {
+		if ( ! rioc_events_has_tickets( $post->ID ) ) {
 			return $data;
 		}
 
-		$tickets = E_Register_Now__Tickets__Tickets::get_all_event_tickets( $post->ID );
+		$tickets = Register_In_One_Click__Tickets__Tickets::get_all_event_tickets( $post->ID );
 
 		// Reset it
 		$data->offers = array();
@@ -131,10 +131,10 @@ class E_Register_Now__Tickets__JSON_LD__Order {
 		 * event ticket.
 		 *
 		 * @param object                        $offer
-		 * @param E_Register_Now__Tickets__Ticket_Object $ticket
+		 * @param Register_In_One_Click__Tickets__Ticket_Object $ticket
 		 * @param object                        $event
 		 */
-		return (object) apply_filters( 'e_rn_json_ld_offer_object', $offer, $ticket, $event );
+		return (object) apply_filters( 'rioc_json_ld_offer_object', $offer, $ticket, $event );
 	}
 
 	/**

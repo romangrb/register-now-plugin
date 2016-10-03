@@ -2,7 +2,7 @@
 /**
  * @var WP_Post $post
  * @var bool $show_global_stock
- * @var E_Register_Now__Tickets__Global_Stock $global_stock
+ * @var Register_In_One_Click__Tickets__Global_Stock $global_stock
  */
 
 // Don't load directly
@@ -17,7 +17,7 @@ if ( ! empty( $header_id ) ) {
 	$header_img = wp_get_attachment_image( $header_id, 'full' );
 }
 
-$modules = E_Register_Now__Tickets__Tickets::modules();
+$modules = Register_In_One_Click__Tickets__Tickets::modules();
 ?>
 
 <table id="event_tickets" class="eventtable">
@@ -27,7 +27,7 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 	if ( get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ) {
 		?>
 		<tr>
-			<td colspan="2" class="e_rn_sectionheader updated">
+			<td colspan="2" class="rioc_sectionheader updated">
 				<p class="error-message"><?php esc_html_e( 'This event was created using Community Events. Are you sure you want to sell tickets for it?', 'event-tickets' ); ?></p>
 			</td>
 		</tr>
@@ -35,7 +35,7 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 	}
 	?>
 	<tr class="event-wide-settings">
-		<td colspan="2" class="e_rn_sectionheader updated">
+		<td colspan="2" class="rioc_sectionheader updated">
 			<table class="eventtable ticket_list eventForm">
 				<tr class="rioc-tickets-image-upload">
 					<td>
@@ -43,17 +43,17 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 						<p class="description"><?php esc_html_e( 'The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like "retina" support use an image sized to 1160px wide.', 'event-tickets' ); ?></p>
 					</td>
 					<td>
-						<input type="button" class="button" name="e_rn_ticket_header_image" id="e_rn_ticket_header_image" value="<?php esc_html_e( 'Select an Image', 'event-tickets' ); ?>" />
+						<input type="button" class="button" name="rioc_ticket_header_image" id="rioc_ticket_header_image" value="<?php esc_html_e( 'Select an Image', 'event-tickets' ); ?>" />
 					</td>
 				</tr>
 				<tr class="rioc-tickets-image-preview">
 					<td colspan="2">
-						<div class="e_rn_preview" id="e_rn_ticket_header_preview">
+						<div class="rioc_preview" id="rioc_ticket_header_preview">
 							<?php echo $header_img; ?>
 						</div>
-						<p class="description"><a href="#" id="e_rn_ticket_header_remove"><?php esc_html_e( 'Remove', 'event-tickets' ); ?></a></p>
+						<p class="description"><a href="#" id="rioc_ticket_header_remove"><?php esc_html_e( 'Remove', 'event-tickets' ); ?></a></p>
 
-						<input type="hidden" id="e_rn_ticket_header_image_id" name="e_rn_ticket_header_image_id" value="<?php echo esc_attr( $header_id ); ?>" />
+						<input type="hidden" id="rioc_ticket_header_image_id" name="rioc_ticket_header_image_id" value="<?php echo esc_attr( $header_id ); ?>" />
 					</td>
 				</tr>
 			</table>
@@ -97,23 +97,23 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 	 *
 	 * @param Post ID
 	 */
-	do_action( 'e_rn_events_tickets_metabox_pre', get_the_ID() ); ?>
+	do_action( 'rioc_events_tickets_metabox_pre', get_the_ID() ); ?>
 
 	<tr>
-		<td colspan="2" class="e_rn_sectionheader ticket_list_container">
+		<td colspan="2" class="rioc_sectionheader ticket_list_container">
 
 			<?php $this->ticket_list_markup( $tickets ); ?>
 
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" class="e_rn_sectionheader">
+		<td colspan="2" class="rioc_sectionheader">
 			<a href="#" class="button-secondary"
 			   id="ticket_form_toggle"><?php esc_html_e( 'Add new ticket', 'event-tickets' ); ?></a>
 		</td>
 	</tr>
 	<tr id="ticket_form" class="ticket_form">
-		<td colspan="2" class="e_rn_sectionheader">
+		<td colspan="2" class="rioc_sectionheader">
 			<div id="rioc-loading"><span></span></div>
 			<table id="ticket_form_table" class="eventtable ticket_form">
 
@@ -165,14 +165,14 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 						<input autocomplete="off" type="text" class="ticket_field" size='10' name="ticket_start_date"
 							   id="ticket_start_date" value="">
 						<span class="ticket_start_time ticket_time">
-							<?php echo e_rn_get_datetime_separator(); ?>
+							<?php echo rioc_get_datetime_separator(); ?>
 							<select name="ticket_start_hour" id="ticket_start_hour" class="ticket_field">
 								<?php echo $startHourOptions; ?>
 							</select>
 							<select name="ticket_start_minute" id="ticket_start_minute" class="ticket_field">
 								<?php echo $startMinuteOptions; ?>
 							</select>
-							<?php if ( ! strstr( get_option( 'time_format', E_Register_Now__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
+							<?php if ( ! strstr( get_option( 'time_format', Register_In_One_Click__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
 								<select name="ticket_start_meridian" id="ticket_start_meridian" class="ticket_field">
 									<?php echo $startMeridianOptions; ?>
 								</select>
@@ -190,14 +190,14 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 							   id="ticket_end_date" value="">
 
 						<span class="ticket_end_time ticket_time">
-							<?php echo e_rn_get_datetime_separator(); ?>
+							<?php echo rioc_get_datetime_separator(); ?>
 							<select name="ticket_end_hour" id="ticket_end_hour" class="ticket_field">
 								<?php echo $endHourOptions; ?>
 							</select>
 							<select name="ticket_end_minute" id="ticket_end_minute" class="ticket_field">
 								<?php echo $endMinuteOptions; ?>
 							</select>
-							<?php if ( ! strstr( get_option( 'time_format', E_Register_Now__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
+							<?php if ( ! strstr( get_option( 'time_format', Register_In_One_Click__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
 								<select name="ticket_end_meridian" id="ticket_end_meridian" class="ticket_field">
 									<?php echo $endMeridianOptions; ?>
 								</select>
@@ -209,7 +209,7 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 							<?php esc_html_e( 'When will ticket sales occur?', 'event-tickets' ); ?>
 							<?php
 							// Why break in and out of PHP? because I want the space between the phrases without including them in the translations
-							if ( class_exists( 'E_Register_Now__Events__Main' ) && E_Register_Now__Events__Main::POSTTYPE === get_post_type( $post ) ) {
+							if ( class_exists( 'Register_In_One_Click__Events__Main' ) && Register_In_One_Click__Events__Main::POSTTYPE === get_post_type( $post ) ) {
 								esc_html_e( "If you don't set a start/end date for sales, tickets will be available from now until the event ends.", 'event-tickets' );
 							}
 							?>
@@ -224,7 +224,7 @@ $modules = E_Register_Now__Tickets__Tickets::modules();
 				 * @var Post ID
 				 * @var null Ticket ID
 				 */
-				do_action( 'e_rn_events_tickets_metabox_advanced', get_the_ID(), null ); ?>
+				do_action( 'rioc_events_tickets_metabox_advanced', get_the_ID(), null ); ?>
 
 				<tr class="ticket bottom">
 					<td></td>

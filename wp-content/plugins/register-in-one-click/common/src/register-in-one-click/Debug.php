@@ -1,11 +1,11 @@
 <?php
 
-class E_Register_Now__Debug {
+class Register_In_One_Click__Debug {
 	/**
 	 * constructor
 	 */
 	public function __construct() {
-		add_action( 'e_rn_debug', array( __CLASS__, 'render' ), 10, 2 );
+		add_action( 'rioc_debug', array( __CLASS__, 'render' ), 10, 2 );
 	}
 
 	/**
@@ -18,7 +18,7 @@ class E_Register_Now__Debug {
 	 * @return void
 	 */
 	public static function debug( $title, $data = false, $format = 'log' ) {
-		do_action( 'e_rn_debug', $title, $data, $format );
+		do_action( 'rioc_debug', $title, $data, $format );
 	}
 
 	/**
@@ -32,8 +32,8 @@ class E_Register_Now__Debug {
 	 */
 	public static function render( $title, $data = false, $format = 'log' ) {
 		$format = ucfirst( $format );
-		if ( E_Register_Now__Settings_Manager::instance()->get_option( 'debugEvents' ) ) {
-			$plugin = basename( dirname( E_Register_Now__Main::instance()->plugin_path ) );
+		if ( Register_In_One_Click__Settings_Manager::instance()->get_option( 'debugEvents' ) ) {
+			$plugin = basename( dirname( Register_In_One_Click__Main::instance()->plugin_path ) );
 			error_log( "$plugin/common -  $format: $title" );
 			if ( $data && $data != '' ) {
 				error_log( "$plugin/common - $format: " . print_r( $data, true ) );
@@ -44,7 +44,7 @@ class E_Register_Now__Debug {
 	/**
 	 * Static Singleton Factory Method
 	 *
-	 * @return E_Register_Now__Debug
+	 * @return Register_In_One_Click__Debug
 	 */
 	public static function instance() {
 		static $instance;

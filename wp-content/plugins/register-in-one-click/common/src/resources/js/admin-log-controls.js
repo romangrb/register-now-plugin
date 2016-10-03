@@ -1,5 +1,5 @@
-var e_rn_logger_admin = e_rn_logger_admin || {};
-var e_rn_logger_data  = e_rn_logger_data || {};
+var rioc_logger_admin = rioc_logger_admin || {};
+var rioc_logger_data  = rioc_logger_data || {};
 
 ( function( $, obj ) {
 	var working        = false;
@@ -32,8 +32,8 @@ var e_rn_logger_data  = e_rn_logger_data || {};
 	 */
 	function request() {
 		var data = {
-			'action':     'e_rn_logging_controls',
-			'check':      e_rn_logger_data.check,
+			'action':     'rioc_logging_controls',
+			'check':      rioc_logger_data.check,
 			'log-level':  $( '#log-level' ).find( ':selected' ).attr( 'name' ),
 			'log-engine': $( '#log-engine' ).find( ':selected' ).attr( 'name' )
 		};
@@ -168,4 +168,4 @@ var e_rn_logger_data  = e_rn_logger_data || {};
 
 	update_download_link();
 	$options.change( update );
-} )( jQuery, e_rn_logger_admin );
+} )( jQuery, rioc_logger_admin );

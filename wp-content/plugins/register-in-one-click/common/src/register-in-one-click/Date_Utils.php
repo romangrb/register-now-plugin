@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__Date_Utils' ) ) {
-	class E_Register_Now__Date_Utils {
+if ( ! class_exists( 'Register_In_One_Click__Date_Utils' ) ) {
+	class Register_In_One_Click__Date_Utils {
 		// Default formats, they are overridden by WP options or by arguments to date methods
 		const DATEONLYFORMAT        = 'F j, Y';
 		const TIMEFORMAT            = 'g:i A';
@@ -338,7 +338,7 @@ if ( ! class_exists( 'E_Register_Now__Date_Utils' ) ) {
 			$output = $number . ( ( ( strlen( $number ) > 1 ) && ( substr( $number, - 2, 1 ) == '1' ) ) ?
 					'th' : date( 'S', mktime( 0, 0, 0, 0, substr( $number, - 1 ), 0 ) ) );
 
-			return apply_filters( 'e_rn_events_number_to_ordinal', $output, $number );
+			return apply_filters( 'rioc_events_number_to_ordinal', $output, $number );
 		}
 
 		/**
@@ -615,7 +615,7 @@ if ( ! class_exists( 'E_Register_Now__Date_Utils' ) ) {
 		/**
 		 * Returns the end of a given day.
 		 *
-		 * @deprecated since 3.10 - use e_rn_event_end_of_day()
+		 * @deprecated since 3.10 - use rioc_event_end_of_day()
 		 * @todo       remove in 4.1
 		 *
 		 * @param int|string $date        The date (timestamp or string).
@@ -624,13 +624,13 @@ if ( ! class_exists( 'E_Register_Now__Date_Utils' ) ) {
 		 * @return string The date and time of the end of a given day
 		 */
 		public static function endOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __METHOD__, '3.10', 'e_rn_event_end_of_day' );
+			_deprecated_function( __METHOD__, '3.10', 'rioc_event_end_of_day' );
 
 			if ( $isTimestamp ) {
 				$date = date( self::DBDATEFORMAT, $date );
 			}
 
-			return e_rn_event_end_of_day( $date, self::DBDATETIMEFORMAT );
+			return rioc_event_end_of_day( $date, self::DBDATETIMEFORMAT );
 		}
 
 		/**
@@ -645,13 +645,13 @@ if ( ! class_exists( 'E_Register_Now__Date_Utils' ) ) {
 		 * @return string The date and time of the beginning of a given day.
 		 */
 		public static function beginningOfDay( $date, $isTimestamp = false ) {
-			_deprecated_function( __METHOD__, '3.10', 'e_rn_event_beginning_of_day' );
+			_deprecated_function( __METHOD__, '3.10', 'rioc_event_beginning_of_day' );
 
 			if ( $isTimestamp ) {
 				$date = date( self::DBDATEFORMAT, $date );
 			}
 
-			return e_rn_event_beginning_of_day( $date, self::DBDATETIMEFORMAT );
+			return rioc_event_beginning_of_day( $date, self::DBDATETIMEFORMAT );
 		}
 
 		/**

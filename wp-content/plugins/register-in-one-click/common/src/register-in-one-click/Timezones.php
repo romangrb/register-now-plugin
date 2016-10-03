@@ -6,7 +6,7 @@
  * In our timezone logic, the term "local" refers to the locality of an event
  * rather than the local WordPress timezone.
  */
-class E_Register_Now__Timezones {
+class Register_In_One_Click__Timezones {
 	const SITE_TIMEZONE  = 'site';
 	const EVENT_TIMEZONE = 'event';
 
@@ -41,7 +41,7 @@ class E_Register_Now__Timezones {
 	 * @return mixed
 	 */
 	public static function clear_site_timezone_abbr( $option_val ) {
-		delete_transient( 'e_rn_events_wp_timezone_abbr' );
+		delete_transient( 'rioc_events_wp_timezone_abbr' );
 		return $option_val;
 	}
 
@@ -80,12 +80,12 @@ class E_Register_Now__Timezones {
 	 * @return string
 	 */
 	public static function wp_timezone_abbr( $date ) {
-		$abbr = get_transient( 'e_rn_events_wp_timezone_abbr' );
+		$abbr = get_transient( 'rioc_events_wp_timezone_abbr' );
 
 		if ( empty( $abbr ) ) {
 			$timezone_string = self::wp_timezone_string();
 			$abbr = self::abbr( $date, $timezone_string );
-			set_transient( 'e_rn_events_wp_timezone_abbr', $abbr );
+			set_transient( 'rioc_events_wp_timezone_abbr', $abbr );
 		}
 
 		return empty( $abbr )
@@ -166,7 +166,7 @@ class E_Register_Now__Timezones {
 			$utc   = self::get_timezone( 'UTC' );
 
 			$datetime = date_create( $datetime, $local )->setTimezone( $utc );
-			return $datetime->format( E_Register_Now__Date_Utils::DBDATETIMEFORMAT );
+			return $datetime->format( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT );
 		}
 		catch ( Exception $e ) {
 			return $datetime;
@@ -194,7 +194,7 @@ class E_Register_Now__Timezones {
 			$utc   = self::get_timezone( 'UTC' );
 
 			$datetime = date_create( $datetime, $utc )->setTimezone( $local );
-			return $datetime->format( E_Register_Now__Date_Utils::DBDATETIMEFORMAT );
+			return $datetime->format( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT );
 		}
 		catch ( Exception $e ) {
 			return $datetime;
@@ -247,7 +247,7 @@ class E_Register_Now__Timezones {
 			$offset = $offset . ' minutes';
 
 			$datetime = date_create( $datetime )->modify( $offset );
-			return $datetime->format( E_Register_Now__Date_Utils::DBDATETIMEFORMAT );
+			return $datetime->format( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT );
 		}
 		catch ( Exception $e ) {
 			return $datetime;
@@ -266,7 +266,7 @@ class E_Register_Now__Timezones {
 	public static function adjust_timestamp( $unix_timestamp, $tzstring ) {
 		try {
 			$local = self::get_timezone( $tzstring );
-			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( E_Register_Now__Date_Utils::DBDATETIMEFORMAT );
+			$datetime = date_create_from_format( 'U', $unix_timestamp )->format( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT );
 			return date_create_from_format( 'Y-m-d H:i:s', $datetime, $local )->getTimestamp();
 		}
 		catch( Exception $e ) {
@@ -314,11 +314,11 @@ class E_Register_Now__Timezones {
 	public static function mode() {
 		$mode = self::EVENT_TIMEZONE;
 
-		if ( 'site' === e_rn_get_option( 'e_rn_events_timezone_mode' ) ) {
+		if ( 'site' === rioc_get_option( 'rioc_events_timezone_mode' ) ) {
 			$mode = self::SITE_TIMEZONE;
 		}
 
-		return apply_filters( 'e_rn_events_current_display_timezone', $mode );
+		return apply_filters( 'rioc_events_current_display_timezone', $mode );
 	}
 
 	/**

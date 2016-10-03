@@ -15,7 +15,7 @@
  * @version 4.2.2
  */
 
-$start_date = e_rn_get_start_date( $event_id );
+$start_date = rioc_get_start_date( $event_id );
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -214,7 +214,7 @@ $start_date = e_rn_get_start_date( $event_id );
 			}
 		}
 
-		<?php do_action( 'e_rn_tickets_ticket_email_styles' );?>
+		<?php do_action( 'rioc_tickets_ticket_email_styles' );?>
 
 	</style>
 </head>
@@ -226,7 +226,7 @@ $start_date = e_rn_get_start_date( $event_id );
 		 * Fires immediately before the main body of content within ticket emails
 		 * is rendered.
 		 */
-		do_action( 'e_rn_tickets_ticket_email_top' );
+		do_action( 'rioc_tickets_ticket_email_top' );
 		?>
 
 		<table class="content" align="center" width="620" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff" style="margin:0 auto; padding:0;<?php echo $break; ?>;">
@@ -261,7 +261,7 @@ $start_date = e_rn_get_start_date( $event_id );
 		 * Fires immediately after the main body of content within ticket emails
 		 * is rendered.
 		 */
-		do_action( 'e_rn_tickets_ticket_email_bottom' );
+		do_action( 'rioc_tickets_ticket_email_bottom' );
 		?>
 
 	</center>

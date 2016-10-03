@@ -5,11 +5,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__App_Shop' ) ) {
 	/**
 	 * Class that handles the integration with our Shop App API
 	 */
-	class E_Register_Now__App_Shop {
+	class Register_In_One_Click__App_Shop {
 
 		/**
 		 * Slug of the WP admin menu item
@@ -19,7 +19,7 @@ if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
 		/**
 		 * Singleton instance
 		 *
-		 * @var null or E_Register_Now__App_Shop
+		 * @var null or Register_In_One_Click__App_Shop
 		 */
 		private static $instance = null;
 		/**
@@ -41,15 +41,15 @@ if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
 		 * Adds the page to the admin menu
 		 */
 		public function add_menu_page() {
-			if ( ! E_Register_Now__Settings::instance()->should_setup_pages() ) {
+			if ( ! Register_In_One_Click__Settings::instance()->should_setup_pages() ) {
 				return;
 			}
 
 			$page_title = esc_html__( 'Our Products', 'rioc-common' );
 			$menu_title = esc_html__( 'Our Products', 'rioc-common' );
-			$capability = apply_filters( 'e_rn_events_addon_page_capability', 'install_plugins' );
+			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
 
-			$where = E_Register_Now__Settings::instance()->get_parent_slug();
+			$where = Register_In_One_Click__Settings::instance()->get_parent_slug();
 
 			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
 
@@ -61,7 +61,7 @@ if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
 		 */
 		public function add_toolbar_item() {
 
-			$capability = apply_filters( 'e_rn_events_addon_page_capability', 'install_plugins' );
+			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
 
 			// prevent users who cannot install plugins from seeing addons link
 			if ( current_user_can( $capability ) ) {
@@ -70,7 +70,7 @@ if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
 				$wp_admin_bar->add_menu( array(
 					'id'     => 'rioc-events-app-shop',
 					'title'  => esc_html__( 'Event Add-Ons', 'rioc-common' ),
-					'href'   => E_Register_Now__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
+					'href'   => Register_In_One_Click__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
 					'parent' => 'rioc-events-settings-group',
 				) );
 			}
@@ -80,8 +80,8 @@ if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
 		 * Enqueue the styles and script
 		 */
 		public function enqueue() {
-			wp_enqueue_style( 'app-shop', e_rn_resource_url( 'app-shop.css', false, 'common' ), array(), apply_filters( 'e_rn_events_css_version', E_Register_Now__Main::VERSION ) );
-			wp_enqueue_script( 'app-shop', e_rn_resource_url( 'app-shop.js', false, 'common' ), array(), apply_filters( 'e_rn_events_js_version', E_Register_Now__Main::VERSION ) );
+			wp_enqueue_style( 'app-shop', rioc_resource_url( 'app-shop.css', false, 'common' ), array(), apply_filters( 'rioc_events_css_version', Register_In_One_Click__Main::VERSION ) );
+			wp_enqueue_script( 'app-shop', rioc_resource_url( 'app-shop.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 		}
 
 		/**
@@ -89,7 +89,7 @@ if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
 		 */
 		public function do_menu_page() {
 			$products = $this->get_all_products();
-			include_once E_Register_Now__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
+			include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
 		}
 
 		/**
@@ -168,7 +168,7 @@ if ( ! class_exists( 'E_Register_Now__App_Shop' ) ) {
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @return E_Register_Now__App_Shop
+		 * @return Register_In_One_Click__App_Shop
 		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) ) {

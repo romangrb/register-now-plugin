@@ -12,12 +12,12 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
-$view = E_Register_Now__Tickets__Tickets_View::instance();
+$view = Register_In_One_Click__Tickets__Tickets_View::instance();
 $event_id = get_the_ID();
 $event = get_post( $event_id );
 $post_type = get_post_type_object( $event->post_type );
 
-$is_event_page = class_exists( 'E_Register_Now__Events__Main' ) && E_Register_Now__Events__Main::POSTTYPE === $event->post_type ? true : false;
+$is_event_page = class_exists( 'Register_In_One_Click__Events__Main' ) && Register_In_One_Click__Events__Main::POSTTYPE === $event->post_type ? true : false;
 ?>
 
 <div id="rioc-events-content" class="rioc-events-single">
@@ -31,25 +31,25 @@ $is_event_page = class_exists( 'E_Register_Now__Events__Main' ) && E_Register_No
 	<?php the_title( '<h1 class="rioc-events-single-event-title">', '</h1>' ); ?>
 
 	<div class="rioc-events-schedule rioc-clearfix">
-		<?php echo e_rn_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
-		<?php if ( e_rn_get_cost() ) : ?>
-			<span class="rioc-events-cost"><?php echo e_rn_get_cost( null, true ) ?></span>
+		<?php echo rioc_events_event_schedule_details( $event_id, '<h2>', '</h2>' ); ?>
+		<?php if ( rioc_get_cost() ) : ?>
+			<span class="rioc-events-cost"><?php echo rioc_get_cost( null, true ) ?></span>
 		<?php endif; ?>
 	</div>
 	<?php endif; ?>
 
 	<!-- Notices -->
-	<?php e_rn_the_notices() ?>
+	<?php rioc_the_notices() ?>
 
 	<form method="post">
 
-	<?php e_rn_tickets_get_template_part( 'tickets/orders-rsvp' ); ?>
+	<?php rioc_tickets_get_template_part( 'tickets/orders-rsvp' ); ?>
 
 	<?php
 	/**
 	 * Fires before the process tickets submission button is rendered
 	 */
-	do_action( 'e_rn_tickets_orders_before_submit' );
+	do_action( 'rioc_tickets_orders_before_submit' );
 	?>
 
 	<?php if ( $view->has_rsvp_attendees( $event_id ) || $view->has_ticket_attendees( $event_id ) ): ?>

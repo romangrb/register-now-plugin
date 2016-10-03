@@ -1,6 +1,6 @@
 <?php
 
-$post_types_to_ignore = apply_filters( 'e_rn_tickets_settings_post_type_ignore_list', array(
+$post_types_to_ignore = apply_filters( 'rioc_tickets_settings_post_type_ignore_list', array(
 	'attachment',
 ) );
 
@@ -24,8 +24,8 @@ foreach ( $all_post_type_objects as $post_type => $post_type_object ) {
 	$all_post_types[ $post_type ] = $post_type_object->labels->singular_name;
 }
 
-$all_post_types = apply_filters( 'e_rn_tickets_settings_post_types', $all_post_types );
-$options = get_option( E_Register_Now__Main::OPTIONNAME, array() );
+$all_post_types = apply_filters( 'rioc_tickets_settings_post_types', $all_post_types );
+$options = get_option( Register_In_One_Click__Main::OPTIONNAME, array() );
 
 /**
  * List of ticketing solutions that support login requirements (ie, disabling or
@@ -33,14 +33,14 @@ $options = get_option( E_Register_Now__Main::OPTIONNAME, array() );
  *
  * @param array $ticket_systems
  */
-$ticket_addons = apply_filters( 'e_rn_tickets_settings_systems_supporting_login_requirements', array(
+$ticket_addons = apply_filters( 'rioc_tickets_settings_systems_supporting_login_requirements', array(
 	'event-tickets_rsvp' => __( 'Require users to log in before they RSVP', 'event-tickets' ),
 ) );
 
 $tickets_tab = array(
 	'priority' => 20,
 	'fields' => apply_filters(
-		'e_rn_tickets_settings_tab_fields',
+		'rioc_tickets_settings_tab_fields',
 		array(
 			'rioc-form-content-start' => array(
 				'type' => 'html',
@@ -53,8 +53,8 @@ $tickets_tab = array(
 			'ticket-enabled-post-types' => array(
 				'type' => 'checkbox_list',
 				'label' => esc_html__( 'Post types that can have tickets', 'event-tickets' ),
-				// only set the default to e_rn_events if the ticket-endabled-post-types index has never been saved
-				'default' => array_key_exists( 'ticket-enabled-post-types', $options ) ? false : 'e_rn_events',
+				// only set the default to rioc_events if the ticket-endabled-post-types index has never been saved
+				'default' => array_key_exists( 'ticket-enabled-post-types', $options ) ? false : 'rioc_events',
 				'options' => $all_post_types,
 				'validation_type' => 'options_multi',
 				'can_be_empty' => true,

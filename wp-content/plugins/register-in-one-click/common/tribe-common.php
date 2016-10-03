@@ -30,4 +30,4 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 // the main plugin class
 require_once dirname( __FILE__ ) . '/src/e_register_now/Main.php';
 
-E_Register_Now__Main::instance();
+Register_In_One_Click__Main::instance();

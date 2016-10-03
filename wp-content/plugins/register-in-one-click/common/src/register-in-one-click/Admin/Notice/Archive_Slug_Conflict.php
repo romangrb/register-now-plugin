@@ -2,11 +2,11 @@
 
 
 /**
- * Class E_Register_Now__Admin__Notice__Archive_Slug_Conflict
+ * Class Register_In_One_Click__Admin__Notice__Archive_Slug_Conflict
  *
  * Takes care of adding an admin notice if a page with the `/events` slug has been created in the site.
  */
-class E_Register_Now__Admin__Notice__Archive_Slug_Conflict {
+class Register_In_One_Click__Admin__Notice__Archive_Slug_Conflict {
 
 	/**
 	 * @var static
@@ -24,7 +24,7 @@ class E_Register_Now__Admin__Notice__Archive_Slug_Conflict {
 	protected $page;
 
 	/**
-	 * @return E_Register_Now__Admin__Notice__Archive_Slug_Conflict
+	 * @return Register_In_One_Click__Admin__Notice__Archive_Slug_Conflict
 	 */
 	public static function instance() {
 		if ( empty( self::$instance ) ) {
@@ -38,7 +38,7 @@ class E_Register_Now__Admin__Notice__Archive_Slug_Conflict {
 	 * Hooks the action to show an admin notice if a page with the `/events` slug exists on the site.
 	 */
 	public function maybe_add_admin_notice() {
-		$this->archive_slug = E_Register_Now__Settings_Manager::get_option( 'eventsSlug', 'events' );
+		$this->archive_slug = Register_In_One_Click__Settings_Manager::get_option( 'eventsSlug', 'events' );
 		$page               = get_page_by_path( $this->archive_slug );
 		if ( ! $page || $page->post_status == 'trash' ) {
 			return;
@@ -88,9 +88,9 @@ class E_Register_Now__Admin__Notice__Archive_Slug_Conflict {
 		$can_edit_page_link    = sprintf( __( '<a href="%s">Edit the page slug</a>', 'rioc-common' ), $page_edit_link );
 		$page_edit_link_string = current_user_can( 'edit_pages' ) ? $can_edit_page_link : __( 'Ask the site administrator to edit the page slug', 'rioc-common' );
 
-		$settings_cap                = apply_filters( 'e_rn_settings_req_cap', 'manage_options' );
-		$admin_slug                  = apply_filters( 'e_rn_settings_admin_slug', 'rioc-common' );
-		$setting_page_link           = apply_filters( 'e_rn_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#rioc-field-eventsSlug' ) );
+		$settings_cap                = apply_filters( 'rioc_settings_req_cap', 'manage_options' );
+		$admin_slug                  = apply_filters( 'rioc_settings_admin_slug', 'rioc-common' );
+		$setting_page_link           = apply_filters( 'rioc_settings_url', admin_url( 'edit.php?page=' . $admin_slug . '#rioc-field-eventsSlug' ) );
 		$can_edit_settings_link      = sprintf( __( '<a href="%s">edit Events settings</a>.', 'rioc-common' ), $setting_page_link );
 		$events_settings_link_string = current_user_can( $settings_cap ) ? $can_edit_settings_link : __( ' ask the site administrator set a different Events URL slug.', 'rioc-common' );
 

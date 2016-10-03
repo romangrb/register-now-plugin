@@ -10,11 +10,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( class_exists( 'E_Register_Now__Template_Factory' ) ) {
+if ( class_exists( 'Register_In_One_Click__Template_Factory' ) ) {
 	return;
 }
 
-class E_Register_Now__Template_Factory {
+class Register_In_One_Click__Template_Factory {
 
 	/**
 	 * Array of asset packages needed for this template
@@ -66,7 +66,7 @@ class E_Register_Now__Template_Factory {
 	 * @param array               $deps          An array of dependency handles
 	 * @param string              $vendor_url    URL to vendor scripts and styles dir
 	 * @param string              $prefix        MT script and style prefix
-	 * @param E_Register_Now__Main         $tec           An instance of the main plugin class
+	 * @param Register_In_One_Click__Main         $tec           An instance of the main plugin class
 	 */
 	protected static function handle_asset_package_request( $name, $deps, $vendor_url, $prefix, $tec ) {
 
@@ -78,12 +78,12 @@ class E_Register_Now__Template_Factory {
 	/**
 	 * initializes asset package request
 	 *
-	 * @param object              $asset         The E_Register_Now__*Asset object
+	 * @param object              $asset         The Register_In_One_Click__*Asset object
 	 * @param string              $name          The asset name in the `hyphen-separated-format`
 	 * @param array               $deps          An array of dependency handles
 	 * @param string              $vendor_url    URL to vendor scripts and styles dir
 	 * @param string              $prefix        MT script and style prefix
-	 * @param E_Register_Now__Main         $common        An instance of the main plugin class
+	 * @param Register_In_One_Click__Main         $common        An instance of the main plugin class
 	 */
 	protected static function prepare_asset_package_request( $asset, $name, $deps, $vendor_url, $prefix, $common ) {
 		if ( ! $asset ) {
@@ -105,7 +105,7 @@ class E_Register_Now__Template_Factory {
 	 * Retrieves the appropriate asset factory instance
 	 */
 	protected static function get_asset_factory_instance( $name ) {
-		$asset = E_Register_Now__Asset__Factory::instance()->make_for_name( $name );
+		$asset = Register_In_One_Click__Asset__Factory::instance()->make_for_name( $name );
 		return $asset;
 	}
 
@@ -134,7 +134,7 @@ class E_Register_Now__Template_Factory {
 	 */
 	public static function asset_package( $name, $deps = array() ) {
 
-		$common = E_Register_Now__Main::instance();
+		$common = Register_In_One_Click__Main::instance();
 		$prefix = 'rioc-events';
 
 		// setup plugin resources & 3rd party vendor urls

@@ -1,9 +1,9 @@
-var e_rn_tickets_ticket_form = {};
+var rioc_tickets_ticket_form = {};
 
 /**
  * Provides global stock handling for frontend ticket forms.
  *
- * @var object e_rn_tickets_stock_data
+ * @var object rioc_tickets_stock_data
  */
 ( function( $, my ) {
 	var $tickets_lists;
@@ -164,15 +164,15 @@ var e_rn_tickets_ticket_form = {};
 	 * @returns boolean|string
 	 */
 	my.get_ticket_property = function( ticket_id, property ) {
-		// Don't trigger errors if e_rn_tickets_stock_data is not available
-		if ( "object" !== typeof e_rn_tickets_stock_data ) {
+		// Don't trigger errors if rioc_tickets_stock_data is not available
+		if ( "object" !== typeof rioc_tickets_stock_data ) {
 			return false;
 		}
 
-		var ticket = e_rn_tickets_stock_data.tickets[ ticket_id ];
+		var ticket = rioc_tickets_stock_data.tickets[ ticket_id ];
 
 		// If we don't have any data for this ticket we can assume it doesn't use global stock
-		if ( "undefined" === e_rn_tickets_stock_data.tickets[ ticket_id ] ) {
+		if ( "undefined" === rioc_tickets_stock_data.tickets[ ticket_id ] ) {
 			return false;
 		}
 
@@ -188,15 +188,15 @@ var e_rn_tickets_ticket_form = {};
 	 * @returns Array
 	 */
 	my.get_tickets_of = function( event_id ) {
-		// Don't trigger errors if e_rn_tickets_stock_data is not available
-		if ( "object" !== typeof e_rn_tickets_stock_data ) {
+		// Don't trigger errors if rioc_tickets_stock_data is not available
+		if ( "object" !== typeof rioc_tickets_stock_data ) {
 			return false;
 		}
 
 		var set_of_tickets = [];
 
-		for ( var ticket_id in e_rn_tickets_stock_data.tickets ) {
-			var ticket = e_rn_tickets_stock_data.tickets[ ticket_id ];
+		for ( var ticket_id in rioc_tickets_stock_data.tickets ) {
+			var ticket = rioc_tickets_stock_data.tickets[ ticket_id ];
 			if ( event_id === ticket.event_id ) {
 				set_of_tickets[ ticket_id ] = ticket;
 			}
@@ -216,7 +216,7 @@ var e_rn_tickets_ticket_form = {};
 		var tickets = my.get_tickets_of( event_id );
 
 		for ( var ticket_id in tickets ) {
-			switch ( e_rn_tickets_stock_data.tickets[ticket_id].mode ) {
+			switch ( rioc_tickets_stock_data.tickets[ticket_id].mode ) {
 				case 'global':
 				case 'capped':
 					total += parseInt( $tickets_lists.find( '[data-product-id=' + ticket_id + ']').find( '.qty').val(), 10 );
@@ -237,15 +237,15 @@ var e_rn_tickets_ticket_form = {};
 	 * @returns boolean|string
 	 */
 	my.get_event_property = function( event_id, property ) {
-		// Don't trigger errors if e_rn_tickets_stock_data is not available
-		if ( "object" !== typeof e_rn_tickets_stock_data ) {
+		// Don't trigger errors if rioc_tickets_stock_data is not available
+		if ( "object" !== typeof rioc_tickets_stock_data ) {
 			return false;
 		}
 
-		var event = e_rn_tickets_stock_data.events[ event_id ];
+		var event = rioc_tickets_stock_data.events[ event_id ];
 
 		// If we don't have any data for this ticket we can assume it doesn't use global stock
-		if ( "undefined" === e_rn_tickets_stock_data.events[ event_id ] ) {
+		if ( "undefined" === rioc_tickets_stock_data.events[ event_id ] ) {
 			return false;
 		}
 
@@ -287,4 +287,4 @@ var e_rn_tickets_ticket_form = {};
 	$( function() {
 		my.init();
 	} );
-} )( jQuery, e_rn_tickets_ticket_form );
+} )( jQuery, rioc_tickets_ticket_form );
