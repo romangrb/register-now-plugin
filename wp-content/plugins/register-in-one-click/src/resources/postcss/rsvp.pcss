@@ -1,0 +1,174 @@
+.rioc-rsvp {
+	padding: 20px 0;
+}
+
+.rioc-tickets-meta-row {
+	display: none;
+}
+
+.rioc-tickets-has-rsvp .rioc-tickets-meta-row {
+	display: table-row;
+}
+
+.rioc-tickets-attendee {
+	padding: 10px;
+}
+
+.rioc-events-tickets td {
+	padding: 8px 10px;
+}
+
+.rioc-events-style-full .rioc-events-tickets .rioc-tickets-attendee,
+.rioc-events-tickets .rioc-tickets-attendee {
+	table,
+	tr,
+	td {
+		border: 0;
+	}
+}
+
+.rioc-rsvp-message-display .rioc-rsvp-messages {
+	display: block;
+}
+
+.rioc-rsvp-messages {
+	display: none;
+	padding: 10px 10px 5px;
+}
+
+.rioc-rsvp-message {
+	border-radius: 3px;
+	border-style: solid;
+	border-width: 1px;
+	font-size: 12px;
+	margin: 0 0 5px;
+	padding: 0 .6em;
+}
+
+.rioc-rsvp-message-success {
+	background-color: #ffffe0;
+	border-color: #e6db55;
+}
+
+.rioc-rsvp-message-error {
+	background-color: #ffebe8;
+	border-color: #c00;
+}
+
+.rioc-ticket-quantity {
+	width: 100%;
+}
+
+.tickets-unavailable {
+	font-style: italic;
+}
+
+.rioc-rsvp-list {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+
+	> .rioc-item {
+		padding: 20px;
+		border: 1px solid #ededed;
+		border-bottom: 0;
+
+		&:last-child {
+			border-bottom: 1px solid #ededed;
+			margin-bottom: 20px;
+		}
+
+		&.rioc-disabled {
+			background-color: #efefef;
+			border-color: #ddd;
+			color: #717171;
+
+			&:last-child {
+				border-bottom-color: #ddd;
+			}
+		}
+
+		.rioc-answer {
+			float: right;
+			display: inline-block;
+		}
+
+		table {
+			border: 0;
+			margin: 0;
+		}
+
+		td {
+			border: 0;
+		}
+	}
+}
+
+.list-attendee {
+	color: #999;
+	display: inline-block;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+}
+
+.rioc-link-tickets-message {
+	text-align: center;
+	padding: 20px;
+	border: 1px solid #ededed;
+}
+
+.rioc-submit-tickets-form {
+	margin-top: 20px;
+}
+
+.user-details {
+	margin: 0 0 1.5em 0;
+
+	p {
+		margin: 0 0 .5em 0;
+	}
+}
+
+.rioc-answer {
+	line-height: 2;
+
+	.type-label {
+		padding-right: .5em;
+	}
+	label {
+		display: block;
+	}
+	select {
+		background: white;
+		border: 1px solid #ddd;
+	}
+}
+
+.rioc-rsvp {
+	h2 {
+		margin-bottom: 20px;
+		line-height: 1.2;
+	}
+}
+
+.event-tickets-meta-label {
+	font-weight:700;
+	margin: 0 1em 0 0;
+}
+
+/* TwentySixteen fix for box shadow as bottom border on <a> link */
+
+.rioc-theme-twentysixteen,
+.rioc-theme-parent-twentysixteen {
+	.entry-content a,
+	.entry-summary a,
+	.taxonomy-description a,
+	.logged-in-as a,
+	.comment-content a,
+	.pingback .comment-body > a,
+	.textwidget a,
+	.entry-footer a:hover,
+	.site-info a:hover {
+		box-shadow: none;
+	}
+}
