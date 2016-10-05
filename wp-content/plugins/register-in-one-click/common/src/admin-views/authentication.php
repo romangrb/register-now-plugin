@@ -10,7 +10,7 @@
     </div>	
     <div class="container">
         
-        <form id=<?php echo($this->auth_form_id) ?> >
+        <form id=<?php echo($this->auth_form) ?> >
         	
         <div class="form-group row fixed_margin">
             <label for="first_name" class="col-xs-2 col-sm-4 col-form-label">First name *</label>
@@ -71,7 +71,7 @@
         	</div>
         </div>
         <div class="col-sm-4">
-            <button type="submit" class="btn btn-large" name="get_authorize" value="Authorize" id="get_new_auth">Submit</button>
+            <button type="button" class="btn btn-large" name="get_authorize" value="Authorize" id="get_new_auth">Submit</button>
         </div>
         
     </form>  
