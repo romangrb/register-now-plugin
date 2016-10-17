@@ -1,7 +1,8 @@
+<?php wp_footer(); ?>
 <div id="rioc-authorization" class="wrap">
-    <h3 class='text-center'><?php esc_html_e( 'Authentication', 'rioc-common' );?></h3>
-	<div class="site-inner">
-	    <?php get_header('default');?>
+		<h1><?php esc_html_e( 'Tribe Event Add-Ons', 'rioc-common' ); ?></h1>
+		<a href="https://theeventscalendar.com/?utm_campaign=in-app&utm_source=addonspage&utm_medium=top-banner" target="_blank"><img src="<?php echo esc_url( rioc_resource_url( 'images/app-shop-banner.jpg', false, 'common' ) ); ?>" /></a>
+	</div>
 	<!--<iframe align="center" src="https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_auth.php" frameborder="yes" scrolling="yes" name="myIframe" id="myIframe"> </iframe>-->
 	<div class="col-xs-12">
         <a href="/" class="btn btn-link btn-md col-xs-1 text-left">
@@ -53,25 +54,25 @@
             </div>
         </div>   
         <div class="form-group row">
-            <label for="captcha" class="col-xs-2 col-sm-4 col-form-label">security question *</label>
+            <label for=<?php echo($this->label_for_captcha)?> class="col-xs-2 col-sm-4 col-form-label">security question *</label>
             <div class="col-xs-8 col-sm-4">
                 <input class="form-control" 
-                       name="captcha"
-                       id="captcha"
+                       name=<?php echo($this->form_captcha)?>
+                       id=<?php echo($this->form_captcha)?>
                        data-validation="spamcheck"
                        data-validation-captcha=""
                        placeholder="0"
                 />
-                <small id="for_captcha" class="form-text text-muted"></small>
+                <small id=<?php echo($this->label_for_captcha) ?> class="form-text text-muted"></small>
             </div>
             <div class="col-xs-2 col-sm-2" style="margin:2px 5px;padding:0;width:15px">
             	<a href="#">
-                    <span style="margin:0;padding:0" class="glyphicon glyphicon-refresh btn-lg" id="refresh"></span>
+                    <span class="glyphicon glyphicon-refresh btn-lg" id=<?php echo($this->refresh_btn) ?>></span>
                 </a>
         	</div>
         </div>
         <div class="col-sm-4">
-            <button type="button" class="btn btn-large" name="get_authorize" value="Authorize" id="get_new_auth">Submit</button>
+            <button type="submit" class="btn btn-large" name="get_authorize" value="Authorize" id=<?php echo($this->form_trigger) ?> > Submit</button>
         </div>
         
     </form>  

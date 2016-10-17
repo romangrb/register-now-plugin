@@ -2,3 +2,7 @@
 .fixed_margin {
     
 }
+
+.form-group {
+    border: thin inset red;
+}

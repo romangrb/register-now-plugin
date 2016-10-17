@@ -14,19 +14,23 @@
     		this.getForm = function(){
     			return '' + self.selectorTag + self.form_name;
     		},
-			this.serializeFormData = function(){
-				return $(self.getForm()).serialize();
+			this.serializeFormData = function(data){
+				
+				return (!data)? jQuery(self.getForm()).serialize() : data;
+				
 			};
 			
-			this.getRq = function(rqType, dType, success_cb, error_cb ){
-				
+			this.getRq = function(rqType, dType, data, success_cb, error_cb ){
+			
 				jQuery.ajax(
-					{url: self.auth_url,
-					 data: self.serializeFormData,
+					{
+					 url: self.auth_url,
+					 data: self.serializeFormData(data),
 					 xhrFields: self.xhrFields,
 					 type:rqType || "GET",
 					 dataType: dType||"json",   
 					 contentType: self.content_type,
+    				
 				     success:success_cb,
 				     error:error_cb
 					});

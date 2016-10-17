@@ -1,0 +1,34 @@
+ // event.preventDefault();
+        // 	$.post(Auth_new_ajax.ajaxurl,
+        //         {// wp ajax action
+        //         action: 'ajax-inputtitleSubmit',
+        //         // vars
+        //         data:123,
+        //         // send the nonce along with the request
+        //         nextNonce: Auth_new_ajax.nextNonce
+        //         },
+        //         function (response) {
+        //             if (response['data']){
+        //                 console.info(response);   
+        //         		var rq_Ajax_form = new authAjax('', true);
+        //         		rq_Ajax_form.getRq("POST", "json", "get_captcha=new", success_ajax, error_ajax);
+                        
+        //             }else{
+        //                 console.warn(response);
+        //             }
+             		
+        //     	}
+        //     );
+        //     return false;
+        
+        
+            
+
+
+    // echo "<div class='alert alert-$type'>
+    //               <h5 class='text-center'>
+    //                 <strong>" . $cont['header'] . "</strong>
+    //               </h5>
+    //               <br> 
+    //               " . $cont['content'] .
+    //      "</div>";

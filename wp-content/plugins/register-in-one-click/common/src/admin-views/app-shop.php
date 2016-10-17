@@ -1,10 +1,12 @@
+
+
 <div id="rioc-app-shop" class="wrap">
 
 	<div class="header">
 		<h1><?php esc_html_e( 'Tribe Event Add-Ons', 'rioc-common' ); ?></h1>
 		<a href="https://theeventscalendar.com/?utm_campaign=in-app&utm_source=addonspage&utm_medium=top-banner" target="_blank"><img src="<?php echo esc_url( rioc_resource_url( 'images/app-shop-banner.jpg', false, 'common' ) ); ?>" /></a>
 	</div>
-
+	
 	<div class="content-wrapper">
 		<div class="addon-grid">
 			<?php
