@@ -113,13 +113,13 @@ class Register_In_One_Click__Main {
 			true
 		);
 		
-		wp_register_style(
-			'rioc-bootstrap-theme-v3.3.7',
-			$resources_url . '/bootstrap/dist/css/bootstrap.min.css',
-			array(),
-			apply_filters( 'rioc_events_css_version', self::VERSION ),
-			false
-		);
+		// wp_register_style(
+		// 	'rioc-bootstrap-theme-v3.3.7',
+		// 	$resources_url . '/bootstrap/dist/css/bootstrap.min.css',
+		// 	array(),
+		// 	apply_filters( 'rioc_events_css_version', self::VERSION ),
+		// 	false
+		// );
 
 		wp_register_style(
 			'rioc-common-admin',
@@ -183,9 +183,13 @@ class Register_In_One_Click__Main {
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
+		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Initialization', 'instance' ) );
+		
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Authentication', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Registration', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Configuration', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__App_Shop', 'instance' ) );
+		
 		
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );

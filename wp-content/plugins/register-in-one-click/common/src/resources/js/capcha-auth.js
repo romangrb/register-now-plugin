@@ -11,6 +11,7 @@
     get_refresh_capcha(); 
 
 	function get_refresh_capcha(){
+	   
 	    rq_Ajax_form.getRq("POST", "json", rq_captha_tag, success_ajax, error_ajax);
 	}
 	
@@ -24,4 +25,4 @@
 	}
 
 })(jQuery, authAjax);
-
+ console.warn('err');

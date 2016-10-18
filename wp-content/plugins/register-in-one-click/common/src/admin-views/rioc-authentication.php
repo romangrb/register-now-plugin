@@ -67,7 +67,7 @@
             </div>
             <div class="col-xs-2 col-sm-2" style="margin:2px 5px;padding:0;width:15px">
             	<a href="#">
-                    <span class="glyphicon glyphicon-refresh btn-lg" id=<?php echo($this->refresh_btn) ?>></span>
+                    <span class="glyphicon glyphicon-refresh btn-lg" id=<?php echo($this->refresh_btn) ?> ></span>
                 </a>
         	</div>
         </div>

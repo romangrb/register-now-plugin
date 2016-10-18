@@ -5,21 +5,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
+if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 	/**
 	 * Class that handles the integration with our Shop App API
 	 */
-	class Register_In_One_Click__Authentication {
+	class Register_In_One_Click__Registration {
 
 		/**
 		 * Slug of the WP admin menu item
 		 */
-		const MENU_SLUG = 'rioc-authentication';
+		const MENU_SLUG = 'rioc-registration';
 
 		/**
 		 * Singleton instance
 		 *
-		 * @var null or Register_In_One_Click__Authentication
+		 * @var null or Register_In_One_Click__Registration
 		 */
 		private static $instance = null;
 		/**
@@ -120,8 +120,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				return;
 			}
 
-			$page_title = esc_html__( 'authentication', 'rioc-common' );
-			$menu_title = esc_html__( '&nbsp; - authentication', 'rioc-common' );
+			$page_title = esc_html__( 'registration', 'rioc-common' );
+			$menu_title = esc_html__( '&nbsp; - registration', 'rioc-common' );
 			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
 
 			$where = Register_In_One_Click__Settings::instance()->get_parent_slug();
@@ -142,7 +142,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				global $wp_admin_bar;
 				
 				$wp_admin_bar->add_menu( array(
-					'id'     => 'rioc-authentication',
+					'id'     => 'rioc-registration',
 					'title'  => esc_html__( 'Initialize Plugin', 'rioc-common' ),
 					'href'   => Register_In_One_Click__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
 					'parent' => 'rioc-events-settings-group',
@@ -155,7 +155,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		 */
 		public function enqueue_style() {
 			
-			wp_enqueue_style( 'app-authentication-style', rioc_resource_url('rioc-auth.css', false,'common' ), array(), apply_filters( 'rioc_events_css_version', Register_In_One_Click__Main::VERSION ) );
+			wp_enqueue_style( 'app-registration-style', rioc_resource_url('rioc-auth.css', false,'common' ), array(), apply_filters( 'rioc_events_css_version', Register_In_One_Click__Main::VERSION ) );
 			
 		}
 
@@ -180,19 +180,19 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		}
 
 		/**
-		 * Renders the rioc_Authentication page
+		 * Renders the rioc_registration page
 		 */
 		 
 		public function do_menu_page() {
 					
-			include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-authentication.php';
+			include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-registration.php';
 			// include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/app-shop.php';
 		}
 
 		/**
 		 * Static Singleton Factory Method
 		 *
-		 * @return Register_In_One_Click__Authentication
+		 * @return Register_In_One_Click__Registration
 		 */
 		public static function instance() {
 			if ( ! isset( self::$instance ) ) {

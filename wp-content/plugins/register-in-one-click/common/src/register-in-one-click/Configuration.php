@@ -117,7 +117,7 @@ if ( ! class_exists( 'Register_In_One_Click__Configuration' ) ) {
 
 			$where = Register_In_One_Click__Settings::instance()->get_parent_slug();
 
-			$this->admin_page = add_submenu_page( 
+			$this->admin_page = add_submenu_page(
 				$where, 
 				$page_title, 
 				$menu_title, 
