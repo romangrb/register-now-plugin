@@ -14,8 +14,8 @@
         <form id=<?php echo($this->auth_form) ?> >
         	
         <div class="form-group row fixed_margin">
-            <label for="first_name" class="col-xs-2 col-sm-4 col-form-label">First name *</label>
-            <div class="col-xs-8 col-sm-4">
+            <label for="first_name" class= col-form-label">First name *</label>
+            <div >
                 <input class="form-control" 
                         id="first_name"
                         name="first_name"
@@ -26,8 +26,8 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="last_name" class="col-xs-2 col-sm-4 col-form-label">Last name *</label>
-            <div class="col-xs-8 col-sm-4">
+            <label for="last_name" class="col-form-label">Last name *</label>
+            <div >
                 <input class="form-control"
                         id="last_name"
                         name="last_name"
@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="Email" class="col-xs-2 col-sm-4 col-form-label">E-mail *</label>
+            <label for="Email" class="col-form-label">E-mail *</label>
             <div class="col-xs-8 col-sm-4">
                 <input class="form-control" 
                         id="email"
@@ -54,7 +54,7 @@
             </div>
         </div>   
         <div class="form-group row">
-            <label for=<?php echo($this->label_for_captcha)?> class="col-xs-2 col-sm-4 col-form-label">security question *</label>
+            <label for=<?php echo($this->label_for_captcha)?> class="col-form-label">security question *</label>
             <div class="col-xs-8 col-sm-4">
                 <input class="form-control" 
                        name=<?php echo($this->form_captcha)?>
@@ -66,13 +66,13 @@
                 <small id=<?php echo($this->label_for_captcha) ?> class="form-text text-muted"></small>
             </div>
             <div class="col-xs-2 col-sm-2" style="margin:2px 5px;padding:0;width:15px">
-            	<a href="#">
-                    <span class="glyphicon glyphicon-refresh btn-lg" id=<?php echo($this->refresh_btn) ?> ></span>
+            	<a>
+                    <span id=<?php echo($this->refresh_btn) ?> > refresh </span>
                 </a>
         	</div>
         </div>
         <div class="col-sm-4">
-            <button type="submit" class="btn btn-large" name="get_authorize" value="Authorize" id=<?php echo($this->form_trigger) ?> > Submit</button>
+            <button type="submit" name="get_authorize" value="Authorize" id=<?php echo($this->form_trigger) ?> > Submit</button>
         </div>
         
     </form>  

@@ -1,4 +1,4 @@
-(function($, authAjax){
+(function($, authAjax, Auth_new_ajax){
      
     var form_captcha = '#' + Auth_new_ajax.form_captcha,
         label_for_captcha = '#' + Auth_new_ajax.label_for_captcha,
@@ -6,12 +6,15 @@
         rq_captha_tag =  Auth_new_ajax.rq_captha_tag,
         rq_Ajax_form = new authAjax('', true);
     
-    $(document).on('click, submit', refresh_btn, get_refresh_capcha);
-    
+    $( document ).ready(function() {
+        $( refresh_btn ).on( "click", function() {
+            get_refresh_capcha();
+        });
+    });   
+
     get_refresh_capcha(); 
 
 	function get_refresh_capcha(){
-	   
 	    rq_Ajax_form.getRq("POST", "json", rq_captha_tag, success_ajax, error_ajax);
 	}
 	
@@ -24,5 +27,5 @@
 	    alert("Error, please show this content to your administrator \n You can not send Cross Domain AJAX requests: "+errorThrown);
 	}
 
-})(jQuery, authAjax);
- console.warn('err');
+})(jQuery, authAjax, Auth_new_ajax);
+
