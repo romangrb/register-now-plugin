@@ -60,7 +60,33 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_footer', array( $this, 'auth_scripts') );
 			
+ 
+        register_activation_hook( 'active', array( $this, 'activate') );
+        register_deactivation_hook( 'deactivate', array( $this, 'deactivate') );
+ 
+        add_action( 'admin_enqueue_scripts', array( $this, 'register_admin_scripts' ) );
+ 
+        // Display the admin notice only if it hasn't been hidden
+        // if( false == get_option( 'hide_ajax_notification' ) ) {
+            add_action( 'admin_notices', array( $this, 'display_admin_notice' ) );
+        // } // end if
+ 
+        add_action( 'wp_ajax_hide_admin_notification', array( $this, 'hide_admin_notification' ) );
+			
+			
+			
 		}
+		
+		// display custom admin notice
+		public function shapeSpace_custom_admin_notice() { ?>
+			
+			<div class="notice notice-success is-dismissible">
+				<p><?php _e('Congratulations, you did it!', 'shapeSpace'); ?></p>
+			</div>
+			
+		<?php }
+		
+		
 		
 		public function auth_scripts() {
 			
@@ -85,6 +111,78 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			wp_enqueue_script('auth-form-validatator', rioc_resource_url('auth-form-validatator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 			
 		}
+
+	/*--------------------------------------------*
+     * Core Functions
+     *---------------------------------------------*/
+ 
+    /**
+     * Upon activation, add a new option used to track whether or not to display the notification.
+     */
+    public function activate() {
+        add_option( 'hide_ajax_notification', false );
+    } // end activate
+ 
+    /**
+     * Upon deactivation, removes the option that was created when the plugin was activated.
+     */
+    public function deactivate() {
+        delete_option( 'hide_ajax_notification' );
+    } // end deactivate
+ 
+    /**
+     * Registers and enqueues admin-specific minified JavaScript.
+     */
+    public function register_admin_scripts() {
+		wp_register_script('ajax-notification-admin', rioc_resource_url('test.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+        wp_enqueue_script('ajax-notification-admin', rioc_resource_url('test.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
+        
+        
+ 
+    } // end register_admin_scripts
+ 
+    /**
+     * Renders the administration notice. Also renders a hidden nonce used for security when processing the Ajax request.
+     */
+    public function display_admin_notice() {
+ 
+        $html = '<div id="ajax-notification" class="updated">';
+            $html .= '<p>';
+                $html .= __( 'The Ajax Notification example plugin is active. This message will appear until you choose to <a href="javascript:;" id="dismiss-ajax-notification">dismiss it</a>.', 'ajax-notification' );
+            $html .= '</p>';
+            $html .= '<span id="ajax-notification-nonce" class="hidden">' . wp_create_nonce( 'ajax-notification-nonce' ) . '</span>';
+        $html .= '</div><!-- /.updated -->';
+ 
+        echo $html;
+ 
+    } // end display_admin_notice
+ 
+    /**
+     * JavaScript callback used to hide the administration notice when the 'Dismiss' anchor is clicked on the front end.
+     */
+    public function hide_admin_notification() {
+ 
+        // First, check the nonce to make sure it matches what we created when displaying the message.
+        // If not, we won't do anything.
+        if( wp_verify_nonce( $_REQUEST['nonce'], 'ajax-notification-nonce' ) ) {
+ 
+            // If the update to the option is successful, send 1 back to the browser;
+            // Otherwise, send 0.
+            if( update_option( 'hide_ajax_notification', true ) ) {
+                die( '1' );
+            } else {
+                die( '0' );
+            } // end if/else
+ 
+        } // end if
+ 
+    } // end hide_admin_notification
+    
+    
+    
+    
+    
+    
 		
 		public function myajax_inputtitleSubmit_func() {
 			// check nonce
@@ -92,11 +190,21 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			if ( ! wp_verify_nonce( $nonce, 'myajax-next-nonce' ) ) {
 				die ( 'forbidden request !' );
 			}
+			
+						$response = array(
+			   'what'=>'foobar',
+			   'action'=>'update_something',
+			   'id'=>'1',
+			   'data'=>'<p><strong>Hello world!</strong></p>'
+			);
+			$xmlResponse = new WP_Ajax_Response($response);
+			$xmlResponse->send();
+		    // $this->shapeSpace_custom_admin_notice();
 			// generate the response
-			$response = json_encode($_POST);
+			
 			// response output
-			header( "Content-Type: application/json" );
-			echo $response;
+			// header( "Content-Type: application/json" );
+			// echo $response;
 			// IMPORTANT: don't forget to "exit"
 			exit;
 		}

@@ -20,7 +20,23 @@ jQuery( document ).ready( function($) {
     });
     
   function success_ajax (data){
-		console.info('rsponse!', data);
+    $.post(
+  					ajaxurl,
+  					{
+  						// wp ajax action
+  				    action: 'ajax-inputtitleSubmit',
+  						// send the nonce along with the request
+  						nextNonce: Auth_new_ajax.nextNonce,
+  						//data
+  						data:data,
+  						
+  						
+  					},
+  					function (response) {
+  						console.warn(response);
+  					}
+  			);
+	
 	}
 	
 	function error_ajax (jqXHR, textStatus, errorThrown){
