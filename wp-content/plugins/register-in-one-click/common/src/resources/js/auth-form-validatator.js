@@ -13,27 +13,27 @@ jQuery( document ).ready( function($) {
           
          var rq_Ajax_form = new authAjax('', true);
       	 rq_Ajax_form.getRq("POST", "json", false, success_ajax, error_ajax); 
-      	 //console.log(rq_Ajax_form.serializeFormData());
 
         return false; // Will stop the submission of the form
         },
     });
     
   function success_ajax (data){
+    $(form_id).fadeOut();
     $.post(
   					ajaxurl,
   					{
   						// wp ajax action
-  				    action: 'ajax-inputtitleSubmit',
+  				    action: 'admin_notification',
   						// send the nonce along with the request
   						nextNonce: Auth_new_ajax.nextNonce,
   						//data
   						data:data,
-  						
-  						
   					},
   					function (response) {
-  						console.warn(response);
+  					  $('#' + response['ids']['header_id']).text(response['data']['header']);
+  					  $('#' + response['ids']['content_id']).text(response['data']['content']);
+              $('#' + response['ids']['nonce_id']).addClass(response['class']).fadeIn();
   					}
   			);
 	

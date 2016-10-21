@@ -18,12 +18,14 @@
                     nonce: $.trim($('#ajax-notification-nonce').text())
  
                 }, function (response) {
- console.log('responce');
+
                     // If the response was successful (that is, 1 was returned), hide the notification;
                     // Otherwise, we'll change the class name of the notification
                     if ('1' === response) {
+                         console.log('1');
                         $('#ajax-notification').fadeOut('slow');
                     } else {
+                               console.log('2');
                         $('#ajax-notification').fadeIn('slow');
                     } // end if
  
