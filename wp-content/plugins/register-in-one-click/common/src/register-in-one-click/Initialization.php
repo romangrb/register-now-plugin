@@ -27,10 +27,11 @@ if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 		 *
 		 * @var string
 		 */
-		private $admin_page    = null;
+		private   $admin_page    = null;
 		
-		private   $auth_page_url    = '';
-		private   $registr_page_url = '';
+		public    $auth_page_url    = '';
+		public    $registr_page_url = '';
+		public    $init_page_url 	= '';
 		
 		/**
 		 * Class constructor
@@ -58,6 +59,11 @@ if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 		  $this->registr_page_url = add_query_arg( array(
 			    'post_type' => 'rioc-common',
 			    'page' => 'rioc-registration',
+			), NULL);
+			
+		  $this->init_page_url = add_query_arg( array(
+			    'post_type' => 'rioc-common',
+			    'page' => 'rioc-init',
 			), NULL);
 		  
 		}

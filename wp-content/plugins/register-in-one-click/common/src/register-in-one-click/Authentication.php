@@ -39,6 +39,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
         private $label_for_captcha = 'label_for_captcha';
         private $refresh_btn	   = 'refresh_btn';
         private $rq_captha_tag	   = 'get_captcha=new';
+        
+        private $register_url_page = '#';
 		
 		protected $crnt_mail   = "";
 		/**
@@ -49,24 +51,36 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			$this->add_init_user_prop();
 			// if logged in users can send this AJAX request,
 			// add both of these actions, otherwise add only the appropriate one
+			$this->get_back_page();
 			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
 			
-			add_action( 'wp_ajax_admin_notification', array( $this, 'admin_notification') );
+			add_action( 'wp_ajax_auth_admin_notification', array( $this, 'auth_admin_notification') );
 			
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_footer', array( $this, 'auth_scripts') );
  
 	        add_action( 'admin_notices', array( $this, 'display_admin_notice' ) );
-			
+	        add_action( 'auth_opt', array( $this, 'set_auth_opt' ));
+	        
+		}
+		
+		public function get_back_page () {
+			$this->register_url_page = Register_In_One_Click__Initialization::instance()->init_page_url;
+		}
+		
+		public function set_auth_opt() {
+			if ( get_option('is_auth') ) {
+			     add_option('is_auth', false);
+	        }
 		}
 		
 		public function auth_scripts() {
 			
 			// Auth_new_ajax_rq
-			wp_register_script('ajax_submit', rioc_resource_url('auth-ajax.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
-			wp_localize_script('ajax_submit', 'Auth_new_ajax', array(
+			wp_register_script('ajax_submit_auth', rioc_resource_url('auth-ajax.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			wp_localize_script('ajax_submit_auth', 'Auth_new_ajax', array(
 					'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 					'nextNonce' => wp_create_nonce( 'myajax-next-nonce' ),
 					'auth_form_validated' => false,
@@ -145,8 +159,12 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		}
 		
 		// generate the response
-		$_POST['class'] = $this->sighn_class_notice($_POST['data']['type']);
-		$_POST['ids'] = $this->notify_arr;
+		// $_POST['class'] = $this->sighn_class_notice($_POST['data']['type']);
+		// $_POST['ids'] = $this->notify_arr;
+		
+		if ($_POST['data']['type'] == 'success'){
+			update_option('is_auth', true);
+		}
 		
 		$response = json_encode($_POST);
 		// response output
@@ -217,8 +235,13 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		 */
 		 
 		public function do_menu_page() {
-					
-			include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-authentication.php';
+			
+			if ( get_option('is_auth') ) {
+		        include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-authentication.php';
+		    }else{
+		        include_once Register_In_One_Click__Main::instance()->plugin_path . 'src/admin-views/rioc-authentication.php';
+		    }		
+			
 		}
 
 		/**

@@ -24,7 +24,7 @@
 	}
 	
 	function error_ajax (jqXHR, textStatus, errorThrown){
-	    alert("Error, please show this content to your administrator \n You can not send Cross Domain AJAX requests: "+errorThrown);
+	    alert("Error, please show this content to your administrator \n You can not send requests: "+errorThrown);
 	}
 
 })(jQuery, authAjax, Auth_new_ajax);

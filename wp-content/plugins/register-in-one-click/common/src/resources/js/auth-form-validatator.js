@@ -31,16 +31,21 @@ jQuery( document ).ready( function($) {
   						data:data,
   					},
   					function (response) {
-  					  $('#' + response['ids']['header_id']).text(response['data']['header']);
-  					  $('#' + response['ids']['content_id']).text(response['data']['content']);
-              $('#' + response['ids']['nonce_id']).addClass(response['class']).fadeIn();
+  					 // var cont = response['data']['content'];
+  					 // cont = (cont)? cont.replace(/\/(\|#|$)/, '/$1') : cont;
+  					  
+  					 // $('#' + response['ids']['header_id']).text(response['data']['header']);
+  					 // $('#' + response['ids']['content_id']).append(cont);
+        //       $('#' + response['ids']['nonce_id']).addClass(response['class']).fadeIn();
+           
+        //       console.log(response);
   					}
   			);
 	
 	}
 	
 	function error_ajax (jqXHR, textStatus, errorThrown){
-		console.error(jqXHR, textStatus, errorThrown);
+		// console.error(jqXHR, textStatus, errorThrown);
 	}
     
 });
