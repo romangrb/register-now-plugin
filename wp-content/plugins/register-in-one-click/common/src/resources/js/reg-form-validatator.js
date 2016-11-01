@@ -46,7 +46,7 @@ jQuery( document ).ready( function($) {
 	
 	function error_ajax_reg (jqXHR, textStatus, errorThrown){
 	    msg_hash['head'] = textStatus+'status :  ' + jqXHR['status'];
-	    msg_hash['content_id'] = 'please try to refresh the page if the issue still exist please let know us ';
+	    msg_hash['content_id'] = "Please reload this page and contact us if the problem persists at <a href='mailto:support@registerinoneclick.com'> support@registerinoneclick.com </a>.";
 	    msg_hash['notice_cl'] = 'notice notice-error';
 	    wr_notice(msg_hash);  
 		// console.error(jqXHR, textStatus, errorThrown);
@@ -55,7 +55,7 @@ jQuery( document ).ready( function($) {
 	function wr_notice(msg_arr){
 	  $('#' + Auth_new_ajax['formNoth']['header_id']).append(msg_arr['head']);
 	  $('#' + Auth_new_ajax['formNoth']['content_id']).append(msg_arr['cont']);
-    $('#' + Auth_new_ajax['formNoth']['nonce_id']).addClass(msg_arr['notice_cl']).fadeIn();
+	  $('#' + Auth_new_ajax['formNoth']['nonce_id']).addClass(msg_arr['notice_cl']).fadeIn();
 	  
 	}
     
