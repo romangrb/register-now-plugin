@@ -1,12 +1,4 @@
-<?php wp_footer(); ?>
-	<!--<iframe align="center" src="https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_authorization.php" frameborder="yes" scrolling="yes" name="myIframe" id="myIframe"> </iframe>-->
-	<div>
-        <a href= <?php echo($this->register_url_page) ?> >
-          <span> back </span>
-        </a>
-    </div>	
-    
-    <div class="container">
+ <div class="container">
         
         <form id=<?php echo($this->auth_form) ?> >
         	
@@ -74,6 +66,3 @@
         
     </form>  
    
-    </div>
-   </div>
-</div>

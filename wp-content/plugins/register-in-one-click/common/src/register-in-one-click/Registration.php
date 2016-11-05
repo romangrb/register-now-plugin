@@ -29,7 +29,7 @@ if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 		 */
 		private $admin_page    = null;
 		
-		private $auth_url      = 'https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_auth.php';
+		private $auth_url      = 'https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_authorization.php';
 		private $auth_form     = 'auth_form';
 		private $auth_form_tag = '#';
 		private $form_trigger  = 'get_new_auth';

@@ -29,8 +29,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		 */
 		private $admin_page    = null;
 		
-		private $auth_url      = 'https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_auth.php';
-		private $auth_form     = 'auth_form';
+		private $auth_form     = 'auth_formm';
 		private $auth_form_tag = '#';
 		private $form_trigger  = 'get_new_auth';
 		private $form_trigger_tag = '#';
@@ -41,6 +40,18 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
         private $rq_captha_tag	   = 'get_captcha=new';
         
         private $register_url_page = '#';
+		
+		#
+        #	TEST
+        #
+        
+        private $auth_url		   = 'https://oauth2-service-wk-romangrb.c9users.io/auth-service/get_auth.php';
+        private $get_token_id	   = 'get_token';
+        private $get_init_token_id = 'init_token';
+        
+        #
+        # END	TEST
+        #
 		
 		protected $crnt_mail   = "";
 		/**
@@ -56,7 +67,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
 			
-			add_action( 'wp_ajax_auth_admin_notification', array( $this, 'auth_admin_notification') );
+			// add_action( 'wp_ajax_auth_admin_notification', array( $this, 'auth_admin_notification') );
 			
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_footer', array( $this, 'auth_scripts') );
@@ -95,7 +106,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
         			'rq_captha_tag' => $this->rq_captha_tag
 				)
 			);
-			wp_enqueue_script('capcha-auth', rioc_resource_url('capcha-auth.js', false, 'common' ), array('ajax_submit', 'jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
+			// wp_enqueue_script('capcha-auth', rioc_resource_url('capcha-auth.js', false, 'common' ), array('ajax_submit', 'jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 			wp_enqueue_script('auth-form-validatator', rioc_resource_url('auth-form-validatator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 			
 		}
