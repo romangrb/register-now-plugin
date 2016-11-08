@@ -45,7 +45,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
         #	TEST
         #
         
-        private $auth_url		   = 'https://oauth2-service-wk-romangrb.c9users.io/auth-service/get_auth.php';
+        private $auth_url		   = 'https://oauomangrb.c9users.io/smtp-servicejhghjg';
         private $get_token_id	   = 'get_token';
         private $get_init_token_id = 'init_token';
         

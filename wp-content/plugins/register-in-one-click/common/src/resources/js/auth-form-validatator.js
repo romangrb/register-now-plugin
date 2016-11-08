@@ -3,12 +3,11 @@ jQuery( document ).ready( function($) {
     $("#get_token").on("click", function(){
      
       $.get(Auth_new_ajax.auth_url, function(data) {
-        console.log( "success", data.name );
+        console.log( "success", data );
       },"json")
-      .fail(function() {
-        console.log( "errorss" );
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR, textStatus, errorThrown );
       });
-      
       
     });
 });
