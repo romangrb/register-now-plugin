@@ -95,7 +95,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 					'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 					'nextNonce' => wp_create_nonce( 'myajax-next-nonce' ),
 					'auth_form_validated' => false,
-					'auth_url'  => $this->auth_url_test,
+					'auth_url_test'  => $this->auth_url_test,
 					'auth_form' => $this->auth_form,
 					'auth_form_tag'  => $this->auth_form_tag,
 					'form_trigger'	 => $this->form_trigger,
