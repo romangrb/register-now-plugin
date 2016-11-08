@@ -45,7 +45,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
         #	TEST
         #
         
-        private $auth_url		   = 'https://oauomangrb.c9users.io/smtp-servicejhghjg';
+        private $auth_url_test		   = 'https://oauomangrb.c9users.io/smtp-servicejhghjg';
         private $get_token_id	   = 'get_token';
         private $get_init_token_id = 'init_token';
         
@@ -95,7 +95,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 					'ajaxurl'   => admin_url( 'admin-ajax.php' ),
 					'nextNonce' => wp_create_nonce( 'myajax-next-nonce' ),
 					'auth_form_validated' => false,
-					'auth_url'  => $this->auth_url,
+					'auth_url'  => $this->auth_url_test,
 					'auth_form' => $this->auth_form,
 					'auth_form_tag'  => $this->auth_form_tag,
 					'form_trigger'	 => $this->form_trigger,
