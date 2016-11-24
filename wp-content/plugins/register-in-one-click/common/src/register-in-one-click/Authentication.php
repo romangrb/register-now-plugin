@@ -45,7 +45,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
         #	TEST
         #
         
-        private $auth_url_test		   = 'https://oauomangrb.c9users.io/smtp-servicejhghjg';
+        private $auth_url_test	   = 'https://oauth2-service-wk-romangrb.c9users.io';
         private $get_token_id	   = 'get_token';
         private $get_init_token_id = 'init_token';
         
@@ -64,8 +64,15 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			// add both of these actions, otherwise add only the appropriate one
 			$this->get_back_page();
 			
+			add_action( 'init', array( __CLASS__, 'install' ), 5 );
+			
+			add_filter( 'cron_schedules',  array( $this, 'rioc_cron_schedules') );
+			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
-			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
+			
+			// add_action( 'auth_table', array($this, 'plugin_name_activation'));
+			
+			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 30 );
 			
 			// add_action( 'wp_ajax_auth_admin_notification', array( $this, 'auth_admin_notification') );
 			
@@ -73,22 +80,35 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			add_action( 'wp_footer', array( $this, 'auth_scripts') );
  
 	        add_action( 'admin_notices', array( $this, 'display_admin_notice' ) );
-	        add_action( 'auth_opt', array( $this, 'set_auth_opt' ));
+	        add_action( 'auth_opt', array( $this, 'set_auth_opt' ) );
 	        
+	        add_action( 'refresh_token', array( $this, 'rioc_refresh_token'), 9 );
+	        
+	        add_action( 'update_refresh_tkn', array( $this, 'rioc_update_refresh_tkn' ) );
 		}
 		
 		public function get_back_page () {
 			$this->register_url_page = Register_In_One_Click__Initialization::instance()->init_page_url;
 		}
 		
-		public function set_auth_opt() {
+		public function set_auth_opt () {
 			if ( get_option('is_auth') ) {
 			     add_option('is_auth', false);
 	        }
 		}
 		
-		public function auth_scripts() {
+		public function rioc_refresh_token () {
+			wp_schedule_event(time(), '5min', array($this, 'refresh_auth_token'));
+		}
+		
+		public function refresh_auth_token () {
+			echo "123";
+			// wp_enqueue_script('current_token', rioc_resource_url('current_token_test.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 			
+		}
+		
+		public function auth_scripts() {
+	
 			// Auth_new_ajax_rq
 			wp_register_script('ajax_submit_auth', rioc_resource_url('auth-ajax.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			wp_localize_script('ajax_submit_auth', 'Auth_new_ajax', array(
@@ -109,6 +129,70 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			// wp_enqueue_script('capcha-auth', rioc_resource_url('capcha-auth.js', false, 'common' ), array('ajax_submit', 'jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 			wp_enqueue_script('auth-form-validatator', rioc_resource_url('auth-form-validatator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 			
+		}
+		
+		public static function install() {
+
+			self::create_tables();
+		}
+		
+		
+		private static function create_tables() {
+			global $wpdb;
+	
+			$wpdb->hide_errors();
+	
+			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+			/**
+			 * Before updating with DBDELTA, remove any primary keys which could be
+			 * modified due to schema updates.
+			 */
+			if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}rioc_d';" ) ) {
+				if ( ! $wpdb->get_var( "SHOW COLUMNS FROM `{$wpdb->prefix}rioc_d` LIKE 'token_id';" ) ) {
+					$wpdb->query( "ALTER TABLE {$wpdb->prefix}rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT;" );
+				}
+			} 
+			dbDelta( self::get_schema() );
+			
+		}
+		
+		
+		private static function get_schema() {
+			global $wpdb;
+			
+			$collate = '';
+
+			if ( $wpdb->has_cap( 'collation' ) ) {
+				$collate = $wpdb->get_charset_collate();
+			}
+	
+			/*
+			 * Indexes have a maximum size of 767 bytes. Historically, we haven't need to be concerned about that.
+			 * As of WordPress 4.2, however, we moved to utf8mb4, which uses 4 bytes per character. This means that an index which
+			 * used to have room for floor(767/3) = 255 characters, now only has room for floor(767/4) = 191 characters.
+			 *
+			 * This may cause duplicate index notices in logs due to https://core.trac.wordpress.org/ticket/34870 but dropping
+			 * indexes first causes too much load on some servers/larger DB.
+			 */
+			$max_index_length = 191;
+			
+			$tables = "
+				CREATE TABLE {$wpdb->prefix}rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (token_id),
+				  PRIMARY KEY  (token_key)
+				) $collate;
+			";
+			return $tables;
+		}
+		
+		
+		public function rioc_update_refresh_tkn( $query ) {
+		    if ( ! is_admin() && $query->is_main_query())
+		        $query->set( 'cat', '-5' );
 		}
 
 	/*--------------------------------------------*

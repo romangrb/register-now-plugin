@@ -2363,3 +2363,207 @@
 [04-Nov-2016 15:35:25 UTC] PHP Notice:  Undefined property: Register_In_One_Click__Authentication::$get_init_token in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/admin-views/rioc-authentication.php on line 11
 [04-Nov-2016 15:35:26 UTC] PHP Notice:  Undefined property: Register_In_One_Click__Authentication::$get_init_token in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/admin-views/rioc-authentication.php on line 11
 [04-Nov-2016 15:35:26 UTC] PHP Notice:  Undefined property: Register_In_One_Click__Authentication::$get_init_token in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/admin-views/rioc-authentication.php on line 11
+[10-Nov-2016 13:54:35 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/ubuntu/workspace/wp-includes/plugin.php on line 0
+[23-Nov-2016 20:45:57 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 67
+[23-Nov-2016 20:47:58 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 67
+[23-Nov-2016 20:49:59 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 67
+[23-Nov-2016 20:51:59 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 67
+[23-Nov-2016 20:54:00 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 67
+[24-Nov-2016 02:38:19 UTC] PHP Warning:  Illegal offset type in isset or empty in /home/ubuntu/workspace/wp-includes/plugin.php on line 484
+[24-Nov-2016 02:38:19 UTC] PHP Warning:  Illegal offset type in /home/ubuntu/workspace/wp-includes/plugin.php on line 485
+[24-Nov-2016 02:38:19 UTC] PHP Warning:  Illegal offset type in isset or empty in /home/ubuntu/workspace/wp-includes/plugin.php on line 496
+[24-Nov-2016 02:38:19 UTC] PHP Warning:  Illegal offset type in isset or empty in /home/ubuntu/workspace/wp-includes/plugin.php on line 484
+[24-Nov-2016 02:38:19 UTC] PHP Warning:  Illegal offset type in /home/ubuntu/workspace/wp-includes/plugin.php on line 485
+[24-Nov-2016 02:38:19 UTC] PHP Warning:  Illegal offset type in isset or empty in /home/ubuntu/workspace/wp-includes/plugin.php on line 496
+[24-Nov-2016 12:37:31 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:37:31 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:37:31 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:39:32 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:39:32 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:39:32 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:41:33 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:41:33 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:41:33 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:43:33 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:43:33 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:43:33 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:45:33 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:45:33 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:45:33 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:47:34 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:47:34 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:47:34 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:49:34 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:49:34 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:49:34 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:51:35 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:51:35 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:51:35 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:53:36 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:53:36 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:53:36 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:55:11 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:55:11 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:55:11 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:56:11 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:56:11 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:56:11 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:57:11 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:57:11 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:57:11 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:58:11 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:58:11 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:58:11 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 12:59:05 UTC] PHP Warning:  include_once(admin/class-wc-admin-notices.php): failed to open stream: No such file or directory in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:59:05 UTC] PHP Warning:  include_once(): Failed opening 'admin/class-wc-admin-notices.php' for inclusion (include_path='.:/usr/share/php') in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 142
+[24-Nov-2016 12:59:05 UTC] PHP Fatal error:  Call to undefined method Register_In_One_Click__Authentication::create_options() in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 144
+[24-Nov-2016 13:00:05 UTC] PHP Notice:  Undefined variable: collate in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 173
+[24-Nov-2016 13:00:05 UTC] PHP Notice:  Undefined variable: collate in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 173
+[24-Nov-2016 13:01:10 UTC] PHP Notice:  Undefined variable: collate in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 173
+[24-Nov-2016 13:51:12 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 13:51:12 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 13:51:12 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 13:59:12 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 13:59:13 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 13:59:13 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:03:14 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:11:15 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:11:15 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:11:15 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:11:15 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:11:15 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:23:16 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d ADD COLUMN token_id bigint(20) NOT NULL AUTO_INCREMENT made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:25:17 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d ADD COLUMN token_id bigint(20) NOT NULL AUTO_INCREMENT made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:25:17 UTC] WordPress database error Multiple primary key defined for query ALTER TABLE wp_rioc_d ADD PRIMARY KEY  (`token_key`) made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:27:17 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT; made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables
+[24-Nov-2016 14:27:17 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d ADD COLUMN token_id bigint(20) NOT NULL AUTO_INCREMENT made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:27:17 UTC] WordPress database error Multiple primary key defined for query ALTER TABLE wp_rioc_d ADD PRIMARY KEY  (`token_key`) made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:27:17 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT; made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables
+[24-Nov-2016 14:27:17 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d ADD COLUMN token_id bigint(20) NOT NULL AUTO_INCREMENT made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:27:17 UTC] WordPress database error Multiple primary key defined for query ALTER TABLE wp_rioc_d ADD PRIMARY KEY  (`token_key`) made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:28:22 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT; made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables
+[24-Nov-2016 14:28:22 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d ADD COLUMN token_id bigint(20) NOT NULL AUTO_INCREMENT made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:28:22 UTC] WordPress database error Multiple primary key defined for query ALTER TABLE wp_rioc_d ADD PRIMARY KEY  (`token_key`) made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:30:23 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT; made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables
+[24-Nov-2016 14:30:23 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT; made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables
+[24-Nov-2016 14:30:23 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d ADD COLUMN token_id bigint(20) NOT NULL AUTO_INCREMENT made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:30:23 UTC] WordPress database error Multiple primary key defined for query ALTER TABLE wp_rioc_d ADD PRIMARY KEY  (`token_key`) made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:32:24 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT; made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables
+[24-Nov-2016 14:32:24 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT; made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables
+[24-Nov-2016 14:32:24 UTC] WordPress database error Incorrect table definition; there can be only one auto column and it must be defined as a key for query ALTER TABLE wp_rioc_d ADD COLUMN token_id bigint(20) NOT NULL AUTO_INCREMENT made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:32:24 UTC] WordPress database error Multiple primary key defined for query ALTER TABLE wp_rioc_d ADD PRIMARY KEY  (`token_key`) made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:33:50 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:33:53 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:34:06 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:35:07 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:35:11 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:36:14 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:38:15 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:40:13 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:40:14 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:41:18 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:42:59 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication->install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:43:00 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication->install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:44:03 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:44:09 UTC] WordPress database error Key column 'session_id' doesn't exist in table for query 
+				CREATE TABLE wp_rioc_d (
+				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
+				  token_key char(32) NOT NULL,
+				  token_expiry bigint(20) NOT NULL,
+				  UNIQUE KEY token_id (session_id),
+				  PRIMARY KEY  (token_key)
+				) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_520_ci made by require_once('wp-admin/admin.php'), require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('init'), call_user_func_array, Register_In_One_Click__Authentication::install, Register_In_One_Click__Authentication::create_tables, dbDelta
+[24-Nov-2016 14:50:41 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:50:41 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235
+[24-Nov-2016 14:50:41 UTC] PHP Warning:  call_user_func_array() expects parameter 1 to be a valid callback, class 'Register_In_One_Click__Authentication' does not have a method 'rioc_cron_schedules' in /home/ubuntu/workspace/wp-includes/plugin.php on line 235

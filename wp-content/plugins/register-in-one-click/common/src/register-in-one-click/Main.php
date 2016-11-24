@@ -40,7 +40,9 @@ class Register_In_One_Click__Main {
 			$this->plugin_context = $context;
 			$this->plugin_context_class = get_class( $context );
 		}
-
+		
+		
+		
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
 		$this->plugin_url  = plugins_url( $this->plugin_dir );
@@ -189,8 +191,8 @@ class Register_In_One_Click__Main {
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Registration', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Configuration', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__App_Shop', 'instance' ) );
-		
-		
+		// hook for install table
+		register_activation_hook( __FILE__, array( 'RIOC_Table_Install', 'install' ) );
 		// Register for the assets to be availble everywhere
 		add_action( 'init', array( $this, 'register_resources' ), 1 );
 		add_action( 'init', array( $this, 'register_vendor' ), 1 );
