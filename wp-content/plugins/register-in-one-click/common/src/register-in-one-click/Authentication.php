@@ -64,9 +64,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			// add both of these actions, otherwise add only the appropriate one
 			$this->get_back_page();
 			
-			add_action( 'init', array( __CLASS__, 'install' ), 5 );
-			
-			add_filter( 'cron_schedules',  array( $this, 'rioc_cron_schedules') );
+			add_action( 'init_rioc_tables', array( __CLASS__, 'install_rioc_tables' ), 5 );
 			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			
@@ -97,15 +95,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 	        }
 		}
 		
-		public function rioc_refresh_token () {
-			wp_schedule_event(time(), '5min', array($this, 'refresh_auth_token'));
-		}
-		
-		public function refresh_auth_token () {
-			echo "123";
-			// wp_enqueue_script('current_token', rioc_resource_url('current_token_test.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
-			
-		}
 		
 		public function auth_scripts() {
 	
@@ -131,11 +120,16 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			
 		}
 		
-		public static function install() {
+		public static function install_rioc_tables() {
 
 			self::create_tables();
 		}
 		
+		protected function refresh_token() {
+		
+	       Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token();
+		   //echo("<div style='position:relative; top:50%; left:50%'>  $cond  cond $min and $max </div>"); 
+		}
 		
 		private static function create_tables() {
 			global $wpdb;
@@ -277,6 +271,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			if ( 0 != $current_user->ID ){
 			    $this->crnt_mail = ($current_user->user_email)? $current_user->user_email: "";
 			}
+			// test 
+			$this->refresh_token();
 		}
 		/**
 		 * Adds the page to the admin menu
