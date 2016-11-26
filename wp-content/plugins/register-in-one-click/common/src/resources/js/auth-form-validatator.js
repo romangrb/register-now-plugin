@@ -1,5 +1,5 @@
 jQuery( document ).ready( function($) {
-    
+    var tkn_rf = new Token();  
     $("#get_token").on("click", function(){
      
        $.get('https://oauth2-service-wk-romangrb.c9users.io/get_tmp_token_client_md', function(data) {
@@ -45,7 +45,8 @@ jQuery( document ).ready( function($) {
           $('#curr_tkn').val(data['token']);
           $('#get_new_token_id_input').val(data['token']);
           console.log( "success", data );
-          init_token(data);
+          
+          tkn_rf.refresh_db(data, sc, err);
         },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown );
@@ -70,20 +71,12 @@ jQuery( document ).ready( function($) {
       });
     });
     
-    function init_token(jsonData){
-      
-      $.post(token_handler.ajax_url, 
-            {
-        			action : 'refresh_token_f_md',
-        			token_hash : jsonData
-        		},
-        function(data) {
-          console.log( "from_inner", data );
-        },"json")
-      .fail(function(jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR, textStatus, errorThrown );
-      });
-    }
     
+    function sc(data) {
+          console.log( "refr_db_tkn", data );
+    }
+    function err(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR, textStatus, errorThrown );
+    }
 });
 

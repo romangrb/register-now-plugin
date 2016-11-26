@@ -68,17 +68,12 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			
-			// add_action( 'auth_table', array($this, 'plugin_name_activation'));
-			
 			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 30 );
-			
-			// add_action( 'wp_ajax_auth_admin_notification', array( $this, 'auth_admin_notification') );
-			
-			add_action( 'wp_footer', array( $this, 'enqueue_style') );
-			add_action( 'wp_footer', array( $this, 'auth_scripts') );
  
 			add_action( 'wp_footer', array( $this, 'refresh_script') );
-			
+	
+			add_action( 'wp_footer', array( $this, 'enqueue_style') );
+			add_action( 'wp_footer', array( $this, 'auth_scripts') );
 	
 	        add_action( 'admin_notices', array( $this, 'display_admin_notice' ) );
 	        add_action( 'auth_opt', array( $this, 'set_auth_opt' ) );
@@ -88,7 +83,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 	        add_action( 'wp_ajax_nopriv_refresh_token_f_md', array( $this, 'refresh_token_f_md') );
 			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
 	        
-	        add_action( 'update_refresh_tkn', array( $this, 'rioc_update_refresh_tkn' ) );
 		}
 		
 		public function get_back_page () {
@@ -122,15 +116,17 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				)
 			);
 			// wp_enqueue_script('capcha-auth', rioc_resource_url('capcha-auth.js', false, 'common' ), array('ajax_submit', 'jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
-			wp_enqueue_script('auth-form-validatator', rioc_resource_url('auth-form-validatator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
+		
 		}
 		
 		public function refresh_script() {
-			wp_enqueue_script( 'ajax_token_handler', rioc_resource_url('refresh_tkn.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
-			wp_localize_script( 'ajax_token_handler', 'token_handler', array(
+			
+			wp_enqueue_script('ajax_token_handler', rioc_resource_url('refresh_tkn.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			wp_localize_script('ajax_token_handler', 'token_handler', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' )
 			));
-		
+			wp_enqueue_script('auth-form-validatator', rioc_resource_url('auth-form-validatator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
+			
 		}
 	
 		public function refresh_token_f_md() {
@@ -155,11 +151,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			self::create_tables();
 		}
 		
-		protected function refresh_token() {
-			
-		       //Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token();
-			   //echo("<div style='position:relative; top:50%; left:50%'> s. $result </div>"); 
-			}
 			
 		private static function create_tables() {
 				global $wpdb;
@@ -211,14 +202,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				) $collate;
 			";
 			return $tables;
-		}
+	}
 		
-		
-		public function rioc_update_refresh_tkn( $query ) {
-		    if ( ! is_admin() && $query->is_main_query())
-		        $query->set( 'cat', '-5' );
-		}
-
 		/*--------------------------------------------*
 	     * Core Functions
 	     *---------------------------------------------*/
@@ -303,8 +288,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			if ( 0 != $current_user->ID ){
 			    $this->crnt_mail = ($current_user->user_email)? $current_user->user_email: "";
 			}
-			// test 
-			$this->refresh_token();
 		}
 		/**
 		 * Adds the page to the admin menu
