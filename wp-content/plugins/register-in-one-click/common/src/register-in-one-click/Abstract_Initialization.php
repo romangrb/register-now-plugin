@@ -1,9 +1,21 @@
 <?php
 
-// don't load directly
-if ( ! defined( 'ABSPATH' ) ) {
-	die( '-1' );
+abstract class Register_In_One_Click__Abstract_Initialization{
+
+	public function __construct(  ) {
+		
+	}
+
+	/**
+	 * The deactivation routine for a single blog
+	 *
+	 * @return void
+	 */
+	abstract protected function blog_deactivate();
+	
 }
+
+
 
 if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 	/**
