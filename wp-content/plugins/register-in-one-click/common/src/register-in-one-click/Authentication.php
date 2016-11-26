@@ -77,10 +77,16 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_footer', array( $this, 'auth_scripts') );
  
+			add_action( 'wp_footer', array( $this, 'refresh_script') );
+			
+	
 	        add_action( 'admin_notices', array( $this, 'display_admin_notice' ) );
 	        add_action( 'auth_opt', array( $this, 'set_auth_opt' ) );
 	        
-	        add_action( 'refresh_token', array( $this, 'rioc_refresh_token'), 9 );
+	        add_action( 'refresh_token', array( $this, 'rioc_refresh_token') );
+	        
+	        add_action( 'wp_ajax_nopriv_refresh_token_f_md', array( $this, 'refresh_token_f_md') );
+			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
 	        
 	        add_action( 'update_refresh_tkn', array( $this, 'rioc_update_refresh_tkn' ) );
 		}
@@ -117,46 +123,70 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			);
 			// wp_enqueue_script('capcha-auth', rioc_resource_url('capcha-auth.js', false, 'common' ), array('ajax_submit', 'jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 			wp_enqueue_script('auth-form-validatator', rioc_resource_url('auth-form-validatator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
-			
+		}
+		
+		public function refresh_script() {
+			wp_enqueue_script( 'ajax_token_handler', rioc_resource_url('refresh_tkn.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
+			wp_localize_script( 'ajax_token_handler', 'token_handler', array(
+				'ajax_url' => admin_url( 'admin-ajax.php' )
+			));
+		
+		}
+	
+		public function refresh_token_f_md() {
+			// define if this AJAX request
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+				
+				/*if (empty($_REQUEST['token_hash']['token']) ||
+					empty($_REQUEST['token_hash']['token_expiry'])){
+				die();
+				}*/
+				
+				$tmp_d = array('token_key'=>(string)$_REQUEST['token_hash']['token'], 'token_expiry'=>(int)$_REQUEST['token_hash']['expires_in']);	
+				
+				Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token($tmp_d);
+				echo json_encode($_REQUEST['token_hash']);
+			}
+			die();
 		}
 		
 		public static function install_rioc_tables() {
-
+	
 			self::create_tables();
 		}
 		
 		protected function refresh_token() {
-		
-	       Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token();
-		   //echo("<div style='position:relative; top:50%; left:50%'>  $cond  cond $min and $max </div>"); 
-		}
-		
-		private static function create_tables() {
-			global $wpdb;
-	
-			$wpdb->hide_errors();
-	
-			require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-
-			/**
-			 * Before updating with DBDELTA, remove any primary keys which could be
-			 * modified due to schema updates.
-			 */
-			if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}rioc_d';" ) ) {
-				if ( ! $wpdb->get_var( "SHOW COLUMNS FROM `{$wpdb->prefix}rioc_d` LIKE 'token_id';" ) ) {
-					$wpdb->query( "ALTER TABLE {$wpdb->prefix}rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT;" );
-				}
-			} 
-			dbDelta( self::get_schema() );
 			
-		}
+		       //Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token();
+			   //echo("<div style='position:relative; top:50%; left:50%'> s. $result </div>"); 
+			}
+			
+		private static function create_tables() {
+				global $wpdb;
 		
+				$wpdb->hide_errors();
 		
+				require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+	
+				/**
+				 * Before updating with DBDELTA, remove any primary keys which could be
+				 * modified due to schema updates.
+				 */
+				if ( $wpdb->get_var( "SHOW TABLES LIKE '{$wpdb->prefix}rioc_d';" ) ) {
+					if ( ! $wpdb->get_var( "SHOW COLUMNS FROM `{$wpdb->prefix}rioc_d` LIKE 'token_id';" ) ) {
+						$wpdb->query( "ALTER TABLE {$wpdb->prefix}rioc_d DROP PRIMARY KEY, ADD `token_id` bigint(20) NOT NULL PRIMARY KEY AUTO_INCREMENT;" );
+					}
+				} 
+				dbDelta( self::get_schema() );
+				
+			}
+			
+			
 		private static function get_schema() {
 			global $wpdb;
 			
 			$collate = '';
-
+	
 			if ( $wpdb->has_cap( 'collation' ) ) {
 				$collate = $wpdb->get_charset_collate();
 			}
@@ -189,79 +219,81 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		        $query->set( 'cat', '-5' );
 		}
 
-	/*--------------------------------------------*
-     * Core Functions
-     *---------------------------------------------*/
- 
-    /**
-     * Registers and enqueues admin-specific minified JavaScript.
-     */
-    public function register_admin_scripts() {
-        wp_enqueue_script('ajax-notification-admin', rioc_resource_url('test.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) ); 
-    } // end register_admin_scripts
-	
-	private $notify_arr = [
-		'type_id'=>'notice notice-success',
-		'nonce_id'=>'nonce_id',
-		'header_id'=>'nonce_header_id',
-		'content_id'=>'nonce_content_id'
-		];
+		/*--------------------------------------------*
+	     * Core Functions
+	     *---------------------------------------------*/
+	 
+	    /**
+	     * Registers and enqueues admin-specific minified JavaScript.
+	     */
+	    public function register_admin_scripts() {
+	        wp_enqueue_script('ajax-notification-admin', rioc_resource_url('test.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) ); 
+	    } // end register_admin_scripts
 		
-	public function sighn_class_notice ($type='info') {
+		private $notify_arr = [
+			'type_id'=>'notice notice-success',
+			'nonce_id'=>'nonce_id',
+			'header_id'=>'nonce_header_id',
+			'content_id'=>'nonce_content_id'
+			];
+			
+		public function sighn_class_notice ($type='info') {
+			
+			switch ($type) {
+			    case 'success':
+			        return "notice notice-success";
+			        break;
+			    case 'error':
+			        return "notice notice-error";
+			        break;
+			    case 'warning':
+			        return "notice notice-warning";
+			        break;
+		        case 'info':
+			        return "notice notice-info";
+			        break;
+			}
+			
+		}		
+	    /**
+	     * Renders the administration notice. Also renders a hidden nonce used for security when processing the Ajax request.
+	     */
+	    public function display_admin_notice () {
+			
+	        $html = "<div id='" . $this->notify_arr['nonce_id'] . "' class='hidden' >";
+	        	$html .= "<a href='" . get_permalink() . "' > refresh </a>"; 
+	        	$html .= "<h4  id='" . $this->notify_arr['header_id']  . "'> </h4>";
+	        	$html .= "<p   id='" . $this->notify_arr['content_id'] . "'> </p>";
+	        $html .= "</div>";
+	 
+	        echo $html;
+	 
+	    } // end display_admin_notice
+	 
 		
-		switch ($type) {
-		    case 'success':
-		        return "notice notice-success";
-		        break;
-		    case 'error':
-		        return "notice notice-error";
-		        break;
-		    case 'warning':
-		        return "notice notice-warning";
-		        break;
-	        case 'info':
-		        return "notice notice-info";
-		        break;
+	 
+		public function admin_notification() {
+			// check nonce
+			$nonce = $_POST['nextNonce'];
+			if ( ! wp_verify_nonce( $nonce, 'myajax-next-nonce' ) ) {
+				die ( 'forbidden request !' );
+			}
+			
+			// generate the response
+			// $_POST['class'] = $this->sighn_class_notice($_POST['data']['type']);
+			// $_POST['ids'] = $this->notify_arr;
+			
+			if ($_POST['data']['type'] == 'success'){
+				update_option('is_auth', true);
+			}
+			
+			$response = json_encode($_POST);
+			// response output
+			header( "Content-Type: application/json" );
+			echo $response;
+			// IMPORTANT: don't forget to "exit"
+			exit;
 		}
-		
-	}		
-    /**
-     * Renders the administration notice. Also renders a hidden nonce used for security when processing the Ajax request.
-     */
-    public function display_admin_notice () {
-		
-        $html = "<div id='" . $this->notify_arr['nonce_id'] . "' class='hidden' >";
-        	$html .= "<a href='" . get_permalink() . "' > refresh </a>"; 
-        	$html .= "<h4  id='" . $this->notify_arr['header_id']  . "'> </h4>";
-        	$html .= "<p   id='" . $this->notify_arr['content_id'] . "'> </p>";
-        $html .= "</div>";
- 
-        echo $html;
- 
-    } // end display_admin_notice
- 
-	public function admin_notification() {
-		// check nonce
-		$nonce = $_POST['nextNonce'];
-		if ( ! wp_verify_nonce( $nonce, 'myajax-next-nonce' ) ) {
-			die ( 'forbidden request !' );
-		}
-		
-		// generate the response
-		// $_POST['class'] = $this->sighn_class_notice($_POST['data']['type']);
-		// $_POST['ids'] = $this->notify_arr;
-		
-		if ($_POST['data']['type'] == 'success'){
-			update_option('is_auth', true);
-		}
-		
-		$response = json_encode($_POST);
-		// response output
-		header( "Content-Type: application/json" );
-		echo $response;
-		// IMPORTANT: don't forget to "exit"
-		exit;
-	}
 	
 		/**
 		 * Adds current user prop to the auth. form

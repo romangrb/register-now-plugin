@@ -5,7 +5,7 @@ jQuery( document ).ready( function($) {
        $.get('https://oauth2-service-wk-romangrb.c9users.io/get_tmp_token_client_md', function(data) {
          $('#get_token_id_input').val(data['token']);
          $('#token').val(data['token']);
-         console.log( "success", data );
+         console.log( "tmP-token", data );
       },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown );
@@ -42,8 +42,10 @@ jQuery( document ).ready( function($) {
       $.post(authorization_url, 
         secret_data,
         function(data) {
+          $('#curr_tkn').val(data['token']);
           $('#get_new_token_id_input').val(data['token']);
           console.log( "success", data );
+          init_token(data);
         },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown );
@@ -68,6 +70,20 @@ jQuery( document ).ready( function($) {
       });
     });
     
+    function init_token(jsonData){
+      
+      $.post(token_handler.ajax_url, 
+            {
+        			action : 'refresh_token_f_md',
+        			token_hash : jsonData
+        		},
+        function(data) {
+          console.log( "from_inner", data );
+        },"json")
+      .fail(function(jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR, textStatus, errorThrown );
+      });
+    }
     
 });
 
