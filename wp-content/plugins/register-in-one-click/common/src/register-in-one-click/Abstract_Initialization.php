@@ -18,13 +18,13 @@ abstract class Register_In_One_Click__Abstract_Initialization implements Registe
 	/**
 	 * Adds a link to the the WP admin bar
 	 */
-	abstract public function add_toolbar_item();
+	// abstract public function add_toolbar_item();
 	
 	/**
 	 * function that loaded content (html) for add_meny_page
 	 */
 	abstract public function do_menu_page();
 
-	
+	 //echo "<div style='position:relative;top:50%;left:50%'>" . "TEST" . "</div>";
 }
 

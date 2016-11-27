@@ -1,13 +1,13 @@
 <?php wp_footer(); ?>
 	<!--<iframe align="center" src="https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_authorization.php" frameborder="yes" scrolling="yes" name="myIframe" id="myIframe"> </iframe>-->
 	  <div>
-        <a href= <?php echo($this->register_url_page) ?> >
+        <a href= <?php echo($this->registr_page_url) ?> >
           <span> back </span>
         </a>
     </div>	
     <div style="border:black thin inset">
       <label for='get_token_id_input'> secured token for request authorization </label><br>
-      <button id=<?php echo($this->get_token_id); ?> >  sent get token request </button>
+      <button id=<?php echo(self::GET_TOKEN_ID); ?> >  sent get token request </button>
       secured token
       <input type="text" readonly="readonly" id='get_token_id_input'></input>
       <br>
@@ -25,7 +25,7 @@
         <label for='password'> password </label><br>
         <input type="text" value="grb_password" id="password" name="pass"></input><br>
         
-        <button id=<?php echo($this->get_init_token_id); ?> > authorization request </button>
+        <button id=<?php echo(self::GET_INIT_TOKEN_ID); ?> > authorization request </button>
         <label for='secret_token'> secured token </label>
         <input type="text" readonly="readonly" id="secret_token"></input>
     </div>

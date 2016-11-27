@@ -6,17 +6,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 if ( ! class_exists( 'Register_In_One_Click__Notice' ) ) {
+	
 	/**
 	 * Class that handles the integration with our Shop App API
 	 */
 	class Register_In_One_Click__Notice {
 		
-		protected $notify_arr = [
+		/**
+		 * Singleton instance
+		 *
+		 * @var null or Register_In_One_Click__Initialization
+		 */
+		private static $instance = null;
+			
+		private $notify_arr = [
 			'type_id'=>'notice notice-success',
 			'nonce_id'=>'nonce_id',
 			'header_id'=>'nonce_header_id',
 			'content_id'=>'nonce_content_id'
 		];
+		
+		public function get_notify_arr (){
+			return $this->notify_arr;
+		}
 		
 		protected function display_admin_notice () {
 		
@@ -52,7 +64,7 @@ if ( ! class_exists( 'Register_In_One_Click__Notice' ) ) {
 			die();
 		}
 		
-		private function sighn_class_notice ($type='info') {
+		public function sighn_class_notice ($type='info') {
 		
 			switch ($type) {
 			    case 'success':

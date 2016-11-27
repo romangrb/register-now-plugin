@@ -32,18 +32,35 @@ if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 		public  $auth_page_url;
 		public  $registr_page_url;
 		public  $init_page_url;
+		
+		public  $current_user;
+		public  $crnt_mail;
 			
 		public function __construct() {
 			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 110 );
-			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 30 );
-			add_action( 'admin_init', array( $this, 'rioc_init_pages' ));
-			add_action(  'enqueue_style', array( $this, 'add_enqueue_style' ));
+			add_action( 'admin_init', array( $this, 'rioc_init_attr' ));
+			add_action( 'enqueue_style', array( $this, 'add_enqueue_style' ));
 		
 		}
 		
+		/**
+		 * Adds current user prop to the auth. form
+		 */
+		public function init_user_prop() {
+			$current_user = wp_get_current_user();
+			if ( 0 != $current_user->ID ){
+			    $this->crnt_mail = ($current_user->user_email)? $current_user->user_email: "";
+			}
+		}
+		
+		public function rioc_init_attr (){
+			$this->rioc_init_pages();
+			$this->init_user_prop();
+		}
+		
 		public function rioc_init_pages() {
-	   echo "<div style='position:relative;top:50%;left:50%'>" . "TEST" . "</div>";
+	  
 		  $this->auth_page_url = add_query_arg( array(
 			    'post_type' => self::POST_TYPE_N,
 			    'page' => self::AUTH_PAGE_N,
@@ -60,25 +77,8 @@ if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 			), NULL);
 		  
 		}
-		/**
-		 * Adds a link to the shop app to the WP admin bar
-		 */
-		public function add_toolbar_item() {
-
-			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
-
-			// prevent users who cannot install plugins from seeing addons link
-			if ( current_user_can( $capability ) ) {
-				global $wp_admin_bar;
-				
-				$wp_admin_bar->add_menu( array(
-					'id'     => 'rioc-temp',
-					'title'  => esc_html__( 'Temp', 'rioc-common' ),
-					'href'   => Register_In_One_Click__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
-					'parent' => 'rioc-events-settings-group',
-				) );
-			}
-		}
+	
+		
 		/**
 		 * Adds the page to the admin menu
 		 */

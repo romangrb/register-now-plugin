@@ -23,25 +23,25 @@ jQuery( document ).ready( function($) {
   function success_ajax_reg (data){
     $(form_id).fadeOut();
     $.post(
-				ajaxurl,
-				{
-					// wp ajax action
-			    action: 'admin_notification',
-					// send the nonce along with the request
-					nextNonce: Auth_new_ajax.nextNonce,
-					//data
-					data:data,
-				})
-				.done(function (response) {
-				  var cont = response['data']['content']['Message'],
-				      head = response['data']['header'];
-				  head = (head)? head.replace(/\/(\|#|$)/, '/$1') : head;
-				  cont = (cont)? cont.replace(/\/(\|#|$)/, '/$1') : cont;
-				  
-          msg_hash['head'] = head; msg_hash['content_id'] = cont; msg_hash['notice_cl'] = response['class'];
-          wr_notice(msg_hash);
-				})
-				.fail(error_ajax_reg);
+			ajaxurl,
+			{
+				// wp ajax action
+		    action: 'admin_notification',
+				// send the nonce along with the request
+				// nextNonce: Auth_new_ajax.nextNonce,
+				//data
+				data:data,
+			})
+			.done(function (response) {
+			  var cont = response['data']['content']['Message'],
+			      head = response['data']['header'];
+			  head = (head)? head.replace(/\/(\|#|$)/, '/$1') : head;
+			  cont = (cont)? cont.replace(/\/(\|#|$)/, '/$1') : cont;
+			  
+		      msg_hash['head'] = head; msg_hash['content_id'] = cont; msg_hash['notice_cl'] = response['class'];
+		      wr_notice(msg_hash);
+			})
+			.fail(error_ajax_reg);
 	}
 	
 	function error_ajax_reg (jqXHR, textStatus, errorThrown){

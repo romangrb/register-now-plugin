@@ -3,7 +3,7 @@
     var form_captcha = '#' + Auth_new_ajax.form_captcha,
         label_for_captcha = '#' + Auth_new_ajax.label_for_captcha,
         refresh_btn = '#' + Auth_new_ajax.refresh_btn,
-        rq_captha_tag =  Auth_new_ajax.rq_captha_tag,
+        rq_captha_query =  Auth_new_ajax.rq_captha_query,
         rq_Ajax_form = new authAjax('', true);
     
     $( document ).ready(function() {
@@ -15,7 +15,7 @@
     get_refresh_capcha(); 
 
 	function get_refresh_capcha(){
-	    rq_Ajax_form.getRq("POST", "json", rq_captha_tag, success_ajax, error_ajax);
+	    rq_Ajax_form.getRq("POST", "json", rq_captha_query, success_ajax, error_ajax);
 	}
 	
 	function success_ajax (data){
