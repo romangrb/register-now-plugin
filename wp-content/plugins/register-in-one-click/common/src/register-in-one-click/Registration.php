@@ -36,7 +36,6 @@ if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 		
 			add_action( 'add_set_time_refresh_rq', array( $this, 'set_time_refresh_rq' ));
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
-			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 20 );
 			add_action( 'wp_ajax_admin_notification', array( $this, 'admin_notification') );
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_footer', array( $this, 'auth_scripts') );
@@ -117,29 +116,10 @@ if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 
 			$where = Register_In_One_Click__Settings::instance()->get_parent_slug();
 
-			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
+			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::REG_SLUG, array( $this, 'do_menu_page' ) );
 
 		}
-		/**
-		 * Adds a link to the shop app to the WP admin bar
-		 */
-		public function add_toolbar_item() {
-
-			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
-
-			// prevent users who cannot install plugins from seeing addons link
-			if ( current_user_can( $capability ) ) {
-				global $wp_admin_bar;
-				
-				$wp_admin_bar->add_menu( array(
-					'id'     => 'rioc-registration',
-					'title'  => esc_html__( 'Initialize Plugin', 'rioc-common' ),
-					'href'   => Register_In_One_Click__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
-					'parent' => 'rioc-events-settings-group',
-				) );
-			}
-		}
-
+		
 		/**
 		 * Enqueue the styles
 		 */

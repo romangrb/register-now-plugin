@@ -7,6 +7,10 @@ interface Register_In_One_Click__Initialization_Interfaces {
 	
 	const MENU_SLUG     			= 'rioc-init';
 	
+	const AUTH_SLUG 				= 'rioc-authentication';
+	
+	const REG_SLUG 					= 'rioc-registration';
+	
 	const AUTH_URL					= 'https://oauth2-service-wk-romangrb.c9users.io';
 	
 	const REG_URL					= 'https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_authorization.php';

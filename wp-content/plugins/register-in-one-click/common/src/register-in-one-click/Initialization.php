@@ -23,7 +23,7 @@ if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 		 *
 		 * @var string
 		 */
-		private $admin_page    = null;
+		private $admin_page      = null;
 		
 		/**
 		 * Adds current user prop to the auth. form

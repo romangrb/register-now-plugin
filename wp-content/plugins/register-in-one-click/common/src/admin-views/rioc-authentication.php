@@ -1,7 +1,7 @@
 <?php wp_footer(); ?>
 	<!--<iframe align="center" src="https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_authorization.php" frameborder="yes" scrolling="yes" name="myIframe" id="myIframe"> </iframe>-->
 	  <div>
-        <a href= <?php echo($this->registr_page_url) ?> >
+        <a href= <?php echo (Register_In_One_Click__Initialization::instance()->init_page_url) ?> >
           <span> back </span>
         </a>
     </div>	

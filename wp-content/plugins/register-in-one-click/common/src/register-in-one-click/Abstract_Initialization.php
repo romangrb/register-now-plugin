@@ -10,15 +10,11 @@ abstract class Register_In_One_Click__Abstract_Initialization implements Registe
     // abstract protected function register_admin_scripts();
 	
 	/**
-	 * Adds the page to the admin menu
+	 * Adds the pages to the admin menu
 	 */
 	 
 	abstract public function add_menu_page();
 
-	/**
-	 * Adds a link to the the WP admin bar
-	 */
-	// abstract public function add_toolbar_item();
 	
 	/**
 	 * function that loaded content (html) for add_meny_page

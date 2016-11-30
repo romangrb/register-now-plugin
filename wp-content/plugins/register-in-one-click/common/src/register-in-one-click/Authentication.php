@@ -22,7 +22,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		 *
 		 * @var string
 		 */
-		private $admin_page    = null;
+		private $admin_page 	 = null;
 		
 		/**
 		 * Class constructor
@@ -31,7 +31,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 
 			add_action( 'init_rioc_tables', array( __CLASS__, 'install_rioc_tables' ), 5 );
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
-			add_action( 'wp_before_admin_bar_render', array( $this, 'add_toolbar_item' ), 30 );
 			add_action( 'wp_footer', array( $this, 'refresh_script') );
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
@@ -137,27 +136,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			$menu_title = esc_html__( '&nbsp; - authentication', 'rioc-common' );
 			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
 			$where = Register_In_One_Click__Settings::instance()->get_parent_slug();
-			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::MENU_SLUG, array( $this, 'do_menu_page' ) );
-		}
-
-		/**
-		 * Adds a link to the shop app to the WP admin bar
-		 */
-		public function add_toolbar_item() {
-
-			$capability = apply_filters( 'rioc_events_addon_page_capability', 'install_plugins' );
-
-			// prevent users who cannot install plugins from seeing addons link
-			if ( current_user_can( $capability ) ) {
-				global $wp_admin_bar;
-				
-				$wp_admin_bar->add_menu( array(
-					'id'     => 'rioc-authentication',
-					'title'  => esc_html__( 'Initialize Plugin', 'rioc-common' ),
-					'href'   => Register_In_One_Click__Settings::instance()->get_url( array( 'page' => self::MENU_SLUG ) ),
-					'parent' => 'rioc-events-settings-group',
-				) );
-			}
+			$this->admin_page = add_submenu_page( $where, $page_title, $menu_title, $capability, self::AUTH_SLUG, array( $this, 'do_menu_page' ) );
+			
 		}
 
 		/**
