@@ -23,7 +23,8 @@
 				 url: self.auth_url,
 				 data: {
 				    action:     self.action_name,
-				    token_hash: token_data
+				    token_hash: token_data,
+				    security:   token_handler.nounce_tkn
 				 },
 				 type:"POST",
 				 dataType: "json",   

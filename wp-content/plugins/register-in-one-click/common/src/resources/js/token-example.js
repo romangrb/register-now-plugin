@@ -5,7 +5,10 @@ jQuery( document ).ready( function($) {
         tkn_get.method('get_token_f_md');
         
     function get_token(){
-        tkn_get.post_tkn({}, sc, err);
+        
+        tkn_get.post_tkn(
+            {},
+            sc, err);
     }  
     
     get_token();
@@ -88,7 +91,7 @@ jQuery( document ).ready( function($) {
     function sc(data) {
           // refresh token in global var
           token_handler.cnt_tkn = data.token;
-          console.log( "refr_db_tkn", data.token );
+          console.log( "refr_db_tkn", data );
     }
     function err(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown );

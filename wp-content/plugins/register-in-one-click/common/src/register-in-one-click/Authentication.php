@@ -35,7 +35,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			add_action( 'wp_footer', array( $this, 'refresh_script') );
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
-			add_action( 'wp_ajax_refresh_token_f_md', array( $this, array('refresh_token_f_md') ) );
+			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
 			add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_f_md') );
 			// for test init token
 			$this->get_init_token();
@@ -47,7 +47,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			wp_enqueue_script('ajax_token_handler', rioc_resource_url('refresh-tkn.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			wp_localize_script('ajax_token_handler', 'token_handler', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'cnt_tkn'  => $this->token
+				'cnt_tkn'  => $this->token,
+				'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
 			));
 			wp_enqueue_script('ajax_token_example', rioc_resource_url('token-example.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			
@@ -69,6 +70,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		public function get_token_f_md() {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+				
+				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
 				echo json_encode(array('token'=>$this->token));
 			}
 			die();
@@ -77,6 +80,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		public function refresh_token_f_md() {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+				
+				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
 				
 				/*if (empty($_REQUEST['token_hash']['token']) ||
 					empty($_REQUEST['token_hash']['token_expiry'])){
