@@ -1,14 +1,26 @@
 jQuery( document ).ready( function($) {
-    var tkn_rf = new Token();  
+    var tkn_rf  = new Token(); 
+    
+    var tkn_get = new Token();
+        tkn_get.method('get_token_f_md');
+        
+    function get_token(){
+        tkn_get.post_tkn({}, sc, err);
+    }  
+    
+    get_token();
+    
+    console.log('is_new', token_handler.cnt_tkn);
     $("#get_token").on("click", function(){
      
        $.get('https://oauth2-service-wk-romangrb.c9users.io/get_tmp_token_client_md', function(data) {
          $('#get_token_id_input').val(data['token']);
          $('#token').val(data['token']);
          console.log( "tmP-token", data );
+         console.log('is_new', token_handler.cnt_tkn);
       },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
-        console.log(jqXHR, textStatus, errorThrown );
+            console.log(jqXHR, textStatus, errorThrown );
       });
       
     });
@@ -45,8 +57,9 @@ jQuery( document ).ready( function($) {
           $('#curr_tkn').val(data['token']);
           $('#get_new_token_id_input').val(data['token']);
           console.log( "success", data );
+          // token_handler.cnt_tkn = data.token;
           
-          tkn_rf.refresh_db(data, sc, err);
+          tkn_rf.post_tkn(data, sc, err);
         },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown );
@@ -73,7 +86,9 @@ jQuery( document ).ready( function($) {
     
     
     function sc(data) {
-          console.log( "refr_db_tkn", data );
+          // refresh token in global var
+          token_handler.cnt_tkn = data.token;
+          console.log( "refr_db_tkn", data.token );
     }
     function err(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown );

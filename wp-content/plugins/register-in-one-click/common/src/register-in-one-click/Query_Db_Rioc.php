@@ -94,8 +94,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 					key = token_key , val = str
 					key = token_expiry , val = int
 				)';
-			}
-			
+			}			
 			
 			$min = $this->db->get_var( "SELECT MIN(token_id) FROM $this->t_name");
 			$max = $this->db->get_var( "SELECT MAX(token_id) FROM $this->t_name");
@@ -120,6 +119,19 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			
 		   //echo("<div style='position:relative; top:50%; left:50%'>  $cond  cond $min and $max </div>"); 
+		}
+		
+		public function get_token() {
+			
+			$token  = $this->db->get_var($this->db->prepare(
+				"
+						SELECT token_key FROM $this->t_name
+						WHERE token_id = %d
+				",
+						$this->db->get_var( "SELECT MIN(token_id) FROM $this->t_name")
+				)
+			);
+			return $token;
 		}
 		
 		/**

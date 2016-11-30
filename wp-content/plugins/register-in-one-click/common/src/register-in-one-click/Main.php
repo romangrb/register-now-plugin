@@ -186,9 +186,9 @@ class Register_In_One_Click__Main {
 	 */
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Initialization', 'instance' ) );
-		
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Authentication', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Registration', 'instance' ) );
+		
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Configuration', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__App_Shop', 'instance' ) );
 		// hook for install table
