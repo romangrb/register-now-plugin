@@ -127,7 +127,39 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 		}
 		
+		private function check_token_validation($id) {
+			
+			$token  = $this->db->get_var(
+				"
+					SELECT `token_key` FROM $this->t_name WHERE `token_id` = (
+  
+						SELECT IF (
+						    (SELECT (UNIX_TIMESTAMP(NOW() - `token_life`) < `token_expire`) 
+						     FROM $this->t_name WHERE `token_id` = $id),  
+						     $id,
+						    NULL)
+					);
+				
+				");
+			
+			return $token;
+		}
+		
+		
 		public function get_token() {
+			
+			$token  = $this->db->get_var(
+				"
+						SELECT MIN(token_id) FROM $this->t_name
+				"											
+			);
+			
+			$is_valid = $this->check_token_validation($token);
+			
+			return $is_valid;
+		}
+		// temporary for test fn
+		public function get_last_update_token() {
 			
 			$token  = $this->db->get_var($this->db->prepare(
 				"
