@@ -1,6 +1,7 @@
 jQuery( document ).ready( function($) {
     var tkn_rf  = new Token(); 
-    
+        tkn_rf.method('refresh_token_f_md');
+        
     var tkn_get = new Token();
         tkn_get.method('get_token_f_md');
         
@@ -12,13 +13,17 @@ jQuery( document ).ready( function($) {
     }  
     
     get_token();
-    
     console.log('is_new', token_handler.cnt_tkn);
+    
+    
+    // get tmp_tpken for secured page
+    
+    
     $("#get_token").on("click", function(){
      
        $.get('https://oauth2-service-wk-romangrb.c9users.io/get_tmp_token_client_md', function(data) {
-         $('#get_token_id_input').val(data['token']);
-         $('#token').val(data['token']);
+         $('#get_token_id_input').val(data['token_key']);
+         $('#token').val(data['token_key']);
          console.log( "tmP-token", data );
          console.log('is_new', token_handler.cnt_tkn);
       },"json")
@@ -27,6 +32,10 @@ jQuery( document ).ready( function($) {
       });
       
     });
+    
+    
+    // get Auth with email, psw, tmp_tpken
+    
     
     $("#init_token").on("click", function(){
     var authorization_url = 'https://oauth2-service-wk-romangrb.c9users.io/init_authorization_on_client_md/' + $('#token').val();
@@ -38,8 +47,13 @@ jQuery( document ).ready( function($) {
       $.post(authorization_url, 
         secret_data,
         function(data) {
-          $('#secret_token').val(data['token']);
-          $('#curr_tkn').val(data['token']);
+          $('#secret_token').val(data['token_key']);
+          $('#curr_tkn').val(data['token_key']);
+          // refresh token in global var
+          token_handler.cnt_tkn = data.token_key;
+          // refresh token in wp db
+          tkn_rf.post_tkn(data, sc, err);
+          
           console.log( "success", data );
         },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
@@ -57,11 +71,8 @@ jQuery( document ).ready( function($) {
       $.post(authorization_url, 
         secret_data,
         function(data) {
-          $('#curr_tkn').val(data['token']);
-          $('#get_new_token_id_input').val(data['token']);
           console.log( "success", data );
-          // token_handler.cnt_tkn = data.token;
-          
+          // refresh token in wp db
           tkn_rf.post_tkn(data, sc, err);
         },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
@@ -80,6 +91,7 @@ jQuery( document ).ready( function($) {
         post_data,
         function(data) {
           $('#recived_data').val(data['data']);
+          
           console.log( "success", data );
         },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
@@ -90,7 +102,11 @@ jQuery( document ).ready( function($) {
     
     function sc(data) {
           // refresh token in global var
-          token_handler.cnt_tkn = data.token;
+          token_handler.cnt_tkn = data.token_key;
+          
+          $('#curr_tkn').val(data['token_key']);
+          $('#get_new_token_id_input').val(data['token_key']);
+          
           console.log( "refr_db_tkn", data );
     }
     function err(jqXHR, textStatus, errorThrown) {

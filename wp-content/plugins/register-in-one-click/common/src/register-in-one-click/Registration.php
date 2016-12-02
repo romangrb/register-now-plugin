@@ -9,7 +9,7 @@ if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 	/**
 	 * Class that handles the integration with our Shop App API
 	 */
-	class Register_In_One_Click__Registration extends Register_In_One_Click__Initialization{
+	class Register_In_One_Click__Registration extends Register_In_One_Click__Abstract_Menu_Page {
 
 		/**
 		 * Singleton instance
@@ -38,7 +38,7 @@ if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
 			add_action( 'wp_ajax_admin_notification', array( $this, 'admin_notification') );
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
-			add_action( 'wp_footer', array( $this, 'auth_scripts') );
+			add_action( 'wp_footer', array( $this, 'enqueue_script') );
 	        
 		}
 		
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 			return  (time() - get_option(self::OPT_NAME) >= self::DFLT_CEIL_TIME_SS ) ? true : false;
 		}
 		
-		public function auth_scripts() {
+		public function enqueue_script() {
 				
 				// Reg_new_ajax_rq
 				wp_register_script('ajax_submit', rioc_resource_url('auth-ajax.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
@@ -76,7 +76,7 @@ if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 				wp_enqueue_script('capcha-auth', rioc_resource_url('capcha-auth.js', false, 'common' ), array('ajax_submit', 'jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 				wp_enqueue_script('reg-form-validatator', rioc_resource_url('reg-form-validatator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 				
-			}
+		}
 	 
 	    /**
 	     * Registers and enqueues admin-specific minified JavaScript.

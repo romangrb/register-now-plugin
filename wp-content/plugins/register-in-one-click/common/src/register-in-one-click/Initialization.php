@@ -9,7 +9,7 @@ if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 	/**
 	 * Class that handles the integration with our Shop App API
 	 */
-	class Register_In_One_Click__Initialization extends  Register_In_One_Click__Abstract_Initialization {
+	class Register_In_One_Click__Initialization extends  Register_In_One_Click__Abstract_Menu_Page {
 		
 		/**
 		 * Singleton instance
@@ -40,7 +40,7 @@ if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 			
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 110 );
 			add_action( 'admin_init', array( $this, 'rioc_init_attr' ));
-			add_action( 'enqueue_style', array( $this, 'add_enqueue_style' ));
+			add_action( 'enqueue_style', array( $this, 'enqueue_style' ));
 		
 		}
 		
@@ -103,10 +103,15 @@ if ( ! class_exists( 'Register_In_One_Click__Initialization' ) ) {
 		/**
 		 * Enqueue the styles
 		 */
-		public function add_enqueue_style() {
+		public function enqueue_style() {
 			
 			wp_enqueue_style( 'app-authentication-style', rioc_resource_url('rioc-init.css', false,'common' ), array(), apply_filters( 'rioc_events_css_version', Register_In_One_Click__Main::VERSION ) );
 			
+		}
+		
+		public function enqueue_script() {
+				
+				
 		}
 		
 		public static function instance() {

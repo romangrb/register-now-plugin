@@ -34,11 +34,13 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				$this->t_name, 
 			array( 
 				'token_key'    => $this->db->get_var( "SELECT token_key	   FROM	$this->t_name WHERE token_id = $fromId" ), 
-				'token_expiry' => $this->db->get_var( "SELECT token_expiry FROM $this->t_name WHERE token_id = $fromId" ), 
+				'token_expire' => $this->db->get_var( "SELECT token_expire FROM $this->t_name WHERE token_id = $fromId" ),
+				'token_life'   => $this->db->get_var( "SELECT token_life   FROM $this->t_name WHERE token_id = $fromId" ), 
 			), 
 			array( 'token_id'  => $id), 
 			array( 
 				'%s',
+				'%d',
 				'%d'
 			), 
 			array( '%d' ) 
@@ -53,11 +55,13 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				$this->t_name, 
 			array( 
 				'token_key'    => $h_val['token_key'], 
-				'token_expiry' => $h_val['token_expiry'], 
+				'token_expire' => $h_val['token_expire'], 
+				'token_life'   => $h_val['token_life'],
 			), 
 			array( 'token_id'  => $id), 
 			array( 
 				'%s',
+				'%d',
 				'%d'
 			), 
 			array( '%d' ) 
@@ -72,10 +76,12 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				$t_name->t_name, 
 				array( 
 					'token_key'    => $h_val['token_key'], 
-					'token_expiry' => $h_val['token_expiry'], 
+					'token_expire' => $h_val['token_expire'], 
+					'token_life'   => $h_val['token_life'], 
 				), 
 				array( 
 					'%s',
+					'%d',
 					'%d'
 				)
 			);
@@ -86,13 +92,15 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		public function refresh_token($new_token_data) {
 			
 			if (!is_array($new_token_data) || 
-				!array_key_exists('token_key', $new_token_data) ||  
-				!array_key_exists('token_expiry', $new_token_data)){
+				!array_key_exists('token_key', $new_token_data) ||
+				!array_key_exists('token_expire', $new_token_data) ||  
+				!array_key_exists('token_life', $new_token_data)){
 					
 				return 'input value is not correct : ! required 
 				array(
 					key = token_key , val = str
-					key = token_expiry , val = int
+					key = token_expire , val = int
+					key = token_life , val = int
 				)';
 			}			
 			
@@ -117,8 +125,6 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			        break;
 			}
 			
-			
-		   //echo("<div style='position:relative; top:50%; left:50%'>  $cond  cond $min and $max </div>"); 
 		}
 		
 		public function get_token() {

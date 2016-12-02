@@ -9,7 +9,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 	/**
 	 * Class that handles the integration with our Shop App API
 	 */
-	class Register_In_One_Click__Authentication extends Register_In_One_Click__Initialization {
+	class Register_In_One_Click__Authentication extends Register_In_One_Click__Abstract_Menu_Page {
 
 		/**
 		 * Singleton instance
@@ -33,7 +33,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 
 			add_action( 'init_rioc_tables', array( __CLASS__, 'install_rioc_tables' ), 5 );
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
-			add_action( 'wp_footer', array( $this, 'refresh_script') );
+			add_action( 'wp_footer', array( $this, 'enqueue_script') );
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
 			add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_f_md') );
@@ -42,7 +42,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 	        
 		}
 		
-		public function refresh_script() {
+		public function enqueue_script() {
 			
 			wp_enqueue_script('ajax_token_handler', rioc_resource_url('refresh-tkn.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			wp_localize_script('ajax_token_handler', 'token_handler', array(
@@ -84,11 +84,13 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
 				
 				/*if (empty($_REQUEST['token_hash']['token']) ||
-					empty($_REQUEST['token_hash']['token_expiry'])){
+					empty($_REQUEST['token_hash']['token_expire'])){
 				die();
 				}*/
 				
-				$tmp_d = array('token_key'=>(string)$_REQUEST['token_hash']['token'], 'token_expiry'=>(int)$_REQUEST['token_hash']['expires_in']);	
+				$tmp_d = array('token_key'=>(string)$_REQUEST['token_hash']['token_key'], 
+							   'token_expire'=>(int)$_REQUEST['token_hash']['token_expire'],
+							   'token_life'=>(int)$_REQUEST['token_hash']['token_life']);	
 				// save token into db
 				Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token($tmp_d);
 				
@@ -144,7 +146,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				CREATE TABLE {$wpdb->prefix}rioc_d (
 				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
 				  token_key char(32) NOT NULL,
-				  token_expiry bigint(20) NOT NULL,
+				  token_expire bigint(20) NOT NULL,
 				  UNIQUE KEY token_id (token_id),
 				  PRIMARY KEY  (token_key)
 				) $collate;
@@ -152,12 +154,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			return $tables;
 	}
 		
-	    /**
-	     * Registers and enqueues admin-specific minified JavaScript.
-	     */
-	    public function register_admin_scripts() {
-	        wp_enqueue_script('ajax-notification-admin', rioc_resource_url('test.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) ); 
-	    } // end register_admin_scripts
 		/**
 		 * Adds the page to the admin menu
 		 */
