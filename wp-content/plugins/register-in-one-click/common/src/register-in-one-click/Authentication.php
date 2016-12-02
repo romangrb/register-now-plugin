@@ -72,7 +72,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
-				echo json_encode(array('token'=>$this->token));
+				echo json_encode(array('token_key'=>$this->token));
 			}
 			die();
 		}

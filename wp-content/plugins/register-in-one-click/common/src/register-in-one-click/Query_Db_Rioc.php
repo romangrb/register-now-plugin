@@ -131,15 +131,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			$token  = $this->db->get_var(
 				"
-					SELECT `token_key` FROM $this->t_name WHERE `token_id` = (
-  
-						SELECT IF (
-						    (SELECT (UNIX_TIMESTAMP(NOW() - `token_life`) < `token_expire`) 
-						     FROM $this->t_name WHERE `token_id` = $id),  
-						     $id,
-						    NULL)
-					);
-				
+					SELECT get_valid_key($id);
 				");
 			
 			return $token;
@@ -171,7 +163,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			);
 			return $token;
 		}
-		
+	
 		/**
 		 * Static Singleton Factory Method
 		 *
