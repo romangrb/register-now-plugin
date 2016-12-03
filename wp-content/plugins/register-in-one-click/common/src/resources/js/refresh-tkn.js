@@ -10,12 +10,9 @@
 		this.action_name = self.get_a_name;
 		
 		this.method = function( a_type ){
-			self.action_name = (!!a_type)? a_type : self.refresh_a_name;
+			self.action_name = (!!a_type)? a_type : self.action_name;
 		}
 		
-		this.test = function(){
-			return this.action_name;
-		}
 		this.post_tkn = function( token_data, success_cb, error_cb ){
 		    
 		     jQuery.ajax(
