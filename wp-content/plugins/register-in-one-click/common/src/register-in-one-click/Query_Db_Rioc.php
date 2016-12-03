@@ -28,7 +28,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		}
 		
 		private function beckup_token($id, $fromId) {
-			//is more than 2 rows of id's 
+			// is more than 2 rows of id's 
 			// update new token
 			$result = $this->db->update( 
 				$this->t_name, 

@@ -142,11 +142,36 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			 */
 			$max_index_length = 191;
 			
+			$sql_f_check_valid_key = "
+			CREATE DEFINER=`root`@`localhost` FUNCTION `get_valid_key`(`KEY_ID` INT) RETURNS text CHARSET latin1
+			    READS SQL DATA
+			    COMMENT 'check and return token_key if valid on time limit'
+			BEGIN
+			
+			DECLARE TOKEN_EXPIRE1, TOKEN_LIFE1 INT;
+			DECLARE TOKEN_KEY1 TEXT DEFAULT '';
+			
+			SELECT `token_key`, `token_life`, `token_expire` INTO TOKEN_KEY1, TOKEN_LIFE1, TOKEN_EXPIRE1
+			FROM {$wpdb->prefix}rioc_d WHERE token_id = KEY_ID;
+			
+			IF (((UNIX_TIMESTAMP()) - TOKEN_LIFE1) < TOKEN_EXPIRE1)
+				THEN 
+					RETURN TOKEN_KEY1; 
+				ELSE 
+					RETURN '';				 
+				END IF;	
+			END;
+			";
+			mysqli_multi_query($wpdb->dbh,	$sql_f_check_valid_key);
+			
+		
+			
 			$tables = "
 				CREATE TABLE {$wpdb->prefix}rioc_d (
 				  token_id bigint(20) NOT NULL AUTO_INCREMENT,
 				  token_key char(32) NOT NULL,
 				  token_expire bigint(20) NOT NULL,
+				  token_life   bigint(20) NOT NULL,
 				  UNIQUE KEY token_id (token_id),
 				  PRIMARY KEY  (token_key)
 				) $collate;
