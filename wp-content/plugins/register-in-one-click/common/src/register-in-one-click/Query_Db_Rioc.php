@@ -101,7 +101,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			if (!is_array($new_token_data) || 
 				!array_key_exists('token_key', $new_token_data) ||
 				!array_key_exists('token_expire', $new_token_data) ||  
-				!array_key_exists('token_life', $new_token_data || )
+				!array_key_exists('token_life', $new_token_data) || 
 				!array_key_exists('refresh_token', $new_token_data)){
 					
 				return 'input value is not correct : ! required 
@@ -138,10 +138,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		private function check_token_validation($id) {
 			
-			$token  = $this->db->get_var(
-				"
-					SELECT get_token_cash_d($id);
-				");
+			$token = $this->db->get_row("CALL get_token_cash_d($id)", ARRAY_A);
 			
 			return $token;
 		}
@@ -149,13 +146,13 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		public function get_last_token_cash() {
 			
-			$token  = $this->db->get_var(
+			$id  = $this->db->get_var(
 				"
 						SELECT MIN(id) FROM $this->t_name
 				"											
 			);
 			
-			$is_valid = $this->check_token_validation($token);
+			$is_valid = $this->check_token_validation($id);
 			
 			return $is_valid;
 		}
