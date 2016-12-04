@@ -47,7 +47,9 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			wp_enqueue_script('ajax_token_handler', rioc_resource_url('refresh-tkn.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			wp_localize_script('ajax_token_handler', 'token_handler', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				'cnt_tkn'  => $this->token,
+				'cnt_tkn'  => (array_key_exists('token_key', $this->token)? $this->token['token_key'] : '',
+				'token_id'  =>(array_key_exists('token_id', $this->token)? $this->token['token_id'],
+				'refresh_token' => (array_key_exists('refresh_token', $this->token)? $this->token['refresh_token'] : '',
 				'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
 			));
 			wp_enqueue_script('ajax_token_example', rioc_resource_url('token-example.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
@@ -56,7 +58,9 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		
 		public function get_curr_tkn(){
 			
-			$result = Register_In_One_Click__Query_Db_Rioc::instance()->get_token();
+			// $result = Register_In_One_Click__Query_Db_Rioc::instance()->get_token();
+			$result = Register_In_One_Click__Query_Db_Rioc::instance()->get_last_token_cash();
+			
 			return ($result) ? $result : '';
 			
 		}
@@ -77,21 +81,22 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			die();
 		}
 			
+		
 		public function refresh_token_f_md() {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
 				
-				/*if (empty($_REQUEST['token_hash']['token']) ||
-					empty($_REQUEST['token_hash']['token_expire'])){
-				die();
-				}*/
+				// if (empty($_REQUEST['token_hash']['token_key']))){
+				// 	die();
+				// }
 				
 				$tmp_d = array('token_key'=>(string)$_REQUEST['token_hash']['token_key'], 
 							   'token_expire'=>(int)$_REQUEST['token_hash']['token_expire'],
 							   'token_life'=>(int)$_REQUEST['token_hash']['token_life'],
-							   'refresh_token'=>(int)$_REQUEST['token_hash']['refresh_token']);	
+							   'refresh_token'=>(int)$_REQUEST['token_hash']['refresh_token']
+							   );	
 				// save token into db
 				Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token($tmp_d);
 				

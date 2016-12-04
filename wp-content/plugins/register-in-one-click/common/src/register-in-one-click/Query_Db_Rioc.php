@@ -33,12 +33,12 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			$result = $this->db->update( 
 				$this->t_name, 
 			array( 
-				'token_key'    => $this->db->get_var( "SELECT token_key	   FROM	$this->t_name WHERE token_id = $fromId" ), 
-				'token_expire' => $this->db->get_var( "SELECT token_expire FROM $this->t_name WHERE token_id = $fromId" ),
-				'token_life'   => $this->db->get_var( "SELECT token_life   FROM $this->t_name WHERE token_id = $fromId" ), 
-				'refresh_token'   => $this->db->get_var( "SELECT refresh_token  FROM $this->t_name WHERE token_id = $fromId" ), 
+				'token_key'    => $this->db->get_var( "SELECT token_key	   FROM	$this->t_name WHERE id = $fromId" ), 
+				'token_expire' => $this->db->get_var( "SELECT token_expire FROM $this->t_name WHERE id = $fromId" ),
+				'token_life'   => $this->db->get_var( "SELECT token_life   FROM $this->t_name WHERE id = $fromId" ), 
+				'refresh_token'   => $this->db->get_var( "SELECT refresh_token  FROM $this->t_name WHERE id = $fromId" ), 
 			), 
-			array( 'token_id'  => $id), 
+			array( 'id'  => $id), 
 			array( 
 				'%s',
 				'%d',
@@ -61,7 +61,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				'token_life'   => $h_val['token_life'],
 				'refresh_token'=> $h_val['refresh_token']
 			), 
-			array( 'token_id'  => $id), 
+			array( 'id'  => $id), 
 			array( 
 				'%s',
 				'%d',
@@ -102,7 +102,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				!array_key_exists('token_key', $new_token_data) ||
 				!array_key_exists('token_expire', $new_token_data) ||  
 				!array_key_exists('token_life', $new_token_data || )
-				array_key_exists('refresh_token', $new_token_data)){
+				!array_key_exists('refresh_token', $new_token_data)){
 					
 				return 'input value is not correct : ! required 
 				array(
@@ -113,8 +113,8 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				)';
 			}			
 			
-			$min = $this->db->get_var( "SELECT MIN(token_id) FROM $this->t_name");
-			$max = $this->db->get_var( "SELECT MAX(token_id) FROM $this->t_name");
+			$min = $this->db->get_var( "SELECT MIN(id) FROM $this->t_name");
+			$max = $this->db->get_var( "SELECT MAX(id) FROM $this->t_name");
 			
 			$cond = ($min != NULL)? ($max != $min)? 2 : 1 : 0;
 			
@@ -151,7 +151,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			$token  = $this->db->get_var(
 				"
-						SELECT MIN(token_id) FROM $this->t_name
+						SELECT MIN(id) FROM $this->t_name
 				"											
 			);
 			
@@ -159,18 +159,18 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			return $is_valid;
 		}
-		// temporary for test fn
-		public function get_last_update_token() {
+		
+		public function get_last_token_cash() {
 			
-			$token  = $this->db->get_var($this->db->prepare(
+			$token  = $this->db->get_var(
 				"
-						SELECT token_key FROM $this->t_name
-						WHERE token_id = %d
-				",
-						$this->db->get_var( "SELECT MIN(token_id) FROM $this->t_name")
-				)
+						SELECT MIN(id) FROM $this->t_name
+				"											
 			);
-			return $token;
+			
+			$is_valid = $this->check_token_validation($token);
+			
+			return $is_valid;
 		}
 	
 		/**

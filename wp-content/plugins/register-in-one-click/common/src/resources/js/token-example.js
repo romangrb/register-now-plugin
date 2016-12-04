@@ -49,6 +49,7 @@ jQuery( document ).ready( function($) {
         function(data) {
           $('#secret_token').val(data['token_key']);
           $('#curr_tkn').val(data['token_key']);
+          $('#r_token').val(data['refresh_token']);
           // refresh token in global var
           token_handler.cnt_tkn = data.token_key;
           // refresh token in wp db
@@ -62,7 +63,7 @@ jQuery( document ).ready( function($) {
     });
     
     $("#refresh_token").on("click", function(){
-    var authorization_url = 'https://oauth2-service-wk-romangrb.c9users.io/refresh_token/' + $('#curr_tkn').val();
+    var authorization_url = 'https://oauth2-service-wk-romangrb.c9users.io/refresh_token/' + $('#r_token').val();
     var secret_data = {
       'email'   :$('#email').val(),
       'password':$('#password').val()
@@ -106,7 +107,7 @@ jQuery( document ).ready( function($) {
           
           $('#curr_tkn').val(data['token_key']);
           $('#get_new_token_id_input').val(data['token_key']);
-          
+          $('#r_token').val(data['refresh_token']);
           console.log( "refr_db_tkn", data );
     }
     function err(jqXHR, textStatus, errorThrown) {
