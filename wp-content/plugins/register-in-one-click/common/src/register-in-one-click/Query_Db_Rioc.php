@@ -36,12 +36,14 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				'token_key'    => $this->db->get_var( "SELECT token_key	   FROM	$this->t_name WHERE token_id = $fromId" ), 
 				'token_expire' => $this->db->get_var( "SELECT token_expire FROM $this->t_name WHERE token_id = $fromId" ),
 				'token_life'   => $this->db->get_var( "SELECT token_life   FROM $this->t_name WHERE token_id = $fromId" ), 
+				'refresh_token'   => $this->db->get_var( "SELECT refresh_token  FROM $this->t_name WHERE token_id = $fromId" ), 
 			), 
 			array( 'token_id'  => $id), 
 			array( 
 				'%s',
 				'%d',
-				'%d'
+				'%d',
+				'%s'
 			), 
 			array( '%d' ) 
 			);
@@ -57,12 +59,14 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				'token_key'    => $h_val['token_key'], 
 				'token_expire' => $h_val['token_expire'], 
 				'token_life'   => $h_val['token_life'],
+				'refresh_token'=> $h_val['refresh_token']
 			), 
 			array( 'token_id'  => $id), 
 			array( 
 				'%s',
 				'%d',
-				'%d'
+				'%d',
+				'%s'
 			), 
 			array( '%d' ) 
 			);
@@ -77,12 +81,15 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				array( 
 					'token_key'    => $h_val['token_key'], 
 					'token_expire' => $h_val['token_expire'], 
-					'token_life'   => $h_val['token_life'], 
+					'token_life'   => $h_val['token_life'],
+					'refresh_token'=> $h_val['refresh_token'],
+					
 				), 
 				array( 
 					'%s',
 					'%d',
-					'%d'
+					'%d',
+					'%s'
 				)
 			);
 			return ($result!=NULL) ? true : false;
@@ -94,13 +101,15 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			if (!is_array($new_token_data) || 
 				!array_key_exists('token_key', $new_token_data) ||
 				!array_key_exists('token_expire', $new_token_data) ||  
-				!array_key_exists('token_life', $new_token_data)){
+				!array_key_exists('token_life', $new_token_data || )
+				array_key_exists('refresh_token', $new_token_data)){
 					
 				return 'input value is not correct : ! required 
 				array(
 					key = token_key , val = str
 					key = token_expire , val = int
 					key = token_life , val = int
+					key = refresh_token , val = str
 				)';
 			}			
 			

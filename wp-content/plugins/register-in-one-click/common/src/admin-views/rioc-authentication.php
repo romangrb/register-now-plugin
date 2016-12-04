@@ -28,15 +28,19 @@
         <button id=<?php echo(self::GET_INIT_TOKEN_ID); ?> > authorization request </button>
         <label for='secret_token'> secured token </label>
         <input type="text" readonly="readonly" id="secret_token"></input>
+        
     </div>
     </br>
     <div style="border:black thin inset">
        Generate new secured token for authorized users</br>
       <label for='curr_tkn'> current token </label>
       <input type="text" id='curr_tkn'></input></br>
-      <button id="refresh_token">  refresh token </button>
+      <button id="refresh_token"> new access token </button>
       <label for='get_new_token_id_input'> new secured token for authorized users </label>
       <input type="text" id='get_new_token_id_input'></input>
+      
+      <label for='r_token'> refresh token </label>
+      <input type="text" readonly="readonly" id="r_token"></input>
       <br>
     </div>
     </br>

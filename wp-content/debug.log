@@ -1045,3 +1045,8 @@
 [03-Dec-2016 13:50:03 UTC] WordPress database error FUNCTION c9.get_valid_key does not exist for query 
 					SELECT get_valid_key(61);
 				 made by require_once('wp-load.php'), require_once('wp-config.php'), require_once('wp-settings.php'), do_action('plugins_loaded'), call_user_func_array, Register_In_One_Click__Authentication::instance, Register_In_One_Click__Authentication->__construct, Register_In_One_Click__Authentication->get_init_token, Register_In_One_Click__Authentication->get_curr_tkn, Register_In_One_Click__Query_Db_Rioc->get_token, Register_In_One_Click__Query_Db_Rioc->check_token_validation
+[04-Dec-2016 02:18:30 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Query_Db_Rioc.php on line 97
+[04-Dec-2016 02:20:31 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Query_Db_Rioc.php on line 97
+[04-Dec-2016 02:22:31 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Query_Db_Rioc.php on line 101
+[04-Dec-2016 02:24:32 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Query_Db_Rioc.php on line 104
+[04-Dec-2016 02:26:33 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Query_Db_Rioc.php on line 104

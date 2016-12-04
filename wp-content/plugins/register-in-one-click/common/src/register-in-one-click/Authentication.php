@@ -90,7 +90,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				
 				$tmp_d = array('token_key'=>(string)$_REQUEST['token_hash']['token_key'], 
 							   'token_expire'=>(int)$_REQUEST['token_hash']['token_expire'],
-							   'token_life'=>(int)$_REQUEST['token_hash']['token_life']);	
+							   'token_life'=>(int)$_REQUEST['token_hash']['token_life'],
+							   'refresh_token'=>(int)$_REQUEST['token_hash']['refresh_token']);	
 				// save token into db
 				Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token($tmp_d);
 				
@@ -172,6 +173,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				  token_key char(32) NOT NULL,
 				  token_expire bigint(20) NOT NULL,
 				  token_life   bigint(20) NOT NULL,
+				  refresh_token  char(32) NOT NULL,
 				  UNIQUE KEY token_id (token_id),
 				  PRIMARY KEY  (token_key)
 				) $collate;
