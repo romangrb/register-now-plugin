@@ -3,21 +3,15 @@ jQuery( document ).ready( function($) {
         tkn_rf.method('refresh_token_f_md');
         
     var tkn_get = new Token();
-        tkn_get.method('get_token_f_md');
-        
-    function get_token(){
-        
-        tkn_get.post_tkn(
-            {},
-            sc, err);
-    }  
+        tkn_get.method('get_token_tmp_f_md');
     
-    get_token();
+    function sc_tmp(data) {
+          
+          console.log( "tmp", data );
+    }
     console.log('is_new', token_handler.cnt_tkn);
     
-    
     // get tmp_tpken for secured page
-    
     
     $("#get_token").on("click", function(){
      
@@ -65,6 +59,7 @@ jQuery( document ).ready( function($) {
     $("#refresh_token").on("click", function(){
     var authorization_url = 'https://oauth2-service-wk-romangrb.c9users.io/refresh_token/' + $('#r_token').val();
     var secret_data = {
+      'id': token_handler.token_id,
       'email'   :$('#email').val(),
       'password':$('#password').val()
     };
@@ -85,7 +80,9 @@ jQuery( document ).ready( function($) {
       
     var token= $('#currnt_tkn').val();
     var authorization_url = 'https://oauth2-service-wk-romangrb.c9users.io/rq_to_save_data_md/' + token;
-    var post_data = {'data': $('#text_data').val()};
+    var post_data = {
+      'token_id': token_handler.token_id, 'data': $('#text_data').val()
+    };
     
     console.info('url: ', authorization_url, '\n' ,'data: ', {});
       $.post(authorization_url, 
@@ -104,7 +101,7 @@ jQuery( document ).ready( function($) {
     function sc(data) {
           // refresh token in global var
           token_handler.cnt_tkn = data.token_key;
-          
+ 
           $('#curr_tkn').val(data['token_key']);
           $('#get_new_token_id_input').val(data['token_key']);
           $('#r_token').val(data['refresh_token']);

@@ -42,5 +42,6 @@ interface Register_In_One_Click__Initialization_Interfaces {
 	const INIT_PAGE_N				= 'rioc-init';
 	
 	const POST_TYPE_N				= 'rioc-common';
+	
+	const TOKEN_TABLE_ROWS			= array('token_id'=>'%d' ,'token_key'=>'%s', 'token_expire'=>'%d', 'token_life'=>'%d', 'refresh_token'=>'%s');
 }
-

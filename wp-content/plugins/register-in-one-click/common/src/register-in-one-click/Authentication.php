@@ -33,10 +33,10 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 
 			add_action( 'init_rioc_tables', array( __CLASS__, 'install_rioc_tables' ), 5 );
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
-			// add_action( 'wp_footer', array( $this, 'enqueue_script') );
+			add_action( 'wp_footer', array( $this, 'enqueue_script') );
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
-			// add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
-			// add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_f_md') );
+			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
+			add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_tmp_f_md') );
 			// for test init token
 			$this->get_init_token();
 	        
@@ -47,11 +47,11 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			wp_enqueue_script('ajax_token_handler', rioc_resource_url('refresh-tkn.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			wp_localize_script('ajax_token_handler', 'token_handler', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
-				// 'cnt_tkn'  => (array_key_exists('token_key', $this->token))? $this->token['token_key'] : '',
-				// 'token_id'  =>(array_key_exists('token_id', $this->token))? $this->token['token_id'] : '',
-				// 'refresh_token' => (array_key_exists('refresh_token', $this->token))? $this->token['refresh_token'] : '',
-				// 'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
-				'cnt_tkn'  =>  '',
+				'cnt_tkn'  => (array_key_exists('token_key', $this->token))? $this->token['token_key'] : '',
+				'token_id'  =>(array_key_exists('token_id', $this->token))? $this->token['token_id'] : '',
+				'refresh_token' => (array_key_exists('refresh_token', $this->token))? $this->token['refresh_token'] : '',
+				'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
+			
 			));
 			wp_enqueue_script('ajax_token_example', rioc_resource_url('token-example.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			
@@ -71,12 +71,12 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			
 		}
 		
-		public function get_token_f_md() {
+		public function get_token_tmp_f_md() {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
-				// echo json_encode(array('token_key'=>$this->token));
+				echo json_encode($this->token);
 			}
 			die();
 		}
@@ -87,12 +87,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
-				
-				$tmp_d = array('token_key'=>(string)$_REQUEST['token_hash']['token_key'], 
-							   'token_expire'=>(int)$_REQUEST['token_hash']['token_expire'],
-							   'token_life'=>(int)$_REQUEST['token_hash']['token_life'],
-							   'refresh_token'=>(int)$_REQUEST['token_hash']['refresh_token']
-							   );	
+				// compare with standart table rows on db and return only avaible rows values 
+				$tmp_d = array_intersect_key($_REQUEST['token_hash'], self::TOKEN_TABLE_ROWS);
 				// save token into db
 				Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token($tmp_d);
 				

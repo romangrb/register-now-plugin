@@ -9,7 +9,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 	/**
 	 * Class that handles query to wp db
 	 */
-	class Register_In_One_Click__Query_Db_Rioc {
+	class Register_In_One_Click__Query_Db_Rioc implements Register_In_One_Click__Initialization_Interfaces {
 		
 		private static $instance = null;
 		
@@ -33,13 +33,15 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			$result = $this->db->update( 
 				$this->t_name, 
 			array( 
+				'token_id'     => $this->db->get_var( "SELECT token_id	   FROM	$this->t_name WHERE id = $fromId" ), 
 				'token_key'    => $this->db->get_var( "SELECT token_key	   FROM	$this->t_name WHERE id = $fromId" ), 
 				'token_expire' => $this->db->get_var( "SELECT token_expire FROM $this->t_name WHERE id = $fromId" ),
 				'token_life'   => $this->db->get_var( "SELECT token_life   FROM $this->t_name WHERE id = $fromId" ), 
-				'refresh_token'   => $this->db->get_var( "SELECT refresh_token  FROM $this->t_name WHERE id = $fromId" ), 
+				'refresh_token'=> $this->db->get_var( "SELECT refresh_token FROM $this->t_name WHERE id = $fromId" ), 
 			), 
 			array( 'id'  => $id), 
 			array( 
+				'%d',
 				'%s',
 				'%d',
 				'%d',
@@ -51,24 +53,19 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return ($result!=NULL) ? true : false;
 		}
 		
+		// returns index values array with format 
+		private function get_format_rows($array){
+			return array_values(array_intersect_key(self::TOKEN_TABLE_ROWS, $array));
+		}
+		
 		private function update_token($id, $h_val) {
-			
+
 			$result = $this->db->update(
 				$this->t_name, 
-			array( 
-				'token_key'    => $h_val['token_key'], 
-				'token_expire' => $h_val['token_expire'], 
-				'token_life'   => $h_val['token_life'],
-				'refresh_token'=> $h_val['refresh_token']
-			), 
-			array( 'id'  => $id), 
-			array( 
-				'%s',
-				'%d',
-				'%d',
-				'%s'
-			), 
-			array( '%d' ) 
+				$h_val, 
+				array( 'id'  => $id), 
+				$this->get_format_rows($h_val),
+				array( '%d' ) 
 			);
 			
 			return ($result!=NULL) ? true : false;
@@ -78,19 +75,8 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			$result = $this->db->insert(
 				$t_name->t_name, 
-				array( 
-					'token_key'    => $h_val['token_key'], 
-					'token_expire' => $h_val['token_expire'], 
-					'token_life'   => $h_val['token_life'],
-					'refresh_token'=> $h_val['refresh_token'],
-					
-				), 
-				array( 
-					'%s',
-					'%d',
-					'%d',
-					'%s'
-				)
+				$h_val, 
+				$this->get_format_rows($h_val)
 			);
 			return ($result!=NULL) ? true : false;
 		}
@@ -98,19 +84,8 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		public function refresh_token($new_token_data) {
 			
-			if (!is_array($new_token_data) || 
-				!array_key_exists('token_key', $new_token_data) ||
-				!array_key_exists('token_expire', $new_token_data) ||  
-				!array_key_exists('token_life', $new_token_data) || 
-				!array_key_exists('refresh_token', $new_token_data)){
-					
-				return 'input value is not correct : ! required 
-				array(
-					key = token_key , val = str
-					key = token_expire , val = int
-					key = token_life , val = int
-					key = refresh_token , val = str
-				)';
+			if (!is_array($new_token_data)){
+				return '';
 			}			
 			
 			$min = $this->db->get_var( "SELECT MIN(id) FROM $this->t_name");

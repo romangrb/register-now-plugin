@@ -1,7 +1,7 @@
 	var tokenProp = {
     		auth_url : token_handler.ajax_url,
     		refresh_a_name : 'refresh_token_f_md',
-    		get_a_name : 'get_token_f_md',
+    		get_a_name : 'get_token_tmp_f_md',
     	};
     	
 	function Token(){
