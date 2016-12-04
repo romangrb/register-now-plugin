@@ -140,25 +140,12 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			$token  = $this->db->get_var(
 				"
-					SELECT get_valid_key($id);
+					SELECT get_token_cash_d($id);
 				");
 			
 			return $token;
 		}
 		
-		
-		public function get_token() {
-			
-			$token  = $this->db->get_var(
-				"
-						SELECT MIN(id) FROM $this->t_name
-				"											
-			);
-			
-			$is_valid = $this->check_token_validation($token);
-			
-			return $is_valid;
-		}
 		
 		public function get_last_token_cash() {
 			

@@ -58,7 +58,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		
 		public function get_curr_tkn(){
 			
-			// $result = Register_In_One_Click__Query_Db_Rioc::instance()->get_token();
 			$result = Register_In_One_Click__Query_Db_Rioc::instance()->get_last_token_cash();
 			
 			return ($result) ? $result : '';

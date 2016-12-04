@@ -1079,3 +1079,10 @@
 [04-Dec-2016 14:01:23 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Query_Db_Rioc.php on line 104
 [04-Dec-2016 14:09:28 UTC] PHP Parse error:  syntax error, unexpected ')' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Query_Db_Rioc.php on line 104
 [04-Dec-2016 14:11:28 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 50
+[04-Dec-2016 14:13:29 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 50
+[04-Dec-2016 14:15:30 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 50
+[04-Dec-2016 14:17:31 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 50
+[04-Dec-2016 14:19:32 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 50
+[04-Dec-2016 14:41:15 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 50
+[04-Dec-2016 14:42:15 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 50
+[04-Dec-2016 14:44:16 UTC] PHP Parse error:  syntax error, unexpected ',' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/register-in-one-click/Authentication.php on line 50
