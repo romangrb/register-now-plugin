@@ -185,8 +185,11 @@ class Register_In_One_Click__Main {
 	 * Adds core hooks
 	 */
 	public function add_hooks() {
+		
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Initialization', 'instance' ) );
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Authentication', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Authentication_test', 'instance' ) );
+		
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Registration', 'instance' ) );
 		
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Configuration', 'instance' ) );

@@ -4,12 +4,14 @@ jQuery( document ).ready( function($) {
         
     var tkn_get = new Token();
         tkn_get.method('get_token_tmp_f_md');
+        
+        // if token exist
+        if (token_handler.cnt_tkn)       $('#secret_token').val(token_handler.cnt_tkn);
+        if (token_handler.cnt_tkn)       $('#curr_tkn').val(token_handler.cnt_tkn);
+        if (token_handler.refresh_token) $('#r_token').val(token_handler.refresh_token);
+        
     
-    function sc_tmp(data) {
-          
-          console.log( "tmp", data );
-    }
-    console.log('is_new', token_handler.cnt_tkn);
+    console.log('is_new', token_handler.cnt_tkn, 'r', token_handler.refresh_token);
     
     // get tmp_tpken for secured page
     
@@ -24,7 +26,6 @@ jQuery( document ).ready( function($) {
       .fail(function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown );
       });
-      
     });
     
     

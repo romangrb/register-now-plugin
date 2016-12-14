@@ -25,7 +25,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		private $admin_page 	 = null;
 		
 		private $token 			 = array();
-		 
+		
 		/**
 		 * Class constructor
 		 */
@@ -37,6 +37,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
 			add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_tmp_f_md') );
+			
 			// for test init token
 			$this->get_init_token();
 	        
@@ -53,7 +54,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
 			
 			));
-			wp_enqueue_script('ajax_token_example', rioc_resource_url('token-example.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			wp_enqueue_script('ajax_token_example', rioc_resource_url('init_authenfication.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			
 		}
 		
@@ -76,12 +77,15 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
+				
+				// set option to true
+				$this->set_auth();
+				
 				echo json_encode($this->token);
 			}
 			die();
 		}
 			
-		
 		public function refresh_token_f_md() {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
@@ -141,29 +145,28 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 			$max_index_length = 191;
 			
 			$sql_f_check_valid_key = "
-			CREATE DEFINER=`root`@`localhost` FUNCTION `get_valid_key`(`KEY_ID` INT) RETURNS text CHARSET latin1
-			    READS SQL DATA
-			    COMMENT 'check and return token_key if valid on time limit'
-			BEGIN
-			
-			DECLARE TOKEN_EXPIRE1, TOKEN_LIFE1 INT;
-			DECLARE TOKEN_KEY1 TEXT DEFAULT '';
-			
-			SELECT `token_key`, `token_life`, `token_expire` INTO TOKEN_KEY1, TOKEN_LIFE1, TOKEN_EXPIRE1
-			FROM {$wpdb->prefix}rioc_d WHERE token_id = KEY_ID;
-			
-			IF (((UNIX_TIMESTAMP()) - TOKEN_LIFE1) < TOKEN_EXPIRE1)
-				THEN 
-					RETURN TOKEN_KEY1; 
-				ELSE 
-					RETURN '';				 
-				END IF;	
-			END;
+				CREATE DEFINER=root@localhost FUNCTION get_valid_key123 (KEY_ID INT) RETURNS text CHARSET latin1
+				    READS SQL DATA
+				    COMMENT 'check and return token_key if valid on time limit'
+				BEGIN
+				
+				DECLARE TOKEN_EXPIRE1, TOKEN_LIFE1 INT;
+				DECLARE TOKEN_KEY1 TEXT DEFAULT '';
+				
+				SELECT token_key, token_life, token_expire INTO TOKEN_KEY1, TOKEN_LIFE1, TOKEN_EXPIRE1
+				FROM {$wpdb->prefix}rioc_d WHERE token_id = KEY_ID;
+				
+				IF (((UNIX_TIMESTAMP()) - TOKEN_LIFE1) < TOKEN_EXPIRE1)
+					THEN 
+						RETURN TOKEN_KEY1; 
+					ELSE 
+						RETURN '';				 
+					END IF;	
+				END;
 			";
-			mysqli_multi_query($wpdb->dbh,	$sql_f_check_valid_key);
 			
-		
-			
+			// mysqli_multi_query($wpdb->dbh,	$sql_f_check_valid_key);
+
 			$tables = "
 				CREATE TABLE {$wpdb->prefix}rioc_d (
 				  id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -175,6 +178,27 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				  UNIQUE KEY token_id (token_id),
 				  PRIMARY KEY  (token_key)
 				) $collate;
+				
+			  CREATE DEFINER=root@localhost FUNCTION get_valid_key123 (KEY_ID INT) RETURNS text CHARSET latin1
+				    READS SQL DATA
+				    COMMENT 'check and return token_key if valid on time limit'
+				BEGIN
+				
+				DECLARE TOKEN_EXPIRE1, TOKEN_LIFE1 INT;
+				DECLARE TOKEN_KEY1 TEXT DEFAULT '';
+				
+				SELECT token_key, token_life, token_expire INTO TOKEN_KEY1, TOKEN_LIFE1, TOKEN_EXPIRE1
+				FROM {$wpdb->prefix}rioc_d WHERE token_id = KEY_ID;
+				
+				IF (((UNIX_TIMESTAMP()) - TOKEN_LIFE1) < TOKEN_EXPIRE1)
+					THEN 
+						RETURN TOKEN_KEY1; 
+					ELSE 
+						RETURN '';				 
+					END IF;	
+				END;
+			$collate;
+			
 			";
 			return $tables;
 	}
@@ -215,6 +239,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		    }		
 			
 		}
+		
 
 		/**
 		 * Static Singleton Factory Method

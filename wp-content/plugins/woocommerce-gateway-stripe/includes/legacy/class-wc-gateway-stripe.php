@@ -259,7 +259,7 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 					data-description=""
 					data-email="' . esc_attr( $user_email ) . '"
 					data-amount="' . esc_attr( $this->get_stripe_amount( WC()->cart->total ) ) . '"
-					data-name="' . esc_attr( sprintf( __( '%s', 'woocommerce-gateway-stripe' ), get_bloginfo( 'name', 'display' ) ) ) . '"
+					data-name="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '"
 					data-currency="' . esc_attr( strtolower( get_woocommerce_currency() ) ) . '"
 					data-image="' . esc_attr( $this->stripe_checkout_image ) . '"
 					data-bitcoin="' . esc_attr( $this->bitcoin ? 'true' : 'false' ) . '"
@@ -345,7 +345,7 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 			$post_data['source'] = $source->source;
 		}
 
-		return $post_data;
+		return apply_filters( 'wc_stripe_generate_payment_request', $post_data, $order, $source );
 	}
 
 	/**
@@ -361,7 +361,7 @@ class WC_Gateway_Stripe extends WC_Payment_Gateway {
 		// New CC info was entered and we have a new token to process
 		if ( isset( $_POST['stripe_token'] ) ) {
 			$stripe_token     = wc_clean( $_POST['stripe_token'] );
-			$maybe_saved_card = ! isset( $_POST['wc-stripe-new-payment-method'] ) || ! empty( $_POST['wc-stripe-new-payment-method'] );
+			$maybe_saved_card = isset( $_POST['wc-stripe-new-payment-method'] ) && ! empty( $_POST['wc-stripe-new-payment-method'] );
 
 			// This is true if the user wants to store the card to their account.
 			if ( ( $user_id && $this->saved_cards && $maybe_saved_card ) || $force_customer ) {

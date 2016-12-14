@@ -1,5 +1,6 @@
 jQuery( function( $ ) {
-
+	'use strict';
+	
 	/**
 	 * Object to handle Stripe payment forms.
 	 */
@@ -19,6 +20,8 @@ jQuery( function( $ ) {
 
 				// WooCommerce lets us return a false on checkout_place_order_{gateway} to keep the form from submitting
 				.on( 'submit checkout_place_order_stripe' );
+
+			$( document.body ).on( 'checkout_error', this.resetModal );
 		},
 
 		isStripeChosen: function() {
@@ -26,7 +29,8 @@ jQuery( function( $ ) {
 		},
 
 		isStripeModalNeeded: function( e ) {
-			var token = wc_stripe_form.form.find( 'input.stripe_token' );
+			var token = wc_stripe_form.form.find( 'input.stripe_token' ),
+				$required_inputs;
 
 			// If this is a stripe submission (after modal) and token exists, allow submit.
 			if ( wc_stripe_form.stripe_submit && token ) {
@@ -109,7 +113,7 @@ jQuery( function( $ ) {
 
 				StripeCheckout.open({
 					key               : wc_stripe_params.key,
-					address           : false,
+					billingAddress    : 'yes' === wc_stripe_params.stripe_checkout_require_billing_address ? true : false,
 					amount            : $data.data( 'amount' ),
 					name              : $data.data( 'name' ),
 					description       : $data.data( 'description' ),
@@ -117,9 +121,8 @@ jQuery( function( $ ) {
 					image             : $data.data( 'image' ),
 					bitcoin           : $data.data( 'bitcoin' ),
 					locale            : $data.data( 'locale' ),
-					refund_mispayments: true, // for bitcoin payments let Stripe handle refunds if too little is paid
 					email             : $( '#billing_email' ).val() || $data.data( 'email' ),
-					"panel-label"     : $data.data( 'panel-label' ),
+					panelLabel        : $data.data( 'panel-label' ),
 					token             : token_action,
 					closed            : wc_stripe_form.onClose()
 				});
@@ -128,6 +131,11 @@ jQuery( function( $ ) {
 			}
 
 			return true;
+		},
+
+		resetModal: function() {
+			wc_stripe_form.form.find( 'input.stripe_token' ).remove();
+			wc_stripe_form.stripe_submit = false;
 		}
 	};
 

@@ -131,7 +131,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			return $is_valid;
 		}
-	
+		
 		/**
 		 * Static Singleton Factory Method
 		 *
