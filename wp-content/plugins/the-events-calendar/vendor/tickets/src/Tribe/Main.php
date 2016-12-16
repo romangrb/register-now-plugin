@@ -1,20 +1,16 @@
 <?php
 
 class Tribe__Tickets__Main {
-	/**
-	 * Instance of this class for use as singleton
-	 */
-	private static $instance;
 
 	/**
 	 * Current version of this plugin
 	 */
-	const VERSION = '4.2.5dev';
+	const VERSION = '4.3.4';
 
 	/**
 	 * Min required The Events Calendar version
 	 */
-	const MIN_TEC_VERSION = '4.2.2';
+	const MIN_TEC_VERSION = '4.3';
 
 	/**
 	 * Name of the provider
@@ -50,13 +46,38 @@ class Tribe__Tickets__Main {
 	 */
 	private $user_event_confirmation_list_shortcode;
 
+	/**
+	 * @var Tribe__Tickets__Admin__Move_Tickets
+	 */
+	protected $move_tickets;
+
+	/**
+	 * @var Tribe__Tickets__Attendance_Totals
+	 */
+	protected $attendance_totals;
+
+	/**
+	 * @var Tribe__Tickets__Admin__Move_Ticket_Types
+	 */
+	protected $move_ticket_types;
+
+	/**
+	 * @var Tribe__Admin__Activation_Page
+	 */
+	protected $activation_page;
+
 	private $has_initialized = false;
+
+	/**
+	 * Static Singleton Holder
+	 * @var self
+	 */
+	protected static $instance;
 
 	/**
 	 * Get (and instantiate, if necessary) the instance of the class
 	 *
-	 * @static
-	 * @return Tribe__Tickets__Woo__Main
+	 * @return self
 	 */
 	public static function instance() {
 		if ( ! self::$instance ) {
@@ -69,7 +90,7 @@ class Tribe__Tickets__Main {
 	/**
 	 * Class constructor
 	 */
-	public function __construct() {
+	protected function __construct() {
 		/* Set up some parent's vars */
 		$this->plugin_name = 'Tickets';
 		$this->plugin_slug = 'tickets';
@@ -87,17 +108,42 @@ class Tribe__Tickets__Main {
 		$this->maybe_set_common_lib_info();
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ), 0 );
+		register_activation_hook( EVENT_TICKETS_MAIN_PLUGIN_FILE, array( $this, 'on_activation' ) );
+	}
+
+	/**
+	 * Fires when the plugin is activated.
+	 */
+	public function on_activation() {
+		// Set a transient we can use when deciding whether or not to show update/welcome splash pages
+		if ( ! is_network_admin() && ! isset( $_GET['activate-multi'] ) ) {
+			set_transient( '_tribe_tickets_activation_redirect', 1, 30 );
+		}
 	}
 
 	/**
 	 * Finalize the initialization of this plugin
 	 */
 	public function plugins_loaded() {
-		// It's possible we'll have initialized already (if the plugin has been embedded as a vendor lib
-		// within another plugin, for example) in which case we need not repeat the process
+		/**
+		 * It's possible we'll have initialized already (if the plugin has been embedded as a vendor lib
+		 * within another plugin, for example) in which case we need not repeat the process
+		 */
 		if ( $this->has_initialized ) {
 			return;
 		}
+
+		/**
+		 * Before any methods from this plugin are called, we initialize our Autoloading
+		 * After this method we can use any `Tribe__` classes
+		 */
+		$this->init_autoloading();
+
+		/**
+		 * We need Common to be able to load text domains correctly.
+		 * With that in mind we initialize Common passing the plugin Main class as the context
+		 */
+		Tribe__Main::instance( $this )->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
 
 		if (
 			class_exists( 'TribeEvents', false )
@@ -113,28 +159,48 @@ class Tribe__Tickets__Main {
 			return;
 		}
 
-		$this->init_autoloading();
-
-		// initialize the common libraries
-		$this->common();
-
-		Tribe__Main::instance()->load_text_domain( 'event-tickets', $this->plugin_dir . 'lang/' );
-
 		$this->hooks();
+
+		$this->register_active_plugin();
 
 		$this->has_initialized = true;
 
 		$this->rsvp();
-
 		$this->user_event_confirmation_list_shortcode();
+		$this->move_tickets();
+		$this->move_ticket_types();
+		$this->activation_page();
 
-		// Load the Hooks on JSON_LD
 		Tribe__Tickets__JSON_LD__Order::hook();
 
 		/**
 		 * Fires once Event Tickets has completed basic setup.
 		 */
 		do_action( 'tribe_tickets_plugin_loaded' );
+	}
+
+	/**
+	 * Method to initialize Common Object
+	 *
+	 * @deprecated 4.3.4
+	 *
+	 * @return Tribe__Main
+	 */
+	public function common() {
+		return Tribe__Main::instance( $this );
+	}
+
+	/**
+	 * Registers this plugin as being active for other tribe plugins and extensions
+	 *
+	 * @return bool Indicates if Tribe Common wants the plugin to run
+	 */
+	public function register_active_plugin() {
+		if ( ! function_exists( 'tribe_register_plugin' ) ) {
+			return true;
+		}
+
+		return tribe_register_plugin( EVENT_TICKETS_MAIN_PLUGIN_FILE, __CLASS__, self::VERSION );
 	}
 
 	/**
@@ -194,16 +260,21 @@ class Tribe__Tickets__Main {
 	}
 
 	/**
-	 * Common library object accessor method
+	 * Set the Event Tickets version in the options table if it's not already set.
 	 */
-	public function common() {
-		static $common;
+	public function maybe_set_et_version() {
+		if ( version_compare( Tribe__Settings_Manager::get_option( 'latest_event_tickets_version' ), self::VERSION, '<' ) ) {
+			$previous_versions = Tribe__Settings_Manager::get_option( 'previous_event_tickets_versions' )
+				? Tribe__Settings_Manager::get_option( 'previous_event_tickets_versions' )
+				: array();
 
-		if ( ! $common ) {
-			$common = new Tribe__Main( $this );
+			$previous_versions[] = Tribe__Settings_Manager::get_option( 'latest_event_tickets_version' )
+				? Tribe__Settings_Manager::get_option( 'latest_event_tickets_version' )
+				: '0';
+
+			Tribe__Settings_Manager::set_option( 'previous_event_tickets_versions', $previous_versions );
+			Tribe__Settings_Manager::set_option( 'latest_event_tickets_version', self::VERSION );
 		}
-
-		return $common;
 	}
 
 	/**
@@ -226,7 +297,7 @@ class Tribe__Tickets__Main {
 		require_once $this->plugin_path . 'src/template-tags/tickets.php';
 
 		// deprecated classes are registered in a class to path fashion
-		foreach ( glob( $this->plugin_path . '{common/src,src}/deprecated/*.php', GLOB_BRACE ) as $file ) {
+		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
 			$class_name = str_replace( '.php', '', basename( $file ) );
 			$autoloader->register_class( $class_name, $file );
 		}
@@ -255,12 +326,33 @@ class Tribe__Tickets__Main {
 		add_action( 'tribe_events_embed_after_the_cost_value', array( $this, 'inject_buy_button_into_oembed' ) );
 		add_action( 'embed_head', array( $this, 'embed_head' ) );
 
+		// Attendee screen enhancements
+		add_action( 'tribe_events_tickets_attendees_event_details_top', array( $this, 'setup_attendance_totals' ), 20 );
+
 		// CSV Import options
 		if ( class_exists( 'Tribe__Events__Main' ) ) {
 			add_filter( 'tribe_events_import_options_rows', array( Tribe__Tickets__CSV_Importer__Rows::instance(), 'filter_import_options_rows' ) );
-			add_filter( 'tribe_event_import_rsvp_column_names', array( Tribe__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
+			add_filter( 'tribe_aggregator_csv_post_types', array( Tribe__Tickets__CSV_Importer__Rows::instance(), 'filter_csv_post_types' ) );
+			add_filter( 'tribe_aggregator_csv_column_mapping', array( Tribe__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_mapping' ) );
+			add_filter( 'tribe_event_import_rsvp_tickets_column_names', array( Tribe__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
+			add_filter( 'tribe_events_import_rsvp_tickets_importer', array( 'Tribe__Tickets__CSV_Importer__RSVP_Importer', 'instance' ), 10, 2 );
+			add_action( 'tribe_tickets_ticket_deleted', array( 'Tribe__Tickets__Attendance', 'delete_attendees_caches' ) );
+
+			/**
+			 * Hooking to "rsvp" to fetch an importer to fetch Column names is deprecated
+			 *
+			 * These are kept in place during the transition from the old CSV importer to the new importer
+			 * driven by Event Aggregator. We should remove these hooks when the old CSV interface gets
+			 * retired completely.
+			 *
+			 * @todo remove these two hooks when the old CSV interface is retired, maybe 5.0?
+			 */
 			add_filter( 'tribe_events_import_rsvp_importer', array( 'Tribe__Tickets__CSV_Importer__RSVP_Importer', 'instance' ), 10, 2 );
+			add_filter( 'tribe_event_import_rsvp_column_names', array( Tribe__Tickets__CSV_Importer__Column_Names::instance(), 'filter_rsvp_column_names' ) );
 		}
+
+		// Caching
+		Tribe__Tickets__Cache__Central::instance()->hook();
 	}
 
 	/**
@@ -383,12 +475,10 @@ class Tribe__Tickets__Main {
 	public function init() {
 		// Provide continued support for legacy ticketing modules
 		$this->legacy_provider_support = new Tribe__Tickets__Legacy_Provider_Support;
-
 		$this->settings_tab();
-
 		$this->tickets_view();
-
 		Tribe__Credits::init();
+		$this->maybe_set_et_version();
 	}
 
 	/**
@@ -420,6 +510,71 @@ class Tribe__Tickets__Main {
 		}
 
 		return $this->user_event_confirmation_list_shortcode;
+	}
+
+	/**
+	 * @return Tribe__Tickets__Admin__Move_Tickets
+	 */
+	public function move_tickets() {
+		if ( empty( $this->move_tickets ) ) {
+			$this->move_tickets = new Tribe__Tickets__Admin__Move_Tickets;
+			$this->move_tickets->setup();
+		}
+
+		return $this->move_tickets;
+	}
+
+	/**
+	 * @return Tribe__Tickets__Admin__Move_Ticket_Types
+	 */
+	public function move_ticket_types() {
+		if ( empty( $this->move_ticket_types ) ) {
+			$this->move_ticket_types = new Tribe__Tickets__Admin__Move_Ticket_Types;
+			$this->move_ticket_types->setup();
+		}
+
+		return $this->move_ticket_types;
+	}
+
+	/**
+	 * @return Tribe__Admin__Activation_Page
+	 */
+	public function activation_page() {
+		if ( empty( $this->activation_page ) ) {
+			$this->activation_page = new Tribe__Admin__Activation_Page( array(
+				'slug'                  => 'event-tickets',
+				'version'               => self::VERSION,
+				'activation_transient'  => '_tribe_tickets_activation_redirect',
+				'plugin_path'           => $this->plugin_dir . 'event-tickets.php',
+				'version_history_slug'  => 'previous_event_tickets_versions',
+				'welcome_page_title'    => __( 'Welcome to Event Tickets', 'event-tickets' ),
+				'welcome_page_template' => $this->plugin_path . 'src/admin-views/admin-welcome-message.php',
+			) );
+		}
+
+		return $this->activation_page;
+	}
+
+	/**
+	 * Adds RSVP attendance totals to the summary box of the attendance
+	 * screen.
+	 *
+	 * Expects to fire during 'tribe_tickets_attendees_page_inside', ie
+	 * before the attendee screen is rendered.
+	 */
+	public function setup_attendance_totals() {
+		$this->attendance_totals()->integrate_with_attendee_screen();
+	}
+
+	/**
+	 * @return Tribe__Tickets__Attendance_Totals
+	 */
+	public function attendance_totals() {
+		if ( empty( $this->attendance_totals ) ) {
+			$this->attendance_totals = new Tribe__Tickets__Attendance_Totals;
+		}
+
+		return $this->attendance_totals;
 	}
 
 	/**
@@ -527,7 +682,7 @@ class Tribe__Tickets__Main {
 			return;
 		}
 
-		$button_text = $has_non_rsvp ? __( 'Buy', 'event-tickets' ) : __( 'RSVP', 'event-tickets' );
+		$button_text = $has_non_rsvp ? __( 'Buy', 'event-tickets' ) : _x( 'RSVP', 'button text', 'event-tickets' );
 		/**
 		 * Filters the text that appears in the buy/rsvp button on event oembeds
 		 *
@@ -564,4 +719,5 @@ class Tribe__Tickets__Main {
 		<link rel="stylesheet" id="tribe-tickets-embed-css" href="<?php echo esc_url( $css_path ); ?>" type="text/css" media="all">
 		<?php
 	}
+
 }

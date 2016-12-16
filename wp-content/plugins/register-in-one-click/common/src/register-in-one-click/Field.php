@@ -206,7 +206,7 @@ if ( ! class_exists( 'Register_In_One_Click__Field' ) ) {
 				} else {
 
 					// fail, log the error
-					Register_In_One_Click__Main::debug( esc_html__( 'Invalid field type specified', 'rioc-common' ), $this->type, 'notice' );
+					// Register_In_One_Click__Main::debug( esc_html__( 'Invalid field type specified', 'rioc-common' ), $this->type, 'notice' );
 
 				}
 			}

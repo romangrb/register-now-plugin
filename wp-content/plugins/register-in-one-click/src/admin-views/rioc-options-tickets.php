@@ -64,7 +64,7 @@ $tickets_tab = array(
 				'html' => '<h3>' . __( 'Login requirements', 'event-tickets' ) . '</h3>',
 			),
 			'ticket-authentication-requirements-advice' => array(
-				'type' => 'html',
+				'type' => 'htlml',
 				'html' => '<p>' . sprintf(
 						__( 'You can require that users log into your site before they are able to RSVP (or buy tickets). Please review your WordPress Membership option (via the General Settings admin screen) before adjusting this setting.', 'event-tickets' ),
 						'<a href="' . get_admin_url( null, 'options-general.php' ) . '" target="_blank">',

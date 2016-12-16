@@ -298,9 +298,9 @@ class Register_In_One_Click__Tickets__Main {
 		add_filter( 'rioc_post_types', array( $this, 'inject_post_types' ) );
 
 		// Setup Help Tab texting
-		add_action( 'rioc_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
-		add_action( 'rioc_help_pre_get_sections', array( $this, 'add_help_section_featured_content' ) );
-		add_action( 'rioc_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
+		// add_action( 'rioc_help_pre_get_sections', array( $this, 'add_help_section_support_content' ) );
+		// add_action( 'rioc_help_pre_get_sections', array( $this, 'add_help_section_featured_content' ) );
+		// add_action( 'rioc_help_pre_get_sections', array( $this, 'add_help_section_extra_content' ) );
 		add_filter( 'rioc_support_registered_template_systems', array( $this, 'add_template_updates_check' ) );
 		add_action( 'plugins_loaded', array( 'Register_In_One_Click__Support', 'getInstance' ) );
 		add_action( 'rioc_events_single_event_after_the_meta', array( $this, 'add_linking_archor' ), 5 );
@@ -357,17 +357,7 @@ class Register_In_One_Click__Tickets__Main {
 		 * @var array
 		 */
 		$this->postTypeArgs['labels'] = apply_filters( 'rioc_post_type_labels', array(
-			// 'name'               => '11',
-			// 'singular_name'      => '12',
-			// 'add_new'            => '13',
-			// 'add_new_item'       => '14',
-			// 'edit_item'          => '15',
-			// 'new_item'           => '16',
-			// 'view_item'          => '17',
-			// 'search_items'       => '18',
-			// 'not_found'          => '19',
-			// 'not_found_in_trash' => '20',
-			
+
 			'name'               => $this->pluginName,
 			'singular_name'      => $this->pluginName,
 			'add_new'            => sprintf( esc_html__( 'Add New %s', 'rioc' ), $this->singular_event_label ),
@@ -386,17 +376,7 @@ class Register_In_One_Click__Tickets__Main {
 		 * @var array
 		 */
 		$this->taxonomyLabels = apply_filters( 'rioc_taxonomy_labels', array(
-			// 'name'          	=> '1',
-			// 'singular_name'     => '2',
-			// 'search_items'      => '3',
-			// 'all_items'         => '4',
-			// 'parent_item'       => '5',
-			// 'parent_item_colon' => '6',
-			// 'edit_item'         => '7',
-			// 'update_item'       => '8',
-			// 'add_new_item'      => '9',
-			// 'new_item_name'     => '0',
-			
+
 			'name'              => sprintf( esc_html__( '%s Categories', 'rioc' ), $this->singular_event_label ),
 			'singular_name'     => sprintf( esc_html__( '%s Category', 'rioc' ), $this->singular_event_label ),
 			'search_items'      => sprintf( esc_html__( 'Search %s Categories', 'rioc' ), $this->singular_event_label ),

@@ -17,25 +17,69 @@ class Tribe__Main {
 	const OPTIONNAME          = 'tribe_events_calendar_options';
 	const OPTIONNAMENETWORK   = 'tribe_events_calendar_network_options';
 
-	const VERSION           = '4.2.4dev';
-	const FEED_URL          = 'https://theeventscalendar.com/feed/';
+	const VERSION             = '4.3.4';
+	const FEED_URL            = 'https://theeventscalendar.com/feed/';
 
 	protected $plugin_context;
 	protected $plugin_context_class;
 	protected $doing_ajax = false;
 	protected $log;
 
+	/**
+	 * Manages PUE license key notifications.
+	 *
+	 * It's important for the sanity of our users that only one instance of this object
+	 * be created. However, multiple Tribe__Main objects can and will be instantiated, hence
+	 * why for the time being we need to make this field static.
+	 *
+	 * @see https://central.tri.be/issues/65755
+	 *
+	 * @var Tribe__PUE__Notices
+	 */
+	protected static $pue_notices;
+
 	public static $tribe_url = 'http://tri.be/';
-	public static $tec_url = 'http://theeventscalendar.com/';
+	public static $tec_url = 'https://theeventscalendar.com/';
 
 	public $plugin_dir;
 	public $plugin_path;
 	public $plugin_url;
 
 	/**
-	 * constructor
+	 * Static Singleton Holder
+	 * @var self
+	 */
+	protected static $instance;
+
+	/**
+	 * Get (and instantiate, if necessary) the instance of the class
+	 *
+	 * @param  mixed $context An instance of the Main class of the plugin that instantiated Common
+	 *
+	 * @return self
+	 */
+	public static function instance( $context = null ) {
+		if ( ! self::$instance ) {
+			self::$instance = new self( $context );
+		}
+
+		return self::$instance;
+	}
+
+	/**
+	 * Constructor for Common Class
+	 *
+	 * @access public
+	 * We are using a `public` constructor here for backwards compatibility.
+	 *
+	 * The way our code used to work we would have `new Tribe__Main()` called directly
+	 * which causes fatals if you have an older version of Core/Tickets active along side a new one
 	 */
 	public function __construct( $context = null ) {
+		if ( self::$instance ) {
+			return;
+		}
+
 		if ( is_object( $context ) ) {
 			$this->plugin_context = $context;
 			$this->plugin_context_class = get_class( $context );
@@ -43,16 +87,26 @@ class Tribe__Main {
 
 		$this->plugin_path = trailingslashit( dirname( dirname( dirname( __FILE__ ) ) ) );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );
-		$this->plugin_url  = plugins_url( $this->plugin_dir );
+
+		$parent_plugin_dir = trailingslashit( plugin_basename( $this->plugin_path ) );
+
+		$this->plugin_url  = plugins_url( $parent_plugin_dir === $this->plugin_dir ? $this->plugin_dir : $parent_plugin_dir );
 
 		$this->load_text_domain( 'tribe-common', basename( dirname( dirname( dirname( dirname( __FILE__ ) ) ) ) ) . '/common/lang/' );
 
 		$this->init_autoloading();
-
 		$this->init_libraries();
 		$this->add_hooks();
 
 		$this->doing_ajax = defined( 'DOING_AJAX' ) && DOING_AJAX;
+
+		Tribe__Extension_Loader::instance();
+		/**
+		 * Runs once all common libs are loaded and initial hooks are in place.
+		 *
+		 * @since 4.3
+		 */
+		do_action( 'tribe_common_loaded' );
 	}
 
 	/**
@@ -63,6 +117,13 @@ class Tribe__Main {
 	}
 
 	/**
+	 * Get's the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
+	 */
+	public function context_class() {
+		return $this->plugin_context_class;
+	}
+
+	/**
 	 * Setup the autoloader for common files
 	 */
 	protected function init_autoloading() {
@@ -70,17 +131,17 @@ class Tribe__Main {
 			require_once dirname( __FILE__ ) . '/Autoloader.php';
 		}
 
-		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
 		$autoloader = Tribe__Autoloader::instance();
-		$autoloader->register_prefixes( $prefixes );
-		$autoloader->register_autoloader();
-	}
 
-	/**
-	 * Get's the class name of the instantiated plugin context of this class. I.e. the class name of the object that instantiated this one.
-	 */
-	public function context_class() {
-		return $this->plugin_context_class;
+		$prefixes = array( 'Tribe__' => dirname( __FILE__ ) );
+		$autoloader->register_prefixes( $prefixes );
+
+		foreach ( glob( $this->plugin_path . 'src/deprecated/*.php' ) as $file ) {
+			$class_name = str_replace( '.php', '', basename( $file ) );
+			$autoloader->register_class( $class_name, $file );
+		}
+
+		$autoloader->register_autoloader();
 	}
 
 	/**
@@ -89,7 +150,9 @@ class Tribe__Main {
 	public function init_libraries() {
 		Tribe__Debug::instance();
 		Tribe__Settings_Manager::instance();
+		$this->pue_notices();
 
+		require_once $this->plugin_path . 'src/functions/utils.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/general.php';
 		require_once $this->plugin_path . 'src/functions/template-tags/date.php';
 
@@ -100,65 +163,91 @@ class Tribe__Main {
 	/**
 	 * Registers resources that can/should be enqueued
 	 */
-	public function register_resources() {
-		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
-
-		wp_register_style(
-			'tribe-common-admin',
-			$resources_url . '/css/tribe-common-admin.css',
-			array(),
-			apply_filters( 'tribe_events_css_version', self::VERSION )
-		);
-
-		wp_register_script(
-			'ba-dotimeout',
-			$resources_url . '/js/jquery.ba-dotimeout.js',
+	public function load_assets() {
+		// These ones are only registred
+		tribe_assets(
+			$this,
 			array(
-				'jquery',
-			),
-			apply_filters( 'tribe_events_css_version', self::VERSION ),
-			true
+				array( 'tribe-clipboard', 'vendor/clipboard/clipboard.js' ),
+				array( 'datatables', 'vendor/datatables/media/js/jquery.dataTables.js', array( 'jquery' ) ),
+				array( 'datatables-css', 'datatables.css' ),
+				array( 'datatables-responsive', 'vendor/datatables/extensions/Responsive/js/dataTables.responsive.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-responsive-css', 'vendor/datatables/extensions/Responsive/css/responsive.dataTables.css' ),
+				array( 'datatables-select', 'vendor/datatables/extensions/Select/js/dataTables.select.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-select-css', 'vendor/datatables/extensions/Select/css/select.dataTables.css' ),
+				array( 'datatables-scroller', 'vendor/datatables/extensions/Scroller/js/dataTables.scroller.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-scroller-css', 'vendor/datatables/extensions/Scroller/css/scroller.dataTables.css' ),
+				array( 'datatables-fixedheader', 'vendor/datatables/extensions/FixedHeader/js/dataTables.fixedHeader.js', array( 'jquery', 'datatables' ) ),
+				array( 'datatables-fixedheader-css', 'vendor/datatables/extensions/FixedHeader/css/fixedHeader.dataTables.css' ),
+				array( 'tribe-datatables', 'tribe-datatables.js', array( 'datatables', 'datatables-select' ) ),
+				array( 'tribe-bumpdown', 'bumpdown.js', array( 'jquery', 'underscore', 'hoverIntent' ) ),
+				array( 'tribe-bumpdown-css', 'bumpdown.css' ),
+			)
 		);
 
-		wp_register_script(
-			'tribe-inline-bumpdown',
-			$resources_url . '/js/inline-bumpdown.js',
+		// These ones will be enqueued on `admin_enqueue_scripts` if the conditional method on filter is met
+		tribe_assets(
+			$this,
 			array(
-				'ba-dotimeout',
+				array( 'tribe-common-admin', 'tribe-common-admin.css', array( 'tribe-dependency-style', 'tribe-bumpdown-css' ) ),
+				array( 'tribe-dependency', 'dependency.js', array( 'jquery', 'underscore' ) ),
+				array( 'tribe-dependency-style', 'dependency.css' ),
+				array( 'tribe-pue-notices', 'pue-notices.js', array( 'jquery' ) ),
+				array( 'tribe-jquery-ui-theme', 'vendor/jquery/ui.theme.css' ),
+				array( 'tribe-jquery-ui-datepicker', 'vendor/jquery/ui.datepicker.css' ),
 			),
-			apply_filters( 'tribe_events_css_version', self::VERSION ),
-			true
+			'admin_enqueue_scripts',
+			array(
+				'filter' => array( Tribe__Admin__Helpers::instance(), 'is_post_type_screen' ),
+				'localize' => (object) array(
+					'name' => 'tribe_system_info',
+					'data' => array(
+						'sysinfo_optin_nonce'   => wp_create_nonce( 'sysinfo_optin_nonce' ),
+						'clipboard_btn_text'    => __( 'Copy to clipboard', 'tribe-common' ),
+						'clipboard_copied_text' => __( 'System info copied', 'tribe-common' ),
+						'clipboard_fail_text'   => __( 'Press "Cmd + C" to copy', 'tribe-common' ),
+					),
+				),
+			)
 		);
 
-		wp_register_script(
-			'tribe-notice-dismiss',
-			$resources_url . '/js/notice-dismiss.js',
-			array( 'jquery' ),
-			apply_filters( 'tribe_events_css_version', self::VERSION ),
-			true
+		tribe_asset(
+			$this,
+			'tribe-common',
+			'tribe-common.js',
+			array( 'tribe-clipboard' ),
+			'admin_enqueue_scripts',
+			array(
+				'localize' => array(
+					'name' => 'tribe_l10n_datatables',
+					'data' => array(
+						'aria' => array(
+							'sort_ascending' => __( ': activate to sort column ascending', 'tribe-common' ),
+							'sort_descending' => __( ': activate to sort column descending', 'tribe-common' ),
+						),
+						'length_menu'   => __( 'Show _MENU_ entries', 'tribe-common' ),
+						'empty_table'   => __( 'No data available in table', 'tribe-common' ),
+						'info'          => __( 'Showing _START_ to _END_ of _TOTAL_ entries', 'tribe-common' ),
+						'info_empty'    => __( 'Showing 0 to 0 of 0 entries', 'tribe-common' ),
+						'info_filtered' => __( '(filtered from _MAX_ total entries)', 'tribe-common' ),
+						'zero_records'  => __( 'No matching records found', 'tribe-common' ),
+						'search'        => __( 'Search:', 'tribe-common' ),
+						'pagination' => array(
+							'all' => __( 'All', 'tribe-common' ),
+							'next' => __( 'Next', 'tribe-common' ),
+							'previous' => __( 'Previous', 'tribe-common' ),
+						),
+						'select' => array(
+							'rows' => array(
+								0 => '',
+								'_' => __( ': Selected %d rows', 'tribe-common' ),
+								1 => __( ': Selected 1 row', 'tribe-common' ),
+							),
+						),
+					),
+				),
+			)
 		);
-	}
-
-	/**
-	 * Registers vendor assets that can/should be enqueued
-	 */
-	public function register_vendor() {
-		$vendor_base = plugins_url( 'vendor', dirname( dirname( __FILE__ ) ) );
-
-		wp_register_style(
-			'tribe-jquery-ui-theme',
-			$vendor_base . '/jquery/ui.theme.css',
-			array(),
-			apply_filters( 'tribe_events_css_version', self::VERSION )
-		);
-
-		wp_register_style(
-			'tribe-jquery-ui-datepicker',
-			$vendor_base . '/jquery/ui.datepicker.css',
-			array( 'tribe-jquery-ui-theme' ),
-			apply_filters( 'tribe_events_css_version', self::VERSION )
-		);
-
 	}
 
 	/**
@@ -166,13 +255,37 @@ class Tribe__Main {
 	 */
 	public function add_hooks() {
 		add_action( 'plugins_loaded', array( 'Tribe__App_Shop', 'instance' ) );
+		add_action( 'plugins_loaded', array( 'Tribe__Assets', 'instance' ), 1 );
+		add_action( 'plugins_loaded', array( $this, 'tribe_plugins_loaded' ), PHP_INT_MAX );
 
-		// Register for the assets to be availble everywhere
-		add_action( 'init', array( $this, 'register_resources' ), 1 );
-		add_action( 'init', array( $this, 'register_vendor' ), 1 );
+		// Register for the assets to be available everywhere
+		add_action( 'init', array( $this, 'load_assets' ), 1 );
+		add_action( 'plugins_loaded', array( 'Tribe__Admin__Notices', 'instance' ), 1 );
+		add_action( 'admin_enqueue_scripts', array( $this, 'store_admin_notices' ) );
 
-		// Enqueue only when needed (admin)
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
+		add_filter( 'body_class', array( $this, 'add_js_class' ) );
+		add_action( 'wp_footer', array( $this, 'toggle_js_class' ) );
+	}
+
+	public function add_js_class( $classes = array() ) {
+		if ( ! is_array( $classes ) ) {
+			$classes = explode( ' ', $classes );
+		}
+
+		$classes[] = 'tribe-no-js';
+
+		return array_filter( array_unique( $classes ) );
+	}
+
+	public function toggle_js_class() {
+		?>
+		<script>
+		( function ( body ) {
+			'use strict';
+			body.className = body.className.replace( /\btribe-no-js\b/, 'tribe-js' );
+		} )( document.body );
+		</script>";
+		<?php
 	}
 
 	/**
@@ -214,22 +327,22 @@ class Tribe__Main {
 		return $loaded;
 	}
 
-	public function admin_enqueue_scripts() {
-		wp_enqueue_script( 'tribe-inline-bumpdown' );
-		wp_enqueue_script( 'tribe-notice-dismiss' );
-		wp_enqueue_style( 'tribe-common-admin' );
-
-		$helper = Tribe__Admin__Helpers::instance();
-		if ( $helper->is_post_type_screen() ) {
-			wp_enqueue_style( 'tribe-jquery-ui-datepicker' );
-		}
-	}
-
 	/**
 	 * @return Tribe__Log
 	 */
 	public function log() {
 		return $this->log;
+	}
+
+	/**
+	 * @return Tribe__PUE__Notices
+	 */
+	public function pue_notices() {
+		if ( empty( self::$pue_notices ) ) {
+			self::$pue_notices = new Tribe__PUE__Notices;
+		}
+
+		return self::$pue_notices;
 	}
 
 	/**
@@ -322,17 +435,26 @@ class Tribe__Main {
 	}
 
 	/**
-	 * Static Singleton Factory Method
+	 * Adds a hook
 	 *
-	 * @return Tribe__Main
 	 */
-	public static function instance() {
-		static $instance;
-
-		if ( ! $instance ) {
-			$instance = new self;
+	public function store_admin_notices( $page ) {
+		if ( 'plugins.php' !== $page ) {
+			return;
 		}
+		$notices = apply_filters( 'tribe_plugin_notices', array() );
+		wp_localize_script( 'tribe-pue-notices', 'tribe_plugin_notices', $notices );
+	}
 
-		return $instance;
+	/**
+	 * Runs tribe_plugins_loaded action, should be hooked to the end of plugins_loaded
+	 */
+	public function tribe_plugins_loaded() {
+		/**
+		 * Runs after all plugins including Tribe ones have loaded
+		 *
+		 * @since 4.3
+		 */
+		do_action( 'tribe_plugins_loaded' );
 	}
 }

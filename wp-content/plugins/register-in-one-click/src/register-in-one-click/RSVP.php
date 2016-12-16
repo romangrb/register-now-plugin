@@ -700,12 +700,12 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			return false;
 		}
 		
-		// update_post_meta( $ticket->ID, '_stock', (int) $raw_data['ticket_rsvp_stock'] );
+		update_post_meta( $ticket->ID, '_stock', (int) $raw_data['ticket_rsvp_stock'] );
 		update_post_meta( $ticket->ID, '_price', $ticket->price );
 		
 		if ( $raw_data['ticket_rsvp_stock'] !== '') {
 			$stock = (int) $raw_data['ticket_rsvp_stock'];
-			// $stock_stat = update_post_meta( $ticket->ID, '_stock', $stock, true );
+			$stock_stat = update_post_meta( $ticket->ID, '_stock', $stock, true );
 			update_post_meta( $ticket->ID, '_manage_stock', 'yes' );
 			update_post_meta( $ticket->ID, '_stock_fx', $stock );
 		} else {
