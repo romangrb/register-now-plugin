@@ -144,7 +144,6 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 	public function __construct() {
 		$main = Register_In_One_Click__Tickets__Main::instance();
 
-		/* Set up some parent's vars */
 		$this->pluginName = 'RSVP';
 		$this->pluginPath = $main->plugin_path;
 		$this->pluginUrl = $main->plugin_url;
@@ -667,10 +666,9 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 	public function save_ticket( $event_id, $ticket, $raw_data = array() ) {
 		// assume we are updating until we find out otherwise
 		$save_type = 'update';
-
 		if ( empty( $ticket->ID ) ) {
 			$save_type = 'create';
-
+		
 			/* Create main product post */
 			$args = array(
 				'post_status'  => 'publish',
@@ -728,6 +726,34 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			delete_post_meta( $ticket->ID, '_ticket_end_date' );
 			delete_post_meta( $ticket->ID, '_EventEndDate' );
 		}
+		
+		
+		// if ( isset( $ticket->event_enabled ) ) {
+		// 	update_post_meta( $ticket->ID, '_event_enabled', $ticket->event_enabled );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_event_enabled' );
+		// }
+		
+		update_post_meta( $ticket->ID, '_event_enabled', $ticket);
+		
+		if ( isset( $ticket->primary_key ) ) {
+			update_post_meta( $ticket->ID, '_primary_key', $raw_data->primary_key );
+		} else {
+			delete_post_meta( $ticket->ID, '_primary_key' );
+		}
+			
+		if ( isset( $raw_data->message1 ) ) {
+			update_post_meta( $ticket->ID, '_message1', $raw_data->message1 );
+		} else {
+			delete_post_meta( $ticket->ID, '_message1' );
+		}
+		
+		if ( isset( $raw_data->message2 ) ) {
+			update_post_meta( $ticket->ID, '_message2', $raw_data->message2 );
+		} else {
+			delete_post_meta( $ticket->ID, '_message2' );
+		}
+		
 
 		/**
 		 * Generic action fired after saving a ticket (by type)
@@ -908,6 +934,12 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		$return->end_date       = get_post_meta( $ticket_id, '_ticket_end_date', true );
 
 		$return->manage_stock( 'yes' === get_post_meta( $ticket_id, '_manage_stock', true ) );
+		// new test 
+		$return->primery_key    = get_post_meta( $ticket_id, '_primery_key', true );
+		$return->event_enabled  = get_post_meta( $ticket_id, '_event_enabled', true );
+		$return->message1       = get_post_meta( $ticket_id, '_message1', true );
+		$return->message2       = get_post_meta( $ticket_id, '_message2', true );
+		
 		$return->stock( get_post_meta( $ticket_id, '_stock', true ) - $qty );
 		$return->qty_sold( $qty );
 

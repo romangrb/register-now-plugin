@@ -533,6 +533,8 @@ class Register_In_One_Click__Tickets__Main {
 		return Register_In_One_Click__Tickets__RSVP::get_instance();
 	}
 
+
+
 	/**
 	 * Creates the Tickets FrontEnd facing View class
 	 *

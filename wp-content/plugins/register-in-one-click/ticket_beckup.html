@@ -1,64 +1,15 @@
 <?php
-/**
- * @var WP_Post $post
- * @var bool $show_global_stock
- * @var Register_In_One_Click__Tickets__Global_Stock $global_stock
- */
 
 // Don't load directly
 if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$header_id  = get_post_meta( get_the_ID(), $this->image_header_field, true );
-$header_id  = ! empty( $header_id ) ? $header_id : '';
-$header_img = '';
-if ( ! empty( $header_id ) ) {
-	$header_img = wp_get_attachment_image( $header_id, 'full' );
-}
-
-$modules = Register_In_One_Click__Tickets__Tickets::modules();
 ?>
 
 <table id="event_tickets" class="eventtable">
-	<?php
-	wp_nonce_field( 'rioc-tickets-meta-box', 'rioc-tickets-post-settings' );
-
-	if ( get_post_meta( get_the_ID(), '_EventOrigin', true ) === 'community-events' ) {
-		?>
-		<tr>
-			<td colspan="2" class="rioc_sectionheader updated">
-				<p class="error-message"><?php esc_html_e( 'This event was created using Community Events. Are you sure you want to sell tickets for it?', 'event-tickets' ); ?></p>
-			</td>
-		</tr>
-	<?php
-	}
-	?>
-	<tr class="event-wide-settings">
-		<td colspan="2" class="rioc_sectionheader updated">
-			<table class="eventtable ticket_list eventForm">
-				<tr class="rioc-tickets-image-upload">
-					<td>
-						<?php esc_html_e( 'Upload image for the ticket header.', 'event-tickets' ); ?>
-						<p class="description"><?php esc_html_e( 'The maximum image size in the email will be 580px wide by any height, and then scaled for mobile. If you would like "retina" support use an image sized to 1160px wide.', 'event-tickets' ); ?></p>
-					</td>
-					<td>
-						<input type="button" class="button" name="rioc_ticket_header_image" id="rioc_ticket_header_image" value="<?php esc_html_e( 'Select an Image', 'event-tickets' ); ?>" />
-					</td>
-				</tr>
-				<tr class="rioc-tickets-image-preview">
-					<td colspan="2">
-						<div class="rioc_preview" id="rioc_ticket_header_preview">
-							<?php echo $header_img; ?>
-						</div>
-						<p class="description"><a href="#" id="rioc_ticket_header_remove"><?php esc_html_e( 'Remove', 'event-tickets' ); ?></a></p>
-
-						<input type="hidden" id="rioc_ticket_header_image_id" name="rioc_ticket_header_image_id" value="<?php echo esc_attr( $header_id ); ?>" />
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr>
+	
+	
 	<?php if ( $show_global_stock ): ?>
 		<tr id="rioc-global-stock-settings" class="event-wide-settings">
 			<td colspan="2">
@@ -116,61 +67,39 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 		<td colspan="2" class="rioc_sectionheader">
 			<div id="rioc-loading"><span></span></div>
 			<table id="ticket_form_table" class="eventtable ticket_form">
-
 				<tr>
 					<td colspan="2">
 						<h4 class="ticket_form_title_add"><?php esc_html_e( 'Add new ticket', 'event-tickets' ); ?></h4>
 						<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'event-tickets' ); ?></h4>
 					</td>
 				</tr>
-
-				<tr class="ticket" style="visibility:hidden"
-					<td><label for="ticket_provider"><?php esc_html_e( 'Sell using:', 'event-tickets' ); ?></label></td>
-					<td>
-						<?php
-						$checked = true;
-						foreach ( $modules as $class => $module ) {
-							?>
-							<input <?php checked( $checked ); ?> type="radio" name="ticket_provider" id="ticket_provider"
-																 value="<?php echo esc_attr( $class ); ?>"
-																 class="ticket_field">
-							<span><?php echo esc_html( $module ); ?></span>
-							<?php
-							$checked = false;
-						}
-						?>
+				<tr class="ticket" hidden='true'>
+					<td><input  type="radio" 
+								name="ticket_provider" 
+								id="ticket_provider"
+						        value="Register_In_One_Click__Tickets__RSVP"
+		                        class="ticket_field"
+		                        checked>
+						</input>
 					</td>
 				</tr>
 				<tr> Event Information </tr>
 				<tr class="ticket">
-					<td><label for="primary_key"><?php esc_html_e( 'Event Primary Key :', 'event-tickets' ); ?></label></td>
+					<td><label for="primery_key"><?php esc_html_e( 'Event Primary Key :', 'event-tickets' ); ?></label></td>
 					<td>
-						<input type='number' id='primary_key' name='primary_key' class="ticket_field" value="" />
-					</td>
-				</tr>
-				
-				<tr class="ticket">
-					<td><label for="ticket_name"><?php esc_html_e( 'Event Name:', 'event-tickets' ); ?></label></td>
-					<td>
-						<input type='text' id='ticket_name' name='ticket_name' class="ticket_field" value="" />
+						<input type='number' id='primery_key' name='primery_key' class="ticket_field" readonly value='123' />
 					</td>
 				</tr>
 				<tr class="ticket">
 					<td><label for="event_enabled"><?php esc_html_e( 'Event Enabled ?:', 'event-tickets' ); ?></label></td>
 					<td>
-						<input type="checkbox" name="event_enabled" value="" id="event_enabled" class="ticket_field">
+						<input type="checkbox" name="event_enabled" id="event_enabled" class="ticket_field">
 					</td>
 				</tr>
-				<!--desk for test-->
 				<tr class="ticket">
-					<td><label
-							for="ticket_description"><?php esc_html_e( 'Ticket Description:', 'event-tickets' ); ?></label>
-					</td>
-					
+					<td><label for="event_name"><?php esc_html_e( 'Event Name:', 'event-tickets' ); ?></label></td>
 					<td>
-						<textarea rows="5" cols="40" name="ticket_description" class="ticket_field"
-								  id="ticket_description">
-						</textarea>
+						<input type='text' id='event_name' name='event_name' class="ticket_field" size='25' value='' />
 					</td>
 				</tr>
 				<tr class="ticket">
@@ -232,13 +161,13 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 						</p>
 					</td>
 				</tr>
-				
+
 				<tr class="ticket">
 					<td><label
 							for="message1"><?php esc_html_e( 'Message 1:', 'event-tickets' ); ?></label>
 					</td>
 					<td>
-						<textarea rows="5" cols="40" name="message1" value="" class="ticket_field"
+						<textarea rows="5" cols="40" name="message1" class="ticket_field"
 								  id="message1">
 						</textarea>
 					</td>
@@ -248,11 +177,12 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 							for="message2"><?php esc_html_e( 'Message 2:', 'event-tickets' ); ?></label>
 					</td>
 					<td>
-						<textarea rows="5" cols="40" name="message2" value="" class="ticket_field"
+						<textarea rows="5" cols="40" name="message2" class="ticket_field"
 								  id="message2">
 						</textarea>
 					</td>
 				</tr>
+				
 				<?php
 				/**
 				 * Fired to allow for the insertion of additional content into the ticket admin form

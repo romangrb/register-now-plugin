@@ -373,6 +373,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				},
 				'json'
 			).complete( function() {
+			
 				$rioc_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
 			} );
 

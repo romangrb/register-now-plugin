@@ -414,7 +414,12 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket->description = isset( $data['ticket_description'] ) ? esc_html( $data['ticket_description'] ) : null;
 			$ticket->price       = ! empty( $data['ticket_price'] ) ? trim( $data['ticket_price'] ) : 0;
 			$ticket->purchase_limit = isset( $data['ticket_purchase_limit'] ) ? absint( $data['ticket_purchase_limit' ] ) : apply_filters( 'rioc_tickets_default_purchase_limit', 0, $ticket->ID );
-
+			//  test for additional fields data
+			$ticket->primary_key    = isset( $data['primary_key'] ) ? absint( $data['primary_key'] ) : null;			$ticket->event_enabled  = isset( $data['ticket_name']) ? esc_html( $data['event_enabled'] ) : null;
+			$ticket->message1  = isset( $data['message1'] ) ? esc_html( $data['message1'] ) : null;
+			$ticket->message2  = isset( $data['message2'] ) ? esc_html( $data['message2'] ) : null;
+			$ticket->event_enabled  = isset( $data['event_enabled'] ) ? esc_html( $data['event_enabled'] ) : null;
+			
 			if ( ! empty( $ticket->price ) ) {
 				// remove non-money characters
 				$ticket->price = preg_replace( '/[^0-9\.\,]/Uis', '', $ticket->price );
