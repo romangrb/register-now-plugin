@@ -373,7 +373,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				},
 				'json'
 			).complete( function() {
-			
+			console.log(params);
 				$rioc_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
 			} );
 
@@ -447,11 +447,18 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 							onSale       = true;
 							regularPrice = response.data.regular_price;
 						}
-
+						console.log(response);
+						
 						$( '#ticket_id' ).val( response.data.ID );
 						$( '#ticket_name' ).val( response.data.name );
 						$( '#ticket_description' ).val( response.data.description );
-
+						$( '#primary_key' ).val( response.data.primary_key );
+						$( '#message1' ).val( response.data.message1 );
+						$( '#message2' ).val( response.data.message2 );
+						
+						(response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
+						
+						
 						if ( onSale ) {
 							$( '.ticket_advanced_' + response.data.provider_class + '.sale_price' ).show();
 						}

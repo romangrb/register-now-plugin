@@ -148,6 +148,18 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Ticket_Object' ) ) {
 		 * @var
 		 */
 		public $purchase_limit;
+		
+		/**
+		 * additional fields
+		 * @var
+		 */
+		public $primary_key;
+		
+		public $message1;
+		
+		public $message2;
+		
+		public $event_enabled;
 
 		/**
 		 * Returns whether or not the ticket is managing stock

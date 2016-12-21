@@ -727,29 +727,26 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			delete_post_meta( $ticket->ID, '_EventEndDate' );
 		}
 		
-		
-		// if ( isset( $ticket->event_enabled ) ) {
-		// 	update_post_meta( $ticket->ID, '_event_enabled', $ticket->event_enabled );
-		// } else {
-		// 	delete_post_meta( $ticket->ID, '_event_enabled' );
-		// }
-		
-		update_post_meta( $ticket->ID, '_event_enabled', $ticket);
+		if ( isset( $ticket->event_enabled ) ) {
+			update_post_meta( $ticket->ID, '_event_enabled', true );
+		} else {
+			delete_post_meta( $ticket->ID, '_event_enabled' );
+		}
 		
 		if ( isset( $ticket->primary_key ) ) {
-			update_post_meta( $ticket->ID, '_primary_key', $raw_data->primary_key );
+			update_post_meta( $ticket->ID, '_primary_key', $ticket->primary_key );
 		} else {
 			delete_post_meta( $ticket->ID, '_primary_key' );
 		}
-			
-		if ( isset( $raw_data->message1 ) ) {
-			update_post_meta( $ticket->ID, '_message1', $raw_data->message1 );
+	
+		if ( isset( $ticket->message1 ) ) {
+			update_post_meta( $ticket->ID, '_message1', $ticket->message1 );
 		} else {
 			delete_post_meta( $ticket->ID, '_message1' );
 		}
 		
-		if ( isset( $raw_data->message2 ) ) {
-			update_post_meta( $ticket->ID, '_message2', $raw_data->message2 );
+		if ( isset( $ticket->message2 ) ) {
+			update_post_meta( $ticket->ID, '_message2', $ticket->message2 );
 		} else {
 			delete_post_meta( $ticket->ID, '_message2' );
 		}
@@ -934,11 +931,12 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		$return->end_date       = get_post_meta( $ticket_id, '_ticket_end_date', true );
 
 		$return->manage_stock( 'yes' === get_post_meta( $ticket_id, '_manage_stock', true ) );
-		// new test 
-		$return->primery_key    = get_post_meta( $ticket_id, '_primery_key', true );
+		// additional fields 
+		$return->primary_key    = get_post_meta( $ticket_id, '_primary_key', true );
 		$return->event_enabled  = get_post_meta( $ticket_id, '_event_enabled', true );
 		$return->message1       = get_post_meta( $ticket_id, '_message1', true );
 		$return->message2       = get_post_meta( $ticket_id, '_message2', true );
+		
 		
 		$return->stock( get_post_meta( $ticket_id, '_stock', true ) - $qty );
 		$return->qty_sold( $qty );

@@ -158,7 +158,7 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 				<tr class="ticket">
 					<td><label for="event_enabled"><?php esc_html_e( 'Event Enabled ?:', 'event-tickets' ); ?></label></td>
 					<td>
-						<input type="checkbox" name="event_enabled" value="" id="event_enabled" class="ticket_field">
+						<input type="checkbox" checked name="event_enabled" id="event_enabled" class="ticket_field">
 					</td>
 				</tr>
 				<!--desk for test-->
