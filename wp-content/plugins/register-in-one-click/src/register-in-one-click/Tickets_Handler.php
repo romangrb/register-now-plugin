@@ -124,6 +124,7 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 
 		wp_enqueue_style( self::$attendees_slug, $resources_url . '/css/tickets-attendees.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version() );
 		wp_enqueue_style( self::$attendees_slug . '-print', $resources_url . '/css/tickets-attendees-print.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version(), 'print' );
+	
 		wp_enqueue_script( self::$attendees_slug, $resources_url . '/js/tickets-attendees.js', array( 'jquery' ), Register_In_One_Click__Tickets__Main::instance()->js_version() );
 
 		$mail_data = array(

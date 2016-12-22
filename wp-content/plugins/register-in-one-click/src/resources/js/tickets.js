@@ -2,7 +2,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 (function( window, $, undefined ) {
 	'use strict';
-
+console.log('tc');
 	ticketHeaderImage = {
 
 		// Call this from the upload button to initiate the upload frame.
