@@ -146,54 +146,54 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 				<tr> Event Information </tr>
 
 				<div style="margin:0 12px;">
-					<table class="wonderplugin-form-table">
+					<table class="rioc-form-table">
 						
 					</table>
 				</div>
 				
 				<div style="margin:0 12px;">
-					<ul class="wonderplugin-tab-buttons" id="wonderplugin-slider-toolbar">
-						<li class="laststep"><input class="button button-primary" type="button" value="<?php _e( 'Save & Publish', 'wonderplugin_slider' ); ?>"></input></li>
+					<ul class="rioc-tab-buttons" id="rioc-slider-toolbar">
+						<li class="laststep"><input class="button button-primary" type="button" value="<?php _e( 'Save & Publish', 'rioc_slider' ); ?>"></input></li>
 					</ul>
-					<ul class="wonderplugin-tabs" id="wonderplugin-slider-tabs">
-						<li class="wonderplugin-tab wonderplugin-tab-selected">
-							<div class="wonderplugin-slider-options">
-								<div class="wonderplugin-slider-options-menu" id="wonderplugin-slider-options-menu">
-									<div class="rioc-slider-options-menu-item rioc-options-menu-item-selected"><?php _e( 'Slider options', 'wonderplugin_slider' ); ?></div>
-									<div class="rioc-slider-options-menu-item"><?php _e( 'Advanced options', 'wonderplugin_slider' ); ?></div>
+					<ul class="rioc-tabs" id="rioc-slider-tabs">
+						<li class="rioc-tab rioc-tab-selected">
+							<div class="rioc-slider-options">
+								<div class="rioc-slider-options-menu" id="rioc-slider-options-menu">
+									<div class="rioc-slider-options-menu-item rioc-options-menu-item-selected"><?php _e( 'Slider options', 'rioc_slider' ); ?></div>
+									<div class="rioc-slider-options-menu-item"><?php _e( 'Advanced options', 'rioc_slider' ); ?></div>
 								</div>
 								
 								<div class="rioc-slider-options-tabs" id="rioc-slider-options-tabs">
 									<div class="rioc-slider-options-tab rioc-slider-options-tab-selected">
-										<table class="wonderplugin-form-table-noborder">
+										<table class="rioc-form-table-noborder">
 											<tr>
 												<th>Slideshow</th>
-												<td><label><input name='wonderplugin-slider-autoplay' type='checkbox' id='wonderplugin-slider-autoplay' value='' /> Auto play</label>
-												<br /><label><input name='wonderplugin-slider-randomplay' type='checkbox' id='wonderplugin-slider-randomplay' value='' /> Random play</label>
-												<br /><label><input name='wonderplugin-slider-loadimageondemand' type='checkbox' id='wonderplugin-slider-loadimageondemand' value='' /> Load images on demand</label>
-												<br /><label><input name='wonderplugin-slider-transitiononfirstslide' type='checkbox' id='wonderplugin-slider-transitiononfirstslide' value='' /> Apply transition to first slide</label>
+												<td><label><input name='rioc-slider-autoplay' type='checkbox' id='rioc-slider-autoplay' value='' /> Auto play</label>
+												<br /><label><input name='rioc-slider-randomplay' type='checkbox' id='rioc-slider-randomplay' value='' /> Random play</label>
+												<br /><label><input name='rioc-slider-loadimageondemand' type='checkbox' id='rioc-slider-loadimageondemand' value='' /> Load images on demand</label>
+												<br /><label><input name='rioc-slider-transitiononfirstslide' type='checkbox' id='rioc-slider-transitiononfirstslide' value='' /> Apply transition to first slide</label>
 												</td>
 											</tr>
 											<tr>
 												<th>Video</th>
-												<td><label><input name='wonderplugin-slider-autoplayvideo' type='checkbox' id='wonderplugin-slider-autoplayvideo' value='' /> Auto play video</label>
+												<td><label><input name='rioc-slider-autoplayvideo' type='checkbox' id='rioc-slider-autoplayvideo' value='' /> Auto play video</label>
 												</td>
 											</tr>
 										</table>
 									</div>
 									<div class="rioc-slider-options-tab">
-									<table class="wonderplugin-form-table-noborder">
+									<table class="rioc-form-table-noborder">
 										<tr>
-											<td><p><label><input name='wonderplugin-slider-donotinit' type='checkbox' id='wonderplugin-slider-donotinit'  /> Do not init the slider when the page is loaded. Check this option if you would like to manually init the slider with JavaScript API.</label></p>
-											<p><label><input name='wonderplugin-slider-addinitscript' type='checkbox' id='wonderplugin-slider-addinitscript'  /> Add init scripts together with slider HTML code. Check this option if your WordPress site uses Ajax to load pages and posts.</label></p></td>
+											<td><p><label><input name='rioc-slider-donotinit' type='checkbox' id='rioc-slider-donotinit'  /> Do not init the slider when the page is loaded. Check this option if you would like to manually init the slider with JavaScript API.</label></p>
+											<p><label><input name='rioc-slider-addinitscript' type='checkbox' id='rioc-slider-addinitscript'  /> Add init scripts together with slider HTML code. Check this option if your WordPress site uses Ajax to load pages and posts.</label></p></td>
 										</tr>
 										<tr>
 											<th>Custom CSS</th>
-											<td><textarea name='wonderplugin-slider-custom-css' id='wonderplugin-slider-custom-css' value='' class='large-text' rows="10"></textarea></td>
+											<td><textarea name='rioc-slider-custom-css' id='rioc-slider-custom-css' value='' class='large-text' rows="10"></textarea></td>
 										</tr>
 										<tr>
 											<th>Advanced Options</th>
-											<td><textarea name='wonderplugin-slider-data-options' id='wonderplugin-slider-data-options' value='' class='large-text' rows="10"></textarea></td>
+											<td><textarea name='rioc-slider-data-options' id='rioc-slider-data-options' value='' class='large-text' rows="10"></textarea></td>
 										</tr>
 									</table>
 								</div>
@@ -202,16 +202,16 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 							</div>
 							<div style="clear:both;"></div>
 						</li>
-						<li class="wonderplugin-tab">
-							<div id="wonderplugin-slider-preview-tab">
-								<div id="wonderplugin-slider-preview-message"></div>
-								<div class="wonderpluginslider-container" id="wonderplugin-slider-preview-container">
+						<li class="rioc-tab">
+							<div id="rioc-slider-preview-tab">
+								<div id="rioc-slider-preview-message"></div>
+								<div class="riocslider-container" id="rioc-slider-preview-container">
 								</div>
 							</div>
 						</li>
-						<li class="wonderplugin-tab">
-							<div id="wonderplugin-slider-publish-loading"></div>
-							<div id="wonderplugin-slider-publish-information"></div>
+						<li class="rioc-tab">
+							<div id="rioc-slider-publish-loading"></div>
+							<div id="rioc-slider-publish-information"></div>
 						</li>
 					</ul>
 				</div>
