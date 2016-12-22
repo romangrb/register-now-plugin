@@ -40,7 +40,7 @@ class WonderPlugin_Slider_Creator {
 				);
 			}
 		?>
-		<div id="wonderplugin-slider-catlist" style="display:none;"><?php echo json_encode($catlist); ?></div>
+		<div id="wonderplugin-slider-catlist"><?php echo json_encode($catlist); ?></div>
 		
 		<div style="margin:0 12px;">
 		<table class="wonderplugin-form-table">

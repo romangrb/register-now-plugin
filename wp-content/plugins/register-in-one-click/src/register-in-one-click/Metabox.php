@@ -76,7 +76,9 @@ class Register_In_One_Click__Tickets__Metabox {
 
 		wp_enqueue_style( 'event-tickets', $resources_url .'/css/tickets.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version() );
 		wp_enqueue_script( 'event-tickets', $resources_url .'/js/tickets.js', array( 'jquery-ui-datepicker' ), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
+		wp_enqueue_script( 'event-tickets-slider', $resources_url .'/js/tickets-creator-slider.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
 		wp_enqueue_script( 'event-tickets-creator', $resources_url .'/js/tickets-creator.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
+		
 		
 		$upload_header_data = array(
 			'title'  => esc_html__( 'Ticket header image', 'event-tickets' ),
