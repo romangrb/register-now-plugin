@@ -153,52 +153,209 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 				
 				<div style="margin:0 12px;">
 					<ul class="rioc-tab-buttons" id="rioc-slider-toolbar">
-						<li class="laststep"><input class="button button-primary" type="button" value="<?php _e( 'Save & Publish', 'rioc_slider' ); ?>"></input></li>
+						<li class="laststep"><input id="ticket_form_save" name="ticket_form_save" class="button button-primary" type="button" value="<?php esc_attr_e( 'Save Event', 'event-tickets' ); ?>"></input></li>
+						<li class="laststep"><input id="ticket_form_cancel" name="ticket_form_cancel" class="button button-default" type="button" value="<?php esc_attr_e( 'Cancel', 'event-tickets' ); ?>"></input></li>
 					</ul>
 					<ul class="rioc-tabs" id="rioc-slider-tabs">
 						<li class="rioc-tab rioc-tab-selected">
 							<div class="rioc-slider-options">
 								<div class="rioc-slider-options-menu" id="rioc-slider-options-menu">
-									<div class="rioc-slider-options-menu-item rioc-options-menu-item-selected"><?php _e( 'Slider options', 'rioc_slider' ); ?></div>
-									<div class="rioc-slider-options-menu-item"><?php _e( 'Advanced options', 'rioc_slider' ); ?></div>
+									<div class="rioc-slider-options-menu-item rioc-options-menu-item-selected"><?php _e( 'Event Information', 'rioc_slider' ); ?></div>
+									<div class="rioc-slider-options-menu-item"><?php _e( 'Registration / Enrolment', 'rioc_slider' ); ?></div>
+									<div class="rioc-slider-options-menu-item"><?php _e( 'Event Pricing (Basic)', 'rioc_slider' ); ?></div>
 								</div>
 								
 								<div class="rioc-slider-options-tabs" id="rioc-slider-options-tabs">
 									<div class="rioc-slider-options-tab rioc-slider-options-tab-selected">
 										<table class="rioc-form-table-noborder">
-											<tr>
-												<th>Slideshow</th>
-												<td><label><input name='rioc-slider-autoplay' type='checkbox' id='rioc-slider-autoplay' value='' /> Auto play</label>
-												<br /><label><input name='rioc-slider-randomplay' type='checkbox' id='rioc-slider-randomplay' value='' /> Random play</label>
-												<br /><label><input name='rioc-slider-loadimageondemand' type='checkbox' id='rioc-slider-loadimageondemand' value='' /> Load images on demand</label>
-												<br /><label><input name='rioc-slider-transitiononfirstslide' type='checkbox' id='rioc-slider-transitiononfirstslide' value='' /> Apply transition to first slide</label>
+											
+											<tr class="ticket">
+												<td><label for="primary_key"><?php esc_html_e( 'Event Primary Key :', 'event-tickets' ); ?></label></td>
+												<td>
+													<input type='number' id='primary_key' name='primary_key' class="ticket_field" value="" />
 												</td>
 											</tr>
-											<tr>
-												<th>Video</th>
-												<td><label><input name='rioc-slider-autoplayvideo' type='checkbox' id='rioc-slider-autoplayvideo' value='' /> Auto play video</label>
+											<tr class="ticket">
+												<td><label for="event_enabled"><?php esc_html_e( 'Event Enabled ?:', 'event-tickets' ); ?></label></td>
+												<td>
+													<input type="checkbox" checked name="event_enabled" id="event_enabled" class="ticket_field">
 												</td>
 											</tr>
+											<tr class="ticket">
+												<td><label for="ticket_start_date"><?php esc_html_e( 'Event Date / Time Start:', 'event-tickets' ); ?></label></td>
+												<td>
+													<input autocomplete="off" type="text" class="ticket_field" size='10' name="ticket_start_date" id="ticket_start_date" value="">
+													<span class="ticket_start_time ticket_time">
+														<?php echo rioc_get_datetime_separator(); ?>
+														<select name="ticket_start_hour" id="ticket_start_hour" class="ticket_field">
+															<?php echo $startHourOptions; ?>
+														</select>
+														<select name="ticket_start_minute" id="ticket_start_minute" class="ticket_field">
+															<?php echo $startMinuteOptions; ?>
+														</select>
+														<?php if ( ! strstr( get_option( 'time_format', Register_In_One_Click__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
+															<select name="ticket_start_meridian" id="ticket_start_meridian" class="ticket_field">
+																<?php echo $startMeridianOptions; ?>
+															</select>
+														<?php endif; ?>
+													</span>
+												</td>
+											</tr>
+											<tr class="ticket">
+												<td valign="top"><label for="ticket_end_date"><?php esc_html_e( 'Event Date / Time End', 'event-tickets' ); ?></label>
+												</td>
+												<td valign="top">
+													<input autocomplete="off" type="text" class="ticket_field" size='10' name="ticket_end_date"
+														   id="ticket_end_date" value="">
+							
+													<span class="ticket_end_time ticket_time">
+														<?php echo rioc_get_datetime_separator(); ?>
+														<select name="ticket_end_hour" id="ticket_end_hour" class="ticket_field">
+															<?php echo $endHourOptions; ?>
+														</select>
+														<select name="ticket_end_minute" id="ticket_end_minute" class="ticket_field">
+															<?php echo $endMinuteOptions; ?>
+														</select>
+														<?php if ( ! strstr( get_option( 'time_format', Register_In_One_Click__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
+															<select name="ticket_end_meridian" id="ticket_end_meridian" class="ticket_field">
+																<?php echo $endMeridianOptions; ?>
+															</select>
+														<?php endif; ?>
+													</span>
+													<br />
+							
+													<p class="description">
+														<?php esc_html_e( 'When will ticket sales occur?', 'event-tickets' ); ?>
+													</p>
+												</td>
+											</tr>
+					
+											<tr class="ticket">
+												<td><label for="ticket_name"><?php esc_html_e( 'Event Name:', 'event-tickets' ); ?></label></td>
+												<td>
+													<input type='text' id='ticket_name' name='ticket_name' class="ticket_field" value="" />
+												</td>
+											</tr>
+											
+											<tr class="ticket">
+												<td><label
+														for="ticket_description"><?php esc_html_e( 'Ticket Description:', 'event-tickets' ); ?></label>
+												</td>
+												
+												<td>
+													<textarea rows="5" cols="40" name="ticket_description" class="ticket_field"
+															  id="ticket_description">
+													</textarea>
+												</td>
+											</tr>
+											
+											<tr class="ticket">
+												<td><label for="event_location"><?php esc_html_e( 'Event Location:', 'event-tickets' ); ?></label></td>
+												<td>
+													<input type='text' id='event_location' name='event_location' class="ticket_field" value="" />
+												</td>
+											</tr>
+											
+											<tr class="ticket">
+												<td><label for="event_code"><?php esc_html_e( 'Event Code :', 'event-tickets' ); ?></label></td>
+												<td>
+													<input type='text' id='event_code' name='event_code' class="ticket_field" value="" />
+												</td>
+											</tr>
+											
+											<tr class="ticket">
+												<td><label for="event_category"><?php esc_html_e( 'Event Category (e.g. sports~camp~youth)						:', 'event-tickets' ); ?></label></td>
+												<td>
+													<input type='text' id='event_category' name='event_category' class="ticket_field" value="" />
+												</td>
+											</tr>
+											
+											<tr class="ticket">
+												<td><label for="message1"><?php esc_html_e( 'Message 1:', 'event-tickets' ); ?></label>
+												</td>
+												<td>
+													<textarea rows="5" cols="40" name="message1" value="" class="ticket_field"
+															  id="message1">
+													</textarea>
+												</td>
+											</tr>
+											<tr class="ticket">
+												<td><label for="message2"><?php esc_html_e( 'Message 2:', 'event-tickets' ); ?></label>
+												</td>
+												<td>
+													<textarea rows="5" cols="40" name="message2" value="" class="ticket_field"
+															  id="message2">
+													</textarea>
+												</td>
+											</tr>
+											<tr class="ticket">
+												<td><label for="message3"><?php esc_html_e( 'Message 3:', 'event-tickets' ); ?></label>
+												</td>
+												<td>
+													<textarea rows="5" cols="40" name="message3" value="" class="ticket_field" id="message3">
+													</textarea>
+												</td>
+											</tr>
+												
 										</table>
 									</div>
 									<div class="rioc-slider-options-tab">
-									<table class="rioc-form-table-noborder">
+										<table class="rioc-form-table-noborder">
+										<th>Registration Settings (nb: cashiers are exempt from this date range.)</th>
+										
 										<tr>
-											<td><p><label><input name='rioc-slider-donotinit' type='checkbox' id='rioc-slider-donotinit'  /> Do not init the slider when the page is loaded. Check this option if you would like to manually init the slider with JavaScript API.</label></p>
-											<p><label><input name='rioc-slider-addinitscript' type='checkbox' id='rioc-slider-addinitscript'  /> Add init scripts together with slider HTML code. Check this option if your WordPress site uses Ajax to load pages and posts.</label></p></td>
-										</tr>
-										<tr>
-											<th>Custom CSS</th>
-											<td><textarea name='rioc-slider-custom-css' id='rioc-slider-custom-css' value='' class='large-text' rows="10"></textarea></td>
-										</tr>
-										<tr>
-											<th>Advanced Options</th>
-											<td><textarea name='rioc-slider-data-options' id='rioc-slider-data-options' value='' class='large-text' rows="10"></textarea></td>
+											<th>Registration Period</th>
+											<td>
+												<tr class="ticket">
+													<td><label for="reg_period_start_date"><?php esc_html_e( 'Period Start:', 'event-tickets' ); ?></label></td>
+													<td>
+														<input autocomplete="off" type="text" class="ticket_field" size='10' name="reg_period_start_date" id="reg_period_start_date" value="">
+														<span class="reg_period_start_time ticket_time">
+															<?php echo rioc_get_datetime_separator(); ?>
+															<select name="reg_period_start_hour" id="reg_period_start_hour" class="ticket_field">
+																<?php echo $startHourOptions; ?>
+															</select>
+															<select name="reg_period_start_minute" id="reg_period_start_minute" class="ticket_field">
+																<?php echo $startMinuteOptions; ?>
+															</select>
+															<?php if ( ! strstr( get_option( 'time_format', Register_In_One_Click__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
+																<select name="reg_period_start_meridian" id="reg_period_start_meridian" class="ticket_field">
+																	<?php echo $startMeridianOptions; ?>
+																</select>
+															<?php endif; ?>
+														</span>
+													</td>
+												</tr>
+												<tr class="ticket">
+													<td valign="top"><label for="reg_period_end_date"><?php esc_html_e( 'Period End:', 'event-tickets' ); ?></label>
+													</td>
+													<td valign="top">
+														<input autocomplete="off" type="text" class="ticket_field" size='10' name="ticket_end_date" id="reg_period_end_date" value="">
+								
+														<span class="reg_period_end_time ticket_time">
+															<?php echo rioc_get_datetime_separator(); ?>
+															<select name="reg_period_end_hour" id="reg_period_end_hour" class="ticket_field">
+																<?php echo $endHourOptions; ?>
+															</select>
+															<select name="reg_period_end_minute" id="reg_period_end_minute" class="ticket_field">
+																<?php echo $endMinuteOptions; ?>
+															</select>
+															<?php if ( ! strstr( get_option( 'time_format', Register_In_One_Click__Date_Utils::TIMEFORMAT ), 'H' ) ) : ?>
+																<select name="reg_period_end_meridian" id="reg_period_end_meridian" class="ticket_field">
+																	<?php echo $endMeridianOptions; ?>
+																</select>
+															<?php endif; ?>
+														</span>
+														<br />
+													</td>
+												</tr>
+											</td>
 										</tr>
 									</table>
+										
+									</div>
+									
 								</div>
-								</div>
-							
 							</div>
 							<div style="clear:both;"></div>
 						</li>

@@ -104,6 +104,9 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				// Reset the min/max datepicker settings so that they aren't inherited by the next ticket that is edited
 				$this.find( '#ticket_start_date' ).datepicker( 'option', 'maxDate', null );
 				$this.find( '#ticket_end_date' ).datepicker( 'option', 'minDate', null );
+				// Tiket period prop
+				$this.find( '#reg_period_start_date' ).datepicker( 'option', 'maxDate', null );
+				$this.find( '#reg_period_end_date' ).datepicker( 'option', 'minDate', null );
 
 				$this.find( '.ticket_start_time, .ticket_end_time, .ticket.sale_price' ).hide();
 
@@ -241,8 +244,23 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					else {
 						$( '.ticket_start_time' ).hide();
 					}
-				}
-				else {
+				} else if ( inst.id === 'reg_period_start_date' ) {
+					$( '#reg_period_end_date' ).datepicker( 'option', 'maxDate', the_date );
+					if ( the_date ) {
+						$( '.reg_period_start_time' ).show();
+					}
+					else {
+						$( '.reg_period_start_time' ).hide();
+					}
+				} else if ( inst.id === 'reg_period_end_date' ) {
+					$( '#reg_period_start_date' ).datepicker( 'option', 'maxDate', the_date );
+					if ( the_date ) {
+						$( '.reg_period_end_time' ).show();
+					}
+					else {
+						$( '.reg_period_end_time' ).hide();
+					}
+				} else {
 					$( '#ticket_start_date' ).datepicker( 'option', 'maxDate', the_date );
 					if ( the_date ) {
 						$( '.ticket_end_time' ).show();
@@ -254,6 +272,17 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			}
 		};
 
+		$( '#reg_period_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
+			if ( e.keyCode === 8 || e.keyCode === 46 ) {
+				$.datepicker._clearDate( this );
+			}
+		} );
+		$( '#reg_period_end_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
+			if ( e.keyCode === 8 || e.keyCode === 46 ) {
+				$.datepicker._clearDate( this );
+			}
+		} );
+		
 		$( '#ticket_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
 			if ( e.keyCode === 8 || e.keyCode === 46 ) {
 				$.datepicker._clearDate( this );
@@ -465,13 +494,80 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 						var start_date = response.data.start_date.substring( 0, 10 );
 						var end_date = response.data.end_date.substring( 0, 10 );
+						var reg_period_start_date = response.data.reg_period_start_date.substring( 0, 10 );
+						var reg_period_end_date = response.data.reg_period_end_date.substring( 0, 10 );
 
 						$( '#ticket_start_date' ).val( start_date );
 						$( '#ticket_end_date' ).val( end_date );
+						$( '#reg_period_start_date' ).val( reg_period_start_date );
+						$( '#reg_period_end_date' ).val( reg_period_end_date );
 
 						var $start_meridian = $( document.getElementById( 'ticket_start_meridian' ) ),
-						      $end_meridian = $( document.getElementById( 'ticket_end_meridian' ) );
+					        $end_meridian = $( document.getElementById( 'ticket_end_meridian' ) ),
+					        $reg_period_start_meridian = $( document.getElementById( 'reg_period_start_meridian' ) ),
+					        $reg_period_end_meridian = $( document.getElementById( 'reg_period_end_meridian' ) );
+						
+						if ( response.data.reg_period_start_date ) {
+							var start_hour = parseInt( response.data.reg_period_start_date.substring( 11, 13 ) );
+							var start_meridian = 'am';
 
+							if ( start_hour > 12 && $reg_period_start_meridian.length ) {
+								start_meridian = 'pm';
+								start_hour = parseInt( start_hour ) - 12;
+								start_hour = ( '0' + start_hour ).slice( - 2 );
+							}
+							if ( 12 === start_hour ) {
+								start_meridian = 'pm';
+							}
+							if ( 0 === start_hour && 'am' === start_meridian ) {
+								start_hour = 12;
+							}
+
+							// Return the start hour to a 0-padded string
+							start_hour = start_hour.toString();
+							if ( 1 === start_hour.length ) {
+								start_hour = '0' + start_hour;
+							}
+
+							$( '#reg_period_start_hour' ).val( start_hour );
+							$( '#reg_period_start_meridian' ).val( start_meridian );
+
+							$( '.reg_period_start_time' ).show();
+						}
+
+						if ( response.data.reg_period_end_date ) {
+
+							var end_hour = parseInt( response.data.reg_period_end_date.substring( 11, 13 ) );
+							var end_meridian = 'am';
+
+							if ( end_hour > 12 && $reg_period_end_meridian.length ) {
+								end_meridian = 'pm';
+								end_hour = parseInt( end_hour ) - 12;
+								end_hour = ( '0' + end_hour ).slice( - 2 );
+							}
+							if ( end_hour === 12 ) {
+								end_meridian = 'pm';
+							}
+							if ( 0 === end_hour && 'am' === end_meridian ) {
+								end_hour = 12;
+							}
+
+							// Return the end hour to a 0-padded string
+							end_hour = end_hour.toString();
+							if ( 1 === end_hour.length ) {
+								end_hour = '0' + end_hour;
+							}
+
+							$( '#reg_period_end_hour' ).val( end_hour );
+							$( '#reg_period_end_meridian' ).val( end_meridian );
+
+							$( '#reg_period_start_minute' ).val( response.data.reg_period_start_date.substring( 14, 16 ) );
+							$( '#reg_period_end_minute' ).val( response.data.reg_period_end_date.substring( 14, 16 ) );
+
+							$( '.reg_period_end_time' ).show();
+						}
+						
+						
 						if ( response.data.start_date ) {
 							var start_hour = parseInt( response.data.start_date.substring( 11, 13 ) );
 							var start_meridian = 'am';
