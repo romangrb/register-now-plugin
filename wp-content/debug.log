@@ -1504,3 +1504,5 @@
 [22-Dec-2016 13:54:36 UTC] PHP Notice:  Undefined variable: config in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/admin-views/meta-box.php on line 152
 [22-Dec-2016 13:55:58 UTC] PHP Notice:  Undefined variable: id in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/admin-views/meta-box.php on line 151
 [22-Dec-2016 13:55:58 UTC] PHP Notice:  Undefined variable: config in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/admin-views/meta-box.php on line 152
+[22-Dec-2016 13:59:39 UTC] PHP Notice:  Undefined variable: id in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/admin-views/meta-box.php on line 151
+[22-Dec-2016 13:59:39 UTC] PHP Notice:  Undefined variable: config in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/admin-views/meta-box.php on line 152

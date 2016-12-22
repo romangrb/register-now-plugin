@@ -126,7 +126,6 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 						<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'event-tickets' ); ?></h4>
 					</td>
 				</tr>
-
 				<tr class="ticket" style="visibility:hidden"
 					<td><label for="ticket_provider"><?php esc_html_e( 'Sell using:', 'event-tickets' ); ?></label></td>
 					<td>
@@ -145,56 +144,19 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 					</td>
 				</tr>
 				<tr> Event Information </tr>
-				
-				<h3><?php _e( 'General Options', 'wonderplugin_slider' );?></h3>
-				
-				<div id="wonderplugin-slider-id" style="display:none;"><?php echo $id; ?></div>
-				<div id="wonderplugin-slider-id-config" style="display:none;"><?php echo $config; ?></div>
-				<div id="wonderplugin-slider-pluginfolder" style="display:none;"><?php echo WONDERPLUGIN_SLIDER_URL; ?></div>
-				<div id="wonderplugin-slider-jsfolder" style="display:none;"><?php echo WONDERPLUGIN_SLIDER_URL . 'engine/'; ?></div>
-				<div id="wonderplugin-slider-viewadminurl" style="display:none;"><?php echo admin_url('admin.php?page=post_type=rioc-common'); ?></div>		
-				<div id="wonderplugin-slider-wp-history-media-uploader" style="display:none;"><?php echo ( function_exists("wp_enqueue_media") ? "0" : "1"); ?></div>
-				<div id="wonderplugin-slider-ajaxnonce" style="display:none;"><?php echo wp_create_nonce( 'wonderplugin-slider-ajaxnonce' ); ?></div>
-				<div id="wonderplugin-slider-saveformnonce" style="display:none;"><?php wp_nonce_field('wonderplugin-slider', 'wonderplugin-slider-saveform'); ?></div>
-				<?php 
-					$cats = get_categories();
-					$catlist = array();
-					foreach ( $cats as $cat )
-					{
-						$catlist[] = array(
-								'ID' => $cat->cat_ID,
-								'cat_name' => $cat ->cat_name
-						);
-					}
-				?>
-				<div id="wonderplugin-slider-catlist" ><?php echo json_encode($catlist); ?></div>
-				
+
 				<div style="margin:0 12px;">
-				<table class="wonderplugin-form-table">
-					<tr>
-						<th><?php _e( 'Name', 'wonderplugin_slider' ); ?></th>
-						<td><input name="wonderplugin-slider-name" type="text" id="wonderplugin-slider-name" value="My Slider" class="regular-text" /></td>
-					</tr>
-					<tr>
-						<th><?php _e( 'Width', 'wonderplugin_slider' ); ?> / <?php _e( 'Height', 'wonderplugin_slider' ); ?></th>
-						<td><input name="wonderplugin-slider-width" type="text" id="wonderplugin-slider-width" value="640" class="small-text" /> / <input name="wonderplugin-slider-height" type="text" id="wonderplugin-slider-height" value="300" class="small-text" /></td>
-					</tr>
-				</table>
+					<table class="wonderplugin-form-table">
+						
+					</table>
 				</div>
-				
-				
 				
 				<div style="margin:0 12px;">
 					<ul class="wonderplugin-tab-buttons" id="wonderplugin-slider-toolbar">
-						
-						<li class="wonderplugin-tab-button step3"><?php _e( 'Options', 'wonderplugin_slider' ); ?></li>
 						<li class="laststep"><input class="button button-primary" type="button" value="<?php _e( 'Save & Publish', 'wonderplugin_slider' ); ?>"></input></li>
 					</ul>
-							
 					<ul class="wonderplugin-tabs" id="wonderplugin-slider-tabs">
-				
-				
-						<li class="wonderplugin-tab">
+						<li class="wonderplugin-tab wonderplugin-tab-selected">
 							<div class="wonderplugin-slider-options">
 								<div class="wonderplugin-slider-options-menu" id="wonderplugin-slider-options-menu">
 									<div class="wonderplugin-slider-options-menu-item wonderplugin-slider-options-menu-item-selected"><?php _e( 'Slider options', 'wonderplugin_slider' ); ?></div>
