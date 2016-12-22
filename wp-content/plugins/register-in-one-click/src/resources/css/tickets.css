@@ -358,7 +358,7 @@ div.wonderplugin-toolbar {
 	float: left;
 }
 
-.wonderplugin-slider-options-menu-item {	
+.rioc-slider-options-menu-item {	
 	cursor: pointer;
 	padding: 12px 8px;
 	margin: 0 8px 12px 0;
@@ -371,17 +371,17 @@ div.wonderplugin-toolbar {
 	color: #aaa;
 }
 
-.wonderplugin-slider-options-menu-item-selected {
+.rioc-options-menu-item-selected {
 	border-color: #999;
 	color: #464646;
 }
 
-.wonderplugin-slider-options-tabs {
+.rioc-slider-options-tabs {
 	overflow: auto;
 	height: auto;
 }
 
-.wonderplugin-slider-options-tab {
+.rioc-slider-options-tab {
 	border: 1px solid #999;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
@@ -389,11 +389,11 @@ div.wonderplugin-toolbar {
 	display: none;	
 }
 
-.wonderplugin-slider-options-tab-selected {
+.rioc-slider-options-tab-selected {
 	display: block;	
 }
 
-.wonderplugin-slider-options-tab-title {
+.rioc-slider-options-tab-title {
 	font-size: 14px;
 	padding: 8px;
 	text-align: center;

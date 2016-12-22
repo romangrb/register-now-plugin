@@ -159,12 +159,12 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 						<li class="wonderplugin-tab wonderplugin-tab-selected">
 							<div class="wonderplugin-slider-options">
 								<div class="wonderplugin-slider-options-menu" id="wonderplugin-slider-options-menu">
-									<div class="wonderplugin-slider-options-menu-item wonderplugin-slider-options-menu-item-selected"><?php _e( 'Slider options', 'wonderplugin_slider' ); ?></div>
-									<div class="wonderplugin-slider-options-menu-item"><?php _e( 'Advanced options', 'wonderplugin_slider' ); ?></div>
+									<div class="rioc-slider-options-menu-item rioc-options-menu-item-selected"><?php _e( 'Slider options', 'wonderplugin_slider' ); ?></div>
+									<div class="rioc-slider-options-menu-item"><?php _e( 'Advanced options', 'wonderplugin_slider' ); ?></div>
 								</div>
 								
-								<div class="wonderplugin-slider-options-tabs" id="wonderplugin-slider-options-tabs">
-									<div class="wonderplugin-slider-options-tab wonderplugin-slider-options-tab-selected">
+								<div class="rioc-slider-options-tabs" id="rioc-slider-options-tabs">
+									<div class="rioc-slider-options-tab rioc-slider-options-tab-selected">
 										<table class="wonderplugin-form-table-noborder">
 											<tr>
 												<th>Slideshow</th>
@@ -181,7 +181,7 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 											</tr>
 										</table>
 									</div>
-									<div class="wonderplugin-slider-options-tab">
+									<div class="rioc-slider-options-tab">
 									<table class="wonderplugin-form-table-noborder">
 										<tr>
 											<td><p><label><input name='wonderplugin-slider-donotinit' type='checkbox' id='wonderplugin-slider-donotinit'  /> Do not init the slider when the page is loaded. Check this option if you would like to manually init the slider with JavaScript API.</label></p>

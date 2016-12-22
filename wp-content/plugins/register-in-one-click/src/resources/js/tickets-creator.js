@@ -1,14 +1,14 @@
 (function( window, $ ) {
 	'use strict';
     
-    var cl_menu_name = '.wonderplugin-slider-options-menu-item';
+    var cl_menu_name = '.rioc-slider-options-menu-item';
     
     $(cl_menu_name).on('click submit', function(e){
         // get the item id
         var item_id = $(this).index(),
-            cl_sel_name_menu = 'wonderplugin-slider-options-menu-item-selected',
-            cl_cont_name = '.wonderplugin-slider-options-tab',
-            cl_sel_cont_name = 'wonderplugin-slider-options-tab-selected';
+            cl_sel_name_menu = 'rioc-options-menu-item-selected',
+            cl_cont_name = '.rioc-slider-options-tab',
+            cl_sel_cont_name = 'rioc-slider-options-tab-selected';
         // toggle menu tabs
         toggleClasses(cl_menu_name, item_id,  cl_sel_name_menu);
         // toggle content
