@@ -205,8 +205,7 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 												<td valign="top"><label for="ticket_end_date"><?php esc_html_e( 'Event Date / Time End', 'event-tickets' ); ?></label>
 												</td>
 												<td valign="top">
-													<input autocomplete="off" type="text" class="ticket_field" size='10' name="ticket_end_date"
-														   id="ticket_end_date" value="">
+													<input autocomplete="off" type="text" class="ticket_field" size='10' name="ticket_end_date" id="ticket_end_date" value="">
 							
 													<span class="ticket_end_time ticket_time">
 														<?php echo rioc_get_datetime_separator(); ?>
@@ -330,7 +329,7 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 													<td valign="top"><label for="reg_period_end_date"><?php esc_html_e( 'Period End:', 'event-tickets' ); ?></label>
 													</td>
 													<td valign="top">
-														<input autocomplete="off" type="text" class="ticket_field" size='10' name="ticket_end_date" id="reg_period_end_date" value="">
+														<input autocomplete="off" type="text" class="ticket_field" size='10' name="reg_period_end_date" id="reg_period_end_date" value="">
 								
 														<span class="reg_period_end_time ticket_time">
 															<?php echo rioc_get_datetime_separator(); ?>
