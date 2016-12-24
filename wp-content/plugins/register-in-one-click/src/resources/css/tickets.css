@@ -187,16 +187,6 @@ div.rioc-toolbar {
 	border-radius: 4px;
 }
 
-.rioc-form-table th {
-  	min-width: 200px;
-}
-
-.rioc-form-table th, td {
-  	padding: 8px;
-  	vertical-align: top;
-  	text-align: left;
-}
-
 .rioc-form-table-noborder {
 	width: 100%;
 }

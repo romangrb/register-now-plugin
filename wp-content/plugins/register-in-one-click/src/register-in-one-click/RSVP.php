@@ -919,25 +919,26 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 
 		$return = new Register_In_One_Click__Tickets__Ticket_Object();
 		$qty    = (int) get_post_meta( $ticket_id, 'total_sales', true );
-		
-		// $return->description    = (int) $raw_data['ticket_rsvp_stock'];
-		$return->description    = $product->post_excerpt;
 		$return->ID             = $ticket_id;
-		$return->name           = $product->post_title;
-		$return->price          = get_post_meta( $ticket_id, '_price', true );
-		$return->provider_class = get_class( $this );
-		$return->admin_link     = '';
-		$return->start_date     = get_post_meta( $ticket_id, '_ticket_start_date', true );
-		$return->end_date       = get_post_meta( $ticket_id, '_ticket_end_date', true );
-
-		$return->manage_stock( 'yes' === get_post_meta( $ticket_id, '_manage_stock', true ) );
-		// additional fields 
 		$return->primary_key    = get_post_meta( $ticket_id, '_primary_key', true );
 		$return->event_enabled  = get_post_meta( $ticket_id, '_event_enabled', true );
+		$return->start_date     = get_post_meta( $ticket_id, '_ticket_start_date', true );
+		$return->end_date       = get_post_meta( $ticket_id, '_ticket_end_date', true );
+		$return->name           = $product->post_title;
+		$return->description    = $product->post_excerpt;
+		$return->event_location       = get_post_meta( $ticket_id, '_event_location', true );
+		$return->event_code 		  = get_post_meta( $ticket_id, '_event_code', true );
+		$return->event_category       = get_post_meta( $ticket_id, '_event_category', true );
 		$return->message1       = get_post_meta( $ticket_id, '_message1', true );
 		$return->message2       = get_post_meta( $ticket_id, '_message2', true );
-		
-		
+		$return->message3       = get_post_meta( $ticket_id, '_message3', true );
+		$return->reg_period_start_date     = get_post_meta( $ticket_id, '_reg_period_start_date', true );
+		$return->reg_period_end_date       = get_post_meta( $ticket_id, '_reg_period_end_date', true );
+
+		$return->provider_class = get_class( $this );
+		$return->admin_link     = '';
+		// $return->description    = (int) $raw_data['ticket_rsvp_stock'];
+		$return->manage_stock( 'yes' === get_post_meta( $ticket_id, '_manage_stock', true ) );
 		$return->stock( get_post_meta( $ticket_id, '_stock', true ) - $qty );
 		$return->qty_sold( $qty );
 

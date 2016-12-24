@@ -1,5 +1,3 @@
-var ticketHeaderImage = window.ticketHeaderImage || {};
-
 (function( window, $ ) {
 	'use strict';
 
@@ -7,9 +5,6 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		var $event_pickers = $( '#rioc-event-datepickers' ),
 			$rioc_tickets = $( '#tribetickets' ),
 			$tickets_container = $( '#event_tickets' ),
-			$enable_global_stock = $( "#rioc-tickets-enable-global-stock" ),
-			$global_stock_level = $( "#rioc-tickets-global-stock-level" ),
-			global_stock_setting_changed = false,
 			$body = $( 'html, body' ),
 			startofweek = 0;
 
@@ -22,7 +17,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 * @param  {string} action You can use `start` or `stop`
 			 * @return {void}
 			 */
-			'spin.tribe': function( event, action ) {
+			'spin.event': function( event, action ) {
 				if ( typeof action === 'undefined' || $.inArray( action, [ 'start', 'stop' ] ) ){
 					action = 'stop';
 				}
@@ -42,7 +37,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 *
 			 * @return {void}
 			 */
-			'clear.tribe': function() {
+			'clear.event': function() {
 				var $this = $( this ),
 					$ticket_form = $this.find( '#ticket_form'),
 					$ticket_settings = $ticket_form.find( "tr:not(.event-wide-settings)" );
@@ -85,7 +80,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 *
 			 * @return {void}
 			 */
-			'focus.tribe': function() {
+			'focus.event': function() {
 				$body.animate( {
 					scrollTop: $tickets_container.offset().top - 50
 				}, 500 );
@@ -159,27 +154,27 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$( 'h4.ticket_form_title_add' ).show();
 			$( this ).hide();
 			$rioc_tickets
-				.trigger( 'clear.tribe' )
-				.trigger( 'focus.tribe' );
+				.trigger( 'clear.event' )
+				.trigger( 'focus.event' );
 			$( '#ticket_form' ).show();
-			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.tribe' );
+			
 			e.preventDefault();
 		} );
 
 		/* "Cancel" button action */
 		$( '#ticket_form_cancel' ).click( function() {
 			$rioc_tickets
-				.trigger( 'clear.tribe' )
-				.trigger( 'focus.tribe' );
+				.trigger( 'clear.event' )
+				.trigger( 'focus.event' );
 		} );
 
 		/* "Save Ticket" button action */
 		$( '#ticket_form_save' ).click( function( e ) {
 			var $form = $( '#ticket_form_table' ),
-				type = $form.find( '#ticket_provider:checked' ).val(),
-				$rows = $form.find( '.ticket, .ticket_advanced_meta, .ticket_advanced_' + type );
+				type  = $form.find( '#ticket_provider:checked' ).val(),
+				$rows = $form.find( '.ticket, .ticket_advanced_' + type );
 
-			$rioc_tickets.trigger( 'save-ticket.tribe', e ).trigger( 'spin.tribe', 'start' );
+			$rioc_tickets.trigger( 'save-ticket.event', e ).trigger( 'spin.event', 'start' );
 
 			var params = {
 				action  : 'rioc-ticket-add-' + $( 'input[name=ticket_provider]:checked' ).val(),
@@ -187,23 +182,22 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				post_ID : $( '#post_ID' ).val(),
 				nonce   : TribeTickets.add_ticket_nonce
 			};
-
+			
 			$.post(
 				ajaxurl,
 				params,
 				function( response ) {
-					$rioc_tickets.trigger( 'saved-ticket.tribe', response );
+					$rioc_tickets.trigger( 'saved-ticket.event', response );
 
 					if ( response.success ) {
-						$rioc_tickets.trigger( 'clear.tribe' );
+						$rioc_tickets.trigger( 'clear.event' );
 						$( 'td.ticket_list_container' ).empty().html( response.data.html );
 						$( '.ticket_time' ).hide();
 					}
 				},
 				'json'
 			).complete( function() {
-			console.log(params);
-				$rioc_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
+				$rioc_tickets.trigger( 'spin.event', 'stop' ).trigger( 'focus.event' );
 			} );
 
 		} );
@@ -214,7 +208,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 			e.preventDefault();
 
-			$rioc_tickets.trigger( 'delete-ticket.tribe', e ).trigger( 'spin.tribe', 'start' );
+			$rioc_tickets.trigger( 'delete-ticket.event', e ).trigger( 'spin.event', 'start' );
 
 			var params = {
 				action   : 'rioc-ticket-delete-' + $( this ).attr( 'attr-provider' ),
@@ -227,16 +221,16 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$rioc_tickets.trigger( 'deleted-ticket.tribe', response );
+					$rioc_tickets.trigger( 'deleted-ticket.event', response );
 
 					if ( response.success ) {
-						$rioc_tickets.trigger( 'clear.tribe' );
+						$rioc_tickets.trigger( 'clear.event' );
 						$( 'td.ticket_list_container' ).empty().html( response.data );
 					}
 				},
 				'json'
 			).complete( function() {
-				$rioc_tickets.trigger( 'spin.tribe', 'stop' );
+				$rioc_tickets.trigger( 'spin.event', 'stop' );
 			} );
 		} );
 
@@ -284,7 +278,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				$( 'h4.ticket_form_title_edit' ).show();
 				$( 'h4.ticket_form_title_add' ).hide();
 
-				$rioc_tickets.trigger( 'spin.tribe', 'start' );
+				$rioc_tickets.trigger( 'spin.event', 'start' );
 
 				var params = {
 					action   : 'rioc-ticket-edit-' + $( this ).attr( 'attr-provider' ),
@@ -298,23 +292,25 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					params,
 					function( response ) {
 						$rioc_tickets
-							.trigger( 'clear.tribe' )
-							.trigger( 'edit-ticket.tribe', response );
+							.trigger( 'clear.event' )
+							.trigger( 'edit-ticket.event', response );
 
 						if (response.data.ID) $( '#ticket_id' ).val( response.data.ID );
+						if (response.data.primary_key) $( '#primary_key' ).val( response.data.primary_key );
+						   (response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
 						if (response.data.name) $( '#ticket_name' ).val( response.data.name );
 						if (response.data.description) $( '#ticket_description' ).val( response.data.description );
-						if (response.data.primary_key) $( '#primary_key' ).val( response.data.primary_key );
+						if (response.data.event_location) $( '#event_location' ).val( response.data.event_location );
+						if (response.data.event_code) $( '#event_code' ).val( response.data.event_code );
+						if (response.data.event_category) $( '#event_category' ).val( response.data.event_category );
 						if (response.data.message1) $( '#message1' ).val( response.data.message1 );
 						if (response.data.message2) $( '#message2' ).val( response.data.message2 );
 						if (response.data.message3) $( '#message3' ).val( response.data.message3 );
 						
-						(response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
-						
 						function getDateFromStr(d){
 							return d.substring( 0, 10 );
 						}
-						
+						console.log(response.data);
 						var start_date = getDateFromStr(response.data.start_date);
 						var end_date = getDateFromStr(response.data.end_date);
 						var reg_period_start_date = getDateFromStr(response.data.reg_period_start_date);
@@ -388,60 +384,19 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( 'a#ticket_form_toggle' ).hide();
 						$( '#ticket_form' ).show();
 
-						$rioc_tickets.trigger( 'edit-ticket.tribe' );
+						$rioc_tickets.trigger( 'edit-ticket.event' );
 
 					},
 					'json'
 				).complete( function() {
-					$rioc_tickets.trigger( 'spin.tribe', 'stop' ).trigger( 'focus.tribe' );
+					$rioc_tickets.trigger( 'spin.event', 'stop' ).trigger( 'focus.event' );
 				} );
 
-			} )
-			.on( 'click', '#rioc_ticket_header_image', function( e ) {
-				e.preventDefault();
-				ticketHeaderImage.uploader( '', '' );
 			} );
 
 
 		var $remove = $( '#rioc_ticket_header_remove' );
 		var $preview = $( '#rioc_ticket_header_preview' );
-
-		if ( $preview.find( 'img' ).length ) {
-			$remove.show();
-		}
-
-		/**
-		 * Track changes to the global stock level. Changes to the global stock
-		 * checkbox itself is handled elsewhere.
-		 */
-		$global_stock_level.change( function() {
-			global_stock_setting_changed = true;
-		} );
-
-		/**
-		 * Unset the global stock settings changed flag if the post is being
-		 * saved/updated (no need to trigger a confirmation dialog in these
-		 * cases).
-		 */
-		$( 'input[type="submit"]' ).click( function() {
-			global_stock_setting_changed = false;
-		} );
-
-		/**
-		 * If the user attempts to nav away without saving global stock setting
-		 * changes then try to bring this to their attention!
-		 */
-		$( window ).on( 'beforeunload', function() {
-			// If the global stock settings have not changed, do not interfere
-			if ( ! global_stock_setting_changed ) {
-				return;
-			}
-
-			// We can't trigger a confirm() dialog from within this action but returning
-			// a string should achieve effectively the same result
-			return rioc_global_stock_admin_ui.nav_away_msg;
-
-		} );
 
 
 	} );
