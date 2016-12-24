@@ -233,55 +233,37 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			},
 			onSelect       : function( dateText, inst ) {
 				var the_date = $.datepicker.parseDate( 'yy-mm-dd', dateText );
-				switch (inst.id) {
-					case 'ticket_start_date':
-						$( '#ticket_end_date' ).datepicker( 'option', 'minDate', the_date );
-						(the_date) ? $( '.ticket_start_time' ).show() : $( '.ticket_start_time' ).hide();
-					break;
-					case 'ticket_end_date':
-						$( '#ticket_start_date' ).datepicker( 'option', 'minDate', the_date );
-						(the_date) ? $( '.ticket_end_time' ).show() : $( '.ticket_end_time' ).hide();
-					break;
-					case 'reg_period_start_date':
-						$( '#reg_period_end_date' ).datepicker( 'option', 'minDate', the_date );
-						(the_date) ? $( '.reg_period_start_time' ).show() : $( '.reg_period_start_time' ).hide();
-					break;
-					case 'reg_period_end_date':
-						$( '#reg_period_start_date' ).datepicker( 'option', 'minDate', the_date );
-						(the_date) ? $( '.reg_period_end_time' ).show() : $( '.reg_period_end_time' ).hide();
-					break;
-					
+				if ( inst.id === 'ticket_start_date' ) {
+					$( '#ticket_end_date' ).datepicker( 'option', 'minDate', the_date );
+					if ( the_date ) {
+						$( '.ticket_start_time' ).show();
+					}
+					else {
+						$( '.ticket_start_time' ).hide();
+					}
+				}
+				else {
+					$( '#ticket_start_date' ).datepicker( 'option', 'maxDate', the_date );
+					if ( the_date ) {
+						$( '.ticket_end_time' ).show();
+					}
+					else {
+						$( '.ticket_end_time' ).hide();
+					}
 				}
 			}
 		};
 
-		// $( '#reg_period_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
-		// 	if ( e.keyCode === 8 || e.keyCode === 46 ) {
-		// 		$.datepicker._clearDate( this );
-		// 	}
-		// } );
-		// $( '#reg_period_end_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
-		// 	if ( e.keyCode === 8 || e.keyCode === 46 ) {
-		// 		$.datepicker._clearDate( this );
-		// 	}
-		// } );
-		
-		// check if id exist another code will not run
-		if ( $( '#ticket_start_date' ) ){
-			$( '#ticket_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
-				if ( e.keyCode === 8 || e.keyCode === 46 ) {
-					$.datepicker._clearDate( this );
-				}
-			} );
-		}
-		
-		if ( $( '#ticket_end_date' ) ){
-			$( '#ticket_end_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
-				if ( e.keyCode === 8 || e.keyCode === 46 ) {
-					$.datepicker._clearDate( this );
-				}
-			} );
-		}
+		$( '#ticket_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
+			if ( e.keyCode === 8 || e.keyCode === 46 ) {
+				$.datepicker._clearDate( this );
+			}
+		} );
+		$( '#ticket_end_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
+			if ( e.keyCode === 8 || e.keyCode === 46 ) {
+				$.datepicker._clearDate( this );
+			}
+		} );
 
 		/**
 		 * Indicates if the "enable global stock" field has been checked.
@@ -429,40 +411,6 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			} );
 		} );
 
-		function showTime (time_name, is_start_time, $meridian, slArr) {
-		
-			var hour = parseInt( time_name.substring( 11, 13 ) ),
-				meridian = 'am';
-				
-			if ( hour > 12 && $meridian.length ) {
-				meridian = 'pm';
-				hour = parseInt( hour ) - 12;
-				hour = ( '0' + hour ).slice( - 2 );
-			}
-			if ( 12 === hour ) {
-				meridian = 'pm';
-			}
-			if ( 0 === hour && 'am' === meridian ) {
-				hour = 12;
-			}
-
-			// Return the start hour to a 0-padded string
-			hour = hour.toString();
-			if ( 1 === hour.length ) {
-				hour = '0' + hour;
-			}
-			
-			$( slArr['hour'] ).val( hour );
-			$( slArr['meridian'] ).val( meridian );
-			
-			if (!is_start_time) {
-				$( slArr['start_minute'] ).val( slArr['start_date'].substring( 14, 16 ) );
-				$( slArr['end_minute'] ).val( time_name.substring( 14, 16 ) );
-			}
-			$( slArr['time'] ).show();
-				
-		}
-
 		/* "Edit Ticket" link action */
 
 		$rioc_tickets
@@ -514,56 +462,74 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						if ( onSale ) {
 							$( '.ticket_advanced_' + response.data.provider_class + '.sale_price' ).show();
 						}
-						
-						function getDateFromStr(d){
-							return d.substring( 0, 10 );
-						}
-						
-						var start_date = getDateFromStr(response.data.start_date);
-						var end_date = getDateFromStr(response.data.end_date);
-						
+
 						var start_date = response.data.start_date.substring( 0, 10 );
 						var end_date = response.data.end_date.substring( 0, 10 );
 
 						$( '#ticket_start_date' ).val( start_date );
 						$( '#ticket_end_date' ).val( end_date );
-						
-						var sl_reg_start = {
-							'time':'.reg_period_start_time',
-							'hour':'#reg_period_start_hour',
-							'meridian':'#reg_period_start_meridian',
-						},
-						sl_reg_end = {
-							'time':'.reg_period_end_time',
-							'hour':'#reg_period_end_hour',
-							'meridian':'#reg_period_end_meridian',
-							'start_minute':'#reg_period_start_minute',
-							'end_minute':'#reg_period_end_minute',
-							'start_date':response.data.reg_period_start_date
-						},
-						sl_time_start = {
-							'time':'.ticket_start_time',
-							'hour':'#ticket_start_hour',
-							'meridian':'#ticket_start_meridian',
-						},
-						sl_time_end = {
-							'time':'.ticket_end_time',
-							'hour':'#ticket_end_hour',
-							'meridian':'#ticket_end_meridian',
-							'start_minute':'#ticket_start_minute',
-							'end_minute':'#ticket_end_minute',
-							'start_date':response.data.start_date
-						};
 
 						var $start_meridian = $( document.getElementById( 'ticket_start_meridian' ) ),
 						      $end_meridian = $( document.getElementById( 'ticket_end_meridian' ) );
 
 						if ( response.data.start_date ) {
-							showTime(response.data.start_date, true, $start_meridian, sl_time_start);
+							var start_hour = parseInt( response.data.start_date.substring( 11, 13 ) );
+							var start_meridian = 'am';
+
+							if ( start_hour > 12 && $start_meridian.length ) {
+								start_meridian = 'pm';
+								start_hour = parseInt( start_hour ) - 12;
+								start_hour = ( '0' + start_hour ).slice( - 2 );
+							}
+							if ( 12 === start_hour ) {
+								start_meridian = 'pm';
+							}
+							if ( 0 === start_hour && 'am' === start_meridian ) {
+								start_hour = 12;
+							}
+
+							// Return the start hour to a 0-padded string
+							start_hour = start_hour.toString();
+							if ( 1 === start_hour.length ) {
+								start_hour = '0' + start_hour;
+							}
+
+							$( '#ticket_start_hour' ).val( start_hour );
+							$( '#ticket_start_meridian' ).val( start_meridian );
+
+							$( '.ticket_start_time' ).show();
 						}
-						
+
 						if ( response.data.end_date ) {
-							showTime(response.data.end_date, true, $end_meridian, sl_time_end);
+
+							var end_hour = parseInt( response.data.end_date.substring( 11, 13 ) );
+							var end_meridian = 'am';
+
+							if ( end_hour > 12 && $end_meridian.length ) {
+								end_meridian = 'pm';
+								end_hour = parseInt( end_hour ) - 12;
+								end_hour = ( '0' + end_hour ).slice( - 2 );
+							}
+							if ( end_hour === 12 ) {
+								end_meridian = 'pm';
+							}
+							if ( 0 === end_hour && 'am' === end_meridian ) {
+								end_hour = 12;
+							}
+
+							// Return the end hour to a 0-padded string
+							end_hour = end_hour.toString();
+							if ( 1 === end_hour.length ) {
+								end_hour = '0' + end_hour;
+							}
+
+							$( '#ticket_end_hour' ).val( end_hour );
+							$( '#ticket_end_meridian' ).val( end_meridian );
+
+							$( '#ticket_start_minute' ).val( response.data.start_date.substring( 14, 16 ) );
+							$( '#ticket_end_minute' ).val( response.data.end_date.substring( 14, 16 ) );
+
+							$( '.ticket_end_time' ).show();
 						}
 
 						var $ticket_advanced = $( 'tr.ticket_advanced input' );
@@ -571,7 +537,6 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 							'name': '',
 							'id': ''
 						} );
-						
 						$( 'tr.ticket_advanced' ).remove();
 						$( 'tr.ticket.bottom' ).before( response.data.advanced_fields );
 
