@@ -1,101 +1,179 @@
-/**
- * This CSS file was auto-generated via PostCSS
- *
- * Contributors should avoid editing this file, but instead edit the associated
- * src/resources/postcss/ file. For more information, check out our engineering
- * docs on how we handle CSS in our engineering docs.
- *
- * @see: http://moderntribe.github.io/products-engineering/css/
- */
+ul.rioc-tab-buttons {
+	list-style: none;	
+	border-bottom: solid #ccc;
+	border-bottom-width: 1px;
+	display: block;
+	padding-bottom: 0;
+	margin: 12px 0px 0px;
+}
 
-/* = WooTickets Admin Styles
-=============================================*/
+ul.rioc-tab-buttons li {
+	display: inline-block;
+	margin: 0 6px -2px 0;
+	padding: 4px 10px 6px 40px;
+	font-family: HelveticaNeue-Light,"Helvetica Neue Light","Helvetica Neue",sans-serif;
+	font-size: 14px;
+	font-weight: 200;
+	line-height: 20px;
+	border-color: #dfdfdf #dfdfdf #ccc;
+	border-width: 1px;
+	border-style: solid;
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	-webkit-border-top-left-radius: 3px;
+	-webkit-border-top-right-radius: 3px;
+	-moz-border-radius-topleft: 3px;
+	-moz-border-radius-topright: 3px;
+	color: #aaa;
+	text-shadow: #fff 0 1px 0;
+	cursor: pointer;
+}
 
-#ticket_form {
+
+ul.rioc-tab-buttons li.laststep {
+	border-style: none;
+}
+
+ul.rioc-tab-buttons li.rioc-tab-buttons-selected {
+	color: #464646;
+	background-color: #eee;
+}
+
+ul.rioc-tabs {
+	padding: 16px;
+	margin: 0;
+	border-style: solid;
+	border-width: 1px;
+	border-color: transparent #ccc #ccc;
+}
+
+.rioc-tabs-grey {
+	background-color: #eee;
+}
+
+li.rioc-tab {
 	display: none;
 }
 
-#ticket_form input[type=radio] {
-	margin-right: 5px;
-}
-
-#ticket_form span {
-	margin-right: 10px;
-}
-
-.ticket_list h4 {
-	border-bottom: 1px solid #e5e5e5;
-	padding-bottom: 6px;
-	text-transform: uppercase;
-}
-
-.ticket_list h4 a {
-	font-size: 11px;
-	font-weight: normal;
-	text-transform: none;
-}
-
-.ticket_list tr:hover td div.ticket_controls {
-	visibility: visible;
-}
-
-.ticket_list tr td {
-	padding: 4px 7px 2px;
-	vertical-align: top;
-}
-
-.ticket_list tr td div.ticket_controls {
-	visibility: hidden;
-}
-
-p.ticket_name {
-	font-size: 13px;
-	font-weight: bold;
-}
-
-.ticket_form p.description {
-	display: inline;
-}
-
-.ticket_form p.description.detailed-description {
+li.rioc-tab.rioc-tab-selected {
 	display: block;
 }
 
-.ticket_form h4.ticket_form_title_edit {
-	display: none;
+div.rioc-toolbar {
+	margin: 8px 0px;	
 }
 
-#rioc_ticket_header_preview img {
-	height: auto !important;
-	max-width: 95% !important;
+.rioc-form-table {
+	width: 100%;
+  	border: 1px solid #ccc;
+  	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
 }
 
-#rioc_ticket_header_remove {
-	display: none;
-}
-
-.ticket_time {
-	display: none;
-}
-
-.rioc-tickets-remaining {
-	font-size: 10px;
-}
-
-.eventtable {
-	margin: 0;
-	padding-top: 0;
+.rioc-form-table-noborder {
 	width: 100%;
 }
 
-#event_tickets,
-.eventtable.ticket_list.eventForm {
-	table-layout: fixed;
+.rioc-form-table-noborder th {
+	width: 200px;
+  	min-width: 200px;
 }
 
-/* Specific goal of this rule is to prevent the number input busting the ticket form layout under Twenty Fifteen */
+.rioc-form-table-noborder tr, th, td {
+  	padding: 8px;
+  	vertical-align: top;
+  	text-align: left;
+}
 
-.rioc-theme-twentyfifteen .rioc-events-tickets input[type='number'] {
-	padding: .375em;
+.rioc-form-table-noborder .rioc-form-half {
+	float: left;
+	min-width: 360px;
+}
+
+.rioc-form-table-noborder .rioc-form-half td {
+	min-width: 172px;
+}
+
+#rioc-slider-preview-tab {
+	text-align: center;
+}
+
+#rioc-slider-preview-container {
+	margin: 0 auto;
+}
+
+#rioc-slider-preview {
+	margin: 30px auto 120px;
+}
+
+#rioc-slider-publish-loading {
 	width: 100%;
+	height: 64px;
+	display: none;
+	background: url("images/loading.gif") no-repeat center center;
+}
+
+.rioc-slider-options {
+	position: relative;
+}
+
+.rioc-slider-options-menu {
+	width: 200px;
+	float: left;
+}
+
+.rioc-slider-options-menu-item {	
+	cursor: pointer;
+	padding: 12px 8px;
+	margin: 0 8px 12px 0;
+	font-size: 14px;
+	border: 1px solid #ccc;
+	text-align: center;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	color: #aaa;
+}
+
+.rioc-options-menu-item-selected {
+	border-color: #999;
+	color: #464646;
+}
+
+.rioc-slider-options-tabs {
+	overflow: auto;
+	height: auto;
+}
+
+.rioc-slider-options-tab {
+	border: 1px solid #999;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	display: none;	
+}
+
+.rioc-slider-options-tab-selected {
+	display: block;	
+}
+
+.rioc-slider-options-tab-title {
+	font-size: 14px;
+	padding: 8px;
+	text-align: center;
+}
+
+ul.rioc-feature-list {
+	list-style-type: disc;
+	margin-left: 24px;
+}
+
+#rioc-slider-preview-message {
+	width: 80%;
+	margin: 20px auto 0;
+	text-align: center;
+	font-size: 16px;
+	color: #ff0000;
+	font-weight: bold;
 }

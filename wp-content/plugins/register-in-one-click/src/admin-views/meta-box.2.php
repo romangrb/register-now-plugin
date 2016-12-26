@@ -10,8 +10,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$modules = Register_In_One_Click__Tickets__Tickets::modules();
+$header_id  = get_post_meta( get_the_ID(), $this->image_header_field, true );
+$header_id  = ! empty( $header_id ) ? $header_id : '';
+$header_img = '';
+if ( ! empty( $header_id ) ) {
+	$header_img = wp_get_attachment_image( $header_id, 'full' );
+}
 
+$modules = Register_In_One_Click__Tickets__Tickets::modules();
 ?>
 
 <table id="event_tickets" class="eventtable">
@@ -71,12 +77,15 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 	
 	<tr>
 		<td colspan="2" class="rioc_sectionheader ticket_list_container">
+
 			<?php $this->ticket_list_markup( $tickets ); ?>
+
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2" class="rioc_sectionheader">
-			<h4><a href="#" class="button-secondary" id="ticket_form_toggle"><?php esc_html_e( 'Add new Event', 'rioc-event' ); ?></a></h4>
+			<a href="#" class="button-secondary"
+			   id="ticket_form_toggle"><?php esc_html_e( 'Add new Event', 'rioc-event' ); ?></a>
 		</td>
 	</tr>
 	
@@ -84,9 +93,30 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 		<td colspan="2" class="rioc_sectionheader">
 			<div id="rioc-loading"><span></span></div>
 			<table class="eventtable ticket_form">
-				
-			<h4 class="ticket_form_title_edit" style="display:none"><?php esc_html_e( 'Edit ticket', 'event-tickets' ); ?></h4>
-			
+
+				<tr>
+					<td colspan="2">
+						<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'rioc-event' ); ?></h4>
+					</td>
+				</tr>
+				<tr class="ticket" style="display:none">
+					<td>
+						<?php
+						$checked = true;
+						foreach ( $modules as $class => $module ) {
+							?>
+							<input <?php checked( $checked ); ?> type="radio" name="ticket_provider" id="ticket_provider"
+																 value="<?php echo esc_attr( $class ); ?>"
+																 class="ticket_field">
+							<span><?php echo esc_html( $module ); ?></span>
+							<?php
+							$checked = false;
+						}
+						?>
+					</td>
+				</tr>
+
+
 			</table>
 
 				<div>
@@ -106,22 +136,7 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 								<div id="ticket_form_table" class="rioc-slider-options-tabs" id="rioc-slider-options-tabs">
 									<div class="rioc-slider-options-tab rioc-slider-options-tab-selected">
 										<table class="rioc-form-table-noborder">
-											<tr class="ticket" style="display:none">
-												<td>
-												<?php $checked = true;
-												foreach ( $modules as $class => $module ) {
-												?>
-													<input <?php checked( $checked ); ?> 
-													type="radio" name="ticket_provider" id="ticket_provider"
-												    value="<?php echo esc_attr( $class ); ?>"
-													class="ticket_field">
-													<span><?php echo esc_html( $module ); ?></span>
-													<?php
-													$checked = false;
-												}
-												?>
-												</td>
-											</tr>
+											
 											<tr class="ticket">
 												<td><label for="primary_key"><?php esc_html_e( 'Event Primary Key :', 'rioc-event' ); ?></label></td>
 												<td>
@@ -175,7 +190,10 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 														<?php endif; ?>
 													</span>
 													<br />
-													<p class="description"><?php esc_html_e( 'When will ticket sales occur?', 'rioc-event' ); ?></p>
+							
+													<p class="description">
+														<?php esc_html_e( 'When will ticket sales occur?', 'rioc-event' ); ?>
+													</p>
 												</td>
 											</tr>
 					
@@ -187,9 +205,14 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 											</tr>
 											
 											<tr class="ticket">
-												<td><label for="ticket_description"><?php esc_html_e( 'Ticket Description:', 'rioc-event' ); ?></label></td>
+												<td><label
+														for="ticket_description"><?php esc_html_e( 'Ticket Description:', 'rioc-event' ); ?></label>
+												</td>
+												
 												<td>
-													<textarea rows="5" cols="40" name="ticket_description" class="ticket_field" id="ticket_description"></textarea>
+													<textarea rows="5" cols="40" name="ticket_description" class="ticket_field"
+															  id="ticket_description">
+													</textarea>
 												</td>
 											</tr>
 											
@@ -218,20 +241,26 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 												<td><label for="message1"><?php esc_html_e( 'Message 1:', 'rioc-event' ); ?></label>
 												</td>
 												<td>
-													<textarea rows="5" cols="40" name="message1" value="" class="ticket_field" id="message1"></textarea>
+													<textarea rows="5" cols="40" name="message1" value="" class="ticket_field"
+															  id="message1">
+													</textarea>
 												</td>
 											</tr>
 											<tr class="ticket">
 												<td><label for="message2"><?php esc_html_e( 'Message 2:', 'rioc-event' ); ?></label>
 												</td>
 												<td>
-													<textarea rows="5" cols="40" name="message2" value="" class="ticket_field" id="message2"></textarea>
+													<textarea rows="5" cols="40" name="message2" value="" class="ticket_field"
+															  id="message2">
+													</textarea>
 												</td>
 											</tr>
 											<tr class="ticket">
-												<td><label for="message3"><?php esc_html_e( 'Message 3:', 'rioc-event' ); ?></label></td>
+												<td><label for="message3"><?php esc_html_e( 'Message 3:', 'rioc-event' ); ?></label>
+												</td>
 												<td>
-													<textarea rows="5" cols="40" name="message3" value="" class="ticket_field" id="message3"></textarea>
+													<textarea rows="5" cols="40" name="message3" value="" class="ticket_field" id="message3">
+													</textarea>
 												</td>
 											</tr>
 												
