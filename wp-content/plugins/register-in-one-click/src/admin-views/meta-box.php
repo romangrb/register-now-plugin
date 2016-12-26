@@ -85,7 +85,11 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 			<div id="rioc-loading"><span></span></div>
 			<table class="eventtable ticket_form">
 				
-			<h4 class="ticket_form_title_edit" style="display:none"><?php esc_html_e( 'Edit ticket', 'event-tickets' ); ?></h4>
+			<tr>
+				<td colspan="2">
+					<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'event-tickets' ); ?></h4>
+				</td>
+			</tr>
 			
 			</table>
 

@@ -7,6 +7,14 @@ ul.rioc-tab-buttons {
 	margin: 12px 0px 0px;
 }
 
+/*#ticket_form {
+	display: none;
+}*/
+
+.ticket_form h4.ticket_form_title_edit {
+	display: none;
+}
+
 ul.rioc-tab-buttons li {
 	display: inline-block;
 	margin: 0 6px -2px 0;
@@ -105,13 +113,6 @@ div.rioc-toolbar {
 
 #rioc-slider-preview {
 	margin: 30px auto 120px;
-}
-
-#rioc-slider-publish-loading {
-	width: 100%;
-	height: 64px;
-	display: none;
-	background: url("images/loading.gif") no-repeat center center;
 }
 
 .rioc-slider-options {

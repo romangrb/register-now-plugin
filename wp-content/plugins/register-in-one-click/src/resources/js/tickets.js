@@ -215,18 +215,23 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			}
 		};
 
-		// $( '#reg_period_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
-		// 	if ( e.keyCode === 8 || e.keyCode === 46 ) {
-		// 		$.datepicker._clearDate( this );
-		// 	}
-		// } );
-		// $( '#reg_period_end_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
-		// 	if ( e.keyCode === 8 || e.keyCode === 46 ) {
-		// 		$.datepicker._clearDate( this );
-		// 	}
-		// } );
-		
 		// check if id exist another code will not run
+		if ( $( '#reg_period_start_date' ) ){
+			$( '#reg_period_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
+				if ( e.keyCode === 8 || e.keyCode === 46 ) {
+					$.datepicker._clearDate( this );
+				}
+			} );
+		}
+		
+		if ( $( '#reg_period_end_date' ) ){
+			$( '#reg_period_end_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
+				if ( e.keyCode === 8 || e.keyCode === 46 ) {
+					$.datepicker._clearDate( this );
+				}
+			} );
+		}
+		
 		if ( $( '#ticket_start_date' ) ){
 			$( '#ticket_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
 				if ( e.keyCode === 8 || e.keyCode === 46 ) {
@@ -574,19 +579,12 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					$rioc_tickets.trigger( 'spin.rioc', 'stop' ).trigger( 'focus.rioc' );
 				} );
 
-			} )
-			.on( 'click', '#rioc_ticket_header_image', function( e ) {
-				e.preventDefault();
-				ticketHeaderImage.uploader( '', '' );
 			} );
 
 
 		var $remove = $( '#rioc_ticket_header_remove' );
 		var $preview = $( '#rioc_ticket_header_preview' );
 
-		if ( $preview.find( 'img' ).length ) {
-			$remove.show();
-		}
 
 		/**
 		 * Track changes to the global stock level. Changes to the global stock

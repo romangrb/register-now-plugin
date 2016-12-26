@@ -1413,3 +1413,12 @@
 [26-Dec-2016 20:13:30 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 701
 [26-Dec-2016 20:13:30 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 704
 [26-Dec-2016 20:13:30 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 705
+[26-Dec-2016 20:21:37 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 701
+[26-Dec-2016 20:21:37 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 704
+[26-Dec-2016 20:21:37 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 705
+[26-Dec-2016 20:53:26 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 701
+[26-Dec-2016 20:53:26 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 704
+[26-Dec-2016 20:53:26 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 705
+[26-Dec-2016 20:54:21 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 701
+[26-Dec-2016 20:54:21 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 704
+[26-Dec-2016 20:54:21 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 705
