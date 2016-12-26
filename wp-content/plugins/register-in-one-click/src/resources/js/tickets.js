@@ -1,5 +1,3 @@
-var ticketHeaderImage = window.ticketHeaderImage || {};
-
 (function( window, $ ) {
 	'use strict';
 
@@ -396,7 +394,41 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		} );
 
 		/* "Edit Ticket" link action */
+		function showTime (time_name, is_start_time, $meridian, slArr) {
+				
+			var hour = parseInt( time_name.substring( 11, 13 ) ),
+				meridian = 'am';
+				
+			if ( hour > 12 && $meridian.length ) {
+				meridian = 'pm';
+				hour = parseInt( hour ) - 12;
+				hour = ( '0' + hour ).slice( - 2 );
+			}
+			if ( 12 === hour ) {
+				meridian = 'pm';
+			}
+			if ( 0 === hour && 'am' === meridian ) {
+				hour = 12;
+			}
 
+			// Return the start hour to a 0-padded string
+			hour = hour.toString();
+			if ( 1 === hour.length ) {
+				hour = '0' + hour;
+			}
+			
+			$( slArr['hour'] ).val( hour );
+			$( slArr['meridian'] ).val( meridian );
+			
+			if (!is_start_time) {
+				$( slArr['start_minute'] ).val( slArr['start_date'].substring( 14, 16 ) );
+				$( slArr['end_minute'] ).val( time_name.substring( 14, 16 ) );
+			}
+			$( slArr['time'] ).show();
+				
+		}
+		
+		
 		$rioc_tickets
 			.on( 'click', '.ticket_edit', function( e ) {
 
@@ -432,13 +464,19 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 							regularPrice = response.data.regular_price;
 						}
 						console.log(response);
-						
+						// to do compare fields classes and autocomplete if true ?
 						$( '#ticket_id' ).val( response.data.ID );
+						$( '#primary_key' ).val( response.data.primary_key );
 						$( '#ticket_name' ).val( response.data.name );
 						$( '#ticket_description' ).val( response.data.description );
-						$( '#primary_key' ).val( response.data.primary_key );
+						
+						$( '#event_location' ).val( response.data.event_location );
+						$( '#event_code' ).val( response.data.event_code );
+						$( '#event_category' ).val( response.data.event_category );
 						$( '#message1' ).val( response.data.message1 );
 						$( '#message2' ).val( response.data.message2 );
+						$( '#message3' ).val( response.data.message2 );
+						
 						
 						(response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
 						
@@ -446,16 +484,68 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						if ( onSale ) {
 							$( '.ticket_advanced_' + response.data.provider_class + '.sale_price' ).show();
 						}
-
-						var start_date = response.data.start_date.substring( 0, 10 );
-						var end_date = response.data.end_date.substring( 0, 10 );
-
+						function getDateFromStr(d){
+							return d.substring( 0, 10 );
+						}
+						
+						var start_date = getDateFromStr(response.data.start_date);
+						var end_date = getDateFromStr(response.data.end_date);
+						var reg_period_start_date = getDateFromStr(response.data.reg_period_start_date);
+						var reg_period_end_date = getDateFromStr(response.data.reg_period_end_date);
+						
 						$( '#ticket_start_date' ).val( start_date );
 						$( '#ticket_end_date' ).val( end_date );
+						$( '#reg_period_start_date' ).val( reg_period_start_date );
+						$( '#reg_period_end_date' ).val( reg_period_end_date );
+						
+						var sl_reg_start = {
+							'time':'.reg_period_start_time',
+							'hour':'#reg_period_start_hour',
+							'meridian':'#reg_period_start_meridian',
+						},
+						sl_reg_end = {
+							'time':'.reg_period_end_time',
+							'hour':'#reg_period_end_hour',
+							'meridian':'#reg_period_end_meridian',
+							'start_minute':'#reg_period_start_minute',
+							'end_minute':'#reg_period_end_minute',
+							'start_date':response.data.reg_period_start_date
+						},
+						sl_time_start = {
+							'time':'.ticket_start_time',
+							'hour':'#ticket_start_hour',
+							'meridian':'#ticket_start_meridian',
+						},
+						sl_time_end = {
+							'time':'.ticket_end_time',
+							'hour':'#ticket_end_hour',
+							'meridian':'#ticket_end_meridian',
+							'start_minute':'#ticket_start_minute',
+							'end_minute':'#ticket_end_minute',
+							'start_date':response.data.start_date
+						};
 
-						var $start_meridian = $( document.getElementById( 'ticket_start_meridian' ) ),
-						      $end_meridian = $( document.getElementById( 'ticket_end_meridian' ) );
+						var $start_meridian = $(sl_time_start['meridian']),
+					        $end_meridian = $(sl_time_end['meridian']),
+					        $reg_period_start_meridian = $(sl_reg_start['meridian']),
+					        $reg_period_end_meridian = $(sl_reg_end['meridian']);
 
+						if ( response.data.reg_period_start_date ) {
+							showTime(response.data.reg_period_start_date, true, $reg_period_start_meridian, sl_reg_start);
+						}
+
+						if ( response.data.reg_period_end_date ) {
+							showTime(response.data.reg_period_end_date, false, $reg_period_end_meridian, sl_reg_end);
+						}
+						
+						if ( response.data.start_date ) {
+							showTime(response.data.start_date, true, $start_meridian, sl_time_start);
+						}
+						
+						if ( response.data.end_date ) {
+							showTime(response.data.end_date, true, $end_meridian, sl_time_end);
+						}
+						
 						if ( response.data.start_date ) {
 							var start_hour = parseInt( response.data.start_date.substring( 11, 13 ) );
 							var start_meridian = 'am';

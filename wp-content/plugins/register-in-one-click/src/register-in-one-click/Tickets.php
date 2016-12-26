@@ -414,11 +414,15 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket->description = isset( $data['ticket_description'] ) ? esc_html( $data['ticket_description'] ) : null;
 			$ticket->price       =  ! empty( $data['ticket_price'] ) ? trim( $data['ticket_price'] ) : 0;
 			$ticket->purchase_limit = isset( $data['ticket_purchase_limit'] ) ? absint( $data['ticket_purchase_limit' ] ) : apply_filters( 'rioc_tickets_default_purchase_limit', 0, $ticket->ID );
-			//  test for additional fields data
+			
 			$ticket->primary_key    = isset( $data['primary_key'] ) ? absint( $data['primary_key'] ) : null;			
+			$ticket->event_enabled  = isset( $data['event_enabled'] ) ? esc_html( $data['event_enabled'] ) : null;
+			$ticket->event_location	= isset( $data['event_location'] ) ? esc_html( $data['event_location'] ) : null;
+			$ticket->event_code	    = isset( $data['event_code'] ) ? esc_html( $data['event_code'] ) : null;
+			$ticket->event_category	= isset( $data['event_category'] ) ? esc_html( $data['event_category'] ) : null;
 			$ticket->message1   	= isset( $data['message1'] ) ? esc_html( $data['message1'] ) : null;
 			$ticket->message2	    = isset( $data['message2'] ) ? esc_html( $data['message2'] ) : null;
-			$ticket->event_enabled  = isset( $data['event_enabled'] ) ? esc_html( $data['event_enabled'] ) : null;
+			$ticket->message3	    = isset( $data['message3'] ) ? esc_html( $data['message3'] ) : null;
 			
 			if ( ! empty( $ticket->price ) ) {
 				// remove non-money characters
@@ -433,6 +437,16 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			if ( ! empty( $data['ticket_end_date'] ) ) {
 				$meridian         = ! empty( $data['ticket_end_meridian'] ) ? ' ' . $data['ticket_end_meridian'] : '';
 				$ticket->end_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . ' ' . $data['ticket_end_hour'] . ':' . $data['ticket_end_minute'] . ':00' . $meridian ) );
+			}
+			
+			if ( ! empty( $data['reg_period_start_date'] ) ) {
+				$meridian           = ! empty( $data['reg_period_start_meridian'] ) ? ' ' . $data['reg_period_start_meridian'] : '';
+				$ticket->start_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['reg_period_start_date'] . ' ' . $data['reg_period_start_hour'] . ':' . $data['reg_period_start_minute'] . ':00' . $meridian ) );
+			}
+
+			if ( ! empty( $data['reg_period_end_date'] ) ) {
+				$meridian         = ! empty( $data['reg_period_end_meridian'] ) ? ' ' . $data['reg_period_end_meridian'] : '';
+				$ticket->end_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['reg_period_end_date'] . ' ' . $data['reg_period_end_hour'] . ':' . $data['reg_period_end_minute'] . ':00' . $meridian ) );
 			}
 
 			$ticket->provider_class = $this->className;
@@ -607,15 +621,23 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$return['name'] = htmlspecialchars_decode( $return['name'] );
 			$return['description'] = html_entity_decode( $return['description'], ENT_QUOTES );
 			$return['description'] = htmlspecialchars_decode( $return['description'] );
-			// additional fields
+			
 			$return['primary_key'] = html_entity_decode( $return['primary_key'], ENT_QUOTES );
 			$return['primary_key'] = htmlspecialchars_decode( $return['primary_key'] );
 			$return['event_enabled'] = html_entity_decode( $return['event_enabled'], ENT_QUOTES );
 			$return['event_enabled'] = htmlspecialchars_decode( $return['event_enabled'] );
+			$return['event_location'] = html_entity_decode( $return['event_location'], ENT_QUOTES );
+			$return['event_location'] = htmlspecialchars_decode( $return['event_location'] );
+			$return['event_code'] = html_entity_decode( $return['event_code'], ENT_QUOTES );
+			$return['event_code'] = htmlspecialchars_decode( $return['event_code'] );
+			$return['event_category'] = html_entity_decode( $return['event_category'], ENT_QUOTES );
+			$return['event_category'] = htmlspecialchars_decode( $return['event_category'] );
 			$return['message1'] = html_entity_decode( $return['message1'], ENT_QUOTES );
 			$return['message1'] = htmlspecialchars_decode( $return['message1'] );
 			$return['message2'] = html_entity_decode( $return['message2'], ENT_QUOTES );
 			$return['message2'] = htmlspecialchars_decode( $return['message2'] );
+			$return['message3'] = html_entity_decode( $return['message3'], ENT_QUOTES );
+			$return['message3'] = htmlspecialchars_decode( $return['message3'] );
 
 			ob_start();
 			/**

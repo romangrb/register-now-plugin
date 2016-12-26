@@ -694,98 +694,62 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			$ticket->ID = wp_update_post( $args );
 		}
 
-		if ( ! $ticket->ID ) {
-			return false;
-		}
+		// if ( ! $ticket->ID ) {
+		// 	return false;
+		// }
 		
-		update_post_meta( $ticket->ID, '_stock', (int) $raw_data['ticket_rsvp_stock'] );
-		update_post_meta( $ticket->ID, '_price', $ticket->price );
+		// update_post_meta( $ticket->ID, '_stock', (int) $raw_data['ticket_rsvp_stock'] );
+		// update_post_meta( $ticket->ID, '_price', $ticket->price );
 		
-		if ( $raw_data['ticket_rsvp_stock'] !== '') {
-			$stock = (int) $raw_data['ticket_rsvp_stock'];
-			$stock_stat = update_post_meta( $ticket->ID, '_stock', $stock, true );
-			update_post_meta( $ticket->ID, '_manage_stock', 'yes' );
-			update_post_meta( $ticket->ID, '_stock_fx', $stock );
-		} else {
-			delete_post_meta( $ticket->ID, '_stock_status' );
-			update_post_meta( $ticket->ID, '_manage_stock', 'no' );
-		}
+		// if ( $raw_data['ticket_rsvp_stock'] !== '') {
+		// 	$stock = (int) $raw_data['ticket_rsvp_stock'];
+		// 	$stock_stat = update_post_meta( $ticket->ID, '_stock', $stock, true );
+		// 	update_post_meta( $ticket->ID, '_manage_stock', 'yes' );
+		// 	update_post_meta( $ticket->ID, '_stock_fx', $stock );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_stock_status' );
+		// 	update_post_meta( $ticket->ID, '_manage_stock', 'no' );
+		// }
+
+		// if ( isset( $ticket->start_date ) ) {
+		// 	update_post_meta( $ticket->ID, '_ticket_start_date', $ticket->start_date );
+		// 	update_post_meta( $ticket->ID, '_EventStartDate', $ticket->start_date );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_ticket_start_date' );
+		// 	delete_post_meta( $ticket->ID, '_EventStartDate' );
+		// }
+
+		// if ( isset( $ticket->end_date ) ) {
+		// 	update_post_meta( $ticket->ID, '_ticket_end_date', $ticket->end_date );
+		// 	update_post_meta( $ticket->ID, '_EventEndDate', $ticket->end_date );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_ticket_end_date' );
+		// 	delete_post_meta( $ticket->ID, '_EventEndDate' );
+		// }
+		
+		// if ( isset( $ticket->event_enabled ) ) {
+		// 	update_post_meta( $ticket->ID, '_event_enabled', true );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_event_enabled' );
+		// }
 		
 		if ( isset( $ticket->primary_key ) ) {
 			update_post_meta( $ticket->ID, '_primary_key', $ticket->primary_key );
 		} else {
 			delete_post_meta( $ticket->ID, '_primary_key' );
 		}
-		
-		if ( isset( $ticket->event_enabled ) ) {
-			update_post_meta( $ticket->ID, '_event_enabled', true );
-		} else {
-			delete_post_meta( $ticket->ID, '_event_enabled' );
-		}
-		
-		if ( isset( $ticket->event_location ) ) {
-			update_post_meta( $ticket->ID, '_event_location', true );
-		} else {
-			delete_post_meta( $ticket->ID, '_event_location' );
-		}
-
-		if ( isset( $ticket->start_date ) ) {
-			update_post_meta( $ticket->ID, '_ticket_start_date', $ticket->start_date );
-			update_post_meta( $ticket->ID, '_EventStartDate', $ticket->start_date );
-		} else {
-			delete_post_meta( $ticket->ID, '_ticket_start_date' );
-			delete_post_meta( $ticket->ID, '_EventStartDate' );
-		}
-
-		if ( isset( $ticket->end_date ) ) {
-			update_post_meta( $ticket->ID, '_ticket_end_date', $ticket->end_date );
-			update_post_meta( $ticket->ID, '_EventEndDate', $ticket->end_date );
-		} else {
-			delete_post_meta( $ticket->ID, '_ticket_end_date' );
-			delete_post_meta( $ticket->ID, '_EventEndDate' );
-		}
-		
-		if ( isset( $ticket->event_code ) ) {
-			update_post_meta( $ticket->ID, '_event_code', $ticket->event_code );
-		} else {
-			delete_post_meta( $ticket->ID, '_event_code' );
-		}
-		
-		if ( isset( $ticket->event_category ) ) {
-			update_post_meta( $ticket->ID, '_event_category', $ticket->event_category );
-		} else {
-			delete_post_meta( $ticket->ID, '_event_category' );
-		}
 	
-		if ( isset( $ticket->message1 ) ) {
-			update_post_meta( $ticket->ID, '_message1', $ticket->message1 );
-		} else {
-			delete_post_meta( $ticket->ID, '_message1' );
-		}
+		// if ( isset( $ticket->message1 ) ) {
+		// 	update_post_meta( $ticket->ID, '_message1', $ticket->message1 );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_message1' );
+		// }
 		
-		if ( isset( $ticket->message2 ) ) {
-			update_post_meta( $ticket->ID, '_message2', $ticket->message2 );
-		} else {
-			delete_post_meta( $ticket->ID, '_message2' );
-		}
-		
-		if ( isset( $ticket->message3 ) ) {
-			update_post_meta( $ticket->ID, '_message3', $ticket->message3 );
-		} else {
-			delete_post_meta( $ticket->ID, '_message3' );
-		}
-		
-		if ( isset( $ticket->reg_period_start_date ) ) {
-			update_post_meta( $ticket->ID, '_reg_period_start_date', $ticket->reg_period_start_date );
-		} else {
-			delete_post_meta( $ticket->ID, '_reg_period_start_date' );
-		}
-		
-		if ( isset( $ticket->reg_period_end_date ) ) {
-			update_post_meta( $ticket->ID, '_reg_period_end_date', $ticket->reg_period_end_date );
-		} else {
-			delete_post_meta( $ticket->ID, '_reg_period_end_date' );
-		}
+		// if ( isset( $ticket->message2 ) ) {
+		// 	update_post_meta( $ticket->ID, '_message2', $ticket->message2 );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_message2' );
+		// }
 		
 
 		/**
@@ -955,32 +919,28 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 
 		$return = new Register_In_One_Click__Tickets__Ticket_Object();
 		$qty    = (int) get_post_meta( $ticket_id, 'total_sales', true );
-		
-		// $return->description    = (int) $raw_data['ticket_rsvp_stock'];
-		$return->description    = $product->post_excerpt;
 		$return->ID             = $ticket_id;
-		$return->name           = $product->post_title;
-		$return->price          = get_post_meta( $ticket_id, '_price', true );
-		$return->provider_class = get_class( $this );
-		$return->admin_link     = '';
-		$return->manage_stock( 'yes' === get_post_meta( $ticket_id, '_manage_stock', true ) );
-		
 		$return->primary_key    = get_post_meta( $ticket_id, '_primary_key', true );
-		$return->start_date     = get_post_meta( $ticket_id, '_ticket_start_date', true );
-		$return->end_date       = get_post_meta( $ticket_id, '_ticket_end_date', true );
-		$return->event_enabled  = get_post_meta( $ticket_id, '_event_enabled', true );
+		// $return->event_enabled  = get_post_meta( $ticket_id, '_event_enabled', true );
+		// $return->start_date     = get_post_meta( $ticket_id, '_ticket_start_date', true );
+		// $return->end_date       = get_post_meta( $ticket_id, '_ticket_end_date', true );
+		// $return->name           = $product->post_title;
+		// $return->description    = $product->post_excerpt;
+		// $return->event_location       = get_post_meta( $ticket_id, '_event_location', true );
+		// $return->event_code 		  = get_post_meta( $ticket_id, '_event_code', true );
+		// $return->event_category       = get_post_meta( $ticket_id, '_event_category', true );
+		// $return->message1       = get_post_meta( $ticket_id, '_message1', true );
+		// $return->message2       = get_post_meta( $ticket_id, '_message2', true );
+		// $return->message3       = get_post_meta( $ticket_id, '_message3', true );
+		// $return->reg_period_start_date     = get_post_meta( $ticket_id, '_reg_period_start_date', true );
+		// $return->reg_period_end_date       = get_post_meta( $ticket_id, '_reg_period_end_date', true );
+
+		// $return->provider_class = get_class( $this );
+		// $return->admin_link     = '';
 		
-		$return->event_location = get_post_meta( $ticket_id, '_event_location', true );
-		$return->event_code 	= get_post_meta( $ticket_id, '_event_code', true );
-		$return->event_category = get_post_meta( $ticket_id, '_event_category', true );
-		$return->message1       = get_post_meta( $ticket_id, '_message1', true );
-		$return->message2       = get_post_meta( $ticket_id, '_message2', true );
-		$return->message3       = get_post_meta( $ticket_id, '_message3', true );
-		$return->reg_period_start_date  = get_post_meta( $ticket_id, '_reg_period_start_date', true );
-		$return->reg_period_end_date    = get_post_meta( $ticket_id, '_reg_period_end_date', true );
-		
-		$return->stock( get_post_meta( $ticket_id, '_stock', true ) - $qty );
-		$return->qty_sold( $qty );
+		// $return->manage_stock( 'yes' === get_post_meta( $ticket_id, '_manage_stock', true ) );
+		// $return->stock( get_post_meta( $ticket_id, '_stock', true ) - $qty );
+		// $return->qty_sold( $qty );
 
 		return $return;
 	}

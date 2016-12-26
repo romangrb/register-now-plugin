@@ -87,7 +87,7 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 				
 			<tr>
 				<td colspan="2">
-					<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit ticket', 'event-tickets' ); ?></h4>
+					<h4 class="ticket_form_title_edit"><?php esc_html_e( 'Edit event', 'event-tickets' ); ?></h4>
 				</td>
 			</tr>
 			

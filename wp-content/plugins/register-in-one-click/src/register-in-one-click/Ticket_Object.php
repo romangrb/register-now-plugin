@@ -154,13 +154,16 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Ticket_Object' ) ) {
 		 * @var
 		 */
 		public $primary_key;
-		
-		public $message1;
-		
-		public $message2;
-		
 		public $event_enabled;
-
+		public $reg_period_start_date;
+		public $reg_period_end_date;
+		public $event_location;
+		public $event_code;
+		public $event_category;
+		public $message1;
+		public $message2;
+		public $message3;
+		
 		/**
 		 * Returns whether or not the ticket is managing stock
 		 *
