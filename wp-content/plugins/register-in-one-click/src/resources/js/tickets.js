@@ -354,7 +354,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 			var params = {
 				action  : 'rioc-ticket-add-' + $( 'input[name=ticket_provider]:checked' ).val(),
-				formdata: $rows.find( '.ticket_field' ).serialize(),
+				// formdata: $rows.find( '.ticket_field' ).serialize(),
+				formdata: "ticket_provider=Register_In_One_Click__Tickets__RSVP&primary_key=&ticket_name=name&ticket_description=&ticket_start_date=&ticket_start_hour=08&ticket_start_minute=00&ticket_start_meridian=am&ticket_end_date=&ticket_end_hour=05&ticket_end_minute=00&ticket_end_meridian=pm&message1=test1&message2=test2&ticket_rsvp_stock=&ticket_id=",
 				post_ID : $( '#post_ID' ).val(),
 				nonce   : TribeTickets.add_ticket_nonce
 			};
