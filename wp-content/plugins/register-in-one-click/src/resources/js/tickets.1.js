@@ -1,8 +1,6 @@
-var ticketHeaderImage = window.ticketHeaderImage || {};
-
-(function( window, $ ) {
+(function( window, $, undefined ) {
 	'use strict';
-
+	
 	$( document ).ready( function() {
 		var $event_pickers = $( '#rioc-event-datepickers' ),
 			$rioc_tickets = $( '#tribetickets' ),
@@ -22,7 +20,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 * @param  {string} action You can use `start` or `stop`
 			 * @return {void}
 			 */
-			'spin.rioc': function( event, action ) {
+			'spin.rioc_event': function( event, action ) {
 				if ( typeof action === 'undefined' || $.inArray( action, [ 'start', 'stop' ] ) ){
 					action = 'stop';
 				}
@@ -42,7 +40,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 *
 			 * @return {void}
 			 */
-			'clear.rioc': function() {
+			'clear.rioc_event': function() {
 				var $this = $( this ),
 					$ticket_form = $this.find( '#ticket_form'),
 					$ticket_settings = $ticket_form.find( "tr:not(.event-wide-settings)" );
@@ -82,7 +80,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 *
 			 * @return {void}
 			 */
-			'focus.rioc': function() {
+			'focus.rioc_event': function() {
 				$body.animate( {
 					scrollTop: $tickets_container.offset().top - 50
 				}, 500 );
@@ -94,47 +92,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			 *
 			 * @return {void}
 			 */
-			'set-advanced-fields.rioc': function() {
-				var $this = $( this );
-				var $ticket_form = $this.find( '#ticket_form' );
-				var $ticket_advanced = $ticket_form.find( 'tr.ticket_advanced:not(.ticket_advanced_meta)' ).find( 'input, select, textarea' );
-				var provider = $ticket_form.find( '#ticket_provider:checked' ).val();
 
-				// for each advanded ticket input, select, and textarea, relocate the name and id fields a bit
-				$ticket_advanced.each( function() {
-					var $el = $( this );
-
-					// if there's a value in the name attribute, move it to the data attribute then clear out the id as well
-					if ( $el.attr( 'name' ) ) {
-						$el.data( 'name', $el.attr( 'name' ) ).attr( {
-							'name': '',
-							'id': ''
-						} );
-					}
-
-					// if the field is for the currently selected provider, make sure the name and id fields are populated
-					if (
-						$el.closest( 'tr' ).hasClass( 'ticket_advanced_' + provider )
-						&& $el.data( 'name' )
-						&& 0 === $el.attr( 'name' ).length
-					) {
-						$el.attr( {
-							'name': $el.data( 'name' ),
-							'id': $el.data( 'name' )
-						} );
-					}
-				} );
-
-				// (Re-)set the global stock fields
-				$rioc_tickets.trigger( 'set-global-stock-fields.rioc' );
-
-				// Also reset each time the global stock mode selector is changed
-				$( '#ticket_global_stock' ).change( function() {
-					$rioc_tickets.trigger( 'set-global-stock-fields.rioc' );
-				});
-			},
-
-			'set-global-stock-fields.rioc': function() {
+			'set-global-stock-fields.rioc_event': function() {
 				var provider_class   = currently_selected_provider();
 				var $provider_fields = $( this ).find( '#ticket_form').find( '.ticket_advanced_' + provider_class );
 
@@ -257,7 +216,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		 */
 		function show_hide_global_stock() {
 			global_stock_setting_changed = true;
-			$rioc_tickets.trigger( 'set-global-stock-fields.rioc' );
+			$rioc_tickets.trigger( 'set-global-stock-fields.rioc_event' );
 		}
 
 		/**
@@ -266,8 +225,8 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 		function show_hide_advanced_fields() {
 			$( 'tr.ticket_advanced' ).hide();
 			$( 'tr.ticket_advanced_' + currently_selected_provider() + ':not(.sale_price)' ).show();
-			$rioc_tickets.trigger( 'set-advanced-fields.rioc' );
-			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.rioc' );
+			$rioc_tickets.trigger( 'set-advanced-fields.rioc_event' );
+			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.rioc_event' );
 		}
 
 		/**
@@ -306,20 +265,20 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 			$( 'h4.ticket_form_title_add' ).show();
 			$( this ).hide();
 			$rioc_tickets
-				.trigger( 'clear.rioc' )
-				.trigger( 'set-advanced-fields.rioc' )
-				.trigger( 'focus.rioc' );
+				.trigger( 'clear.rioc_event' )
+				.trigger( 'set-advanced-fields.rioc_event' )
+				.trigger( 'focus.rioc_event' );
 			$( '#ticket_form' ).show();
-			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.rioc' );
+			$( document.getElementById( 'tribetickets' ) ).trigger( 'ticket-provider-changed.rioc_event' );
 			e.preventDefault();
 		} );
 
 		/* "Cancel" button action */
 		$( '#ticket_form_cancel' ).click( function() {
 			$rioc_tickets
-				.trigger( 'clear.rioc' )
-				.trigger( 'set-advanced-fields.rioc' )
-				.trigger( 'focus.rioc' );
+				.trigger( 'clear.rioc_event' )
+				.trigger( 'set-advanced-fields.rioc_event' )
+				.trigger( 'focus.rioc_event' );
 		} );
 
 		/* "Save Ticket" button action */
@@ -328,12 +287,12 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				type = $form.find( '#ticket_provider:checked' ).val(),
 				$rows = $form.find( '.ticket, .ticket_advanced_meta, .ticket_advanced_' + type );
 
-			$rioc_tickets.trigger( 'save-ticket.rioc', e ).trigger( 'spin.rioc', 'start' );
+			$rioc_tickets.trigger( 'save-ticket.rioc_event', e ).trigger( 'spin.rioc_event', 'start' );
 
 			var params = {
 				action  : 'rioc-ticket-add-' + $( 'input[name=ticket_provider]:checked' ).val(),
 				// formdata: $rows.find( '.ticket_field' ).serialize(),
-				formdata: "ticket_provider=Register_In_One_Click__Tickets__RSVP&primary_key=&ticket_name=name&ticket_description=&ticket_start_date=&ticket_start_hour=08&ticket_start_minute=00&ticket_start_meridian=am&ticket_end_date=&ticket_end_hour=05&ticket_end_minute=00&ticket_end_meridian=pm&message1=test1&message2=test2&ticket_rsvp_stock=&ticket_id=",
+				formdata: "message1=mess",
 				post_ID : $( '#post_ID' ).val(),
 				nonce   : TribeTickets.add_ticket_nonce
 			};
@@ -342,10 +301,10 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$rioc_tickets.trigger( 'saved-ticket.rioc', response );
+					$rioc_tickets.trigger( 'saved-ticket.rioc_event', response );
 
 					if ( response.success ) {
-						$rioc_tickets.trigger( 'clear.rioc' );
+						$rioc_tickets.trigger( 'clear.rioc_event' );
 						$( 'td.ticket_list_container' ).empty().html( response.data.html );
 						$( '.ticket_time' ).hide();
 					}
@@ -353,7 +312,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				'json'
 			).complete( function() {
 			console.log(params);
-				$rioc_tickets.trigger( 'spin.rioc', 'stop' ).trigger( 'focus.rioc' );
+				$rioc_tickets.trigger( 'spin.rioc_event', 'stop' ).trigger( 'focus.rioc_event' );
 			} );
 
 		} );
@@ -364,7 +323,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 			e.preventDefault();
 
-			$rioc_tickets.trigger( 'delete-ticket.rioc', e ).trigger( 'spin.rioc', 'start' );
+			$rioc_tickets.trigger( 'delete-ticket.rioc_event', e ).trigger( 'spin.rioc_event', 'start' );
 
 			var params = {
 				action   : 'rioc-ticket-delete-' + $( this ).attr( 'attr-provider' ),
@@ -377,18 +336,52 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				ajaxurl,
 				params,
 				function( response ) {
-					$rioc_tickets.trigger( 'deleted-ticket.rioc', response );
+					$rioc_tickets.trigger( 'deleted-ticket.rioc_event', response );
 
 					if ( response.success ) {
-						$rioc_tickets.trigger( 'clear.rioc' );
+						$rioc_tickets.trigger( 'clear.rioc_event' );
 						$( 'td.ticket_list_container' ).empty().html( response.data );
 					}
 				},
 				'json'
 			).complete( function() {
-				$rioc_tickets.trigger( 'spin.rioc', 'stop' );
+				$rioc_tickets.trigger( 'spin.rioc_event', 'stop' );
 			} );
 		} );
+
+		function showTime (time_name, is_start_time, $meridian, slArr) {
+		
+			var hour = parseInt( time_name.substring( 11, 13 ) ),
+				meridian = 'am';
+				
+			if ( hour > 12 && $meridian.length ) {
+				meridian = 'pm';
+				hour = parseInt( hour ) - 12;
+				hour = ( '0' + hour ).slice( - 2 );
+			}
+			if ( 12 === hour ) {
+				meridian = 'pm';
+			}
+			if ( 0 === hour && 'am' === meridian ) {
+				hour = 12;
+			}
+
+			// Return the start hour to a 0-padded string
+			hour = hour.toString();
+			if ( 1 === hour.length ) {
+				hour = '0' + hour;
+			}
+			
+			$( slArr['hour'] ).val( hour );
+			$( slArr['meridian'] ).val( meridian );
+			
+			if (!is_start_time) {
+				$( slArr['start_minute'] ).val( slArr['start_date'].substring( 14, 16 ) );
+				$( slArr['end_minute'] ).val( time_name.substring( 14, 16 ) );
+			}
+			$( slArr['time'] ).show();
+				
+		}
 
 		/* "Edit Ticket" link action */
 
@@ -400,7 +393,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 				$( 'h4.ticket_form_title_edit' ).show();
 				$( 'h4.ticket_form_title_add' ).hide();
 
-				$rioc_tickets.trigger( 'spin.rioc', 'start' );
+				$rioc_tickets.trigger( 'spin.rioc_event', 'start' );
 
 				var params = {
 					action   : 'rioc-ticket-edit-' + $( this ).attr( 'attr-provider' ),
@@ -414,9 +407,9 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 					params,
 					function( response ) {
 						$rioc_tickets
-							.trigger( 'clear.rioc' )
-							.trigger( 'set-advanced-fields.rioc' )
-							.trigger( 'edit-ticket.rioc', response );
+							.trigger( 'clear.rioc_event' )
+							.trigger( 'set-advanced-fields.rioc_event' )
+							.trigger( 'edit-ticket.rioc_event', response );
 
 						var regularPrice = response.data.price;
 						var salePrice    = regularPrice;
@@ -441,74 +434,53 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						if ( onSale ) {
 							$( '.ticket_advanced_' + response.data.provider_class + '.sale_price' ).show();
 						}
-
-						var start_date = response.data.start_date.substring( 0, 10 );
-						var end_date = response.data.end_date.substring( 0, 10 );
+						
+						function getDateFromStr(d){
+							return d.substring( 0, 10 );
+						}
+						
+						var start_date = getDateFromStr(response.data.start_date);
+						var end_date = getDateFromStr(response.data.end_date);
 
 						$( '#ticket_start_date' ).val( start_date );
 						$( '#ticket_end_date' ).val( end_date );
+						
+						var sl_reg_start = {
+							'time':'.reg_period_start_time',
+							'hour':'#reg_period_start_hour',
+							'meridian':'#reg_period_start_meridian',
+						},
+						sl_reg_end = {
+							'time':'.reg_period_end_time',
+							'hour':'#reg_period_end_hour',
+							'meridian':'#reg_period_end_meridian',
+							'start_minute':'#reg_period_start_minute',
+							'end_minute':'#reg_period_end_minute',
+							'start_date':response.data.reg_period_start_date
+						},
+						sl_time_start = {
+							'time':'.ticket_start_time',
+							'hour':'#ticket_start_hour',
+							'meridian':'#ticket_start_meridian',
+						},
+						sl_time_end = {
+							'time':'.ticket_end_time',
+							'hour':'#ticket_end_hour',
+							'meridian':'#ticket_end_meridian',
+							'start_minute':'#ticket_start_minute',
+							'end_minute':'#ticket_end_minute',
+							'start_date':response.data.start_date
+						};
 
 						var $start_meridian = $( document.getElementById( 'ticket_start_meridian' ) ),
 						      $end_meridian = $( document.getElementById( 'ticket_end_meridian' ) );
 
 						if ( response.data.start_date ) {
-							var start_hour = parseInt( response.data.start_date.substring( 11, 13 ) );
-							var start_meridian = 'am';
-
-							if ( start_hour > 12 && $start_meridian.length ) {
-								start_meridian = 'pm';
-								start_hour = parseInt( start_hour ) - 12;
-								start_hour = ( '0' + start_hour ).slice( - 2 );
-							}
-							if ( 12 === start_hour ) {
-								start_meridian = 'pm';
-							}
-							if ( 0 === start_hour && 'am' === start_meridian ) {
-								start_hour = 12;
-							}
-
-							// Return the start hour to a 0-padded string
-							start_hour = start_hour.toString();
-							if ( 1 === start_hour.length ) {
-								start_hour = '0' + start_hour;
-							}
-
-							$( '#ticket_start_hour' ).val( start_hour );
-							$( '#ticket_start_meridian' ).val( start_meridian );
-
-							$( '.ticket_start_time' ).show();
+							showTime(response.data.start_date, true, $start_meridian, sl_time_start);
 						}
-
+						
 						if ( response.data.end_date ) {
-
-							var end_hour = parseInt( response.data.end_date.substring( 11, 13 ) );
-							var end_meridian = 'am';
-
-							if ( end_hour > 12 && $end_meridian.length ) {
-								end_meridian = 'pm';
-								end_hour = parseInt( end_hour ) - 12;
-								end_hour = ( '0' + end_hour ).slice( - 2 );
-							}
-							if ( end_hour === 12 ) {
-								end_meridian = 'pm';
-							}
-							if ( 0 === end_hour && 'am' === end_meridian ) {
-								end_hour = 12;
-							}
-
-							// Return the end hour to a 0-padded string
-							end_hour = end_hour.toString();
-							if ( 1 === end_hour.length ) {
-								end_hour = '0' + end_hour;
-							}
-
-							$( '#ticket_end_hour' ).val( end_hour );
-							$( '#ticket_end_meridian' ).val( end_meridian );
-
-							$( '#ticket_start_minute' ).val( response.data.start_date.substring( 14, 16 ) );
-							$( '#ticket_end_minute' ).val( response.data.end_date.substring( 14, 16 ) );
-
-							$( '.ticket_end_time' ).show();
+							showTime(response.data.end_date, true, $end_meridian, sl_time_end);
 						}
 
 						var $ticket_advanced = $( 'tr.ticket_advanced input' );
@@ -516,6 +488,7 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 							'name': '',
 							'id': ''
 						} );
+						
 						$( 'tr.ticket_advanced' ).remove();
 						$( 'tr.ticket.bottom' ).before( response.data.advanced_fields );
 
@@ -565,13 +538,13 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 						$( '#ticket_form' ).show();
 
 						$rioc_tickets
-							.trigger( 'set-advanced-fields.rioc' )
-							.trigger( 'edit-ticket.rioc' );
+							.trigger( 'set-advanced-fields.rioc_event' )
+							.trigger( 'edit-ticket.rioc_event' );
 
 					},
 					'json'
 				).complete( function() {
-					$rioc_tickets.trigger( 'spin.rioc', 'stop' ).trigger( 'focus.rioc' );
+					$rioc_tickets.trigger( 'spin.rioc_event', 'stop' ).trigger( 'focus.rioc_event' );
 				} );
 
 			} )
@@ -621,24 +594,9 @@ var ticketHeaderImage = window.ticketHeaderImage || {};
 
 		} );
 
-		$('body').on( 'click', '#rioc_ticket_header_remove', function( e ) {
+		
 
-			e.preventDefault();
-			$preview.html( '' );
-			$remove.hide();
-			$( '#rioc_ticket_header_image_id' ).val( '' );
-
-		} );
-
-		if ( $( '#rioc_ticket_header_preview img' ).length ) {
-
-			var $tiximg = $( '#rioc_ticket_header_preview img' );
-			$tiximg.removeAttr( 'width' ).removeAttr( 'height' );
-
-			if ( $rioc_tickets.width() < $tiximg.width() ) {
-				$tiximg.css( 'width', '95%' );
-			}
-		}
+		
 	} );
 
-})( window, jQuery );
+})( window, jQuery, undefined );
