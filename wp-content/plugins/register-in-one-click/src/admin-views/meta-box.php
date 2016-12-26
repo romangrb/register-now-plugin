@@ -184,16 +184,16 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 											</tr>
 					
 											<tr class="ticket">
-												<td><label for="ticket_name"><?php esc_html_e( 'Event Name:', 'rioc-event' ); ?></label></td>
+												<td><label for="name"><?php esc_html_e( 'Event Name:', 'rioc-event' ); ?></label></td>
 												<td>
-													<input type='text' id='ticket_name' name='ticket_name' class="ticket_field" value="" />
+													<input type='text' id='name' name='name' class="ticket_field" value="" />
 												</td>
 											</tr>
 											
 											<tr class="ticket">
-												<td><label for="ticket_description"><?php esc_html_e( 'Ticket Description:', 'rioc-event' ); ?></label></td>
+												<td><label for="description"><?php esc_html_e( 'Ticket Description:', 'rioc-event' ); ?></label></td>
 												<td>
-													<textarea rows="5" cols="40" name="ticket_description" class="ticket_field" id="ticket_description"></textarea>
+													<textarea rows="5" cols="40" name="description" class="ticket_field" id="description"></textarea>
 												</td>
 											</tr>
 											

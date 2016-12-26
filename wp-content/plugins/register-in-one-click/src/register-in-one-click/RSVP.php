@@ -956,7 +956,6 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		$return = new Register_In_One_Click__Tickets__Ticket_Object();
 		$qty    = (int) get_post_meta( $ticket_id, 'total_sales', true );
 		
-		// $return->description    = (int) $raw_data['ticket_rsvp_stock'];
 		$return->description    = $product->post_excerpt;
 		$return->ID             = $ticket_id;
 		$return->name           = $product->post_title;

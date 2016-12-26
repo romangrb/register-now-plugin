@@ -410,8 +410,8 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket = new Register_In_One_Click__Tickets__Ticket_Object();
 
 			$ticket->ID          = isset( $data['ticket_id'] ) ? absint( $data['ticket_id'] ) : null;
-			$ticket->name        = isset( $data['ticket_name'] ) ? esc_html( $data['ticket_name'] ) : null;
-			$ticket->description = isset( $data['ticket_description'] ) ? esc_html( $data['ticket_description'] ) : null;
+			$ticket->name        = isset( $data['name'] ) ? esc_html( $data['name'] ) : null;
+			$ticket->description = isset( $data['description'] ) ? esc_html( $data['description'] ) : null;
 			$ticket->price       =  ! empty( $data['ticket_price'] ) ? trim( $data['ticket_price'] ) : 0;
 			$ticket->purchase_limit = isset( $data['ticket_purchase_limit'] ) ? absint( $data['ticket_purchase_limit' ] ) : apply_filters( 'rioc_tickets_default_purchase_limit', 0, $ticket->ID );
 			

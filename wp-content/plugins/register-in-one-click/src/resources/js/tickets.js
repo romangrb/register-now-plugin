@@ -464,21 +464,18 @@
 							regularPrice = response.data.regular_price;
 						}
 						console.log(response);
-						// to do compare fields classes and autocomplete if true ?
-						$( '#ticket_id' ).val( response.data.ID );
-						$( '#primary_key' ).val( response.data.primary_key );
-						$( '#ticket_name' ).val( response.data.name );
-						$( '#ticket_description' ).val( response.data.description );
 						
-						$( '#event_location' ).val( response.data.event_location );
-						$( '#event_code' ).val( response.data.event_code );
-						$( '#event_category' ).val( response.data.event_category );
-						$( '#message1' ).val( response.data.message1 );
-						$( '#message2' ).val( response.data.message2 );
-						$( '#message3' ).val( response.data.message2 );
+						function setFieldsValues(res){
+							if (res.data == undefined) return;
+							var obj = res.data;
+							for (var key in obj){
+								if ($('#'+key)) $('#'+key).val(obj[key]); 
+							}
+						}
 						
+						setFieldsValues(response);
 						
-						(response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
+						// (response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
 						
 						
 						if ( onSale ) {
