@@ -464,7 +464,7 @@
 							regularPrice = response.data.regular_price;
 						}
 						console.log(response);
-						
+					
 						function setFieldsValues(res){
 							if (res.data == undefined) return;
 							var obj = res.data;

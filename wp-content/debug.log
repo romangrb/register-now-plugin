@@ -1482,3 +1482,4 @@
 [26-Dec-2016 23:12:39 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 701
 [26-Dec-2016 23:12:39 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 704
 [26-Dec-2016 23:12:39 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 705
+[27-Dec-2016 16:22:38 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/ubuntu/workspace/wp-includes/option.php on line 141
