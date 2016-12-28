@@ -1,4 +1,4 @@
-(function( window, $ ) {
+
 	'use strict';
 
 var FieldsOperator = {
@@ -64,11 +64,8 @@ function typeFields(arr_names_ch, arr_names_txt){
   
 }
 
-var initObj = Object.create(FieldsOperator);
-typeFields.prototype = initObj;
-var FldsOpr = new typeFields();
-FldsOpr.constructor(2332);
+// var initObj = Object.create(FieldsOperator);
+// typeFields.prototype = initObj;
+// var FldsOpr = new typeFields();
+// FldsOpr.constructor(2332);
 
-FldsOpr._getF();
-
-})( window, jQuery );

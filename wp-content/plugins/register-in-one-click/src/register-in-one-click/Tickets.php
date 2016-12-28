@@ -367,7 +367,8 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			if ( ! isset( $data['ticket_provider'] ) || ! $this->module_is_valid( $data['ticket_provider'] ) ) {
 				$this->ajax_error( 'Bad module' );
 			}
-
+			
+			// to do / check emptied data
 			$return = $this->ticket_add( $post_id, $data );
 
 			// Successful?
@@ -414,7 +415,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket->description = isset( $data['description'] ) ? esc_html( $data['description'] ) : null;
 			$ticket->price       =  ! empty( $data['ticket_price'] ) ? trim( $data['ticket_price'] ) : 0;
 			$ticket->purchase_limit = isset( $data['ticket_purchase_limit'] ) ? absint( $data['ticket_purchase_limit' ] ) : apply_filters( 'rioc_tickets_default_purchase_limit', 0, $ticket->ID );
-			
+
 			$ticket->primary_key    = isset( $data['primary_key'] ) ? absint( $data['primary_key'] ) : null;			
 			$ticket->event_enabled  = isset( $data['event_enabled'] ) ? esc_html( $data['event_enabled'] ) : null;
 			$ticket->event_location	= isset( $data['event_location'] ) ? esc_html( $data['event_location'] ) : null;
@@ -452,7 +453,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket->provider_class = $this->className;
 
 			/**
-			 * Fired once a ticket has been created and added to a post
+			 * Fired once a ticket has been created and added to a post as revision
 			 *
 			 * @var $post_id Post ID
 			 * @var $ticket Ticket object

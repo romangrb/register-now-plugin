@@ -50,6 +50,10 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 		}
 
 		add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
+		// for validation page
+		add_action( 'admin_enqueue_scripts', array( $this,'post_required_admin_scripts') );
+		
+		
 		add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
 		add_filter( 'page_row_actions', array( $this, 'attendees_row_action' ) );
 
@@ -78,6 +82,20 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 		}
 
 		return $actions;
+	}
+	
+	// Load admin scripts & styles
+	public function post_required_admin_scripts( $hook ) {
+		global $post;
+		// If the post we're editing isn't a project_summary type, exit this function
+		if ( ! $post || 'rioc-common' != $post->post_type ) {
+			return;
+		}
+		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
+		// Load the scripts & styles below only if we're creating/updating the post
+		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
+				wp_enqueue_script( 'event-fields-check', $resources_url .'/js/check.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
+		}
 	}
 
 	/**
@@ -109,6 +127,8 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 		 */
 		add_action( 'admin_init', array( $this, 'attendees_page_screen_setup' ), 1 );
 	}
+	
+
 
 	/**
 	 * Enqueues the JS and CSS for the attendees page in the admin
@@ -125,6 +145,8 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 		wp_enqueue_style( self::$attendees_slug, $resources_url . '/css/tickets-attendees.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version() );
 		wp_enqueue_style( self::$attendees_slug . '-print', $resources_url . '/css/tickets-attendees-print.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version(), 'print' );
 		wp_enqueue_script( self::$attendees_slug, $resources_url . '/js/tickets-attendees.js', array( 'jquery' ), Register_In_One_Click__Tickets__Main::instance()->js_version() );
+		
+			
 
 		$mail_data = array(
 			'nonce'           => wp_create_nonce( 'email-attendee-list' ),

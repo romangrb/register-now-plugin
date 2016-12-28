@@ -41,7 +41,8 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 	 *
 	 * @var string
 	 */
-	public $ticket_object = 'tribe_events';
+	// public $ticket_object = 'tribe_events';
+	public $ticket_object = 'rioc_common';
 
 	/**
 	 * Meta key that relates Products and Events
@@ -670,6 +671,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			$save_type = 'create';
 		
 			/* Create main product post */
+		
 			$args = array(
 				'post_status'  => 'publish',
 				'post_type'    => $this->ticket_object,
@@ -797,7 +799,6 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		 * @var string Commerce engine class
 		 */
 		do_action( 'event_tickets_after_' . $save_type . '_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
-
 		/**
 		 * Generic action fired after saving a ticket
 		 *
