@@ -118,6 +118,8 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 	 * Instance of this class for use as singleton
 	 */
 	private static $instance;
+	
+	private $prefix = 'auto_';
 
 	/**
 	 * Creates the instance of the class
@@ -671,13 +673,13 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			$save_type = 'create';
 		
 			/* Create main product post */
-		
+			// autogenerate post name if is not provided (exeption)
 			$args = array(
 				'post_status'  => 'publish',
 				'post_type'    => $this->ticket_object,
 				'post_author'  => get_current_user_id(),
 				'post_excerpt' => $ticket->description,
-				'post_title'   => $ticket->name,
+				'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
 			);
 
 			$ticket->ID = wp_insert_post( $args );
@@ -689,7 +691,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			$args = array(
 				'ID'           => $ticket->ID,
 				'post_excerpt' => $ticket->description,
-				'post_title'   => $ticket->name,
+				'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
 				
 			);
 

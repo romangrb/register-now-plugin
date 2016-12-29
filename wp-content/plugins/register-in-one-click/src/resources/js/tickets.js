@@ -346,16 +346,17 @@
 				params,
 				function( response ) {
 					$rioc_tickets.trigger( 'saved-ticket.rioc', response );
-
 					if ( response.success ) {
 						$rioc_tickets.trigger( 'clear.rioc' );
 						$( 'td.ticket_list_container' ).empty().html( response.data.html );
 						$( '.ticket_time' ).hide();
+					} else {
+						$( 'td.ticket_list_container' ).empty().html( response.data.html );
 					}
+					console.log(response);
 				},
 				'json'
 			).complete( function() {
-			console.log(params);
 				$rioc_tickets.trigger( 'spin.rioc', 'stop' ).trigger( 'focus.rioc' );
 			} );
 

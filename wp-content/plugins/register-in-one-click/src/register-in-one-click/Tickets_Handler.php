@@ -87,14 +87,14 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 	// Load admin scripts & styles
 	public function post_required_admin_scripts( $hook ) {
 		global $post;
-		// If the post we're editing isn't a project_summary type, exit this function
+		// return if the post we're editing isn't a project type
 		if ( ! $post || 'rioc-common' != $post->post_type ) {
 			return;
 		}
 		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
 		// Load the scripts & styles below only if we're creating/updating the post
 		if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
-				wp_enqueue_script( 'event-fields-check', $resources_url .'/js/check.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
+				wp_enqueue_script( 'event-fields-check', $resources_url .'/js/check-title-post.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
 		}
 	}
 

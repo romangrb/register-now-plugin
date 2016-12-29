@@ -1,6 +1,6 @@
 ( function ( $ ) {
 	$( document ).ready( function () {
-console.log('hello');
+
 		//Require post title when adding/editing Project Summaries
 		$( 'body' ).on( 'submit.edit-post', '#post', function () {
 
