@@ -179,6 +179,32 @@
 			startofweek = $event_pickers.data( 'startofweek' );
 		}
 
+		var sl_reg_start = {
+			'time':'.reg_period_start_time',
+			'hour':'#reg_period_start_hour',
+			'meridian':'#reg_period_start_meridian',
+		},
+		sl_reg_end = {
+			'time':'.reg_period_end_time',
+			'hour':'#reg_period_end_hour',
+			'meridian':'#reg_period_end_meridian',
+			'start_minute':'#reg_period_start_minute',
+			'end_minute':'#reg_period_end_minute'
+		},
+		sl_time_start = {
+			'time':'.ticket_start_time',
+			'hour':'#ticket_start_hour',
+			'meridian':'#ticket_start_meridian',
+		},
+		sl_time_end = {
+			'time':'.ticket_end_time',
+			'hour':'#ticket_end_hour',
+			'meridian':'#ticket_end_meridian',
+			'start_minute':'#ticket_end_minute',
+			'end_minute':'#ticket_start_minute'
+		};
+		
+		
 		var datepickerOpts = {
 			dateFormat     : 'yy-mm-dd',
 			showAnim       : 'fadeIn',
@@ -212,7 +238,17 @@
 				}
 			}
 		};
-
+		
+		$('#ticket_end_hour').on('change', function(e){
+		    var crnt_hour = $("option:selected", this).text(),
+		    	dec_hour  = parseInt(crnt_hour, 10);
+		    	
+		});
+		
+		function getValidSelection(h, m, mer){
+			
+		}
+		
 		// check if id exist another code will not run
 		if ( $( '#reg_period_start_date' ) ){
 			$( '#reg_period_start_date' ).datepicker( datepickerOpts ).keyup( function( e ) {
@@ -245,6 +281,7 @@
 				}
 			} );
 		}
+		
 
 		/**
 		 * Indicates if the "enable global stock" field has been checked.
@@ -422,7 +459,7 @@
 			$( slArr['meridian'] ).val( meridian );
 			
 			if (!is_start_time) {
-				console.log(true);
+				
 				$( slArr['start_minute'] ).val( slArr['start_date'].substring( 14, 16 ) );
 				$( slArr['end_minute'] ).val( time_name.substring( 14, 16 ) );
 			}
@@ -497,50 +534,22 @@
 						$( '#reg_period_start_date' ).val( reg_period_start_date );
 						$( '#reg_period_end_date' ).val( reg_period_end_date );
 						
-						var sl_reg_start = {
-							'time':'.reg_period_start_time',
-							'hour':'#reg_period_start_hour',
-							'meridian':'#reg_period_start_meridian',
-						},
-						sl_reg_end = {
-							'time':'.reg_period_end_time',
-							'hour':'#reg_period_end_hour',
-							'meridian':'#reg_period_end_meridian',
-							'start_minute':'#reg_period_start_minute',
-							'end_minute':'#reg_period_end_minute',
-							'start_date':response.data.reg_period_start_date
-						},
-						sl_time_start = {
-							'time':'.ticket_start_time',
-							'hour':'#ticket_start_hour',
-							'meridian':'#ticket_start_meridian',
-						},
-						sl_time_end = {
-							'time':'.ticket_end_time',
-							'hour':'#ticket_end_hour',
-							'meridian':'#ticket_end_meridian',
-							'start_minute':'#ticket_end_minute',
-							'end_minute':'#ticket_start_minute',
-							'start_date':response.data.start_date
-						};
-console.log(1);
+						sl_reg_end['start_date'] = response.data.reg_period_start_date;
+						sl_time_end['start_date'] = response.data.start_date;
+
 						if ( response.data.reg_period_start_date ) {
-							console.log('reg_period_start_date');
 							showTime(response.data.reg_period_start_date, true, sl_reg_start);
 						}
 
 						if ( response.data.reg_period_end_date ) {
-								console.log('reg_period_end_date');
 							showTime(response.data.reg_period_end_date, false, sl_reg_end);
 						}
 						
 						if ( response.data.start_date ) {
-							console.log('response.data.start_date');
 							showTime(response.data.start_date, true, sl_time_start);
 						}
 						
 						if ( response.data.end_date ) {
-							console.log('response.data.end_date');
 							showTime(response.data.end_date, false, sl_time_end);
 						}
 						

@@ -1896,3 +1896,6 @@
 [30-Dec-2016 12:47:19 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 707
 [30-Dec-2016 12:47:19 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 710
 [30-Dec-2016 12:47:19 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 711
+[30-Dec-2016 14:49:08 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 707
+[30-Dec-2016 14:49:09 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 710
+[30-Dec-2016 14:49:09 UTC] PHP Notice:  Undefined index: ticket_rsvp_stock in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/register-in-one-click/RSVP.php on line 711
