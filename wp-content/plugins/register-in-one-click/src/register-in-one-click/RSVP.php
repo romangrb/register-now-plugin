@@ -41,8 +41,8 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 	 *
 	 * @var string
 	 */
-	// public $ticket_object = 'tribe_events';
-	public $ticket_object = 'rioc_common';
+	public $ticket_object = 'tribe_events';
+	// public $ticket_object = 'rioc_common';
 
 	/**
 	 * Meta key that relates Products and Events
