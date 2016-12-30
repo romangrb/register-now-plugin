@@ -239,10 +239,22 @@
 			}
 		};
 		
-		$('#ticket_end_hour').on('change', function(e){
-		    var crnt_hour = $("option:selected", this).text(),
-		    	dec_hour  = parseInt(crnt_hour, 10);
-		    	
+		var time_ids = {id:'#ticket_end_hour, #ticket_end_minute, #ticket_end_meridian, #ticket_start_hour, #ticket_start_minute, #ticket_start_meridian'};
+		
+		$(time_ids.id).on(
+			'change', function(){
+			
+			
+			var crnt_hour = $("option:selected", '#ticket_end_hour').text();	
+			
+			var crnt_min = $("option:selected", '#ticket_end_minute').text();
+			
+			var crnt_meridian = $("option:selected", '#ticket_end_meridian').text();
+				
+		    var dec_hour  = parseInt(crnt_hour, 10),
+		    	dec_min  = parseInt(crnt_min, 10),
+		    	meridian = crnt_meridian;
+		    	console.log(dec_hour, dec_min, meridian);
 		});
 		
 		// ------------------------   begin  ------------  end ------
