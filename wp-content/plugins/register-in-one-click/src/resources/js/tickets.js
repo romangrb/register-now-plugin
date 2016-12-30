@@ -197,7 +197,7 @@
 						(the_date) ? $( '.ticket_start_time' ).show() : $( '.ticket_start_time' ).hide();
 					break;
 					case 'ticket_end_date':
-						$( '#ticket_start_date' ).datepicker( 'option', 'minDate', the_date );
+						$( '#ticket_start_date' ).datepicker( 'option', 'maxDate', the_date );
 						(the_date) ? $( '.ticket_end_time' ).show() : $( '.ticket_end_time' ).hide();
 					break;
 					case 'reg_period_start_date':
@@ -205,7 +205,7 @@
 						(the_date) ? $( '.reg_period_start_time' ).show() : $( '.reg_period_start_time' ).hide();
 					break;
 					case 'reg_period_end_date':
-						$( '#reg_period_start_date' ).datepicker( 'option', 'minDate', the_date );
+						$( '#reg_period_start_date' ).datepicker( 'option', 'maxDate', the_date );
 						(the_date) ? $( '.reg_period_end_time' ).show() : $( '.reg_period_end_time' ).hide();
 					break;
 					
@@ -395,12 +395,12 @@
 		} );
 
 		/* "Edit Ticket" link action */
-		function showTime (time_name, is_start_time, $meridian, slArr) {
+		function showTime (time_name, is_start_time, slArr) {
 				
 			var hour = parseInt( time_name.substring( 11, 13 ) ),
 				meridian = 'am';
 				
-			if ( hour > 12 && $meridian.length ) {
+			if ( hour > 12 && slArr['meridian'].length ) {
 				meridian = 'pm';
 				hour = parseInt( hour ) - 12;
 				hour = ( '0' + hour ).slice( - 2 );
@@ -422,6 +422,7 @@
 			$( slArr['meridian'] ).val( meridian );
 			
 			if (!is_start_time) {
+				console.log(true);
 				$( slArr['start_minute'] ).val( slArr['start_date'].substring( 14, 16 ) );
 				$( slArr['end_minute'] ).val( time_name.substring( 14, 16 ) );
 			}
@@ -476,7 +477,7 @@
 						
 						setFieldsValues(response);
 						
-						// (response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
+						(response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
 						
 						
 						if ( onSale ) {
@@ -518,92 +519,31 @@
 							'time':'.ticket_end_time',
 							'hour':'#ticket_end_hour',
 							'meridian':'#ticket_end_meridian',
-							'start_minute':'#ticket_start_minute',
-							'end_minute':'#ticket_end_minute',
+							'start_minute':'#ticket_end_minute',
+							'end_minute':'#ticket_start_minute',
 							'start_date':response.data.start_date
 						};
-
-						var $start_meridian = $(sl_time_start['meridian']),
-					        $end_meridian = $(sl_time_end['meridian']),
-					        $reg_period_start_meridian = $(sl_reg_start['meridian']),
-					        $reg_period_end_meridian = $(sl_reg_end['meridian']);
-
+console.log(1);
 						if ( response.data.reg_period_start_date ) {
-							showTime(response.data.reg_period_start_date, true, $reg_period_start_meridian, sl_reg_start);
+							console.log('reg_period_start_date');
+							showTime(response.data.reg_period_start_date, true, sl_reg_start);
 						}
 
 						if ( response.data.reg_period_end_date ) {
-							showTime(response.data.reg_period_end_date, false, $reg_period_end_meridian, sl_reg_end);
+								console.log('reg_period_end_date');
+							showTime(response.data.reg_period_end_date, false, sl_reg_end);
 						}
 						
 						if ( response.data.start_date ) {
-							showTime(response.data.start_date, true, $start_meridian, sl_time_start);
+							console.log('response.data.start_date');
+							showTime(response.data.start_date, true, sl_time_start);
 						}
 						
 						if ( response.data.end_date ) {
-							showTime(response.data.end_date, true, $end_meridian, sl_time_end);
+							console.log('response.data.end_date');
+							showTime(response.data.end_date, false, sl_time_end);
 						}
 						
-						if ( response.data.start_date ) {
-							var start_hour = parseInt( response.data.start_date.substring( 11, 13 ) );
-							var start_meridian = 'am';
-
-							if ( start_hour > 12 && $start_meridian.length ) {
-								start_meridian = 'pm';
-								start_hour = parseInt( start_hour ) - 12;
-								start_hour = ( '0' + start_hour ).slice( - 2 );
-							}
-							if ( 12 === start_hour ) {
-								start_meridian = 'pm';
-							}
-							if ( 0 === start_hour && 'am' === start_meridian ) {
-								start_hour = 12;
-							}
-
-							// Return the start hour to a 0-padded string
-							start_hour = start_hour.toString();
-							if ( 1 === start_hour.length ) {
-								start_hour = '0' + start_hour;
-							}
-
-							$( '#ticket_start_hour' ).val( start_hour );
-							$( '#ticket_start_meridian' ).val( start_meridian );
-
-							$( '.ticket_start_time' ).show();
-						}
-
-						if ( response.data.end_date ) {
-
-							var end_hour = parseInt( response.data.end_date.substring( 11, 13 ) );
-							var end_meridian = 'am';
-
-							if ( end_hour > 12 && $end_meridian.length ) {
-								end_meridian = 'pm';
-								end_hour = parseInt( end_hour ) - 12;
-								end_hour = ( '0' + end_hour ).slice( - 2 );
-							}
-							if ( end_hour === 12 ) {
-								end_meridian = 'pm';
-							}
-							if ( 0 === end_hour && 'am' === end_meridian ) {
-								end_hour = 12;
-							}
-
-							// Return the end hour to a 0-padded string
-							end_hour = end_hour.toString();
-							if ( 1 === end_hour.length ) {
-								end_hour = '0' + end_hour;
-							}
-
-							$( '#ticket_end_hour' ).val( end_hour );
-							$( '#ticket_end_meridian' ).val( end_meridian );
-
-							$( '#ticket_start_minute' ).val( response.data.start_date.substring( 14, 16 ) );
-							$( '#ticket_end_minute' ).val( response.data.end_date.substring( 14, 16 ) );
-
-							$( '.ticket_end_time' ).show();
-						}
-
 						var $ticket_advanced = $( 'tr.ticket_advanced input' );
 						$ticket_advanced.data( 'name', $ticket_advanced.attr( 'name' ) ).attr( {
 							'name': '',
