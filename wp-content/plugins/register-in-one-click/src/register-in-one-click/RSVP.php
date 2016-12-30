@@ -686,7 +686,9 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 
 			// Relate event <---> ticket
 			add_post_meta( $ticket->ID, $this->event_key, $event_id );
-
+			
+			
+			
 		} else {
 			$args = array(
 				'ID'           => $ticket->ID,

@@ -50,16 +50,55 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 		}
 
 		add_action( 'admin_menu', array( $this, 'attendees_page_register' ) );
-		// for validation page
-		add_action( 'admin_enqueue_scripts', array( $this,'post_required_admin_scripts') );
-		
 		
 		add_filter( 'post_row_actions', array( $this, 'attendees_row_action' ) );
 		add_filter( 'page_row_actions', array( $this, 'attendees_row_action' ) );
 
 		$this->path = trailingslashit(  dirname( dirname( dirname( __FILE__ ) ) ) );
 	}
+	
+	/**
+	 * Injects action links into the attendee screen.
+	 *
+	 * @param $event_id
+	 */
+	public function event_action_links( $event_id ) {
+		$action_links = array(
+			'<a href="' . esc_url( get_edit_post_link( $event_id ) ) . '" title="' . esc_attr_x( 'Edit', 'attendee event actions', 'event-tickets' ) . '">' . esc_html_x( 'Edit', 'attendee event actions', 'event-tickets' ) . '</a>',
+			'<a href="' . esc_url( get_permalink( $event_id ) ) . '" title="' . esc_attr_x( 'View', 'attendee event actions', 'event-tickets' ) . '">' . esc_html_x( 'View', 'attendee event actions', 'event-tickets' ) . '</a>',
+		);
 
+		/**
+		 * Provides an opportunity to add and remove action links from the
+		 * attendee screen summary box.
+		 *
+		 * @param array $action_links
+		 */
+		$action_links = (array) apply_filters( 'rioc_tickets_attendees_event_action_links', $action_links );
+
+		if ( empty( $action_links ) ) {
+			return;
+		}
+
+		echo '<div class="event-actions">' . join( ' | ', $action_links ) . '</div>';
+	}
+
+	/**
+	 * Injects event meta data into the Attendees report
+	 *
+	 * @param int $event_id
+	 */
+	public function event_details_top( $event_id ) {
+		$pto = get_post_type_object( get_post_type( $event_id ) );
+
+		echo '
+			<li class="post-type">
+				<strong>' . esc_html__( 'Post type', 'tribe-events' ) . ': </strong>
+				' . esc_html( $pto->label ) . '
+			</li>
+		';
+	}
+	
 	/**
 	 * Adds the "attendees" link in the admin list row actions for each event.
 	 *
@@ -67,22 +106,6 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 	 *
 	 * @return array
 	 */
-	public function attendees_row_action( $actions ) {
-		global $post;
-		$tickets = Register_In_One_Click__Tickets__Tickets::get_event_tickets( $post->ID );
-
-		if ( in_array( $post->post_type, Register_In_One_Click__Tickets__Main::instance()->post_types() ) && ! empty( $tickets ) ) {
-			$url = add_query_arg( array(
-				'post_type' => $post->post_type,
-				'page'      => self::$attendees_slug,
-				'event_id'  => $post->ID,
-			), admin_url( 'edit.php' ) );
-
-			$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', esc_html__( 'See who purchased tickets to this event', 'event-tickets' ), esc_url( $url ), esc_html__( 'Attendees', 'event-tickets' ) );
-		}
-
-		return $actions;
-	}
 	
 	// Load admin scripts & styles
 	public function post_required_admin_scripts( $hook ) {
@@ -97,6 +120,28 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 				wp_enqueue_script( 'event-fields-check', $resources_url .'/js/check-title-post.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
 		}
 	}
+	
+	/**
+	 * Adds the "attendees" link in the admin list row actions for each event.
+	 *
+	 * @param $actions
+	 *
+	 * @return array
+	 */
+	public function attendees_row_action( $actions ) {
+		global $post;
+		$tickets = Register_In_One_Click__Tickets__Tickets::get_event_tickets( $post->ID );
+		if ( in_array( $post->post_type, Register_In_One_Click__Tickets__Main::instance()->post_types() ) && ! empty( $tickets ) ) {
+			$url = add_query_arg( array(
+				'post_type' => $post->post_type,
+				'page'      => self::$attendees_slug,
+				'event_id'  => $post->ID,
+			), admin_url( 'edit.php' ) );
+			$actions['tickets_attendees'] = sprintf( '<a title="%s" href="%s">%s</a>', esc_html__( 'See who purchased tickets to this event', 'event-tickets' ), esc_url( $url ), esc_html__( 'Attendees', 'event-tickets' ) );
+		}
+		return $actions;
+	}
+
 
 	/**
 	 * Registers the Attendees admin page

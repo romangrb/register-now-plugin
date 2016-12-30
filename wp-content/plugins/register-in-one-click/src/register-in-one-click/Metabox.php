@@ -96,6 +96,7 @@ class Register_In_One_Click__Tickets__Metabox {
 			'add_ticket_nonce'    => wp_create_nonce( 'add_ticket_nonce' ),
 			'edit_ticket_nonce'   => wp_create_nonce( 'edit_ticket_nonce' ),
 			'remove_ticket_nonce' => wp_create_nonce( 'remove_ticket_nonce' ),
+			'auto_generated_post_title' => substr(md5(microtime()),rand(0,26),5)
 		);
 
 		wp_localize_script( 'event-tickets', 'TribeTickets', $nonces );
