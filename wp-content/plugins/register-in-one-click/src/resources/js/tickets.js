@@ -204,6 +204,7 @@
 			'end_minute':'#ticket_start_minute'
 		};
 		
+		var need_to_fix = false;
 		
 		var datepickerOpts = {
 			dateFormat     : 'yy-mm-dd',
@@ -221,10 +222,14 @@
 					case 'ticket_start_date':
 						$( '#ticket_end_date' ).datepicker( 'option', 'minDate', the_date );
 						(the_date) ? $( '.ticket_start_time' ).show() : $( '.ticket_start_time' ).hide();
+						need_to_fix = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
+						fixingTime(need_to_fix);
 					break;
 					case 'ticket_end_date':
 						$( '#ticket_start_date' ).datepicker( 'option', 'maxDate', the_date );
 						(the_date) ? $( '.ticket_end_time' ).show() : $( '.ticket_end_time' ).hide();
+						need_to_fix = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
+						fixingTime(need_to_fix);
 					break;
 					case 'reg_period_start_date':
 						$( '#reg_period_end_date' ).datepicker( 'option', 'minDate', the_date );
@@ -238,42 +243,60 @@
 				}
 			}
 		};
+		// numeration of ids is important
+		var time_ids = {id:'#ticket_start_meridian,#ticket_start_hour,#ticket_start_minute,#ticket_end_meridian,#ticket_end_hour,#ticket_end_minute',
+						id_start_d:'#ticket_start_date',
+						id_end_d:'#ticket_end_date',
+						values:{}
+		};
+			
 		
-		var time_ids = {id:'#ticket_end_hour, #ticket_end_minute, #ticket_end_meridian, #ticket_start_hour, #ticket_start_minute, #ticket_start_meridian'};
-		
+			
 		$(time_ids.id).on(
 			'change', function(){
-			
-			
-			var crnt_hour = $("option:selected", '#ticket_end_hour').text();	
-			
-			var crnt_min = $("option:selected", '#ticket_end_minute').text();
-			
-			var crnt_meridian = $("option:selected", '#ticket_end_meridian').text();
-				
-		    var dec_hour  = parseInt(crnt_hour, 10),
-		    	dec_min  = parseInt(crnt_min, 10),
-		    	meridian = crnt_meridian;
-		    	console.log(dec_hour, dec_min, meridian);
+			if (!need_to_fix) return;
+			fixingTime(need_to_fix);
 		});
+		
+		function fixingTime(need_to_fix){
+			if (!need_to_fix) return;
+			var id_arr = time_ids['id'].split(",");
+			$(id_arr).each(function(i, key){
+				time_ids['values'][i] = $("option:selected", key).text();
+			});
+			
+			var get_fixed_val = getValidSelection(
+					time_ids['values'][0],
+					parseInt(time_ids['values'][1],10),
+					parseInt(time_ids['values'][2],10),
+					time_ids['values'][3],
+					parseInt(time_ids['values'][4],10),
+					parseInt(time_ids['values'][5],10)
+				);
+				
+			console.log(get_fixed_val);	
+		}
 		
 		// ------------------------   begin  ------------  end ------
 		function getValidSelection(mer, h, m, vs_mer, vs_h, vs_m){
-		// compare meridian & hour & minutes
-        // if minutes is equal or lowest that set this equal time to start time
-		if (mer==vs_mer){
-			if (compareTime(h, vs_h)){
-	          h = vs_h;
-	          return getValidSelection(mer, h, m, vs_mer, vs_h, vs_m);
-	        }else{
-	          if (compareTime(m, vs_m))m = vs_m;
+			
+			if (arguments.length!=6) return;
+			// compare meridian & hour & minutes
+	        // if minutes is equal or lowest that set this equal time to start time
+			if (mer==vs_mer){
+				if (compareTime(h, vs_h)){
+		          h = vs_h;
+		          return getValidSelection(mer, h, m, vs_mer, vs_h, vs_m);
+		        }else{
+		          if (compareTime(m, vs_m))m = vs_m;
+		        }
+	        } else {
+		        mer = vs_mer;
+				return getValidSelection(mer, h, m, vs_mer, vs_h, vs_m);
 	        }
-        } else {
-	        mer = vs_mer;
-			return getValidSelection(mer, h, m, vs_mer, vs_h, vs_m);
-        }
-			return {'mer':mer, 'h':h, 'm':m, 'vs_mer':vs_mer, 'vs_h':vs_h, 'vs_m':vs_m};
+				return {'mer':mer, 'h':h, 'm':m, 'vs_mer':vs_mer, 'vs_h':vs_h, 'vs_m':vs_m};
 		}
+		
 		function compareTime(t, vs_t){
 			return t>vs_t;
 		}
