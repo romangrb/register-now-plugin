@@ -245,8 +245,25 @@
 		    	
 		});
 		
-		function getValidSelection(h, m, mer){
-			
+		// ------------------------   begin  ------------  end ------
+		function getValidSelection(mer, h, m, vs_mer, vs_h, vs_m){
+		// compare meridian & hour & minutes
+        // if minutes is equal or lowest that set this equal time to start time
+		if (mer==vs_mer){
+			if (compareTime(h, vs_h)){
+	          h = vs_h;
+	          return getValidSelection(mer, h, m, vs_mer, vs_h, vs_m);
+	        }else{
+	          if (compareTime(m, vs_m))m = vs_m;
+	        }
+        } else {
+	        mer = vs_mer;
+			return getValidSelection(mer, h, m, vs_mer, vs_h, vs_m);
+        }
+			return {'mer':mer, 'h':h, 'm':m, 'vs_mer':vs_mer, 'vs_h':vs_h, 'vs_m':vs_m};
+		}
+		function compareTime(t, vs_t){
+			return t>vs_t;
 		}
 		
 		// check if id exist another code will not run
