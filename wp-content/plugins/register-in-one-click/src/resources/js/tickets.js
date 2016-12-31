@@ -206,6 +206,16 @@
 		
 		var need_to_fix = false;
 		
+		// numeration of ids is important
+		var time_ids = {id:'#ticket_start_hour,#ticket_start_minute,#ticket_start_meridian,#ticket_end_hour,#ticket_end_minute,#ticket_end_meridian',
+						id_start_d:'#ticket_start_date',
+						id_end_d:'#ticket_end_date',
+						id_s_h:'#ticket_start_hour',
+						id_s_m:'#ticket_start_minute',
+						id_s_mer:'#ticket_start_meridian',
+						t_o:{}
+		};
+		
 		var datepickerOpts = {
 			dateFormat     : 'yy-mm-dd',
 			showAnim       : 'fadeIn',
@@ -223,13 +233,13 @@
 						$( '#ticket_end_date' ).datepicker( 'option', 'minDate', the_date );
 						(the_date) ? $( '.ticket_start_time' ).show() : $( '.ticket_start_time' ).hide();
 						need_to_fix = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
-						fixingTime(need_to_fix);
+						fixingTime(need_to_fix, time_ids);
 					break;
 					case 'ticket_end_date':
 						$( '#ticket_start_date' ).datepicker( 'option', 'maxDate', the_date );
 						(the_date) ? $( '.ticket_end_time' ).show() : $( '.ticket_end_time' ).hide();
 						need_to_fix = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
-						fixingTime(need_to_fix);
+						fixingTime(need_to_fix, time_ids);
 					break;
 					case 'reg_period_start_date':
 						$( '#reg_period_end_date' ).datepicker( 'option', 'minDate', the_date );
@@ -243,13 +253,6 @@
 				}
 			}
 		};
-		// numeration of ids is important
-		var time_ids = {id:'#ticket_start_meridian,#ticket_start_hour,#ticket_start_minute,#ticket_end_meridian,#ticket_end_hour,#ticket_end_minute',
-						id_start_d:'#ticket_start_date',
-						id_end_d:'#ticket_end_date',
-						values:{}
-		};
-			
 		
 			
 		$(time_ids.id).on(
@@ -258,43 +261,58 @@
 			fixingTime(need_to_fix);
 		});
 		
-		function fixingTime(need_to_fix){
-			if (!need_to_fix) return;
-			var id_arr = time_ids['id'].split(",");
+		
+		function fixingTime(need_to_fix, time_ids){
+			if (!need_to_fix || !time_ids) return;
+			var name_t = {0:'h',1:'m',2:'me',3:'vs_h',4:'vs_m',5:'vs_me'},
+				id_arr = time_ids['id'].split(",");
 			$(id_arr).each(function(i, key){
-				time_ids['values'][i] = $("option:selected", key).text();
+				var sel_val = $("option:selected", key).text(),
+					val = (/^(am|pm)/gi.test(sel_val)) ? sel_val : parseInt(sel_val, 10);
+					time_ids['t_o'][name_t[i]] = val;
 			});
 			
-			var get_fixed_val = getValidSelection(
-					time_ids['values'][0],
-					parseInt(time_ids['values'][1],10),
-					parseInt(time_ids['values'][2],10),
-					time_ids['values'][3],
-					parseInt(time_ids['values'][4],10),
-					parseInt(time_ids['values'][5],10)
-				);
-				
-			console.log(get_fixed_val);	
+			var fixed_val = getValidSelection(time_ids['t_o']);
+			var formated_time = toSelectFormat(fixed_val);
+			console.log(formated_time);
+			
+			// setTimeOption(time_ids.id_s_h, h);	
+			// setTimeOption(time_ids.id_s_m, m);	
+			// setTimeOption(time_ids.id_s_me, me);	
+		}
+		
+		function setTimeOption(id, opt_v){
+			$('option', id).each(function(){
+				($(this).val()==opt_v) ? $(this).attr('selected','selected') : $(this).removeAttr('selected');
+				// if ($(this).val()==opt_v)  console.log($(this).val());
+			});
+		}
+		
+		function toSelectFormat(time_o){
+			for (var key in time_o){
+				if (!(/^(am|pm)/gi.test(time_o[key]))) {
+					time_o[key] = ((time_o[key]+'').length>1) ? time_o[key]+'' : '0'+time_o[key];
+				} 
+			}
+			return time_o;
 		}
 		
 		// ------------------------   begin  ------------  end ------
-		function getValidSelection(mer, h, m, vs_mer, vs_h, vs_m){
-			
-			if (arguments.length!=6) return;
+		function getValidSelection(o){
 			// compare meridian & hour & minutes
 	        // if minutes is equal or lowest that set this equal time to start time
-			if (mer==vs_mer){
-				if (compareTime(h, vs_h)){
-		          h = vs_h;
-		          return getValidSelection(mer, h, m, vs_mer, vs_h, vs_m);
+			if (o.me==o.vs_me){
+				if (compareTime(o.h, o.vs_h)){
+		          o.h = o.vs_h;
+		          return getValidSelection(o);
 		        }else{
-		          if (compareTime(m, vs_m))m = vs_m;
+		          if (compareTime(o.m, o.vs_m))o.m = o.vs_m;
 		        }
 	        } else {
-		        mer = vs_mer;
-				return getValidSelection(mer, h, m, vs_mer, vs_h, vs_m);
+		        o.me = o.vs_me;
+				return getValidSelection(o);
 	        }
-				return {'mer':mer, 'h':h, 'm':m, 'vs_mer':vs_mer, 'vs_h':vs_h, 'vs_m':vs_m};
+				return o;
 		}
 		
 		function compareTime(t, vs_t){
