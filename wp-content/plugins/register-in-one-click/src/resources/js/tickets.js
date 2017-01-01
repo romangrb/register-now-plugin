@@ -278,7 +278,7 @@
 			
 			
 			is_fixed = true;
-			console.log(ft);
+			
 			setTimeOption(id_arr, ft, name_t);
 			
 			is_fixed = false;
@@ -288,7 +288,6 @@
 		function setTimeOption(id, opt_v, name_t){
 			for (var i = 0, ln=3; i<ln; i++){
 				$('option', id[i]).each(function(){
-					// console.log(id[i]);
 					($(this).val()==opt_v[name_t[i]]) ? $(this).attr('selected','selected') : $(this).removeAttr('selected');
 				});
 			}
@@ -305,8 +304,11 @@
 		
 		// ------------------------   begin  ------------  end ------
 		function getValidSelection(o){
-			// compare meridian & hour & minutes
-	        // if minutes is equal or lowest that set this equal time to start time
+		// compare meridian & hour & minutes
+	    // if minutes is equal or lowest that set this equal time to start time
+		// if o.me = am and vs_me = pm
+			if (/^(am)/gi.test(o.me)&&o.me==o.vs_me) return o;
+			       
 			if (o.me==o.vs_me){
 				if (compareTime(o.h, o.vs_h)){
 		          o.h = o.vs_h;
@@ -314,11 +316,12 @@
 		        }else{
 		          if (compareTime(o.m, o.vs_m))o.m = o.vs_m;
 		        }
-	        } else {
-		        o.me = o.vs_me;
-				return getValidSelection(o);
-	        }
-				return o;
+		    } else {
+	        o.vs_me = o.me;
+	        return getValidSelection(o);
+	    	}
+		  return o;
+		        
 		}
 		
 		function compareTime(t, vs_t){
