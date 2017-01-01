@@ -204,7 +204,8 @@
 			'end_minute':'#ticket_start_minute'
 		};
 		
-		var need_to_fix = false;
+		var is_fixed	= false,
+			is_same_day = false;
 		
 		// numeration of ids is important
 		var time_ids = {id:'#ticket_start_hour,#ticket_start_minute,#ticket_start_meridian,#ticket_end_hour,#ticket_end_minute,#ticket_end_meridian',
@@ -232,14 +233,16 @@
 					case 'ticket_start_date':
 						$( '#ticket_end_date' ).datepicker( 'option', 'minDate', the_date );
 						(the_date) ? $( '.ticket_start_time' ).show() : $( '.ticket_start_time' ).hide();
-						need_to_fix = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
-						fixingTime(need_to_fix, time_ids);
+						is_same_day = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
+						is_fixed = false;
+						fixingTime(is_same_day, is_fixed, time_ids);
 					break;
 					case 'ticket_end_date':
 						$( '#ticket_start_date' ).datepicker( 'option', 'maxDate', the_date );
 						(the_date) ? $( '.ticket_end_time' ).show() : $( '.ticket_end_time' ).hide();
-						need_to_fix = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
-						fixingTime(need_to_fix, time_ids);
+						is_same_day = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
+						is_fixed = false;
+						fixingTime(is_same_day, is_fixed, time_ids);
 					break;
 					case 'reg_period_start_date':
 						$( '#reg_period_end_date' ).datepicker( 'option', 'minDate', the_date );
@@ -257,13 +260,13 @@
 			
 		$(time_ids.id).on(
 			'change', function(){
-			if (!need_to_fix) return;
-			fixingTime(need_to_fix);
+			if (is_fixed || !is_same_day) return;
+			fixingTime(is_fixed, is_same_day, time_ids);
 		});
 		
 		
-		function fixingTime(need_to_fix, time_ids){
-			if (!need_to_fix || !time_ids) return;
+		function fixingTime(is_fixed, is_same_day, time_ids){
+			if (is_fixed || !is_same_day) return;
 			var name_t = {0:'h',1:'m',2:'me',3:'vs_h',4:'vs_m',5:'vs_me'},
 				id_arr = time_ids['id'].split(",");
 			$(id_arr).each(function(i, key){
@@ -273,19 +276,23 @@
 			});
 			
 			var fixed_val = getValidSelection(time_ids['t_o']);
-			var formated_time = toSelectFormat(fixed_val);
-			console.log(formated_time);
+			var ft = toSelectFormat(fixed_val);
+			console.log(ft);
 			
-			// setTimeOption(time_ids.id_s_h, h);	
-			// setTimeOption(time_ids.id_s_m, m);	
-			// setTimeOption(time_ids.id_s_me, me);	
+			is_fixed = true;
+			
+			setTimeOption(time_ids, ft, name_t);
+			
+			is_fixed = false;
+	
 		}
 		
-		function setTimeOption(id, opt_v){
-			$('option', id).each(function(){
-				($(this).val()==opt_v) ? $(this).attr('selected','selected') : $(this).removeAttr('selected');
-				// if ($(this).val()==opt_v)  console.log($(this).val());
-			});
+		function setTimeOption(id, opt_v, name_t){
+			for (var i = 0, ln=3; i<ln; i++){
+				$('option', id[i]).each(function(){
+					($(this).val()==opt_v[name_t[i]]) ? $(this).attr('selected','selected') : $(this).removeAttr('selected');
+				});
+			}
 		}
 		
 		function toSelectFormat(time_o){
