@@ -73,9 +73,11 @@ class Register_In_One_Click__Tickets__Metabox {
 		}
 
 		$resources_url = plugins_url( 'src/resources', dirname( dirname( __FILE__ ) ) );
-
+		
+		
 		wp_enqueue_style( 'event-tickets', $resources_url .'/css/tickets.css', array(), Register_In_One_Click__Tickets__Main::instance()->css_version() );
-		wp_enqueue_script( 'event-tickets', $resources_url .'/js/tickets.js', array( 'jquery-ui-datepicker' ), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
+		// wp_register_script( 'event-tickets-time-validation', $resources_url .'/js/tickets-time-validation.js', array('jQuery'), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
+		wp_enqueue_script( 'event-tickets', $resources_url .'/js/tickets.js', array('jquery-ui-datepicker'), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
 		wp_enqueue_script( 'event-tickets-creator', $resources_url .'/js/ticket-creator.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
 		wp_enqueue_script( 'event-fields-operator', $resources_url .'/js/fields-op.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
 		

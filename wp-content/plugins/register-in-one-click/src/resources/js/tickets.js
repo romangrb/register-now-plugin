@@ -1,6 +1,105 @@
 (function( window, $ ) {
 	'use strict';
 
+	var TimeValidation = {
+	  
+	  constructor: function fn0(hash){
+	    this._ids = hash;
+	    this._ids_arr = hash.split(",");
+	  },
+ 
+	  get_fixed: function(){
+	    	return this._is_fixed;
+	  },
+	  get_same_day: function(){
+	    	return this._same_day;
+	  },
+	  set_fix: function(bool){
+	  		if (bool===false)this._clean_data();
+	    	this._is_fixed = bool;
+	  },
+	  set_same_day: function(bool){
+			this._same_day = bool;
+	  },
+	  
+	  fixingTime: function(){
+	  		if (this.get_fixed() || !this.get_same_day()) return;
+			var self = this;   
+			$(this._getIdArr()).each(function(i, key){
+				var sel_val = $("option:selected", key).text(),
+		    		val = (/^(am|pm)/gi.test(sel_val)) ? sel_val : parseInt(sel_val, 10);
+		    		self._t_o[self._name_t[i]] = val;
+				});
+			self._completefixingTime();
+	  }
+	  
+	};
+	function TimeProtObj(hash){
+		var self = this;
+		this._name_t = {0:'h',1:'m',2:'me',3:'vs_h',4:'vs_m',5:'vs_me'};
+		this._ids = hash;
+		this._ids_arr = null;
+		this._t_o = {};
+		this._ft = null;
+		this._same_day = false;
+		this._is_fixed = false;
+		this._fixed_val= null;
+		this._clean_data = function(){
+			this._ft = null;
+			this._fixed_val= null;
+			this._t_o = {};
+		},
+		this._getIdArr = function(){
+			return this._ids_arr;
+		},
+		this._getIds = function(){
+			return this._ids;
+		},
+		
+		this._compareTime = function(t, vs_t){
+			return t>vs_t;
+		},
+		this._getValidSelection = function(o){
+			// compare meridian & hour & minutes > if minutes is equal or lowest that set this equal time to start time > if o.me = am and vs_me = pm
+			if (/^(am)/gi.test(o.me)&&o.me!=o.vs_me) return o;
+			if (o.me==o.vs_me){
+				if (this._compareTime(o.h, o.vs_h)){
+		          o.h = o.vs_h;
+		          return this._getValidSelection(o);
+		        } else { if(this._compareTime(o.m, o.vs_m)) o.m = o.vs_m; }
+		    } else {
+	        o.me = o.vs_me;
+	        return this._getValidSelection(o);
+	    	}
+		  return o;      
+		},
+	  
+		this._toSelectFormat = function(t_o){
+			for (var key in this._t_o){
+			  if (!(/^(am|pm)/gi.test(t_o[key]))) t_o[key] = ((t_o[key]+'').length>1) ? t_o[key]+'' : '0'+t_o[key];
+			}
+			return t_o;
+		},
+		
+		this._setTimeOption = function(){
+			for (var i = 0, ln=3; i<ln; i++){
+			  $('option', self._ids_arr[i]).each(function(){
+			    ($(this).val()==self._ft[self._name_t[i]]) ? $(this).attr('selected','selected') : $(this).removeAttr('selected');
+			  });
+			}
+		},
+		
+		this._completefixingTime = function(){
+			this._ft = this._toSelectFormat(this._getValidSelection(this._t_o));
+			this.set_fix(true);
+			if (!!this.get_fixed()) this._setTimeOption();
+			// console.log(this._ft);
+			this.set_fix(false);
+		};
+	 
+	}
+	
+	
 	$( document ).ready( function() {
 		var $event_pickers = $( '#rioc-event-datepickers' ),
 			$rioc_tickets = $( '#tribetickets' ),
@@ -204,16 +303,31 @@
 			'end_minute':'#ticket_start_minute'
 		};
 		
-		var is_fixed	= false,
-			is_same_day = false;
+		// var is_fixed	= false,
+		// 	is_same_day = false;
 		
 		// numeration of ids is important
-		var time_ids = {id:'#ticket_start_hour,#ticket_start_minute,#ticket_start_meridian,#ticket_end_hour,#ticket_end_minute,#ticket_end_meridian',
-						id_start_d:'#ticket_start_date',
-						id_end_d:'#ticket_end_date',
-						t_o:{}
-		};
+		// var time_ids = {id:'#ticket_start_hour,#ticket_start_minute,#ticket_start_meridian,#ticket_end_hour,#ticket_end_minute,#ticket_end_meridian',
+		// 				t_o:{}
+		// };
 		
+		var time_ids = '#ticket_start_hour,#ticket_start_minute,#ticket_start_meridian,#ticket_end_hour,#ticket_end_minute,#ticket_end_meridian';
+                
+
+
+		var TimeOpr = Object.create(TimeValidation);
+		TimeProtObj.prototype = TimeOpr;
+		var TimeObj = new TimeProtObj();
+		TimeObj.constructor(time_ids);
+
+		
+		
+				
+		$(time_ids).on(
+			'change', function(){
+			TimeObj.fixingTime();
+		});
+
 		var datepickerOpts = {
 			dateFormat     : 'yy-mm-dd',
 			showAnim       : 'fadeIn',
@@ -230,16 +344,23 @@
 					case 'ticket_start_date':
 						$( '#ticket_end_date' ).datepicker( 'option', 'minDate', the_date );
 						(the_date) ? $( '.ticket_start_time' ).show() : $( '.ticket_start_time' ).hide();
-						is_same_day = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
-						
-						fixingTime(time_ids);
+						if ($('#ticket_end_date').val()===$('#ticket_start_date').val()) {
+							TimeObj.set_same_day(true);
+							TimeObj.fixingTime();
+						}else{
+							TimeObj.set_same_day(false);
+						}
+							
 					break;
 					case 'ticket_end_date':
 						$( '#ticket_start_date' ).datepicker( 'option', 'maxDate', the_date );
 						(the_date) ? $( '.ticket_end_time' ).show() : $( '.ticket_end_time' ).hide();
-						is_same_day = ($('#ticket_end_date').val()===$('#ticket_start_date').val()) ? true : false ;
-				
-						fixingTime(time_ids);
+						if ($('#ticket_end_date').val()===$('#ticket_start_date').val()){
+							TimeObj.set_same_day(true);
+							TimeObj.fixingTime();
+						}else{
+							TimeObj.set_same_day(false);
+						}
 					break;
 					case 'reg_period_start_date':
 						$( '#reg_period_end_date' ).datepicker( 'option', 'minDate', the_date );
@@ -255,78 +376,74 @@
 		};
 		
 			
-		$(time_ids.id).on(
-			'change', function(){
-			if (is_fixed || !is_same_day) return;
-			fixingTime(time_ids);
-		});
 		
 		
-		function fixingTime(time_ids){
-			if (is_fixed || !is_same_day) return;
+		
+		// function fixingTime(time_ids){
+		// 	if (is_fixed || !is_same_day) return;
 			
-			var name_t = {0:'h',1:'m',2:'me',3:'vs_h',4:'vs_m',5:'vs_me'},
-				id_arr = time_ids['id'].split(",");
-			$(id_arr).each(function(i, key){
-				var sel_val = $("option:selected", key).text(),
-					val = (/^(am|pm)/gi.test(sel_val)) ? sel_val : parseInt(sel_val, 10);
-					time_ids['t_o'][name_t[i]] = val;
-			});
+		// 	var name_t = {0:'h',1:'m',2:'me',3:'vs_h',4:'vs_m',5:'vs_me'},
+		// 		id_arr = time_ids['id'].split(",");
+		// 	$(id_arr).each(function(i, key){
+		// 		var sel_val = $("option:selected", key).text(),
+		// 			val = (/^(am|pm)/gi.test(sel_val)) ? sel_val : parseInt(sel_val, 10);
+		// 			time_ids['t_o'][name_t[i]] = val;
+		// 	});
 			
-			var fixed_val = getValidSelection(time_ids['t_o']);
-			var ft = toSelectFormat(fixed_val);
+		// 	var fixed_val = getValidSelection(time_ids['t_o']);
+		// 	var ft = toSelectFormat(fixed_val);
 			
 			
-			is_fixed = true;
+		// 	is_fixed = true;
 			
-			setTimeOption(id_arr, ft, name_t);
+		// 	setTimeOption(id_arr, ft, name_t);
 			
-			is_fixed = false;
+		// 	is_fixed = false;
 	
-		}
+		// }
 		
-		function setTimeOption(id, opt_v, name_t){
-			for (var i = 0, ln=3; i<ln; i++){
-				$('option', id[i]).each(function(){
-					($(this).val()==opt_v[name_t[i]]) ? $(this).attr('selected','selected') : $(this).removeAttr('selected');
-				});
-			}
-		}
+		// function setTimeOption(id, opt_v, name_t){
+		// 	for (var i = 0, ln=3; i<ln; i++){
+		// 		$('option', id[i]).each(function(){
+		// 			($(this).val()==opt_v[name_t[i]]) ? $(this).attr('selected','selected') : $(this).removeAttr('selected');
+		// 		});
+		// 	}
+		// }
 		
-		function toSelectFormat(time_o){
-			for (var key in time_o){
-				if (!(/^(am|pm)/gi.test(time_o[key]))) {
-					time_o[key] = ((time_o[key]+'').length>1) ? time_o[key]+'' : '0'+time_o[key];
-				} 
-			}
-			return time_o;
-		}
+		// function toSelectFormat(time_o){
+		// 	for (var key in time_o){
+		// 		if (!(/^(am|pm)/gi.test(time_o[key]))) {
+		// 			time_o[key] = ((time_o[key]+'').length>1) ? time_o[key]+'' : '0'+time_o[key];
+		// 		} 
+		// 	}
+		// 	return time_o;
+		// }
 		
-		// ------------------------   begin  ------------  end ------
-		function getValidSelection(o){
-		// compare meridian & hour & minutes
-	    // if minutes is equal or lowest that set this equal time to start time
-		// if o.me = am and vs_me = pm
-			if (/^(am)/gi.test(o.me)&&o.me==o.vs_me) return o;
+		// // ------------------------   begin  ------------  end ------
+		// function getValidSelection(o){
+		// // compare meridian & hour & minutes
+	 //   // if minutes is equal or lowest that set this equal time to start time
+		// // if o.me = am and vs_me = pm
+		// 	if (/^(am)/gi.test(o.me)&&o.me==o.vs_me) return o;
 			       
-			if (o.me==o.vs_me){
-				if (compareTime(o.h, o.vs_h)){
-		          o.h = o.vs_h;
-		          return getValidSelection(o);
-		        }else{
-		          if (compareTime(o.m, o.vs_m))o.m = o.vs_m;
-		        }
-		    } else {
-	        o.vs_me = o.me;
-	        return getValidSelection(o);
-	    	}
-		  return o;
+		// 	if (o.me==o.vs_me){
+		// 		if (compareTime(o.h, o.vs_h)){
+		//           o.h = o.vs_h;
+		//           return getValidSelection(o);
+		//         }else{
+		//           if (compareTime(o.m, o.vs_m))o.m = o.vs_m;
+		//         }
+		//     } else {
+	 //       o.vs_me = o.me;
+	 //       return getValidSelection(o);
+	 //   	}
+		//   return o;
 		        
-		}
+		// }
 		
-		function compareTime(t, vs_t){
-			return t>vs_t;
-		}
+		// function compareTime(t, vs_t){
+		// 	return t>vs_t;
+		// }
 		
 		// check if id exist another code will not run
 		if ( $( '#reg_period_start_date' ) ){
