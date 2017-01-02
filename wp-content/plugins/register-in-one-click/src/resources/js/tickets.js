@@ -303,26 +303,15 @@
 			'end_minute':'#ticket_start_minute'
 		};
 		
-		// var is_fixed	= false,
-		// 	is_same_day = false;
-		
-		// numeration of ids is important
-		// var time_ids = {id:'#ticket_start_hour,#ticket_start_minute,#ticket_start_meridian,#ticket_end_hour,#ticket_end_minute,#ticket_end_meridian',
-		// 				t_o:{}
-		// };
-		
 		var time_ids = '#ticket_start_hour,#ticket_start_minute,#ticket_start_meridian,#ticket_end_hour,#ticket_end_minute,#ticket_end_meridian';
-                
+               
 
-
+		// time validation object
 		var TimeOpr = Object.create(TimeValidation);
 		TimeProtObj.prototype = TimeOpr;
 		var TimeObj = new TimeProtObj();
 		TimeObj.constructor(time_ids);
 
-		
-		
-				
 		$(time_ids).on(
 			'change', function(){
 			TimeObj.fixingTime();
@@ -374,76 +363,6 @@
 				}
 			}
 		};
-		
-			
-		
-		
-		
-		// function fixingTime(time_ids){
-		// 	if (is_fixed || !is_same_day) return;
-			
-		// 	var name_t = {0:'h',1:'m',2:'me',3:'vs_h',4:'vs_m',5:'vs_me'},
-		// 		id_arr = time_ids['id'].split(",");
-		// 	$(id_arr).each(function(i, key){
-		// 		var sel_val = $("option:selected", key).text(),
-		// 			val = (/^(am|pm)/gi.test(sel_val)) ? sel_val : parseInt(sel_val, 10);
-		// 			time_ids['t_o'][name_t[i]] = val;
-		// 	});
-			
-		// 	var fixed_val = getValidSelection(time_ids['t_o']);
-		// 	var ft = toSelectFormat(fixed_val);
-			
-			
-		// 	is_fixed = true;
-			
-		// 	setTimeOption(id_arr, ft, name_t);
-			
-		// 	is_fixed = false;
-	
-		// }
-		
-		// function setTimeOption(id, opt_v, name_t){
-		// 	for (var i = 0, ln=3; i<ln; i++){
-		// 		$('option', id[i]).each(function(){
-		// 			($(this).val()==opt_v[name_t[i]]) ? $(this).attr('selected','selected') : $(this).removeAttr('selected');
-		// 		});
-		// 	}
-		// }
-		
-		// function toSelectFormat(time_o){
-		// 	for (var key in time_o){
-		// 		if (!(/^(am|pm)/gi.test(time_o[key]))) {
-		// 			time_o[key] = ((time_o[key]+'').length>1) ? time_o[key]+'' : '0'+time_o[key];
-		// 		} 
-		// 	}
-		// 	return time_o;
-		// }
-		
-		// // ------------------------   begin  ------------  end ------
-		// function getValidSelection(o){
-		// // compare meridian & hour & minutes
-	 //   // if minutes is equal or lowest that set this equal time to start time
-		// // if o.me = am and vs_me = pm
-		// 	if (/^(am)/gi.test(o.me)&&o.me==o.vs_me) return o;
-			       
-		// 	if (o.me==o.vs_me){
-		// 		if (compareTime(o.h, o.vs_h)){
-		//           o.h = o.vs_h;
-		//           return getValidSelection(o);
-		//         }else{
-		//           if (compareTime(o.m, o.vs_m))o.m = o.vs_m;
-		//         }
-		//     } else {
-	 //       o.vs_me = o.me;
-	 //       return getValidSelection(o);
-	 //   	}
-		//   return o;
-		        
-		// }
-		
-		// function compareTime(t, vs_t){
-		// 	return t>vs_t;
-		// }
 		
 		// check if id exist another code will not run
 		if ( $( '#reg_period_start_date' ) ){
