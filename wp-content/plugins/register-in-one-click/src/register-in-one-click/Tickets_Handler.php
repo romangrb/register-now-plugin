@@ -624,7 +624,7 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 	 * @return string
 	 */
 	public function get_ticket_list_markup( $tickets = array() ) {
-
+		
 		ob_start();
 		$this->ticket_list_markup( $tickets );
 		$return = ob_get_contents();

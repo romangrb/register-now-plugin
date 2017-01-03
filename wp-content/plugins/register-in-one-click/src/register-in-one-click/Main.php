@@ -529,6 +529,8 @@ class Register_In_One_Click__Tickets__Main {
 		$this->settings_tab();
 		
 		$this->tickets_view();
+		
+		// Register_In_One_Click__Query::init();
 
 		Register_In_One_Click__Credits::init();
 	}

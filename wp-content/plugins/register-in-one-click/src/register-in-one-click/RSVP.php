@@ -679,9 +679,9 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 				'post_type'    => $this->ticket_object,
 				'post_author'  => get_current_user_id(),
 				'post_excerpt' => $ticket->description,
-				// 'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
-				'post_title'   => 'test',
+				'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
 			);
+			
 			$ticket->ID = wp_insert_post( $args );
 			// Relate event <---> ticket
 			add_post_meta( $ticket->ID, $this->event_key, $event_id );
@@ -690,14 +690,14 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			$args = array(
 				'ID'           => $ticket->ID,
 				'post_excerpt' => $ticket->description,
-				'post_title'   => 'test_edit',
-				// 'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
-				
+				'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
 			);
-
+			
 			$ticket->ID = wp_update_post( $args );
 		}
-
+		
+		$ticket->name = $args['post_title'];
+		
 		if ( ! $ticket->ID ) {
 			return false;
 		}
@@ -781,19 +781,19 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			delete_post_meta( $ticket->ID, '_message3' );
 		}
 		
-		if ( isset( $ticket->reg_period_start_date ) ) {
-			update_post_meta( $ticket->ID, '_reg_period_start_date', $ticket->reg_period_start_date );
-		} else {
-			delete_post_meta( $ticket->ID, '_reg_period_start_date' );
-		}
+		// if ( isset( $ticket->reg_period_start_date ) ) {
+		// 	update_post_meta( $ticket->ID, '_reg_period_start_date', $ticket->reg_period_start_date );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_reg_period_start_date' );
+		// }
 		
-		if ( isset( $ticket->reg_period_end_date ) ) {
-			update_post_meta( $ticket->ID, '_reg_period_end_date', $ticket->reg_period_end_date );
-		} else {
-			delete_post_meta( $ticket->ID, '_reg_period_end_date' );
-		}
+		// if ( isset( $ticket->reg_period_end_date ) ) {
+		// 	update_post_meta( $ticket->ID, '_reg_period_end_date', $ticket->reg_period_end_date );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_reg_period_end_date' );
+		// }
 		
-
+		
 		/**
 		 * Generic action fired after saving a ticket (by type)
 		 *
@@ -802,7 +802,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		 * @var array Ticket data
 		 * @var string Commerce engine class
 		 */
-		do_action( 'event_tickets_after_' . $save_type . '_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
+		// do_action( 'event_tickets_after_' . $save_type . '_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
 		/**
 		 * Generic action fired after saving a ticket
 		 *
@@ -811,7 +811,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		 * @var array Ticket data
 		 * @var string Commerce engine class
 		 */
-		do_action( 'event_tickets_after_save_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
+		// do_action( 'event_tickets_after_save_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
 
 		return $ticket->ID;
 	}
@@ -1243,7 +1243,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			'fields'         => 'ids',
 			'post_status'    => 'publish',
 		) );
-
+Register_In_One_Click__Tickets__Main::instance()->write_log($query->meta_query);
 		return $query->posts;
 	}
 

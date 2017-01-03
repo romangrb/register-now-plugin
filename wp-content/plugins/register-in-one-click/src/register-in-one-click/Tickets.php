@@ -389,11 +389,12 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			}
 			
 			$return = $this->ticket_add( $post_id, $data );
-
+			
 			// Successful
 			if ( $return ) {
 				// Create a tickets list markup to return
 				$tickets = $this->get_event_tickets( $post_id );
+				
 				$return  = Register_In_One_Click__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
 				
 				// if required fields is emptied show message to client
@@ -452,20 +453,26 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				$ticket->price = preg_replace( '/[^0-9\.\,]/Uis', '', $ticket->price );
 			}
 			
-
 			if ( ! empty( $data['ticket_start_date'] ) ) {
 				$meridian           = ! empty( $data['ticket_start_meridian'] ) ? ' ' . $data['ticket_start_meridian'] : '';
-				$ticket->start_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . ' ' . $data['ticket_start_hour'] . ':' . $data['ticket_start_minute'] . ':00' . $meridian ) );
-				Register_In_One_Click__Tickets__Main::instance()->write_log($ticket->start_date);
-
-			}
-
-			if ( ! empty( $data['ticket_end_date'] ) ) {
-				$meridian         = ! empty( $data['ticket_end_meridian'] ) ? ' ' . $data['ticket_end_meridian'] : '';
-				$ticket->end_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . ' ' . $data['ticket_end_hour'] . ':' . $data['ticket_end_minute'] . ':00' . $meridian ) );
-				// $ticket->end_date = '2017-01-16 17:30:00';
+				$m_s = empty($data['ticket_start_minute']) ? '00': $data['ticket_start_minute'];
+				$h_s = empty($data['ticket_start_hour']) ? '00': $data['ticket_start_hour'];
+				$ticket->start_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_start_date'] . ' ' . $h_s . ':' . $m_s . ':00' . $meridian ) );
+			}else{
+				$meridian         = 'am';
+				$ticket->start_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, time() );
 			}
 			
+			if ( ! empty( $data['ticket_end_date'] ) ) {
+				$meridian         = ! empty( $data['ticket_end_meridian'] ) ? ' ' . $data['ticket_end_meridian'] : '';
+				$m_e = empty($data['ticket_end_minute']) ? '00': $data['ticket_end_minute'];
+				$h_e = empty($data['ticket_end_hour']) ? '00': $data['ticket_end_hour'];
+				$ticket->end_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['ticket_end_date'] . ' ' . $h_e . ':' . $m_e . ':00' . $meridian ) );
+			}else{
+				$meridian         = 'am';
+				$ticket->end_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, time() );
+			}
+		
 			// if ( ! empty( $data['reg_period_start_date'] ) ) {
 			// 	$meridian           = ! empty( $data['reg_period_start_meridian'] ) ? ' ' . $data['reg_period_start_meridian'] : '';
 			// 	$ticket->start_date = date( Register_In_One_Click__Date_Utils::DBDATETIMEFORMAT, strtotime( $data['reg_period_start_date'] . ' ' . $data['reg_period_start_hour'] . ':' . $data['reg_period_start_minute'] . ':00' . $meridian ) );
@@ -486,7 +493,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			 * @var $data Submitted post data
 			 */
 			do_action( 'rioc_tickets_ticket_add', $post_id, $ticket, $data );
-
+			
 			// Pass the control to the child object
 			return $this->save_ticket( $post_id, $ticket, $data );
 		}
@@ -584,6 +591,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			if ( $return ) {
 				// Let's create a tickets list markup to return
 				$tickets = $this->get_event_tickets( $post_id );
+				
 				$return  = Register_In_One_Click__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
 
 				$return = $this->notice( esc_html__( 'Your ticket has been deleted.', 'event-tickets' ) ) . $return;
@@ -998,7 +1006,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				$obj     = call_user_func( array( $class, 'get_instance' ) );
 				$tickets = array_merge( $tickets, $obj->get_tickets( $event_id ) );
 			}
-
+		
 			return $tickets;
 		}
 
