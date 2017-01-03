@@ -182,7 +182,7 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 													<p class="description"><?php esc_html_e( 'When will ticket sales occur?', 'rioc-event' ); ?></p>
 												</td>
 											</tr>
-					
+											
 											<tr class="ticket">
 												<td><label for="name"><?php esc_html_e( 'Event Name:', 'rioc-event' ); ?></label></td>
 												<td>

@@ -130,8 +130,8 @@ class Register_In_One_Click__Tickets__Tickets_Handler {
 	 */
 	public function attendees_row_action( $actions ) {
 		global $post;
-		$tickets = E_Register_Now__Tickets__Tickets::get_event_tickets( $post->ID );
-		if ( in_array( $post->post_type, E_Register_Now__Tickets__Main::instance()->post_types() ) && ! empty( $tickets ) ) {
+		$tickets = Register_In_One_Click__Tickets__Tickets::get_event_tickets( $post->ID );
+		if ( in_array( $post->post_type, Register_In_One_Click__Tickets__Main::instance()->post_types() ) && ! empty( $tickets ) ) {
 			$url = add_query_arg( array(
 				'post_type' => $post->post_type,
 				'page'      => self::$attendees_slug,

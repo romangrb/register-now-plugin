@@ -505,7 +505,7 @@
 					} else {
 						$( 'td.ticket_list_container' ).empty().html( response.data.html );
 					}
-					console.log(response);
+					console.log(params);
 				},
 				'json'
 			).complete( function() {

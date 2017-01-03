@@ -679,21 +679,19 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 				'post_type'    => $this->ticket_object,
 				'post_author'  => get_current_user_id(),
 				'post_excerpt' => $ticket->description,
-				'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
+				// 'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
+				'post_title'   => 'test',
 			);
-
 			$ticket->ID = wp_insert_post( $args );
-
 			// Relate event <---> ticket
 			add_post_meta( $ticket->ID, $this->event_key, $event_id );
-			
-			
 			
 		} else {
 			$args = array(
 				'ID'           => $ticket->ID,
 				'post_excerpt' => $ticket->description,
-				'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
+				'post_title'   => 'test_edit',
+				// 'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
 				
 			);
 
@@ -704,18 +702,20 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			return false;
 		}
 		
-		update_post_meta( $ticket->ID, '_stock', (int) $raw_data['ticket_rsvp_stock'] );
-		update_post_meta( $ticket->ID, '_price', $ticket->price );
+		// update_post_meta( $ticket->ID, '_stock', (int) $raw_data['ticket_rsvp_stock'] );
+		// update_post_meta( $ticket->ID, '_price', $ticket->price );
 		
-		if ( $raw_data['ticket_rsvp_stock'] !== '') {
-			$stock = (int) $raw_data['ticket_rsvp_stock'];
-			$stock_stat = update_post_meta( $ticket->ID, '_stock', $stock, true );
-			update_post_meta( $ticket->ID, '_manage_stock', 'yes' );
-			update_post_meta( $ticket->ID, '_stock_fx', $stock );
-		} else {
-			delete_post_meta( $ticket->ID, '_stock_status' );
-			update_post_meta( $ticket->ID, '_manage_stock', 'no' );
-		}
+		// if ( $raw_data['ticket_rsvp_stock'] !== '') {
+		// 	$stock = (int) $raw_data['ticket_rsvp_stock'];
+		// 	$stock_stat = update_post_meta( $ticket->ID, '_stock', $stock, true );
+		// 	update_post_meta( $ticket->ID, '_manage_stock', 'yes' );
+		// 	update_post_meta( $ticket->ID, '_stock_fx', $stock );
+		// } else {
+		// 	delete_post_meta( $ticket->ID, '_stock_status' );
+		// 	update_post_meta( $ticket->ID, '_manage_stock', 'no' );
+		// }
+		
+		
 		
 		if ( isset( $ticket->primary_key ) ) {
 			update_post_meta( $ticket->ID, '_primary_key', $ticket->primary_key );

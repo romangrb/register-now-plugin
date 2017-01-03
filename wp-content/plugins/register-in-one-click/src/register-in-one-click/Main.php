@@ -119,6 +119,14 @@ class Register_In_One_Click__Tickets__Main {
 	public function get_event_label_plural() {
 		return apply_filters( 'tribe_event_label_plural', esc_html__( 'Events', 'the-events-calendar' ) );
 	}
+	
+	public function write_log ( $log )  {
+        if ( is_array( $log ) || is_object( $log ) ) {
+          error_log( print_r( $log, true ) );
+        } else {
+         error_log( $log );
+        }
+    }
 
 	/**
 	 * Class constructor
@@ -512,7 +520,6 @@ class Register_In_One_Click__Tickets__Main {
 		$this->pluginName = $this->plugin_name  = esc_html__( 'Register In One Click', 'rioc-common' );
 		$this->singular_event_label				= $this->get_event_label_singular();
 		$this->plural_event_label				= $this->get_event_label_plural();
-		
 		// Provide continued support for legacy ticketing modules
 		
 		$this->legacy_provider_support = new Register_In_One_Click__Tickets__Legacy_Provider_Support;
