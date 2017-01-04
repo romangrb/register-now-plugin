@@ -163,6 +163,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Ticket_Object' ) ) {
 		public $message1;
 		public $message2;
 		public $message3;
+		public $ticket_v;
 		
 		/**
 		 * Returns whether or not the ticket is managing stock

@@ -21,7 +21,7 @@
 	}
 
 	$modules = Register_In_One_Click__Tickets__Tickets::modules();
-
+	// Register_In_One_Click__Tickets__Main::instance()->write_log($tickets);
 	foreach ( $tickets as $ticket ) {
 		/**
 		 * @var Register_In_One_Click__Tickets__Ticket_Object $ticket
@@ -29,9 +29,9 @@
 		$controls     = array();
 		$provider     = $ticket->provider_class;
 		$provider_obj = call_user_func( array( $provider, 'get_instance' ) );
-
+	
 		$controls[] = sprintf( '<span><a href="#" attr-provider="%1$s" attr-ticket-id="%2$s" id="ticket_edit_%2$s" class="ticket_edit">' . esc_html__( 'Edit', 'event-tickets' ) . '</a></span>', $ticket->provider_class, $ticket->ID );
-
+		
 		/**
 		 * Determines whether or not the current user can delete a specific ticket.
 		 *
@@ -91,15 +91,17 @@
 				<p class="ticket_name">
 					<?php
 					printf(
-						"<a href='#' attr-provider='%s' attr-ticket-id='%s' class='ticket_edit'>%s</a>",
+						"<a href='#' attr-provider='%s' attr-ticket-id='%s' class='ticket_edit'>%s &nbsp&nbsp&nbsp %s</a>",
 						esc_attr( $ticket->provider_class ),
 						esc_attr( $ticket->ID ),
+						esc_html( $ticket->ticket_v),
 						esc_html( $ticket->name )
+						// [YYYY]-[MM]-[DD]  [HH]:[MM]:[SS] Event_Name
 					);
 					do_action( 'event_tickets_ticket_list_after_ticket_name', $ticket );
 					?>
 				</p>
-
+				
 				<div class="ticket_controls">
 					<?php echo join( ' | ', $controls ); ?>
 				</div>

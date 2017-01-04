@@ -656,7 +656,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 	private function generate_security_code( $attendee_id ) {
 		return substr( md5( rand() . '_' . $attendee_id ), 0, 10 );
 	}
-
+	
 	/**
 	 * Saves a given ticket (WooCommerce product)
 	 *
@@ -669,6 +669,9 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 	public function save_ticket( $event_id, $ticket, $raw_data = array() ) {
 		// assume we are updating until we find out otherwise
 		$save_type = 'update';
+		
+		$post_modified = date('Y-m-d H:i:s');
+		
 		if ( empty( $ticket->ID ) ) {
 			$save_type = 'create';
 		
@@ -680,6 +683,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 				'post_author'  => get_current_user_id(),
 				'post_excerpt' => $ticket->description,
 				'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
+				'post_modified'=> $post_modified,
 			);
 			
 			$ticket->ID = wp_insert_post( $args );
@@ -691,12 +695,15 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 				'ID'           => $ticket->ID,
 				'post_excerpt' => $ticket->description,
 				'post_title'   => empty($ticket->name) ? $this->prefix . $event_id : $ticket->name,
+				'post_modified'=> $post_modified,
 			);
 			
 			$ticket->ID = wp_update_post( $args );
 		}
 		
 		$ticket->name = $args['post_title'];
+		// [YYYY]-[MM]-[DD]  [HH]:[MM]:[SS] 
+		$ticket->ticket_v = $post_modified;
 		
 		if ( ! $ticket->ID ) {
 			return false;
@@ -715,7 +722,11 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		// 	update_post_meta( $ticket->ID, '_manage_stock', 'no' );
 		// }
 		
-		
+		if ( isset( $ticket->ticket_v ) ) {
+			update_post_meta( $ticket->ID, '_ticket_v', $ticket->ticket_v );
+		} else {
+			delete_post_meta( $ticket->ID, '_ticket_v' );
+		}
 		
 		if ( isset( $ticket->primary_key ) ) {
 			update_post_meta( $ticket->ID, '_primary_key', $ticket->primary_key );
@@ -811,7 +822,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		 * @var array Ticket data
 		 * @var string Commerce engine class
 		 */
-		// do_action( 'event_tickets_after_save_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
+		do_action( 'event_tickets_after_save_ticket', $event_id, $ticket, $raw_data, __CLASS__ );
 
 		return $ticket->ID;
 	}
@@ -982,7 +993,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		$return->message3       = get_post_meta( $ticket_id, '_message3', true );
 		$return->reg_period_start_date  = get_post_meta( $ticket_id, '_reg_period_start_date', true );
 		$return->reg_period_end_date    = get_post_meta( $ticket_id, '_reg_period_end_date', true );
-		
+		$return->ticket_v		= get_post_meta( $ticket_id, '_ticket_v', true );
 		$return->stock( get_post_meta( $ticket_id, '_stock', true ) - $qty );
 		$return->qty_sold( $qty );
 
@@ -1243,7 +1254,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			'fields'         => 'ids',
 			'post_status'    => 'publish',
 		) );
-Register_In_One_Click__Tickets__Main::instance()->write_log($query->meta_query);
+
 		return $query->posts;
 	}
 

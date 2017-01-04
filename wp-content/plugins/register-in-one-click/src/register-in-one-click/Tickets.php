@@ -338,6 +338,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			return ! empty( $data['nonce'] ) && wp_verify_nonce( $data['nonce'], $nonce_action ) && current_user_can( get_post_type_object( $post->post_type )->cap->edit_posts );
 		}
 		
+		
 		public function save_title( $post_id ){
 		  global $wpdb;
 		  $wpdb->update( $wpdb->posts, array( 'post_title' =>  'order-#' . $post_id ), array( 'ID' => $post_id ) ); 
@@ -631,6 +632,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket = $this->get_ticket( $post_id, $ticket_id );
 
 			$return = get_object_vars( $ticket );
+			
 			/**
 			 * Allow for the prevention of updating ticket price on update.
 			 *
