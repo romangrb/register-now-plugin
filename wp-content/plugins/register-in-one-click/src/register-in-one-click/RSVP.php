@@ -670,7 +670,8 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		// assume we are updating until we find out otherwise
 		$save_type = 'update';
 		
-		$post_modified = date('Y-m-d H:i:s');
+		$utc_time = time();
+		$post_modified = date('Y-m-d H:i:s', $utc_time);
 		
 		if ( empty( $ticket->ID ) ) {
 			$save_type = 'create';
@@ -703,7 +704,7 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		
 		$ticket->name = $args['post_title'];
 		// [YYYY]-[MM]-[DD]  [HH]:[MM]:[SS] 
-		$ticket->ticket_v = $post_modified;
+		$ticket->ticket_v = $utc_time;
 		
 		if ( ! $ticket->ID ) {
 			return false;

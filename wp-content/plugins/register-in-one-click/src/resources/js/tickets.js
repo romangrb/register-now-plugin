@@ -34,6 +34,29 @@
 	  }
 	  
 	};
+	
+	function timeConverter(UNIX_timestamp, sepDate, sepBtDateAndTime, sepTime){
+	//console.log(timeConverter(1483500497, '-', '  ',':'));
+	  var toFormTime = function(t){
+	    return ((((t)+'').length)>1)? t : '0'+t;
+	  },
+	   a = new Date(UNIX_timestamp * 1000),
+	   sepDate = (sepDate) ? sepDate : '',
+	   sepTime = (sepTime) ? sepTime : '',
+	   sepBtDateAndTime = (sepBtDateAndTime) ? sepBtDateAndTime : '',
+	   months = ['01','02','03','04','05','06','07','08','09','10','11','12'],
+	   year = a.getFullYear(),
+	   month = months[a.getMonth()],
+	   date = toFormTime(a.getDate()),
+	   hour = toFormTime(a.getHours()),
+	   min = toFormTime(a.getMinutes()),
+	   sec = toFormTime(a.getSeconds()),
+	   time = year + sepDate + month + sepDate + date + '   ' + hour + sepTime + min + sepTime + sec ;
+	  return time;
+	}
+
+	
+	
 	function TimeProtObj(hash){
 		var self = this;
 		this._name_t = {0:'h',1:'m',2:'me',3:'vs_h',4:'vs_m',5:'vs_me'};

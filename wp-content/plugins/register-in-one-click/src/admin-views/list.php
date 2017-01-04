@@ -19,9 +19,9 @@
 			$post_type = $_GET['post_type'];
 		}
 	}
-
+// Register_In_One_Click__Tickets__Main::instance()->write_log(date('Y-m-d H:i:s', $ticket->ticket_v));
 	$modules = Register_In_One_Click__Tickets__Tickets::modules();
-	// Register_In_One_Click__Tickets__Main::instance()->write_log($tickets);
+	
 	foreach ( $tickets as $ticket ) {
 		/**
 		 * @var Register_In_One_Click__Tickets__Ticket_Object $ticket
@@ -94,8 +94,8 @@
 						"<a href='#' attr-provider='%s' attr-ticket-id='%s' class='ticket_edit'>%s &nbsp&nbsp&nbsp %s</a>",
 						esc_attr( $ticket->provider_class ),
 						esc_attr( $ticket->ID ),
-						esc_html( $ticket->ticket_v),
-						esc_html( $ticket->name )
+						esc_html( date('Y-m-d H:i:s', $ticket->ticket_v)),
+						esc_html( $ticket->name)
 						// [YYYY]-[MM]-[DD]  [HH]:[MM]:[SS] Event_Name
 					);
 					do_action( 'event_tickets_ticket_list_after_ticket_name', $ticket );
