@@ -1,1 +1,3 @@
 [04-Jan-2017 04:01:34 UTC] PHP Parse error:  syntax error, unexpected '<' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/src/admin-views/list.php on line 123
+[09-Jan-2017 18:15:49 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/ubuntu/workspace/wp-content/plugins/the-events-calendar/common/src/Tribe/Autoloader.php on line 162
+[09-Jan-2017 18:19:37 UTC] PHP Fatal error:  Undefined class constant 'REFRESH_BTN' in /home/ubuntu/workspace/wp-content/plugins/register-in-one-click/common/src/admin-views/rioc-registration.php on line 67

@@ -64,7 +64,7 @@
             </div>
             <div>
             	<a href="#">
-                    <span id=<?php echo(self::REFRESH_BTN) ?> ></span>
+                    <span id=<?php echo(self::REFRESH_TRIGGER) ?> >refresh</span>
                 </a>
         	</div>
         </div>
