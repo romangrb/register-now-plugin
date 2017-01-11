@@ -46,11 +46,6 @@ var SuncInterface = {
 			console.error('defoult Sunc respond \n', jqXHR, textStatus, errorThrown);
 		};
 		
-    this.__setProp =  function(n, v){
-      if (!n || !v) return;
-      self.__ajax_prop[n] = v;
-    }
-    
 		this.__content_type = (window.XDomainRequest)? "text/plain" : "application/x-www-form-urlencoded; charset=utf-8";
 		
 		this.__ajax_prop = {
