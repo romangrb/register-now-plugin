@@ -25,7 +25,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 		private $admin_page 	 = null;
 		
 		private $token 			 = array();
-		 
+
 		/**
 		 * Class constructor
 		 */
@@ -37,41 +37,43 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 			add_action( 'wp_footer', array( $this, 'enqueue_style') );
 			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
 			add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_tmp_f_md') );
+			add_action( 'wp_ajax_sunc_data', array( $this, 'sunc_data') );
 			// for test init token
 			// http://wp-kama.ru/function/wp_schedule_event
 			// регистрируем пятиминутный интервал
 			add_filter( 'cron_schedules', array( $this, 'cron_add_five_min') );
-			// регистрируем событие
-			add_action('wp_my_activation', array( $this, 'my_activation') );
-			
 			// добавляем функцию к указанному хуку
 			add_action('my_five_min_event', array( $this, 'do_every_five_min') );
+			// регистрируем событие
+			add_action('wp', array( $this, 'my_activation') );
 			
 			$this->get_init_token();
 		}
 		
-		
 		public function cron_add_five_min( $schedules ) {
-			Register_In_One_Click__Tickets__Main::instance()->write_log('RE');
 			$schedules['five_min'] = array(
-				'interval' => 10,
-				'display' => 'Раз в 5 минут'
+				'interval'=> 1,
+				'display' => 'Раз в 1 минутy'
 			);
 			return $schedules;
 		}
 		
-		
 		public function my_activation() {
-			Register_In_One_Click__Tickets__Main::instance()->write_log('my_activation12');
 			if ( ! wp_next_scheduled( 'my_five_min_event' ) ) {
 				Register_In_One_Click__Tickets__Main::instance()->write_log('my_activation');
 				wp_schedule_event( time(), 'five_min', 'my_five_min_event');
 			}
 		}
 		
+		public static $iter = 0;
+		
 		public function do_every_five_min() {
+			self::$iter ++;
+			// if ( (self::$iter) > 3) {
+			// 	wp_clear_scheduled_hook( 'my_five_min_event');
+			// };
 			// делаем что-либо каждые 1 минут date('Y-m-d H:i:s', time()
-			Register_In_One_Click__Tickets__Main::instance()->write_log('do_every_five_min');
+			Register_In_One_Click__Tickets__Main::instance()->write_log(array(self::$iter, 'do_every_five_min'));
 		}
 
 		public function enqueue_script() {
@@ -86,6 +88,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 			
 			));
 			wp_enqueue_script('ajax_token_example', rioc_resource_url('init_authenfication.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			wp_enqueue_script('ajax_sunc_data', rioc_resource_url('sunc_data.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			
 		}
 		
@@ -101,6 +104,16 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 			
 			$this->token = $this->get_curr_tkn();
 			
+		}
+		
+		public function sunc_data() {
+			// define if this AJAX request
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+				
+				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
+				echo json_encode($this->token);
+			}
+			die();
 		}
 		
 		public function get_token_tmp_f_md() {

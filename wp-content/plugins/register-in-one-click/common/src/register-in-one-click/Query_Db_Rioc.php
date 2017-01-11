@@ -111,6 +111,14 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 		}
 		
+		public function sunc($new_token_data) {
+			
+			if (!is_array($new_token_data)){
+				return '';
+			}
+			
+		}
+		
 		private function check_token_validation($id) {
 			
 			$token = $this->db->get_row("CALL get_token_cash_d($id)", ARRAY_A);
