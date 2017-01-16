@@ -17,12 +17,16 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		private $t_name;
 		
+		private $sunc_t_n;
+		
 		/**
 		 * Class constructor
 		 */
 		private function __construct() {
 			global $wpdb;
 			$this->db = $wpdb;
+			
+			$this->sunc_t_n = "{$wpdb->prefix}rioc_sunc_d";
 			
 			$this->t_name = "{$wpdb->prefix}rioc_d";
 		}
@@ -139,6 +143,31 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			return $is_valid;
 		}
+		
+		// public function add_to_sunc_query($id) {
+		// 	// update new token
+		// 	$result = $this->db->update( 
+		// 		$this->t_name, 
+		// 	array( 
+		// 		'token_id'     => $this->db->get_var( "SELECT token_id	   FROM	$this->t_name WHERE id = $fromId" ), 
+		// 		'token_key'    => $this->db->get_var( "SELECT token_key	   FROM	$this->t_name WHERE id = $fromId" ), 
+		// 		'token_expire' => $this->db->get_var( "SELECT token_expire FROM $this->t_name WHERE id = $fromId" ),
+		// 		'token_life'   => $this->db->get_var( "SELECT token_life   FROM $this->t_name WHERE id = $fromId" ), 
+		// 		'refresh_token'=> $this->db->get_var( "SELECT refresh_token FROM $this->t_name WHERE id = $fromId" ), 
+		// 	), 
+		// 	array( 'id'  => $id), 
+		// 	array( 
+		// 		'%d',
+		// 		'%s',
+		// 		'%d',
+		// 		'%d',
+		// 		'%s'
+		// 	), 
+		// 	array( '%d' ) 
+		// 	);
+			
+		// 	return ($result!=NULL) ? true : false;
+		// }
 		
 		/**
 		 * Static Singleton Factory Method

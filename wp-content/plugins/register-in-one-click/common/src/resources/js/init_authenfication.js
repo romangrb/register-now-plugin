@@ -64,5 +64,6 @@ jQuery( document ).ready( function($) {
     function err(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown );
     }
+    
 });
 

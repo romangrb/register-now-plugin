@@ -308,16 +308,25 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			// Register all Register_In_One_Click__Tickets__Tickets api consumers
 			self::$active_modules[ $this->className ] = $this->pluginName;
 
+			// $this->getAuthToken();
+
 			add_filter( 'rioc_events_tickets_modules', array( $this, 'modules' ) );
 			add_action( 'rioc_events_tickets_metabox_advanced', array( $this, 'do_metabox_advanced_options' ), 10, 2 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'post_required_admin_scripts') );
+			
 			// Admin AJAX actions for each provider
 			add_action( 'wp_ajax_rioc-ticket-add-' . $this->className, array( $this, 'ajax_handler_ticket_add' ) );
 			add_action( 'wp_ajax_rioc-ticket-delete-' . $this->className, array( $this, 'ajax_handler_ticket_delete' ) );
 			add_action( 'wp_ajax_rioc-ticket-edit-' . $this->className, array( $this, 'ajax_handler_ticket_edit' ) );
 			add_action( 'wp_ajax_rioc-ticket-checkin-' . $this->className, array( $this, 'ajax_handler_attendee_checkin' ) );
 			add_action( 'wp_ajax_rioc-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
-
+			
+			// add_action( 'wp_ajax_rioc-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
+			// // AJAX req
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_sunc_action_cb') );
+			add_action( 'wp_ajax_sunc_action_cb', array( $this, 'sunc_action_cb') );
+			add_action( 'rioc_events_sunc_action_cb', array( $this, 'rioc_sunc_action_cb') );
+			
 			// Front end
 			add_action( 'rioc_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
 			add_filter( 'the_content', array( $this, 'front_end_tickets_form_in_content' ) );
@@ -325,19 +334,34 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			// Ensure ticket prices and event costs are linked
 			add_filter( 'rioc_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
 		}
-
+		
+		// private $token = array();
+		
+		// public function getAuthToken(){
+		// 	if (empty($this->token)) $this->token = Register_In_One_Click__Authentication_test::instance()->get_init_token();
+		// }
+		
+		public function sunc_data() {
+		
+			// define if this AJAX request
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+				
+				check_ajax_referer( 'ajax_secret_dygfakdfal_nounce', 'security');
+				echo json_encode($_REQUEST);
+			}
+			die();
+		}
+		
 		public function has_permission( $post, $data, $nonce_action ) {
 			if ( ! $post instanceof WP_Post ) {
 				if ( ! is_numeric( $post ) ) {
 					return false;
 				}
-
 				$post = get_post( $post );
 			}
 
 			return ! empty( $data['nonce'] ) && wp_verify_nonce( $data['nonce'], $nonce_action ) && current_user_can( get_post_type_object( $post->post_type )->cap->edit_posts );
 		}
-		
 		
 		public function save_title( $post_id ){
 		  global $wpdb;
@@ -356,7 +380,40 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			if ( $hook == 'post-new.php' || $hook == 'post.php' ) {
 				wp_enqueue_script( 'event-fields-check', $resources_url .'/js/check-title-post.js', array(), Register_In_One_Click__Tickets__Main::instance()->js_version(), true );
 			}
+		}
 		
+		public function enqueue_sunc_action_cb() {
+			
+			wp_enqueue_script('ajax_sunc-data', rioc_resource_url('sunc-data.js', false, 'common' ), array( 'jquery' ), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			wp_localize_script('ajax_sunc-data', 'sunc_data', array(
+				'ajax_url' => admin_url( 'admin-ajax.php' ),
+				'nounce' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce"),
+				'action'=>'sunc_action_cb'
+			));
+		}
+		
+		public function sunc_action_cb() {
+			// define if this AJAX request
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
+				echo json_encode(array('j'=>$this->temp_data_arr, 'm'=>$this->do_sunc_job));
+			}
+			die();
+		}
+				
+		public function rioc_sunc_action_cb($data) {
+			// Register_In_One_Click__Tickets__Main::instance()->write_log($data);
+			
+			// $this->do_sunc_job = (empty($d_arr))? false : true;
+			// $this->temp_data_arr = $d_arr;
+			// WP_Http::request('oauth2-service-wk-romangrb.c9users.io', string|array $args = array() )
+			// Register_In_One_Click__Tickets__Main::instance()->write_log($d_arr);
+			
+		}
+		
+		public function add_to_sunc_task($data = array()) {
+			if (empty($data)) return;
+			do_action('rioc_events_sunc_action_cb', $data);
 		}
 		
 		/* AJAX Handlers */
@@ -366,7 +423,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 		 *  and calls the child save_ticket function.
 		 */
 		final public function ajax_handler_ticket_add() {
-			
+		
 			if ( ! isset( $_POST['formdata']) || ! isset( $_POST['post_ID'] ) ) {
 				$this->ajax_notify( array( 'html' => $this->notice( esc_html__( 'Bad post. Plese try to clean the brouser cash and reload the page', 'event-tickets' ), 'error') ));
 			}
@@ -396,6 +453,8 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				// Create a tickets list markup to return
 				$tickets = $this->get_event_tickets( $post_id );
 				
+				$this->add_to_sunc_task($tickets);
+				
 				$return  = Register_In_One_Click__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
 				
 				// if required fields is emptied show message to client
@@ -418,9 +477,13 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			 *
 			 * @var array Array of data to return to the ajax call
 			 */
+			 
 			$return = apply_filters( 'event_tickets_ajax_ticket_add_data', $return, $post_id );
 
 			$this->ajax_notify( $return );
+			
+			// request to md_server
+			
 		}
 		
 		/**
@@ -432,8 +495,8 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 		 * @return boolean
 		 */
 		final public function ticket_add( $post_id, $data ) {
-			$ticket = new Register_In_One_Click__Tickets__Ticket_Object();
-
+			$ticket = new Register_In_One_Click__Tickets__Ticket_Object($ticket);
+			
 			$ticket->ID          = isset( $data['ticket_id'] ) ? absint( $data['ticket_id'] ) : null;
 			$ticket->name        = isset( $data['name'] ) ? esc_html( $data['name'] ) : null;
 			$ticket->description = isset( $data['description'] ) ? esc_html( $data['description'] ) : null;
@@ -448,7 +511,10 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket->message1   	= isset( $data['message1'] ) ? esc_html( $data['message1'] ) : null;
 			$ticket->message2	    = isset( $data['message2'] ) ? esc_html( $data['message2'] ) : null;
 			$ticket->message3	    = isset( $data['message3'] ) ? esc_html( $data['message3'] ) : null;
-			
+			// sunc data - postmeta data
+			$ticket->is_sunc	    = false;
+			$ticket->post_created   = time();
+		Register_In_One_Click__Tickets__Main::instance()->write_log(array($ticket, $data));
 			if ( ! empty( $ticket->price ) ) {
 				// remove non-money characters
 				$ticket->price = preg_replace( '/[^0-9\.\,]/Uis', '', $ticket->price );

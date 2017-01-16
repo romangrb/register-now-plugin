@@ -723,6 +723,18 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		// 	update_post_meta( $ticket->ID, '_manage_stock', 'no' );
 		// }
 		
+		if ( isset( $ticket->is_sunc ) ) {
+			update_post_meta( $ticket->ID, '_is_sunc', $ticket->is_sunc );
+		} else {
+			delete_post_meta( $ticket->ID, '_is_sunc' );
+		}
+		
+		if ( isset( $ticket->post_created ) ) {
+			update_post_meta( $ticket->ID, '_post_created', $ticket->post_created );
+		} else {
+			delete_post_meta( $ticket->ID, '_post_created' );
+		}
+		
 		if ( isset( $ticket->ticket_v ) ) {
 			update_post_meta( $ticket->ID, '_ticket_v', $ticket->ticket_v );
 		} else {

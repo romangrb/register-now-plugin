@@ -622,7 +622,7 @@
 					ticket_id: $( this ).attr( 'attr-ticket-id' ),
 					nonce    : TribeTickets.edit_ticket_nonce
 				};
-
+				// console.info(params);
 				$.post(
 					ajaxurl,
 					params,
@@ -652,8 +652,8 @@
 						
 						setFieldsValues(response);
 						
+						if (params.ticket_id)  $( '#ticket_id' ).val(params.ticket_id);
 						(response.data.event_enabled) ? $( '#event_enabled' ).prop('checked', true) : $( '#event_enabled' ).prop('checked', false);
-						
 						
 						if ( onSale ) {
 							$( '.ticket_advanced_' + response.data.provider_class + '.sale_price' ).show();
