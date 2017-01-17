@@ -19,6 +19,10 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		private $t_sunc_post;
 		
+		private $t_post;
+		
+		private $t_meta;
+		
 		/**
 		 * Class constructor
 		 */
@@ -29,6 +33,11 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			$this->t_sunc_post = "{$wpdb->prefix}rioc_post_sunc";
 			
 			$this->t_name = "{$wpdb->prefix}rioc_d";
+			
+			$this->t_post = "{$wpdb->prefix}posts";
+		
+			$this->t_meta = "{$wpdb->prefix}postmeta";
+			
 		}
 		
 		private function beckup_token($id, $fromId) {
@@ -129,13 +138,24 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return $results;
 		}
 		
+		public function collate_meta_data( $id ) {
+			if (!isset($id)) return;
+			$meta = new stdClass;
+				foreach( get_post_meta( $id) as $k => $v ){
+				$meta->$k = $v[0];
+			}
+			return $meta;
+		}
+		
 		public function get_complete_data_to_sunc($id) {
 		
 	        $results = $this->db->get_results( 
-                $this->db->prepare(
-                	"SELECT * FROM {$this->t_sunc_post} WHERE is_sunc < %d LIMIT 5"
-                	, 1),
-                ARRAY_A
+            	"
+            	SELECT $this->t_meta.*, $this->t_post.post_title,
+				FROM $this->t_meta
+				INNER JOIN Customers
+				ON Orders.CustomerID=Customers.CustomerID;
+				"
             );
 			return $results;
 		}

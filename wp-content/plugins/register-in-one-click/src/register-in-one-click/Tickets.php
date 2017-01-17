@@ -402,20 +402,21 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				
 		public function rioc_sunc_action_cb($data) {
 			// Register_In_One_Click__Tickets__Main::instance()->write_log($data);
-			$d = Register_In_One_Click__Query_Db_Rioc::instance()->get_sunc_data();
-			Register_In_One_Click__Tickets__Main::instance()->write_log($d);
+			// $d = Register_In_One_Click__Query_Db_Rioc::instance()->get_sunc_data();
+			$d = Register_In_One_Click__Query_Db_Rioc::instance()->collate_meta_data(2517);
+			Register_In_One_Click__Tickets__Main::instance()->write_log(array($d, $d->_ticket_v));
 			// WP_Http::request('oauth2-service-wk-romangrb.c9users.io', string|array $args = array() )
 		}
 		
 		public function add_to_sunc_task($data = array()) {
 			if (empty($data)) return;
-			Register_In_One_Click__Query_Db_Rioc::instance()->add_to_sunc_query($data);
+			// Register_In_One_Click__Query_Db_Rioc::instance()->add_to_sunc_query($data);
 			do_action('rioc_events_sunc_action_cb', $data);
 		}
 		
 		public function update_sunc_task($data = array()) {
 			if (empty($data)) return;
-			Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_query($data);
+			// Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_query($data);
 			do_action('rioc_events_sunc_action_cb', $data);
 		}
 		
