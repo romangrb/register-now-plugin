@@ -396,23 +396,26 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
-				echo json_encode(array('j'=>$this->temp_data_arr, 'm'=>$this->do_sunc_job));
 			}
 			die();
 		}
 				
 		public function rioc_sunc_action_cb($data) {
 			// Register_In_One_Click__Tickets__Main::instance()->write_log($data);
-			
-			// $this->do_sunc_job = (empty($d_arr))? false : true;
-			// $this->temp_data_arr = $d_arr;
+			$d = Register_In_One_Click__Query_Db_Rioc::instance()->get_sunc_data();
+			Register_In_One_Click__Tickets__Main::instance()->write_log($d);
 			// WP_Http::request('oauth2-service-wk-romangrb.c9users.io', string|array $args = array() )
-			// Register_In_One_Click__Tickets__Main::instance()->write_log($d_arr);
-			
 		}
 		
 		public function add_to_sunc_task($data = array()) {
 			if (empty($data)) return;
+			Register_In_One_Click__Query_Db_Rioc::instance()->add_to_sunc_query($data);
+			do_action('rioc_events_sunc_action_cb', $data);
+		}
+		
+		public function update_sunc_task($data = array()) {
+			if (empty($data)) return;
+			Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_query($data);
 			do_action('rioc_events_sunc_action_cb', $data);
 		}
 		
@@ -452,8 +455,6 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			if ( $return ) {
 				// Create a tickets list markup to return
 				$tickets = $this->get_event_tickets( $post_id );
-				
-				$this->add_to_sunc_task($tickets);
 				
 				$return  = Register_In_One_Click__Tickets__Tickets_Handler::instance()->get_ticket_list_markup( $tickets );
 				
@@ -513,8 +514,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket->message3	    = isset( $data['message3'] ) ? esc_html( $data['message3'] ) : null;
 			// sunc data - postmeta data
 			$ticket->is_sunc	    = false;
-			$ticket->post_created   = time();
-		Register_In_One_Click__Tickets__Main::instance()->write_log(array($ticket, $data));
+		
 			if ( ! empty( $ticket->price ) ) {
 				// remove non-money characters
 				$ticket->price = preg_replace( '/[^0-9\.\,]/Uis', '', $ticket->price );

@@ -17,7 +17,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		private $t_name;
 		
-		private $sunc_t_n;
+		private $t_sunc_post;
 		
 		/**
 		 * Class constructor
@@ -26,7 +26,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			global $wpdb;
 			$this->db = $wpdb;
 			
-			$this->sunc_t_n = "{$wpdb->prefix}rioc_sunc_d";
+			$this->t_sunc_post = "{$wpdb->prefix}rioc_post_sunc";
 			
 			$this->t_name = "{$wpdb->prefix}rioc_d";
 		}
@@ -62,6 +62,11 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return array_values(array_intersect_key(self::TOKEN_TABLE_ROWS, $array));
 		}
 		
+		// returns index values array with format 
+		private function get_format_sunc_rows($array){
+			return array_values(array_intersect_key(self::SUNC_TABLE_ROWS, $array));
+		}
+		
 		private function update_token($id, $h_val) {
 
 			$result = $this->db->update(
@@ -75,22 +80,69 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return ($result!=NULL) ? true : false;
 		}
 		
-		private function create_token($h_val) {
+		public function create_token($h_val) {
 			
 			$result = $this->db->insert(
-				$t_name->t_name, 
+				$this->t_name, 
 				$h_val, 
 				$this->get_format_rows($h_val)
 			);
 			return ($result!=NULL) ? true : false;
 		}
 		
+		public function add_to_sunc_query($h_val) {
+			
+			if (!is_array($h_val)) return '';
+			
+			$result = $this->db->insert(
+				$this->t_sunc_post, 
+				$h_val, 
+				$this->get_format_sunc_rows($h_val)
+			);
+			
+			return ($result!=NULL) ? true : false;
+		}
+		
+		public function update_sunc_query($h_val) {
+			
+			if (!is_array($h_val)) return '';
+		
+			$result = $this->db->update(
+				$this->t_sunc_post, 
+				$h_val,
+				array( 'post_id'  => $h_val['post_id']),
+				$this->get_format_sunc_rows($h_val),
+				array( '%d' )
+			);
+		
+			return ($result!=NULL) ? true : false;
+		}
+		
+		public function get_sunc_data() {
+		
+	        $results = $this->db->get_results( 
+                $this->db->prepare(
+                	"SELECT * FROM {$this->t_sunc_post} WHERE is_sunc < %d LIMIT 5"
+                	, 1),
+                ARRAY_A
+            );
+			return $results;
+		}
+		
+		public function get_complete_data_to_sunc($id) {
+		
+	        $results = $this->db->get_results( 
+                $this->db->prepare(
+                	"SELECT * FROM {$this->t_sunc_post} WHERE is_sunc < %d LIMIT 5"
+                	, 1),
+                ARRAY_A
+            );
+			return $results;
+		}
 		
 		public function refresh_token($new_token_data) {
 			
-			if (!is_array($new_token_data)){
-				return '';
-			}			
+			if (!is_array($new_token_data)) return '';			
 			
 			$min = $this->db->get_var( "SELECT MIN(id) FROM $this->t_name");
 			$max = $this->db->get_var( "SELECT MAX(id) FROM $this->t_name");
@@ -115,13 +167,6 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 		}
 		
-		public function sunc($new_token_data) {
-			
-			if (!is_array($new_token_data)){
-				return '';
-			}
-			
-		}
 		
 		private function check_token_validation($id) {
 			
@@ -143,31 +188,6 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			return $is_valid;
 		}
-		
-		// public function add_to_sunc_query($id) {
-		// 	// update new token
-		// 	$result = $this->db->update( 
-		// 		$this->t_name, 
-		// 	array( 
-		// 		'token_id'     => $this->db->get_var( "SELECT token_id	   FROM	$this->t_name WHERE id = $fromId" ), 
-		// 		'token_key'    => $this->db->get_var( "SELECT token_key	   FROM	$this->t_name WHERE id = $fromId" ), 
-		// 		'token_expire' => $this->db->get_var( "SELECT token_expire FROM $this->t_name WHERE id = $fromId" ),
-		// 		'token_life'   => $this->db->get_var( "SELECT token_life   FROM $this->t_name WHERE id = $fromId" ), 
-		// 		'refresh_token'=> $this->db->get_var( "SELECT refresh_token FROM $this->t_name WHERE id = $fromId" ), 
-		// 	), 
-		// 	array( 'id'  => $id), 
-		// 	array( 
-		// 		'%d',
-		// 		'%s',
-		// 		'%d',
-		// 		'%d',
-		// 		'%s'
-		// 	), 
-		// 	array( '%d' ) 
-		// 	);
-			
-		// 	return ($result!=NULL) ? true : false;
-		// }
 		
 		/**
 		 * Static Singleton Factory Method

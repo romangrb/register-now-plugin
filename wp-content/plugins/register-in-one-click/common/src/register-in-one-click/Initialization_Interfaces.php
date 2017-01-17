@@ -44,4 +44,6 @@ interface Register_In_One_Click__Initialization_Interfaces {
 	const POST_TYPE_N				= 'rioc-common';
 	
 	const TOKEN_TABLE_ROWS			= array('token_id'=>'%d' ,'token_key'=>'%s', 'token_expire'=>'%d', 'token_life'=>'%d', 'refresh_token'=>'%s');
+	
+	const SUNC_TABLE_ROWS			= array('post_id'=>'%d', 'is_sunc'=>'%d', 'cr_time'=>'%d');
 }
