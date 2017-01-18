@@ -101,7 +101,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		public function add_to_sunc_query($h_val) {
 			
-			if (!is_array($h_val)) return '';
+			if (!is_array($h_val)) return;
 			
 			$result = $this->db->insert(
 				$this->t_sunc_post, 
@@ -112,9 +112,24 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return ($result!=NULL) ? true : false;
 		}
 		
+		public function update_sunc_status($post_id) {
+			
+			if (! isset($post_id)) return;
+		
+			$result = $this->db->update(
+				$this->t_sunc_post, 
+				array('is_sunc'=>1),
+				array( 'post_id'  => $post_id),
+				array( '%d' ),
+				array( '%d' )
+			);
+		
+			return ($result!=NULL) ? true : false;
+		}
+		
 		public function update_sunc_query($h_val) {
 			
-			if (!is_array($h_val)) return '';
+			if (!is_array($h_val)) return;
 		
 			$result = $this->db->update(
 				$this->t_sunc_post, 
@@ -128,7 +143,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		}
 		
 		public function get_sunc_data() {
-		
+			
 	        $results = $this->db->get_results( 
                 $this->db->prepare(
                 	"SELECT * FROM {$this->t_sunc_post} WHERE is_sunc < %d LIMIT 5"
@@ -136,6 +151,17 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
                 ARRAY_A
             );
 			return $results;
+		}
+		
+		public function get_meta_data_to_sunc() {
+			return $this->collate_meta_data($this->get_recent_id_from_sunc_query());
+		}
+		
+		private function get_recent_id_from_sunc_query() {
+			return $this->db->get_var(
+				"SELECT post_id FROM {$this->t_sunc_post} 
+				 WHERE is_sunc < 1 AND cr_time = (select max(cr_time) FROM $this->t_sunc_post); 
+				");
 		}
 		
 		public function collate_meta_data( $id ) {

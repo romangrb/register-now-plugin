@@ -86,15 +86,25 @@ var SuncInterface = {
 
 	// Sunc.constructor('sunc_data.action', sunc_data.nounce_tkn);
 	
+		
+	function success_cb (response){
+		console.info('defoult Sunc respond \n', response);
+		if (response&&response['data']&&response['data']['html']) {
+		$( 'td.ticket_list_container' ).empty().html( response.data.html );
+		
+		}
+			
+	}
+	function error_cb (jqXHR, textStatus, errorThrown){
+		console.error('defoult Sunc respond \n', jqXHR, textStatus, errorThrown);
+	}
 	
 	$('#test').on('click', function(){
 		// $.ajax(Sunc.get({}));
-	
 		$.ajax({
 				 url: sunc_data.ajax_url,
 				 data: {
-				    action: sunc_data.action,
-				    data: 123123,
+				    action:  'sunc_action_cb',
 				    security:   sunc_data.nounce
 				 },
 				 type:"POST",
@@ -104,14 +114,7 @@ var SuncInterface = {
 			     error:error_cb
 		});
 		
-		function success_cb (data){
-			console.info('defoult Sunc respond \n', data);
-		}
-		function error_cb (jqXHR, textStatus, errorThrown){
-			console.error('defoult Sunc respond \n', jqXHR, textStatus, errorThrown);
-		}
-		
-		console.log('rtest');
+		// console.log('rtest');
 	});
 	
 });

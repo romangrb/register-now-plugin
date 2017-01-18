@@ -326,6 +326,8 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_sunc_action_cb') );
 			add_action( 'wp_ajax_sunc_action_cb', array( $this, 'sunc_action_cb') );
 			add_action( 'rioc_events_sunc_action_cb', array( $this, 'rioc_sunc_action_cb') );
+			add_action( 'rioc_events_sunc_action_test', array( $this, 'sunc_action_test') );
+			
 			
 			// Front end
 			add_action( 'rioc_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
@@ -390,21 +392,97 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				'nounce' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce"),
 				'action'=>'sunc_action_cb'
 			));
+			
+		}
+		
+		public function get_access_token(){
+			return Register_In_One_Click__Authentication_test::instance()->get_curr_tkn();
+			// Register_In_One_Click__Tickets__Main::instance()->write_log($access_token);
+		}
+		
+		public function get_sunc($is_inner_rq, $data = array()){
+			
+			$access_token = $this->get_access_token();
+			$access_token = null;
+			// if session is not been valid data is in query waiting for executin (time interval)
+			if (! isset($access_token)) $this->ajax_notify( array( 'html' => $this->notice( esc_html__( 'Current session is invalid. Please login again to synchronize data.', 'event-tickets' ), 'notice-warning notice is-dismissible')));
+			
+			$post_data = array('token_id'=>$access_token['token_id']);
+			if (isset($access_token['refresh_token'])) array_push($post_data, array('refresh_token'=>$access_token['refresh_token']));
+			if (! empty($data)) array_push($post_data, array('data'=>$data));
+			
+			$response = wp_remote_request('https://oauth2-service-wk-romangrb.c9users.io/test/' . $access_token['token_key'],
+						array('method'=>'POST',
+							  'body'=>$post_data,
+	    	                  'timeout'=>10) );
+							 
+			if ( is_array( $response ) && ! is_wp_error( $response ) ) {
+			    $body    = $response['body']; // use the content
+			    $arr_body = (is_array($body)) ? $body : json_decode($body, true);
+			    if (!empty($arr_body['update_token'])) {
+			    	// updating database token hash
+			    	Register_In_One_Click__Authentication_test::instance()->update_token_cash($arr_body['update_token']); 
+			    }
+			    // for data sync, updating sync status
+			    if (!empty($arr_body['status'])){
+			    	switch ($arr_body['status']) {
+					    case 'updated':
+					    	$post_id = $arr_body['data']['post_id'];
+					    	Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($post_id);
+					        break;
+						}
+			    }
+			    
+			    Register_In_One_Click__Tickets__Main::instance()->write_log($arr_body);
+		    	if ( $is_inner_rq ) echo json_encode($body);
+			} else {
+				echo json_encode(array('error'=>$body));
+			}
+				
+		}
+		
+		public function sunc_action_test() {
+			// define if this AJAX request
+			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
+				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
+				$return;
+				switch ($_SERVER['REQUEST_METHOD']) {
+				    case 'POST':
+				        // $return = Register_In_One_Click__Query_Db_Rioc::instance()->get_meta_data_to_sunc();
+				        break;
+				}
+				
+				echo json_encode(array('s'=>13));
+			}
+			die();
 		}
 		
 		public function sunc_action_cb() {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
+				$return=null;
+				switch ($_SERVER['REQUEST_METHOD']) {
+				    case 'GET':
+				        break;
+				    case 'POST':
+				        $return = Register_In_One_Click__Query_Db_Rioc::instance()->get_meta_data_to_sunc();
+				        $this->get_sunc(true, $return);
+				        break;
+				    case 'DELETE':
+				        $return = "DELETE";
+				        break;
+				}
+				
+				// echo json_encode($return);
 			}
 			die();
 		}
 				
 		public function rioc_sunc_action_cb($data) {
-			// Register_In_One_Click__Tickets__Main::instance()->write_log($data);
+			
 			// $d = Register_In_One_Click__Query_Db_Rioc::instance()->get_sunc_data();
 			$d = Register_In_One_Click__Query_Db_Rioc::instance()->collate_meta_data(2517);
-			Register_In_One_Click__Tickets__Main::instance()->write_log(array($d, $d->_ticket_v));
 			// WP_Http::request('oauth2-service-wk-romangrb.c9users.io', string|array $args = array() )
 		}
 		

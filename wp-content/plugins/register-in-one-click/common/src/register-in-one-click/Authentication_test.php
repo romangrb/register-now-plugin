@@ -98,11 +98,8 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 		}
 		
 		public function get_curr_tkn(){
-			
 			$result = Register_In_One_Click__Query_Db_Rioc::instance()->get_last_token_cash();
-		
-			return ($result) ? $result : array();
-			
+			return ($result) ? $result : null;
 		}
 			
 		public function get_init_token() {
@@ -117,17 +114,22 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 			}
 			die();
 		}
-			
+		
+		public function update_token_cash($request){
+			// compare with standart table rows on db and return only avaible rows values 
+			$tmp_d = array_intersect_key($request, self::TOKEN_TABLE_ROWS);
+			// save token into db
+			Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token($tmp_d);
+		}
+		
 		public function refresh_token_f_md() {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
 				// compare with standart table rows on db and return only avaible rows values 
-				$tmp_d = array_intersect_key($_REQUEST['token_hash'], self::TOKEN_TABLE_ROWS);
-				// save token into db
-				Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token($tmp_d);
-				
+				$this->update_token_cash($_REQUEST['token_hash']);
+			
 				echo json_encode($_REQUEST['token_hash']);
 			}
 			die();
