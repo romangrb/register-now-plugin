@@ -138,7 +138,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 				$this->get_format_sunc_rows($h_val),
 				array( '%d' )
 			);
-		
+			
 			return ($result!=NULL) ? true : false;
 		}
 		
@@ -167,10 +167,16 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		public function collate_meta_data( $id ) {
 			if (!isset($id)) return;
 			$meta = new stdClass;
+			$meta->post_id = $id;
 				foreach( get_post_meta( $id) as $k => $v ){
-				$meta->$k = $v[0];
-			}
+					$meta->$k = $v[0];
+				}
 			return $meta;
+		}
+		
+		public function update_post_meta_sync( $h_val ) {
+			foreach ( $h_val as $key => $value )
+		    update_post_meta( $h_val['post_id'], $key, $value );
 		}
 		
 		public function get_complete_data_to_sunc($id) {

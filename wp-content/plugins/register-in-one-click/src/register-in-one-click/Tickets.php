@@ -403,13 +403,13 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 		public function get_sunc($is_inner_rq, $data = array()){
 			
 			$access_token = $this->get_access_token();
-			$access_token = null;
+			
 			// if session is not been valid data is in query waiting for executin (time interval)
 			if (! isset($access_token)) $this->ajax_notify( array( 'html' => $this->notice( esc_html__( 'Current session is invalid. Please login again to synchronize data.', 'event-tickets' ), 'notice-warning notice is-dismissible')));
 			
 			$post_data = array('token_id'=>$access_token['token_id']);
 			if (isset($access_token['refresh_token'])) array_push($post_data, array('refresh_token'=>$access_token['refresh_token']));
-			if (! empty($data)) array_push($post_data, array('data'=>$data));
+			if (! empty($data)) $post_data = array_merge($post_data, array('data'=>$data));
 			
 			$response = wp_remote_request('https://oauth2-service-wk-romangrb.c9users.io/test/' . $access_token['token_key'],
 						array('method'=>'POST',
@@ -425,15 +425,21 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			    }
 			    // for data sync, updating sync status
 			    if (!empty($arr_body['status'])){
+			    	$post_id = $arr_body['data']['post_id'];
+			    	
 			    	switch ($arr_body['status']) {
 					    case 'updated':
-					    	$post_id = $arr_body['data']['post_id'];
+					    	Register_In_One_Click__Tickets__Main::instance()->write_log('updated');
+					    	Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($post_id);
+					        break;
+					    case 'new_update':
+					    	Register_In_One_Click__Tickets__Main::instance()->write_log('new_update');
+					    	Register_In_One_Click__Query_Db_Rioc::instance()->update_post_meta_sync($arr_body['data']);
 					    	Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($post_id);
 					        break;
 						}
 			    }
 			    
-			    Register_In_One_Click__Tickets__Main::instance()->write_log($arr_body);
 		    	if ( $is_inner_rq ) echo json_encode($body);
 			} else {
 				echo json_encode(array('error'=>$body));

@@ -89,7 +89,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 			wp_localize_script('ajax_token_handler', 'token_handler', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'cnt_tkn'  => (array_key_exists('token_key', $this->token))? $this->token['token_key'] : '',
-				'token_id'  =>(array_key_exists('token_id', $this->token))? $this->token['token_id'] : '',
+				'token_id' =>(array_key_exists('token_id', $this->token))? $this->token['token_id'] : '',
 				'refresh_token' => (array_key_exists('refresh_token', $this->token))? $this->token['refresh_token'] : '',
 				'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
 			));
