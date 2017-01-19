@@ -160,7 +160,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		private function get_recent_id_from_sunc_query() {
 			return $this->db->get_var(
 				"SELECT post_id FROM {$this->t_sunc_post} 
-				 WHERE is_sunc < 1 AND cr_time = (select max(cr_time) FROM $this->t_sunc_post); 
+				 WHERE is_sunc < 1 LIMIT 1; 
 				");
 		}
 		
