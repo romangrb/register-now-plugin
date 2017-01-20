@@ -385,19 +385,16 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 		}
 		
 		public function enqueue_sunc_action_cb() {
-			
 			wp_enqueue_script('ajax_sunc-data', rioc_resource_url('sunc-data.js', false, 'common' ), array( 'jquery' ), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			wp_localize_script('ajax_sunc-data', 'sunc_data', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nounce' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce"),
 				'action'=>'sunc_action_cb'
 			));
-			
 		}
 		
 		public function get_access_token(){
 			return Register_In_One_Click__Authentication_test::instance()->get_curr_tkn();
-			// Register_In_One_Click__Tickets__Main::instance()->write_log($access_token);
 		}
 		
 		public $ticket_object_name = 'tribe_events';
@@ -424,24 +421,26 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			if ( is_array( $response ) && ! is_wp_error( $response ) ) {
 			    $body     = $response['body']; // use the content
 			    $arr_body = (is_array($body)) ? $body : json_decode($body, true);
-			    if (!empty($arr_body['update_token'])) {
+			    if (! empty($arr_body['update_token'])) {
 			    	// updating database token hash
 			    	Register_In_One_Click__Authentication_test::instance()->update_token_cash($arr_body['update_token']); 
 			    }
-			    Register_In_One_Click__Tickets__Main::instance()->write_log($arr_body);
 			    // for data sync, updating sync status
-			    if (!empty($arr_body['status'])){
-			    	if (array_key_exists('data', $arr_body)) $post_id = $arr_body['data']['post_id'];
-			    	switch ($arr_body['status']) {
+			    if ( array_key_exists('status', $arr_body ) ){
+			    	switch ( $arr_body['status']) {
 			    		case 'binded':
-					    	Register_In_One_Click__Tickets__Main::instance()->write_log('binded');
+					    	Register_In_One_Click__Tickets__Main::instance()->write_log(array('binded'=>$arr_body));
+					    	json_encode(array('status'=>'binded'));
 					        break;
 					    case 'updated':
 					    	// check if respond has event_id
-					    	Register_In_One_Click__Tickets__Main::instance()->write_log('updated');
-					    	// Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($post_id);
+					    	if (array_key_exists('data', $arr_body)) Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($arr_body['data']['post_id']);
+					    	Register_In_One_Click__Tickets__Main::instance()->write_log(array('updated'=>$arr_body));
+					    	json_encode(array('status'=>'updated'));
 					        break;
 					    case 'new_update':
+					    	Register_In_One_Click__Tickets__Main::instance()->write_log(array('new_update'=>$arr_body));
+					    	json_encode(array('status'=>'new_update'));
 					    	// check if respond has post_id
 					    	if (! isset($arr_body['data']['post_id'] )) {
 					    		// insert post then insert post data to matadata
@@ -462,19 +461,22 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 								Register_In_One_Click__Query_Db_Rioc::instance()->update_post_meta_sync($meta_data);
 								// request to server for bind events ids
 								$this->get_sunc(false, array('bind'=>array('post_id'=>$new_post_id, 'id_event'=>$arr_body['data']['id_event'])));
+					    	}else{
+								// check version and update, then sent sync request for binding 1 status
+								// $post_id, $proposal_version
+								if (Register_In_One_Click__Query_Db_Rioc::instance()->is_new_version($arr_body['data']['post_id'], $arr_body['data']['_ticket_v'] )){
+									Register_In_One_Click__Query_Db_Rioc::instance()->update_post_meta_sync($arr_body['data']);
+								} else {
+									$this->get_sunc(false, array('data'=>array('post_id'=>$new_post_id, 'id_event'=>$arr_body['data']['id_event'])));
+									Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($arr_body['data']['post_id']);	
+								}
 					    	}
-					    	// Register_In_One_Click__Tickets__Main::instance()->write_log($meta_data);
-					    	// Register_In_One_Click__Query_Db_Rioc::instance()->update_post_meta_sync($arr_body['data']);
-					    	// Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($post_id);
 					        break;
 						}
-					echo json_encode(123);	
 			    }
-			    
-		    	// if ( $is_inner_rq ) echo json_encode($body);
+		    	json_encode(array('status'=>'ok'));
 			} else {
-					echo json_encode(array('sc'=>1213));	
-				// echo json_encode(array('error'=>$body));
+				json_encode(array('empty_post'=>$response));
 			}
 				
 		}

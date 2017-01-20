@@ -174,6 +174,14 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return $meta;
 		}
 		
+		public function bind_event( $post_id, $event_id ) {
+		    update_post_meta( $post_id, 'id_event', $event_id );
+		}
+		
+		public function is_new_version( $post_id, $proposal_version ) {
+		    return  (get_post_meta( $post_id, 'is_sunc', true ) < $proposal_version);
+		}
+		
 		public function update_post_meta_sync( $h_val ) {
 			foreach ( $h_val as $key => $value )
 		    update_post_meta( $h_val['post_id'], $key, $value );
