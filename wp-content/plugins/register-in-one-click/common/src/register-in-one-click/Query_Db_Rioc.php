@@ -154,7 +154,9 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		}
 		
 		public function get_meta_data_to_sunc() {
-			return $this->collate_meta_data($this->get_recent_id_from_sunc_query());
+			$row = $this->get_recent_id_from_sunc_query();
+			if (! $row ) return;
+			return $this->collate_meta_data($row);
 		}
 		
 		private function get_recent_id_from_sunc_query() {
@@ -168,7 +170,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			if (!isset($id)) return;
 			$meta = new stdClass;
 			$meta->post_id = $id;
-				foreach( get_post_meta( $id) as $k => $v ){
+				foreach( get_post_meta( $id ) as $k => $v ){
 					$meta->$k = $v[0];
 				}
 			return $meta;

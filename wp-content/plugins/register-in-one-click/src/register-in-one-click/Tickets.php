@@ -401,7 +401,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 		
 		private $prefix = 'auto_';
 		
-		public function get_sunc($is_inner_rq, $data = array()){
+		public function get_sunc($data = array()){
 			
 			$access_token = $this->get_access_token();
 			// if session is not been valid data is in query waiting for executin (time interval)
@@ -410,9 +410,9 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$post_data = array('token_id'=>$access_token['token_id']);
 			if (isset($access_token['refresh_token'])) array_push($post_data, array('refresh_token'=>$access_token['refresh_token']));
 			if (! empty($data)) {
-				$post_data = (array_key_exists('bind', $data)) ? array_merge($post_data, $data) : array_merge($post_data, array('data'=>$data)); 
+				$post_data = (array_key_exists('bind', $data) || array_key_exists('sync', $data)) ? array_merge($post_data, $data) : array_merge($post_data, array('data'=>$data)); 
 			}
-			
+			Register_In_One_Click__Tickets__Main::instance()->write_log(array('pd'=>$post_data));
 			$response = wp_remote_request('https://oauth2-service-wk-romangrb.c9users.io/sync_service/' . $access_token['token_key'],
 						array('method'=>'POST',
 							  'body'=>$post_data,
@@ -426,25 +426,32 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			    	Register_In_One_Click__Authentication_test::instance()->update_token_cash($arr_body['update_token']); 
 			    }
 			    // for data sync, updating sync status
-			    if ( array_key_exists('status', $arr_body ) ){
+			    if ( $arr_body['status'] ){
 			    	switch ( $arr_body['status']) {
+			    		case 'bind':
+					    	Register_In_One_Click__Query_Db_Rioc::instance()->bind_event($arr_body['data']['post_id'], $arr_body['data']['id_event']);
+					    	if (array_key_exists('data', $arr_body)) Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($arr_body['data']['post_id']);
+					    	// uptate sync status
+					    	$this->get_sunc(array('bind'=>array('id_event'=>$arr_body['data']['id_event'])));
+					    	json_encode(array('bind'=>$arr_body), true);
+					        break;
 			    		case 'binded':
 					    	Register_In_One_Click__Tickets__Main::instance()->write_log(array('binded'=>$arr_body));
-					    	json_encode(array('status'=>'binded'));
+					    	json_encode(array('binded'=>$arr_body), true);
 					        break;
 					    case 'updated':
 					    	// check if respond has event_id
 					    	if (array_key_exists('data', $arr_body)) Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($arr_body['data']['post_id']);
 					    	Register_In_One_Click__Tickets__Main::instance()->write_log(array('updated'=>$arr_body));
-					    	json_encode(array('status'=>'updated'));
+					    	json_encode(array('updated'=>$arr_body), true);
 					        break;
 					    case 'new_update':
-					    	Register_In_One_Click__Tickets__Main::instance()->write_log(array('new_update'=>$arr_body));
-					    	json_encode(array('status'=>'new_update'));
+					    	// Register_In_One_Click__Tickets__Main::instance()->write_log(array('new_update'=>$arr_body));
+					    	// json_encode(array('new_update'=>$arr_body), true);
 					    	// check if respond has post_id
 					    	if (! isset($arr_body['data']['post_id'] )) {
 					    		// insert post then insert post data to matadata
-					    		$event_id = substr(md5(microtime()),rand(0,26),5);
+					    		$event_id = substr(md5(microtime()), rand(0,26),5);
 								$args = array(
 									'post_status'  => 'publish',
 									'post_type'    => $this->ticket_object_name,
@@ -460,23 +467,25 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 								$meta_data = array_merge($arr_body['data'], array('post_id'=>$new_post_id));
 								Register_In_One_Click__Query_Db_Rioc::instance()->update_post_meta_sync($meta_data);
 								// request to server for bind events ids
-								$this->get_sunc(false, array('bind'=>array('post_id'=>$new_post_id, 'id_event'=>$arr_body['data']['id_event'])));
-					    	}else{
+								$this->get_sunc(array('bind'=>array('post_id'=>$new_post_id, 'id_event'=>$arr_body['data']['id_event'])));
+					    	} else {
 								// check version and update, then sent sync request for binding 1 status
 								// $post_id, $proposal_version
 								if (Register_In_One_Click__Query_Db_Rioc::instance()->is_new_version($arr_body['data']['post_id'], $arr_body['data']['_ticket_v'] )){
 									Register_In_One_Click__Query_Db_Rioc::instance()->update_post_meta_sync($arr_body['data']);
+									if (array_key_exists('data', $arr_body)) Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($arr_body['data']['post_id']);
+									$this->get_sunc(array('sync'=>array('id_event'=>$arr_body['data']['id_event'], 'post_id'=>$arr_body['data']['post_id'], '_ticket_v'=>$arr_body['data']['_ticket_v'])));
 								} else {
-									$this->get_sunc(false, array('data'=>array('post_id'=>$new_post_id, 'id_event'=>$arr_body['data']['id_event'])));
-									Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($arr_body['data']['post_id']);	
+									// version is the same or older then in wp then could add to query and increase priority
+									Register_In_One_Click__Query_Db_Rioc::instance()->add_to_sunc_query(array('post_id'=>$arr_body['data']['post_id'], 'cr_time'=>$arr_body['data']['_ticket_v']));
 								}
 					    	}
 					        break;
 						}
 			    }
-		    	json_encode(array('status'=>'ok'));
+		    	json_encode($arr_body, true);
 			} else {
-				json_encode(array('empty_post'=>$response));
+				json_encode(array('empty_post'=>$response), true);
 			}
 				
 		}
@@ -507,7 +516,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				        break;
 				    case 'POST':
 				        $return = Register_In_One_Click__Query_Db_Rioc::instance()->get_meta_data_to_sunc();
-				        $this->get_sunc(true, $return);
+				        $this->get_sunc($return);
 				        break;
 				    case 'DELETE':
 				        $return = "DELETE";
