@@ -327,21 +327,36 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			add_action( 'wp_ajax_sunc_action_cb', array( $this, 'sunc_action_cb') );
 			add_action( 'rioc_events_sunc_action_cb', array( $this, 'rioc_sunc_action_cb') );
 			add_action( 'rioc_events_sunc_action_test', array( $this, 'sunc_action_test') );
-			
-			
+			// synchronization shadule
+		
+			add_filter('cron_schedules', array($this, 'my_cron_schedules'));
+			add_action('my_task_hook',  array($this, 'my_task_function'));
+		
 			// Front end
 			add_action( 'rioc_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
 			add_filter( 'the_content', array( $this, 'front_end_tickets_form_in_content' ) );
-
+			
+			if (!wp_next_scheduled('my_task_hook')) {
+				wp_schedule_event( time(), '5min', 'my_task_hook' );
+			}
+			
 			// Ensure ticket prices and event costs are linked
 			add_filter( 'rioc_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
 		}
 		
-		// private $token = array();
+
+		public function my_task_function() {
+			Register_In_One_Click__Tickets__Main::instance()->write_log('every new 1 min');
+		}
 		
-		// public function getAuthToken(){
-		// 	if (empty($this->token)) $this->token = Register_In_One_Click__Authentication_test::instance()->get_init_token();
-		// }
+		public function cron_add_five_min( $schedules ) {
+			$schedules['five_min'] = array(
+				'interval'=> 60,
+				'display' => 'Раз в 1 минутy'
+			);
+			return $schedules;
+		}
+		
 		
 		public function sunc_data() {
 		
@@ -392,6 +407,29 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				'action'=>'sunc_action_cb'
 			));
 		}
+		
+		public function run_task(){
+			Register_In_One_Click__Tickets__Main::instance()->write_log('run task');
+		}
+		
+		public function run_cron_schedules($schedules){
+			wp_schedule_event(time(), '5min', array($this, 'run_task'), $args);	
+		}
+		
+		public function sync_cron_schedules($schedules){
+		    if(!isset($schedules["5min"])){
+		        $schedules["5min"] = array(
+		            'interval' => 5*60,
+		            'display' => __('Once every 5 minutes'));
+		    }
+		    if(!isset($schedules["30min"])){
+		        $schedules["30min"] = array(
+		            'interval' => 30*60,
+		            'display' => __('Once every 30 minutes'));
+		    }
+		    return $schedules;
+		}
+		
 		
 		public function get_access_token(){
 			return Register_In_One_Click__Authentication_test::instance()->get_curr_tkn();
