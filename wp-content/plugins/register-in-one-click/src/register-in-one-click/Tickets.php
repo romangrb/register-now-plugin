@@ -329,16 +329,16 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			add_action( 'rioc_events_sunc_action_test', array( $this, 'sunc_action_test') );
 			// synchronization shadule
 		
-			add_filter('cron_schedules', array($this, 'my_cron_schedules'));
-			add_action('my_task_hook',  array($this, 'my_task_function'));
+			// add_filter('cron_schedules', array($this, 'my_cron_schedules'));
+			// add_action('my_task_hook',  array($this, 'my_task_function'));
 		
 			// Front end
 			add_action( 'rioc_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
 			add_filter( 'the_content', array( $this, 'front_end_tickets_form_in_content' ) );
 			
-			if (!wp_next_scheduled('my_task_hook')) {
-				wp_schedule_event( time(), '5min', 'my_task_hook' );
-			}
+			// if (!wp_next_scheduled('my_task_hook')) {
+			// 	wp_schedule_event( time(), '5min', 'my_task_hook' );
+			// }
 			
 			// Ensure ticket prices and event costs are linked
 			add_filter( 'rioc_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
@@ -451,6 +451,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				$post_data = (array_key_exists('bind', $data) || array_key_exists('sync', $data)) ? array_merge($post_data, $data) : array_merge($post_data, array('data'=>$data)); 
 			}
 			Register_In_One_Click__Tickets__Main::instance()->write_log(array('pd'=>$post_data));
+			
 			$response = wp_remote_request('https://oauth2-service-wk-romangrb.c9users.io/sync_service/' . $access_token['token_key'],
 						array('method'=>'POST',
 							  'body'=>$post_data,
@@ -509,13 +510,10 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 					    	} else {
 								// check version and update, then sent sync request for binding 1 status
 								// $post_id, $proposal_version
-								if (Register_In_One_Click__Query_Db_Rioc::instance()->is_new_version($arr_body['data']['post_id'], $arr_body['data']['_ticket_v'] )){
+								if (! Register_In_One_Click__Query_Db_Rioc::instance()->is_new_version($arr_body['data']['post_id'], $arr_body['data']['_ticket_v'] )){
 									Register_In_One_Click__Query_Db_Rioc::instance()->update_post_meta_sync($arr_body['data']);
-									if (array_key_exists('data', $arr_body)) Register_In_One_Click__Query_Db_Rioc::instance()->update_sunc_status($arr_body['data']['post_id']);
 									$this->get_sunc(array('sync'=>array('id_event'=>$arr_body['data']['id_event'], 'post_id'=>$arr_body['data']['post_id'], '_ticket_v'=>$arr_body['data']['_ticket_v'])));
-								} else {
-									// version is the same or older then in wp then could add to query and increase priority
-									Register_In_One_Click__Query_Db_Rioc::instance()->add_to_sunc_query(array('post_id'=>$arr_body['data']['post_id'], 'cr_time'=>$arr_body['data']['_ticket_v']));
+									// version is the same or new then update query and status
 								}
 					    	}
 					        break;
@@ -553,7 +551,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				    case 'GET':
 				        break;
 				    case 'POST':
-				        $return = Register_In_One_Click__Query_Db_Rioc::instance()->get_meta_data_to_sunc();
+				        $return = Register_In_One_Click__Query_Db_Rioc::instance()->get_metadata_to_sunc();
 				        $this->get_sunc($return);
 				        break;
 				    case 'DELETE':
@@ -561,7 +559,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				        break;
 				}
 				
-				// echo json_encode($return);
+				echo json_encode($return);
 			}
 			die();
 		}

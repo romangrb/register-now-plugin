@@ -113,18 +113,8 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		}
 		
 		public function update_sunc_status($post_id) {
-			
 			if (! isset($post_id)) return;
-		
-			$result = $this->db->update(
-				$this->t_sunc_post, 
-				array('is_sunc'=>1),
-				array( 'post_id'  => $post_id),
-				array( '%d' ),
-				array( '%d' )
-			);
-		
-			return ($result!=NULL) ? true : false;
+			update_post_meta($post_id, '_is_sunc', 1 );
 		}
 		
 		public function update_sunc_query($h_val) {
@@ -159,6 +149,20 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return $this->collate_meta_data($row);
 		}
 		
+		public function get_metadata_to_sunc() {
+			$post_id = $this->get_post_id_from_sync();
+			if (! isset($post_id)) return;
+			return $this->collate_meta_data($post_id);
+		}
+		
+		private function get_post_id_from_sync() {
+			
+			return $this->db->get_var(
+				"SELECT post_id FROM {$this->t_meta} 
+				 WHERE meta_key = '_is_sunc' AND meta_value IS NULL LIMIT 1
+				");
+		}
+		
 		private function get_recent_id_from_sunc_query() {
 			return $this->db->get_var(
 				"SELECT post_id FROM {$this->t_sunc_post} 
@@ -181,12 +185,12 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		}
 		
 		public function is_new_version( $post_id, $proposal_version ) {
-		    return  (get_post_meta( $post_id, 'is_sunc', true ) < $proposal_version);
+		    return  get_post_meta( $post_id, '_ticket_v', true ) > $proposal_version;
 		}
 		
 		public function update_post_meta_sync( $h_val ) {
 			foreach ( $h_val as $key => $value )
-		    update_post_meta( $h_val['post_id'], $key, $value );
+		    ($key == '_is_sunc') ? update_post_meta( $h_val['post_id'], '_is_sunc', 1 ) :  update_post_meta( $h_val['post_id'], $key, $value );
 		}
 		
 		public function get_complete_data_to_sunc($id) {
