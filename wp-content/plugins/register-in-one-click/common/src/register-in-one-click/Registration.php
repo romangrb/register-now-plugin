@@ -74,7 +74,7 @@ if ( ! class_exists( 'Register_In_One_Click__Registration' ) ) {
 					)
 				);
 				wp_enqueue_script('capcha-auth', rioc_resource_url('capcha-auth.js', false, 'common' ), array('ajax_submit', 'jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
-				wp_enqueue_script('reg-form-validatator', rioc_resource_url('reg-form-validatator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
+				wp_enqueue_script('reg-form-validator', rioc_resource_url('reg-form-validator.js', false, 'common' ), array(), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ) );
 				
 		}
 	 

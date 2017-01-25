@@ -61,8 +61,8 @@
     <br>
     <br>
     <div style="border:black thin inset">
-      Test sync
-      <button id="test"> test d </button> 
+      Synchronization test
+      <button id="test"> sync </button> 
       <br>
     </div>
     

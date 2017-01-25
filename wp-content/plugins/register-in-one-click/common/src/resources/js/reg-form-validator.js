@@ -4,6 +4,8 @@ jQuery( document ).ready( function($) {
         msg_hash = {head : '',
             	      content_id : '',
             	      notice_cl :  ''};
+    if ( $.validate == null ) return;
+            	      
     $.validate({
         form : form_id,
         modules : 'date, security',

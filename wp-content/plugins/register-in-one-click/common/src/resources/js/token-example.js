@@ -110,5 +110,32 @@ jQuery( document ).ready( function($) {
     function err(jqXHR, textStatus, errorThrown) {
         console.log(jqXHR, textStatus, errorThrown );
     }
+    
+    
+    $('#test').on('click', function(){
+		
+  		$.ajax({
+  				 url: sync_data.ajax_url,
+  				 data: {
+  				    action:  sync_data.action,
+  				    security:   sync_data.nounce
+  				 },
+  				 type:"POST",
+  				 dataType: "json",   
+  				 
+  			     success:success_cb,
+  			     error:error_cb
+  		});
+		
+	  });
+	  
+	  function success_cb (response){
+  		console.info('defoult Sync respond \n', response);
+  	}
+  	function error_cb (jqXHR, textStatus, errorThrown){
+  		console.error('defoult Sync respond \n', jqXHR, textStatus, errorThrown);
+  	}
+    
+    
 });
 

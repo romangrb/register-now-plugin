@@ -77,7 +77,7 @@ $modules = Register_In_One_Click__Tickets__Tickets::modules();
 	<tr>
 		<td colspan="2" class="rioc_sectionheader">
 			<h4><a href="#" class="button-secondary" id="ticket_form_toggle"><?php esc_html_e( 'Add new Event', 'rioc-event' ); ?></a></h4>
-			<h4><a class="button-secondary" id="test"><?php esc_html_e( 'TEST', 'rioc-event' ); ?></a></h4>
+			
 		</td>
 	</tr>
 	
