@@ -39,7 +39,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 			add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_tmp_f_md') );
 			
 			// AJAX req
-			// add_action( 'wp_ajax_sunc_data', array( $this, 'sunc_data') );
+			// add_action( 'wp_ajax_sync_data', array( $this, 'sync_data') );
 			
 			// for test init token
 			// http://wp-kama.ru/function/wp_schedule_event
@@ -94,7 +94,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 				'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
 			));
 			wp_enqueue_script('ajax_token_example', rioc_resource_url('token-example.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
-			// wp_enqueue_script('ajax_sunc_data', rioc_resource_url('sunc-data.js', false, 'common' ), array( 'jquery' ), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			// wp_enqueue_script('ajax_sync_data', rioc_resource_url('sync-data.js', false, 'common' ), array( 'jquery' ), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 		}
 		
 		public function get_curr_tkn(){

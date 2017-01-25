@@ -164,7 +164,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Ticket_Object' ) ) {
 		public $message2;
 		public $message3;
 		public $ticket_v;
-		public $is_sunc;
+		public $is_sync;
 		
 		
 		/**

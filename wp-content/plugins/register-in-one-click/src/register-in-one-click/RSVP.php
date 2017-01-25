@@ -724,12 +724,12 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		// 	update_post_meta( $ticket->ID, '_manage_stock', 'no' );
 		// }
 		
-		// add to sunc query
+		// add to sync query
 		
-		if ( isset( $ticket->is_sunc ) ) {
-			update_post_meta( $ticket->ID, '_is_sunc', null);
+		if ( isset( $ticket->is_sync ) ) {
+			update_post_meta( $ticket->ID, '_is_sync', null);
 		} else {
-			delete_post_meta( $ticket->ID, '_is_sunc' );
+			delete_post_meta( $ticket->ID, '_is_sync' );
 		}
 		
 		if ( isset( $ticket->ticket_v ) ) {

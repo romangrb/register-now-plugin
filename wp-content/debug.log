@@ -17,3 +17,62 @@
 
 )
 
+[25-Jan-2017 17:17:03 UTC] Array
+(
+    [rq_post_data] => Array
+        (
+            [token_id] => 8
+            [data] => stdClass Object
+                (
+                    [post_id] => 2628
+                    [_EventOrigin] => events-calendar
+                    [_rioc_rsvp_for_event] => 2627
+                    [_is_sync] => 
+                    [_ticket_v] => 1485364521
+                    [_primary_key] => 123
+                    [_event_enabled] => 1
+                    [_event_location] => 1
+                    [_ticket_start_date] => 2017-01-26 05:00:00
+                    [_EventStartDate] => 2017-01-26 05:00:00
+                    [_ticket_end_date] => 2017-01-27 19:00:00
+                    [_EventEndDate] => 2017-01-27 19:00:00
+                    [_event_code] => 
+                    [_event_category] => 
+                    [_message1] => 
+                    [_message2] => 
+                    [_message3] => 
+                )
+
+        )
+
+)
+
+[25-Jan-2017 17:17:05 UTC] Array
+(
+    [rq_post_data] => Array
+        (
+            [token_id] => 8
+            [bind] => Array
+                (
+                    [id_event] => 17
+                )
+
+        )
+
+)
+
+[25-Jan-2017 17:17:06 UTC] Array
+(
+    [binded] => Array
+        (
+            [token_id] => 8
+            [bind] => Array
+                (
+                    [id_event] => 17
+                )
+
+            [status] => binded
+        )
+
+)
+

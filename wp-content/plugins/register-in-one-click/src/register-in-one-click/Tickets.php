@@ -334,8 +334,8 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			
 			// add_action( 'wp_ajax_rioc-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 			// // AJAX req
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_sunc_action_cb') );
-			add_action( 'wp_ajax_sunc_action_cb', array( $this, 'sunc_action_cb') );
+			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_sync_action_cb') );
+			add_action( 'wp_ajax_sync_action_cb', array( $this, 'sync_action_cb') );
 			// synchronization schedule
 		
 			// add_filter('cron_schedules', array($this, 'my_cron_schedules'));
@@ -367,7 +367,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 		}
 		
 		
-		public function sunc_data() {
+		public function sync_data() {
 		
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
@@ -408,12 +408,12 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			}
 		}
 		
-		public function enqueue_sunc_action_cb() {
-			wp_enqueue_script('ajax_sunc-data', rioc_resource_url('sunc-data.js', false, 'common' ), array( 'jquery' ), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
-			wp_localize_script('ajax_sunc-data', 'sunc_data', array(
+		public function enqueue_sync_action_cb() {
+			wp_enqueue_script('ajax_sync-data', rioc_resource_url('sync-data.js', false, 'common' ), array( 'jquery' ), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			wp_localize_script('ajax_sync-data', 'sync_data', array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nounce' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce"),
-				'action'=>'sunc_action_cb'
+				'action'=>'sync_action_cb'
 			));
 		}
 		
@@ -521,7 +521,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				
 		}
 		
-		public function sunc_action_cb() {
+		public function sync_action_cb() {
 			// define if this AJAX request
 			if ( defined( 'DOING_AJAX' ) && DOING_AJAX ) { 
 				check_ajax_referer( 'ajax_secret_qazxswredcfv_nounce', 'security');
@@ -530,7 +530,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 				    case 'GET':
 				        break;
 				    case 'POST':
-				        $return = $this->db_rioc->get_metadata_to_sunc();
+				        $return = $this->db_rioc->get_metadata_to_sync();
 				        $this->get_sync($return);
 				        break;
 				    case 'DELETE':
@@ -637,8 +637,8 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			$ticket->message1   	= isset( $data['message1'] ) ? esc_html( $data['message1'] ) : null;
 			$ticket->message2	    = isset( $data['message2'] ) ? esc_html( $data['message2'] ) : null;
 			$ticket->message3	    = isset( $data['message3'] ) ? esc_html( $data['message3'] ) : null;
-			// sunc data - postmeta data
-			$ticket->is_sunc	    = false;
+			// sync data - postmeta data
+			$ticket->is_sync	    = false;
 		
 			if ( ! empty( $ticket->price ) ) {
 				// remove non-money characters

@@ -47,5 +47,5 @@ interface Register_In_One_Click__Initialization_Interfaces {
 	
 	const TOKEN_TABLE_ROWS			= array('token_id'=>'%d' ,'token_key'=>'%s', 'token_expire'=>'%d', 'token_life'=>'%d', 'refresh_token'=>'%s');
 	
-	const SUNC_TABLE_ROWS			= array('post_id'=>'%d', 'is_sunc'=>'%d', 'cr_time'=>'%d');
+	const SYNC_TABLE_ROWS			= array('post_id'=>'%d', 'is_sync'=>'%d', 'cr_time'=>'%d');
 }

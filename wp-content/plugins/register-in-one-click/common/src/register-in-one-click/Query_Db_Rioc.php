@@ -17,7 +17,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		private $t_name;
 		
-		private $t_sunc_post;
+		private $t_sync_post;
 		
 		private $t_post;
 		
@@ -30,7 +30,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			global $wpdb;
 			$this->db = $wpdb;
 			
-			$this->t_sunc_post = "{$wpdb->prefix}rioc_post_sunc";
+			$this->t_sync_post = "{$wpdb->prefix}rioc_post_sync";
 			
 			$this->t_name = "{$wpdb->prefix}rioc_d";
 			
@@ -72,8 +72,8 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		}
 		
 		// returns index values array with format 
-		private function get_format_sunc_rows($array){
-			return array_values(array_intersect_key(self::SUNC_TABLE_ROWS, $array));
+		private function get_format_sync_rows($array){
+			return array_values(array_intersect_key(self::SYNC_TABLE_ROWS, $array));
 		}
 		
 		private function update_token($id, $h_val) {
@@ -99,14 +99,14 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return ($result!=NULL) ? true : false;
 		}
 		
-		public function add_to_sunc_query($h_val) {
+		public function add_to_sync_query($h_val) {
 			
 			if (!is_array($h_val)) return;
 			
 			$result = $this->db->insert(
-				$this->t_sunc_post, 
+				$this->t_sync_post, 
 				$h_val, 
-				$this->get_format_sunc_rows($h_val)
+				$this->get_format_sync_rows($h_val)
 			);
 			
 			return ($result!=NULL) ? true : false;
@@ -114,42 +114,42 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		public function update_sync_status($post_id) {
 			if (! isset($post_id)) return;
-			update_post_meta($post_id, '_is_sunc', 1 );
+			update_post_meta($post_id, '_is_sync', 1 );
 		}
 		
-		public function update_sunc_query($h_val) {
+		public function update_sync_query($h_val) {
 			
 			if (!is_array($h_val)) return;
 		
 			$result = $this->db->update(
-				$this->t_sunc_post, 
+				$this->t_sync_post, 
 				$h_val,
 				array( 'post_id'  => $h_val['post_id']),
-				$this->get_format_sunc_rows($h_val),
+				$this->get_format_sync_rows($h_val),
 				array( '%d' )
 			);
 			
 			return ($result!=NULL) ? true : false;
 		}
 		
-		public function get_sunc_data() {
+		public function get_sync_data() {
 			
 	        $results = $this->db->get_results( 
                 $this->db->prepare(
-                	"SELECT * FROM {$this->t_sunc_post} WHERE is_sunc < %d LIMIT 5"
+                	"SELECT * FROM {$this->t_sync_post} WHERE is_sync < %d LIMIT 5"
                 	, 1),
                 ARRAY_A
             );
 			return $results;
 		}
 		
-		public function get_meta_data_to_sunc() {
-			$row = $this->get_recent_id_from_sunc_query();
+		public function get_meta_data_to_sync() {
+			$row = $this->get_recent_id_from_sync_query();
 			if (! $row ) return;
 			return $this->collate_meta_data($row);
 		}
 		
-		public function get_metadata_to_sunc() {
+		public function get_metadata_to_sync() {
 			$post_id = $this->get_post_id_from_sync();
 			if (! isset($post_id)) return;
 			return $this->collate_meta_data($post_id);
@@ -159,14 +159,14 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			
 			return $this->db->get_var(
 				"SELECT post_id FROM {$this->t_meta} 
-				 WHERE meta_key = '_is_sunc' AND meta_value IS NULL LIMIT 1
+				 WHERE meta_key = '_is_sync' AND meta_value IS NULL LIMIT 1
 				");
 		}
 		
-		private function get_recent_id_from_sunc_query() {
+		private function get_recent_id_from_sync_query() {
 			return $this->db->get_var(
-				"SELECT post_id FROM {$this->t_sunc_post} 
-				 WHERE is_sunc < 1 LIMIT 1; 
+				"SELECT post_id FROM {$this->t_sync_post} 
+				 WHERE is_sync < 1 LIMIT 1; 
 				");
 		}
 		
@@ -190,10 +190,10 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		
 		public function update_post_meta_sync( $h_val ) {
 			foreach ( $h_val as $key => $value )
-		    ($key == '_is_sunc') ? update_post_meta( $h_val['post_id'], '_is_sunc', 1 ) :  update_post_meta( $h_val['post_id'], $key, $value );
+		    ($key == '_is_sync') ? update_post_meta( $h_val['post_id'], '_is_sync', 1 ) :  update_post_meta( $h_val['post_id'], $key, $value );
 		}
 		
-		public function get_complete_data_to_sunc($id) {
+		public function get_complete_data_to_sync($id) {
 		
 	        $results = $this->db->get_results( 
             	"
