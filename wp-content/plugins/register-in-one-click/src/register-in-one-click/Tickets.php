@@ -353,9 +353,12 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			add_filter( 'rioc_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
 		}
 		
-
 		public function sync_task_job() {
-			Register_In_One_Click__Tickets__Main::instance()->write_log('every new 1 min');
+			 $sync_query_data = $this->db_rioc->get_metadata_to_sync();
+		     $this->get_sync($sync_query_data);
+		     (! empty($sync_query_data) )? 
+		 	 Register_In_One_Click__Tickets__Main::instance()->write_log(array('will synchronize WP Events every new 2 min this data'=> $sync_query_data)):
+		 	 Register_In_One_Click__Tickets__Main::instance()->write_log(array('will recive and synchronize Events from Server (E-RegisterOne) every new 2 min this data'));	
 		}
 		
 		public function cron_time_filter( $schedules ) {
@@ -468,7 +471,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			if (! empty($data)) {
 				$post_data = (array_key_exists('bind', $data) || array_key_exists('sync', $data)) ? array_merge($post_data, $data) : array_merge($post_data, array('data'=>$data)); 
 			}
-			Register_In_One_Click__Tickets__Main::instance()->write_log(array('rq_post_data'=>$post_data));
+			// Register_In_One_Click__Tickets__Main::instance()->write_log(array('rq_post_data'=>$post_data));
 			
 			$response = wp_remote_request(
 					self::SYNC_SERVICE . 
