@@ -333,35 +333,39 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			add_action( 'wp_ajax_rioc-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 			
 			// add_action( 'wp_ajax_rioc-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
-			// // AJAX req
+			// AJAX req
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_sync_action_cb') );
 			add_action( 'wp_ajax_sync_action_cb', array( $this, 'sync_action_cb') );
 			// synchronization schedule
 		
-			// add_filter('cron_schedules', array($this, 'my_cron_schedules'));
-			// add_action('my_task_hook',  array($this, 'my_task_function'));
+			add_filter('cron_schedules', array($this, 'cron_time_filter'));
+			add_action('sync_task_hook',  array($this, 'sync_task_job'));
 		
 			// Front end
 			add_action( 'rioc_events_single_event_after_the_meta', array( $this, 'front_end_tickets_form' ), 5 );
 			add_filter( 'the_content', array( $this, 'front_end_tickets_form_in_content' ) );
 			
-			// if (!wp_next_scheduled('my_task_hook')) {
-			// 	wp_schedule_event( time(), '5min', 'my_task_hook' );
-			// }
+			if (!wp_next_scheduled('sync_task_hook')) {
+				wp_schedule_event( time(), '2min', 'sync_task_hook' );
+			}
 			
 			// Ensure ticket prices and event costs are linked
 			add_filter( 'rioc_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
 		}
 		
 
-		public function my_task_function() {
+		public function sync_task_job() {
 			Register_In_One_Click__Tickets__Main::instance()->write_log('every new 1 min');
 		}
 		
-		public function cron_add_five_min( $schedules ) {
-			$schedules['five_min'] = array(
-				'interval'=> 60,
-				'display' => 'Раз в 1 минутy'
+		public function cron_time_filter( $schedules ) {
+			$schedules['2min'] = array(
+				'interval'=> 2*60,
+				'display' => 'Once in 2 minutes'
+			);
+			$schedules['5min'] = array(
+				'interval'=> 5*60,
+				'display' => 'Once in 2 minutes'
 			);
 			return $schedules;
 		}

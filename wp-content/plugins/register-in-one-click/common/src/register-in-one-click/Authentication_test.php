@@ -41,15 +41,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 			// AJAX req
 			// add_action( 'wp_ajax_sync_data', array( $this, 'sync_data') );
 			
-			// for test init token
-			// http://wp-kama.ru/function/wp_schedule_event
-			// регистрируем пятиминутный интервал
-			// add_filter( 'cron_schedules', array( $this, 'cron_add_five_min') );
-			// // добавляем функцию к указанному хуку
-			// add_action('my_five_min_event', array( $this, 'do_every_five_min') );
-			// // регистрируем событие
-			// add_action('wp', array( $this, 'my_activation') );
-			
 			$this->get_init_token();
 		}
 		
@@ -57,32 +48,6 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 			if (empty($this->token)) $this->get_init_token();
 		}
 		
-		public function cron_add_five_min( $schedules ) {
-			$schedules['five_min'] = array(
-				'interval'=> 1,
-				'display' => 'Раз в 1 минутy'
-			);
-			return $schedules;
-		}
-		
-		public function my_activation() {
-			if ( ! wp_next_scheduled( 'my_five_min_event' ) ) {
-				// Register_In_One_Click__Tickets__Main::instance()->write_log('my_activation');
-				wp_schedule_event( time(), 'five_min', 'my_five_min_event');
-			}
-		}
-		
-		public static $iter = 0;
-		
-		public function do_every_five_min() {
-			self::$iter ++;
-			// if ( (self::$iter) > 3) {
-			// 	wp_clear_scheduled_hook( 'my_five_min_event');
-			// };
-			// делаем что-либо каждые 1 минут date('Y-m-d H:i:s', time()
-			// Register_In_One_Click__Tickets__Main::instance()->write_log(array(self::$iter, 'do_every_five_min'));
-		}
-
 		public function enqueue_script() {
 			
 			wp_enqueue_script('ajax_token_handler', rioc_resource_url('refresh-tkn.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
