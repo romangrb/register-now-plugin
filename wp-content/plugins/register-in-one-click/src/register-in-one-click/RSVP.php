@@ -691,7 +691,6 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			// Relate event <---> ticket
 			add_post_meta( $ticket->ID, $this->event_key, $event_id );
 			
-			$this->add_to_sunc_task(array('post_id'=>$ticket->ID, 'is_sunc'=>false, 'cr_time'=>$utc_time));
 		} else {
 			$args = array(
 				'ID'           => $ticket->ID,
@@ -702,7 +701,6 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 			
 			$ticket->ID = wp_update_post( $args );
 			
-			$this->update_sunc_task(array('post_id'=>$ticket->ID, 'is_sunc'=>false, 'cr_time'=>$utc_time));
 		}
 		
 		$ticket->name = $args['post_title'];
@@ -729,13 +727,13 @@ class Register_In_One_Click__Tickets__RSVP extends Register_In_One_Click__Ticket
 		// add to sunc query
 		
 		if ( isset( $ticket->is_sunc ) ) {
-			update_post_meta( $ticket->ID, '_is_sunc', $ticket->is_sunc );
+			update_post_meta( $ticket->ID, '_is_sunc', null);
 		} else {
 			delete_post_meta( $ticket->ID, '_is_sunc' );
 		}
 		
 		if ( isset( $ticket->ticket_v ) ) {
-			update_post_meta( $ticket->ID, '_ticket_v', $ticket->ticket_v );
+			update_post_meta( $ticket->ID, '_ticket_v', $utc_time );
 		} else {
 			delete_post_meta( $ticket->ID, '_ticket_v' );
 		}

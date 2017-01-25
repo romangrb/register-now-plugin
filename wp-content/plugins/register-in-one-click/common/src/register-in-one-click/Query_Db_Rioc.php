@@ -112,7 +112,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			return ($result!=NULL) ? true : false;
 		}
 		
-		public function update_sunc_status($post_id) {
+		public function update_sync_status($post_id) {
 			if (! isset($post_id)) return;
 			update_post_meta($post_id, '_is_sunc', 1 );
 		}

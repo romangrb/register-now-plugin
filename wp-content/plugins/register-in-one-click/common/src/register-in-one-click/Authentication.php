@@ -33,13 +33,13 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 
 			add_action( 'init_rioc_tables', array( __CLASS__, 'install_rioc_tables' ), 5 );
 			add_action( 'admin_menu', array( $this, 'add_menu_page' ), 120 );
-			add_action( 'wp_footer', array( $this, 'enqueue_script') );
-			add_action( 'wp_footer', array( $this, 'enqueue_style') );
-			add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
-			add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_tmp_f_md') );
+			// add_action( 'wp_footer', array( $this, 'enqueue_script') );
+			// add_action( 'wp_footer', array( $this, 'enqueue_style') );
+			// add_action( 'wp_ajax_refresh_token_f_md', array( $this, 'refresh_token_f_md' ) );
+			// add_action( 'wp_ajax_get_token_f_md', array( $this, 'get_token_tmp_f_md') );
 			
 			// for test init token
-			$this->get_init_token();
+			// $this->get_init_token();
 	        
 		}
 		
@@ -54,7 +54,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 				'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
 			
 			));
-			wp_enqueue_script('ajax_token_example', rioc_resource_url('init_authenfication.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			// wp_enqueue_script('ajax_token_example', rioc_resource_url('init_authenfication.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			
 		}
 		
@@ -64,6 +64,13 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication' ) ) {
 		
 			return ($result) ? $result : array();
 			
+		}
+		
+		public function update_token_cash($request){
+			// compare with standart table rows on db and return only avaible rows values 
+			$tmp_d = array_intersect_key($request, self::TOKEN_TABLE_ROWS);
+			// save token into db
+			Register_In_One_Click__Query_Db_Rioc::instance()->refresh_token($tmp_d);
 		}
 			
 		protected function get_init_token() {

@@ -1,0 +1,19 @@
+[25-Jan-2017 16:59:19 UTC] Array
+(
+    [rq_post_data] => Array
+        (
+            [token_id] => 8
+        )
+
+)
+
+[25-Jan-2017 16:59:20 UTC] Array
+(
+    [updated] => Array
+        (
+            [token_id] => 8
+            [status] => updated
+        )
+
+)
+

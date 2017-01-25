@@ -6,7 +6,6 @@ jQuery( document ).ready( function($) {
         tkn_get.method('get_token_tmp_f_md');
         
         // if token exist
-        if (token_handler.cnt_tkn)       $('#secret_token').val(token_handler.cnt_tkn);
         if (token_handler.cnt_tkn)       $('#curr_tkn').val(token_handler.cnt_tkn);
         if (token_handler.refresh_token) $('#r_token').val(token_handler.refresh_token);
         
@@ -19,9 +18,9 @@ jQuery( document ).ready( function($) {
      
        $.get('https://oauth2-service-wk-romangrb.c9users.io/get_tmp_token_client_md', function(data) {
          $('#get_token_id_input').val(data['token_key']);
-         $('#token').val(data['token_key']);
+         $('#secret_token').val(data['token_key']);
          console.log( "tmP-token", data );
-         console.log('is_new', token_handler.cnt_tkn);
+         console.log('is_new_ww', token_handler.cnt_tkn);
       },"json")
       .fail(function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR, textStatus, errorThrown );

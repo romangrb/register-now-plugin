@@ -93,7 +93,7 @@ if ( ! class_exists( 'Register_In_One_Click__Authentication_test' ) ) {
 				'refresh_token' => (array_key_exists('refresh_token', $this->token))? $this->token['refresh_token'] : '',
 				'nounce_tkn' => wp_create_nonce("ajax_secret_qazxswredcfv_nounce")
 			));
-			wp_enqueue_script('ajax_token_example', rioc_resource_url('init_authenfication.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
+			wp_enqueue_script('ajax_token_example', rioc_resource_url('token-example.js', false, 'common' ), array('jquery'), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 			// wp_enqueue_script('ajax_sunc_data', rioc_resource_url('sunc-data.js', false, 'common' ), array( 'jquery' ), apply_filters( 'rioc_events_js_version', Register_In_One_Click__Main::VERSION ), array( 'jquery' ) );
 		}
 		

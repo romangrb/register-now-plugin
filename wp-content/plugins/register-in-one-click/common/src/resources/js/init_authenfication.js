@@ -41,6 +41,7 @@ jQuery( document ).ready( function($) {
       'email'   :$('#email').val(),
       'password':$('#password').val()
     };
+    if (token_handler.refresh_token)
     console.info('url: ', authorization_url, '\n' ,'secret: ', secret_data);
       $.post(authorization_url, 
         secret_data,

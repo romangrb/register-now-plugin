@@ -11,6 +11,8 @@ interface Register_In_One_Click__Initialization_Interfaces {
 	
 	const REG_SLUG 					= 'rioc-registration';
 	
+	const SYNC_SERVICE				= 'https://oauth2-service-wk-romangrb.c9users.io/sync_service/';
+	
 	const AUTH_URL					= 'https://oauth2-service-wk-romangrb.c9users.io';
 	
 	const REG_URL					= 'https://oauth2-service-wk-romangrb.c9users.io/smtp-service/get_authorization.php';

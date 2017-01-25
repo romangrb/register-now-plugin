@@ -19,6 +19,6 @@
       <label for='password'> password </label><br>
       <input type="text" value="grb_password" id="password" name="pass"></input><br>
       <button id=<?php echo(self::GET_INIT_TOKEN_ID); ?> > authorization request </button>
-      <input type="text" style="visibility:hidden" name="token" value="" id="token"></input>
+      <input type="text"  name="token" value="" id="token"></input>
     </div>
    
