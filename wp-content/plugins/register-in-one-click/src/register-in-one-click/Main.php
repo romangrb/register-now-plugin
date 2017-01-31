@@ -133,7 +133,7 @@ class Register_In_One_Click__Tickets__Main {
 	 */
 	public function __construct() {
 		/* Set up some parent's vars */
-		$this->plugin_name = 'E-Register-Now';
+		$this->plugin_name = 'e-RegisterNow';
 		$this->plugin_slug = $this::POSTTYPE;
 		$this->plugin_path = trailingslashit( EVENT_TICKETS_DIR );
 		$this->plugin_dir  = trailingslashit( basename( $this->plugin_path ) );

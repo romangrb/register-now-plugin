@@ -174,6 +174,7 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 			if (!isset($id)) return;
 			$meta = new stdClass;
 			$meta->post_id = $id;
+			$meta->_event_name = get_the_title($id);
 				foreach( get_post_meta( $id ) as $k => $v ){
 					$meta->$k = $v[0];
 				}
@@ -189,8 +190,14 @@ if ( ! class_exists( 'Register_In_One_Click__Query_Db_Rioc' ) ) {
 		}
 		
 		public function update_post_meta_sync( $h_val ) {
-			foreach ( $h_val as $key => $value )
-		    ($key == '_is_sync') ? update_post_meta( $h_val['post_id'], '_is_sync', 1 ) :  update_post_meta( $h_val['post_id'], $key, $value );
+			foreach ( $h_val as $key => $value ) {
+		    	if ($key == '_is_sync') {
+		    		update_post_meta( $h_val['post_id'], '_is_sync', 1 );
+		    	} else {
+		    		if ($key == '_event_name') wp_update_post( array('ID'=>(int) $h_val['post_id'], 'post_title'=>$value) );
+		    		update_post_meta( $h_val['post_id'], $key, $value );
+		    	}
+			}
 		}
 		
 		public function get_complete_data_to_sync($id) {

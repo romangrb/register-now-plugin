@@ -39,7 +39,7 @@ class Register_In_One_Click__Post_Transient {
 		 */
 		public function delete( $post_id, $transient, $value = null ) {
 			global $_wp_using_ext_object_cache;
-
+	
 			if ( is_numeric( $post_id ) ) {
 				$post_id = (int) $post_id;
 			} else {
@@ -56,7 +56,7 @@ class Register_In_One_Click__Post_Transient {
 			 * @param string $transient The Post Meta Key
 			 */
 			do_action( 'rioc_delete_post_meta_transient_' . $transient, $post_id, $transient );
-
+		
 			if ( $_wp_using_ext_object_cache ) {
 				$result = wp_cache_delete( "rioc_{$transient}-{$post_id}", "rioc_post_meta_transient-{$post_id}" );
 			} else {

@@ -332,6 +332,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			add_action( 'wp_ajax_rioc-ticket-checkin-' . $this->className, array( $this, 'ajax_handler_attendee_checkin' ) );
 			add_action( 'wp_ajax_rioc-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 			
+			// add_action('trash_post', array( $this, 'trash_post_function'));
 			// add_action( 'wp_ajax_rioc-ticket-uncheckin-' . $this->className, array( $this, 'ajax_handler_attendee_uncheckin' ) );
 			// AJAX req
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_sync_action_cb') );
@@ -353,12 +354,20 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			add_filter( 'rioc_events_event_costs', array( $this, 'get_ticket_prices' ), 10, 2 );
 		}
 		
+		public function trash_post_function (){
+			Register_In_One_Click__Tickets__Main::instance()->write_log(array('trashed'));
+			 if(! did_action('trash_post')){
+		        
+		    }
+		}
+		
+		
 		public function sync_task_job() {
 			 $sync_query_data = $this->db_rioc->get_metadata_to_sync();
 		     $this->get_sync($sync_query_data);
 		     (! empty($sync_query_data) )? 
 		 	 Register_In_One_Click__Tickets__Main::instance()->write_log(array('will synchronize WP Events every new 2 min this data'=> $sync_query_data)):
-		 	 Register_In_One_Click__Tickets__Main::instance()->write_log(array('will recive and synchronize Events from Server (E-RegisterOne) every new 2 min this data'));	
+		 	 Register_In_One_Click__Tickets__Main::instance()->write_log(array('will recive and synchronize Events from Server (e-RegisterNow) every new 2 min this data'));	
 		}
 		
 		public function cron_time_filter( $schedules ) {
@@ -460,7 +469,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 					'post_status'  => 'publish',
 					'post_type'    => $this->ticket_object_name,
 					'post_author'  => get_current_user_id(),
-					'post_title'   => $this->prefix . $event_id,
+					'post_title'   => $event_id,
 					'post_modified'=> date('Y-m-d H:i:s', time())
 				);		
 		}
@@ -491,6 +500,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			    	$this->db_rioc->bind_event($arr_body['data']['post_id'], $arr_body['data']['id_event']);
 			    	if (array_key_exists('data', $arr_body)) $this->db_rioc->update_sync_status($arr_body['data']['post_id']);
 			    	// request to update sync status
+			    	Register_In_One_Click__Tickets__Main::instance()->write_log(array('bind'=>$arr_body));
 			    	$this->get_sync(array('bind'=>array('id_event'=>$arr_body['data']['id_event'])));
 			        break;
 	    		case 'binded':
@@ -502,12 +512,12 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 			    	Register_In_One_Click__Tickets__Main::instance()->write_log(array('updated'=>$arr_body));
 			        break;
 			    case 'new_update':
+			    	array('new_update'=>array($arr_body));
 			    	// check if responce has post_id
 			    	if (! isset($arr_body['data']['post_id'] )) {
 			    		// insert post then insert post data to matadata
-			    		$event_id = substr(md5(microtime()), rand(0,26),5);
+			    		$event_id = (! empty($arr_body['data']['_event_name']))? $arr_body['data']['_event_name'] : $this->prefix . substr(md5(microtime()), rand(0,26),5);
 						$new_post_id = wp_insert_post( $this->get_post_args($event_id) );
-						// add_post_meta( $new_post_id, '_rioc_rsvp_for_event', $event_id );
 						$meta_data = array_merge($arr_body['data'], array('post_id'=>$new_post_id));
 						$this->db_rioc->update_post_meta_sync($meta_data);
 						// request to server for bind events ids
@@ -785,7 +795,7 @@ if ( ! class_exists( 'Register_In_One_Click__Tickets__Tickets' ) ) {
 
 			// Pass the control to the child object
 			$return = $this->delete_ticket( $post_id, $ticket_id );
-
+			
 			// Successfully deleted?
 			if ( $return ) {
 				// Let's create a tickets list markup to return

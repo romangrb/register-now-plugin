@@ -28,7 +28,7 @@ class Register_In_One_Click__Tickets__Metabox {
 
 		add_meta_box(
 			'tribetickets',
-			esc_html__( 'Tickets', 'E-Register-Now' ),
+			esc_html__( 'Tickets', 'e-RegisterNow' ),
 			array(
 				'Register_In_One_Click__Tickets__Metabox',
 				'do_modules_metaboxes',
